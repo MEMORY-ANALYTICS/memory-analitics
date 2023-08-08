@@ -20,4 +20,4 @@
   - Felipe Bernardes Guerrino
   - Isabela Oliveira Noronha  
   - Otávio Walkovics Carvalho
-  - PAULO REIS DE MARCENA
+  - Paulo Reis de Marcena
