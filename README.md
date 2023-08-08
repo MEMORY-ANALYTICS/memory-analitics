@@ -9,7 +9,7 @@
 
   <h1> 📌 | Sobre o projeto </h1>
   <p>
-     Temos como principal objetivo auxiliar todos os tipos de hospitais a obterem o melhor controle do fluxo de pacientes possível dentro de suas instalações, através da       manipulação de dados obtidos pelos sensores, independente se o hospital é pequeno, grande, privado ou público.
+    ...
   </p>
   
 <br>
