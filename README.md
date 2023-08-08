@@ -1,5 +1,4 @@
 <div>
-  <img height="300" width="300" src="https://media.discordapp.net/attachments/1012145512943730709/1099747489910886561/logo.png?width=502&height=502" align="right">
   <h1>📘 | Memory Analytics</h1>
   <p> 
     Somos uma startup de tecnologia e desenvolvimento de sistemas nacional voltada para o segmento de analise de hardware de contact center.
