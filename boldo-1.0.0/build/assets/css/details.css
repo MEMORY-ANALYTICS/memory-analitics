@@ -3,43 +3,11 @@
 }
 
 #imgMos {
-    width: 45% !important;
-    position: fixed;
-    right: 30rem;
-    top: 10rem;
+    width: 75% !important;
+   
 
-    /*animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-play-state: paused;
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-    animation-name: move;
-    animation-delay: calc(var(--epoch) * -1s);
-    transform: scaleX(-1);
-    transition: 1s; */
+   
 }
-
-/* @-webkit-keyframes move {
-
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(var(--maximum));
-    }
-}
-
-@keyframes move {
-
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(var(--maximum));
-    }
-} */
 
 
 @keyframes invert {
@@ -54,4 +22,8 @@
 #textoMos {
     font-size: 1.7rem !important;
     margin-bottom: 2.5rem !important;
+}
+#subTituloMOS{
+    font-size: 1.7rem !important;
+    /* margin-left: 5rem; */
 }
