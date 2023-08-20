@@ -1,5 +1,5 @@
 <div>
-  <img height="300" width="300" src="https://cdn.discordapp.com/attachments/1091137101413748786/1142609384971702372/Logo.png" align="right">
+  <img height="100" width="100" src="https://cdn.discordapp.com/attachments/1091137101413748786/1142609384971702372/Logo.png" align="right">
   <h1>📘 | Memory Analytics</h1>
   <p> 
     Somos uma startup de tecnologia fundada em 2023 voltada para a gestão de desempnhos dos servidores dos contact center.
