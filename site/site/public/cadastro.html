@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário de Cadastro</title>
-    <link rel="stylesheet" href="./css/estiloCadastro.css" />
-  </head>
-  <body>
-    <!-- Inicio Área do formulário -->
-    <div class="area-formulario">
-      <div class="retangulo retangulo-fim"></div>
-      <div class="retangulo retangulo-meio"></div>
-      <!-- Início do Retângulo do formulário -->
-      <div class="retangulo formulario">
-        <!-- Inicio Container -->
-        <div class="container">
-          <!-- Inínicio área dos inputs -->
-          <div class="area-inputs">
-            <!-- Coluna esquerda -->
-            <div class="coluna-inputs">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulário de Cadastro</title>
+  <link rel="stylesheet" href="./css/estiloCadastro.css" />
+</head>
+
+<body>
+  <!-- Inicio Área do formulário -->
+  <div class="area-formulario">
+    <div class="retangulo retangulo-fim"></div>
+    <div class="retangulo retangulo-meio"></div>
+
+    <!-- Início do Retângulo do formulário -->
+    <div class="retangulo formulario">
+
+      <!-- Inicio Container -->
+      <div class="container">
+
+        <!-- Inínicio área dos inputs -->
+        <div class="area-inputs">
+
+          <!-- Coluna Esquerda -->
+          <div class="coluna-inputs-esquerda">
+
+            <!-- Área de Título -->
+            <div class="area-titulo">
+              <span class="title">Formulário de Cadastro</span>
+              <small class="subtitle"> Já possui cadastro? <b>Clique aqui!</b></small>
+            </div>
+            <img src="./assets/img/imgCadastro.png" alt="">
+          </div>
+
+          <!-- Coluna Direita -->
+          <div class="coluna-inputs-direita">
+            <div class="bloco-input">
+              <label for="">Razão Social</label>
+              <br />
+              <input type="text" name="" id="" placeholder="Nome da sua empresa" />
+            </div>
+            <div class="linha-input">
               <div class="bloco-input">
-                <label for="">Razão Social</label>
+                <label for="">Nome do Administrador</label>
                 <br />
-                <input type="text" name="" id="" placeholder="Nome da sua empresa"/>
+                <input type="text" name="" id="" placeholder="Nome do Administrador" />
               </div>
-              <div class="linha-input">
-                <div class="bloco-input">
-                  <label for="">Nome do Administrador</label>
-                  <br />
-                  <input type="text" name="" id="" placeholder="Nome do Administrador"/>
-                </div>
-                <div class="bloco-input">
-                  <label for="">Email para Contato</label>
-                  <br />
-                  <input type="email" name="" id="" placeholder="Email do Administrador"/>
-                </div>
-              </div>
-              <div class="linha-input">
-                <div class="bloco-input">
-                  <label for="">Telefone para Contato</label>
-                  <br />
-                  <input type="tel" name="" id="" placeholder="(11) 34622-3234"/>
-                </div>
-                <div class="bloco-input">
-                  <label for="">CNPJ da Empresa</label>
-                  <br />
-                  <input type="text" name="" id="" placeholder="CNPJ da Empresa"/>
-                </div>
-              </div>
-              <!-- Seção Botão -->
-              <div class="bloco-input bloco-botao">
-                <button>Cadastre-se</button>
+              <div class="bloco-input">
+                <label for="">Email para Contato</label>
+                <br />
+                <input type="email" name="" id="" placeholder="Email do Administrador" />
               </div>
             </div>
-            <!-- Coluna Direita -->
-            <div class="coluna-inputs">
-            <!-- Área de Título -->
-              <div class="area-titulo">
-                <span class="title">Interessado?</span>
-                <br>
-                <small class="subtitle">Entre em contato e solicite o nosso <b>produto!</b></small>
+            <div class="linha-input">
+              <div class="bloco-input">
+                <label for="">Telefone para Contato</label>
+                <br />
+                <input type="tel" name="" id="" placeholder="(11) 34622-3234" />
               </div>
-              <img src="./assets/img/imgCadastro.png" alt="">
+              <div class="bloco-input">
+                <label for="">CNPJ da Empresa</label>
+                <br />
+                <input type="text" name="" id="" placeholder="CNPJ da Empresa" />
+              </div>
+            </div>
+
+            <!-- Seção Botão -->
+            <div class="bloco-input bloco-botao">
+              <button>Cadastre-se</button>
             </div>
           </div>
+
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
