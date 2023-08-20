@@ -33,6 +33,125 @@ html {
   align-items: center;
 }
 
+
+/* Seção dos Inputs */
+.area-inputs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coluna-inputs-esquerda {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.coluna-inputs-direita {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.coluna-inputs-direita .bloco-input {
+  width: 100%;
+  height: 20%;
+}
+
+.bloco-input input {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  margin-top: 5px;
+  border: none;
+  color: #171C1D;
+  font-weight: lighter;
+  padding-left: 10px;
+}
+
+.bloco-input label {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.linha-input {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.linha-input .bloco-input {
+  width: 47%;
+}
+
+/* Seção do Botão */
+.bloco-botao {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bloco-botao button {
+  width: 50%;
+  height: 60px;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  background-color: #3f53bc;
+  font-size: 23px;
+  letter-spacing: 3px;
+  font-weight: bold;
+  border: none;
+}
+
+.bloco-botao a {
+  font-weight: bolder;
+  color: rgb(0, 158, 158);
+  text-decoration: none;
+}
+
+/* Seção de Título */
+.area-titulo {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 4px;
+  margin-top: 5%;
+}
+
+.area-titulo .title {
+  font-size: 36px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.area-titulo .subtitle {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.area-titulo b {
+  color: rgb(1, 156, 156);
+}
+
+/* Imagem Cadastro */
+img {
+  height: auto;
+  width: 70%;
+}
+
 /* Retangulos dos formulários */
 .retangulo {
   width: 80%;
@@ -67,98 +186,6 @@ html {
   justify-content: space-around;
 }
 
-/* Seção dos Inputs */
-.area-inputs {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.coluna-inputs {
-  width: 48%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-.coluna-inputs .bloco-input {
-  width: 100%;
-  height: 20%;
-}
-
-.bloco-input input {
-  width: 100%;
-  height: 60px;
-  border-radius: 10px;
-  margin-top: 5px;
-  border: none;
-  color: #171c1d;
-  font-weight: lighter;
-  padding-left: 10px;
-}
-
-.bloco-input label {
-  font-size: 20px;
-  font-weight: 500;
-}
-
-.linha-input {
-  width: 100%;
-  height: 20%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.linha-input .bloco-input {
-  width: 47%;
-}
-
-/* Seção do Botão */
-.bloco-botao {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.bloco-botao button {
-  width: 60%;
-  height: 60px;
-  border-radius: 10px;
-  margin-bottom: 4px;
-  background-color: #3f53bc;
-  font-size: 20px;
-  letter-spacing: 3px;
-  font-weight: bold;
-  border: none;
-}
-
-.bloco-botao a {
-  font-weight: bolder;
-  color: rgb(0, 158, 158);
-  text-decoration: none;
-}
-
-/* Seção de Título */
-.area-titulo {
-  height: 10%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.area-titulo .title {
-  font-size: 60px;
-  letter-spacing: 3px;
-  font-weight: bold;
-}
-
 .area-titulo .subtitle {
   font-size: 20px;
   font-weight: lighter;
@@ -173,3 +200,240 @@ img {
   height: auto;
   width: 90%;
 }
+
+/* INÍCIO DA RESPONSIVIDADE */
+@media screen and (max-width: 1230px) {
+  .linha-input .bloco-input input {
+    width: 100%;
+    height: 50px;
+  }
+
+  .bloco-botao {
+    width: 40%;
+    height: 30px;
+  }
+
+  .linha-input .bloco-input label {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .coluna-inputs-esquerda .area-titulo .title {
+    font-size: 34px;
+  }
+
+  .coluna-inputs-esquerda img {
+    width: 80%;
+  }
+
+  .coluna-inputs-esquerda .area-titulo .subtitle {
+    font-size: 19px;
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  .linha-input .bloco-input input {
+    width: 100%;
+    height: 50px;
+  }
+
+  .bloco-botao {
+    width: 40%;
+    height: 30px;
+  }
+
+  .linha-input .bloco-input label {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .coluna-inputs-esquerda .area-titulo .title {
+    font-size: 32px;
+  }
+
+  .coluna-inputs-esquerda img {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1132px) {
+  .linha-input .bloco-input label {
+    font-size: 17px;
+    font-weight: 500;
+  }
+
+  .coluna-inputs-esquerda .area-titulo .title {
+    font-size: 30px;
+  }
+
+  .coluna-inputs-direita .bloco-botao button {
+    width: 50%;
+    height: 60px;
+  }
+
+}
+
+@media screen and (max-width: 1090px) {
+  .linha-input .bloco-input label {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .linha-input .bloco-input input {
+    width: 98%;
+    height: 50px;
+  }
+
+  .bloco-input input {
+    width: 100%;
+    height: 60px;
+    border-radius: 10px;
+    margin-top: 5px;
+    border: none;
+    color: #171c1d;
+    font-weight: lighter;
+    padding-left: 10px;
+  }
+}
+  @media screen and (max-width: 1000px) {
+    .coluna-inputs-direita .bloco-botao button {
+      width: 50%;
+      height: 60px;
+      font-size: 21px;
+    }
+  }
+
+  @media screen and (max-width: 942px) {
+    .linha-input .bloco-input label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .coluna-inputs img {
+      width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 880px) {
+    .linha-input .bloco-input label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .coluna-inputs-direita .bloco-botao button {
+      width: 50%;
+      height: 60px;
+      font-size: 18px;
+    }
+
+    .linha-input .bloco-input input {
+      width: 95%;
+      height: 47px;
+    }
+
+    .linha-input {
+      width: 100%;
+      height: 20%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .linha-input .bloco-input {
+      width: 47%;
+    }
+  }
+    @media screen and (max-width: 816px) {
+      .linha-input .bloco-input label {
+        font-size: 17px;
+        font-weight: 500;
+      }
+
+      .coluna-inputs-direita .bloco-botao button {
+        width: 50%;
+        height: 60px;
+        font-size: 16px;
+      }
+    }
+
+    @media screen and (max-width: 816px) {
+      .coluna-inputs-direita .bloco-botao button {
+        font-size: 14px;
+      }
+
+      .coluna-inputs-esquerda .area-titulo .subtitle {
+        font-size: 20px;
+      }
+
+      .bloco-botao button {
+        width: 60%;
+        height: 60px;
+        border-radius: 10px;
+        margin-bottom: 4px;
+        background-color: #3f53bc;
+        font-size: 20px;
+        letter-spacing: 3px;
+        font-weight: bold;
+        border: none;
+      }
+    }
+      @media screen and (max-width: 664px) {
+        .coluna-inputs-direita .bloco-botao button {
+          font-size: 17px;
+          height: 50px;
+        }
+
+        .linha-input .bloco-input label {
+          font-size: 13px;
+        }
+
+        .coluna-inputs-esquerda .area-titulo .title {
+          font-size: 25px;
+        }
+
+        .coluna-inputs-esquerda .area-titulo .subtitle {
+          font-size: 17px;
+        }
+
+        .coluna-inputs-esquerda {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: flex-start;
+          flex-wrap: nowrap;
+          margin-bottom: 14%;
+        }
+
+        .coluna-inputs-direita {
+          display: flex;
+          position: absolute;
+          flex-direction: column;
+          justify-content: flex-end;
+          height: 80%;
+          align-content: stretch;
+          width: 87%;
+          margin-top: 28%;
+        }
+        
+        .coluna-inputs-direita .bloco-input input {
+          height: 40px;
+        }
+        
+        .coluna-inputs-esquerda .area-titulo .subtitle {
+          font-size: 15px;
+        }
+        
+        .coluna-inputs-direita .bloco-input label {
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+      
+      @media screen and (max-width: 454px) {
+        .coluna-inputs-direita .bloco-input label {
+          font-size: 9px;
+          font-weight: 500;
+        }
+
+      }
+
+      
