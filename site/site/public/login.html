@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulário</title>
     <link rel="stylesheet" href="./css/estiloLogin.css" />
+
+    <!-- Link para o toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   </head>
 
   <body>
@@ -29,8 +37,8 @@
               <br />
               <input
                 type="email"
-                name=""
-                id=""
+                name="email_input"
+                id="email_input"
                 placeholder="Digite seu email aqui!"
               />
             </div>
@@ -40,8 +48,8 @@
               <br />
               <input
                 type="password"
-                name=""
-                id=""
+                name="senha_input"
+                id="senha_input"
                 placeholder="Digite sua senha aqui!"
               />
             </div>
@@ -49,7 +57,7 @@
 
           <!-- Fim area dos inputs/ botão e link pro cadastro-->
           <div class="area-botao">
-            <button>Entrar</button>
+            <button onclick="entrar()">Entrar</button>
             <small>Não possui uma conta? <a href="">Clique aqui</a></small>
           </div>
         </div>
@@ -63,3 +71,5 @@
     <!-- Fim Formulário -->
   </body>
 </html>
+
+<script src="./js/login.js"></script>
