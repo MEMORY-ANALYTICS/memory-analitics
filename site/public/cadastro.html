@@ -1,10 +1,18 @@
-<!DOCTYPE html>
+<!DOCTYPE <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Formulário de Cadastro</title>
     <link rel="stylesheet" href="./css/estiloCadastro.css" />
+
+    <!-- Link para o toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   </head>
 
   <body>
@@ -38,8 +46,8 @@
                 <br />
                 <input
                   type="text"
-                  name=""
-                  id=""
+                  name="nomeEmpresa_input"
+                  id="nomeEmpresa_input"
                   placeholder="Nome da sua empresa"
                 />
               </div>
@@ -49,8 +57,8 @@
                   <br />
                   <input
                     type="text"
-                    name=""
-                    id=""
+                    name="nomeAdm_input"
+                    id="nomeAdm_input"
                     placeholder="Nome do Administrador"
                   />
                 </div>
@@ -59,8 +67,8 @@
                   <br />
                   <input
                     type="email"
-                    name=""
-                    id=""
+                    name="emailContato_input"
+                    id="emailContato_input"
                     placeholder="Email do Administrador"
                   />
                 </div>
@@ -71,9 +79,12 @@
                   <br />
                   <input
                     type="tel"
-                    name=""
-                    id=""
+                    name="telContato_input"
+                    id="telContato_input"
                     placeholder="(11) 34622-3234"
+                    onfocus="javascript: retirarFormatacaoTel(this);"
+                    onblur="javascript: formatarCampoTel(this);"
+                    maxlength="11"
                   />
                 </div>
                 <div class="bloco-input">
@@ -81,8 +92,11 @@
                   <br />
                   <input
                     type="text"
-                    name=""
-                    id=""
+                    name="cnpj_input"
+                    id="cnpj_input"
+                    onfocus="javascript: retirarFormatacao(this);"
+                    onblur="javascript: formatarCampo(this);"
+                    maxlength="14"
                     placeholder="CNPJ da Empresa"
                   />
                 </div>
@@ -90,7 +104,7 @@
 
               <!-- Seção Botão -->
               <div class="bloco-input bloco-botao">
-                <button>Cadastre-se</button>
+                <button onclick="cadastrar()">Cadastre-se</button>
               </div>
             </div>
           </div>
@@ -99,3 +113,5 @@
     </div>
   </body>
 </html>
+
+<script src="./js/cadastro.js"></script>
