@@ -1,0 +1,29 @@
+#tituloMos {
+    font-size: 3rem !important;
+}
+
+#imgMos {
+    width: 75% !important;
+   
+
+   
+}
+
+
+@keyframes invert {
+    0% {
+      transform: scaleX(1);
+    }
+  
+    100% {
+      transform: scaleX(-1);
+    }
+  }
+#textoMos {
+    font-size: 1.7rem !important;
+    margin-bottom: 2.5rem !important;
+}
+#subTituloMOS{
+    font-size: 1.7rem !important;
+    /* margin-left: 5rem; */
+}
