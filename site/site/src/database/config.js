@@ -22,7 +22,7 @@ var mySqlConfig = {
   host: "localhost",
   database: "bd_MemoryAnalytics",
   user: "root",
-  password: "@Jsp0706",
+  password: "Sua senha",
 };
 
 function executar(instrucao) {
