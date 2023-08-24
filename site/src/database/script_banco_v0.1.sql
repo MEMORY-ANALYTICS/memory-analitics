@@ -35,8 +35,8 @@ create table Funcionario
 create table Login
 (
 	idLogin int primary key auto_increment,
-    login varchar(20) not null unique,
-    senha varchar(20) not null unique,
+    login varchar(80) not null unique,
+    senha varchar(16) not null unique,
     fkFunc int,
     foreign key (fkFunc) references Funcionario(idFunc)
 );
