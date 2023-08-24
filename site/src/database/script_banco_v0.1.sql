@@ -8,7 +8,7 @@ create table Empresa
 (
 	idEmpresa int primary key auto_increment,
     nomeEmpresa varchar(45) not null,
-    cnpjEmpresa bigint unique not null
+    cnpjEmpresa char(14) unique not null
 );
 
 -- Tabela Cargo
@@ -24,7 +24,7 @@ create table Funcionario
 	idFunc int primary key auto_increment,
     nomeFunc varchar(80),
     emailFunc varchar(80),
-    telefoneFunc bigint, 
+    telefoneFunc varchar(11), 
     fkCargo int,
     fkEmpresa int,
     foreign key(fkCargo) references Cargo(idCargo),
@@ -45,8 +45,8 @@ create table Login
 
 -- Tabela Empresa
 insert into Empresa values
-(null, 'Uceae', 1001001),
-(null, 'Memory Analytics', 0110110);
+(null, 'Uceae', '01235794000012'),
+(null, 'Memory Analytics', '32564433000012');
 
 -- Tabela Cargo
 insert into Cargo values
@@ -56,12 +56,12 @@ insert into Cargo values
 
 -- Tabela Funcionário
 insert into Funcionario values
-(null, 'João Miguel Almeida', 'joao@gmail.com',11983220192, 3, 1),
-(null, 'Marcos Araújo', 'marcos@gmail.com',11933340099, 2, 1),
-(null, 'Solange Medeiros', 'solange@gmail.com',11983228776, 1, 1),
-(null, 'Luan Santos', 'luan@gmail.com',11923280192, 3, 2),
-(null, 'Maria da Penha', 'maria@gmail.com',11983522190, 2, 2),
-(null, 'Larissa Pinheiro de Brito', 'larissa@gmail.com',11912230112, 1, 2);
+(null, 'João Miguel Almeida', 'joao@gmail.com','11983220192', 3, 1),
+(null, 'Marcos Araújo', 'marcos@gmail.com','11933340099', 2, 1),
+(null, 'Solange Medeiros', 'solange@gmail.com','11983228776', 1, 1),
+(null, 'Luan Santos', 'luan@gmail.com','11923280192', 3, 2),
+(null, 'Maria da Penha', 'maria@gmail.com','11983522190', 2, 2),
+(null, 'Larissa Pinheiro de Brito', 'larissa@gmail.com','11912230112', 1, 2);
 
 -- Tabela Login
 insert into Login values
