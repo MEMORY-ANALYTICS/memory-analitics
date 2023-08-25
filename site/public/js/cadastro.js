@@ -74,7 +74,7 @@ function cadastrar() {
           resposta.json().then((json) => {
             console.log(json);
             console.log(JSON.stringify(json));
-            console.log("foi");
+            console.log("Foi cadastrado");
           });
         } else {
           console.log("Houve um erro ao realizar o cadastro!");

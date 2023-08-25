@@ -26,15 +26,9 @@ function cadastrar(nomeEmpresa, nomeAdm, emailContato, telContato, cnpj) {
 
   // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
   //  e na ordem de inserção dos dados.
-  var cadastroEmpresa = `INSERT INTO Empresa VALEUS (null, '${nomeEmpresa}', ${cnpj});`;
-
-  var idEmpresa = `SELECT idEmpresa FROM Empresa WHERE nomeEmpresa = '${nomeEmpresa}' AND cnpjEmpresa = ${cnpj}`;
-
-  var cadastroFuncionario = `INSERT INTO Funcionario VALUES (null, '${nomeAdm}','${emailContato}', ${telContato}, 3, ${idEmpresa});`;
-
-  console.log("Executando a instrução SQL: \n" + cadastroEmpresa);
-  console.log("Executando a instrução SQL: \n" + cadastroFuncionario);
-  return database.executar(cadastroFuncionario);
+  var cadastro = `CALL Cadastro('${nomeEmpresa}','${cnpj}','${emailContato}','${telContato}','${nomeAdm}')`;
+  console.log("Executando a instrução SQL: \n" + cadastro);
+  return database.executar(cadastro);
 }
 
 module.exports = {
