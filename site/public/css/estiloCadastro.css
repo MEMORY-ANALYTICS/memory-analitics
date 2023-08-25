@@ -200,6 +200,20 @@ img {
   width: 90%;
 }
 
+.retanguloModal {
+  width: 80%;
+  height: 85%;
+  position: absolute;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Imagem de confirmação */
+.img_validado {
+  width: 15%;
+  height: auto;
+}
 /* INÍCIO DA RESPONSIVIDADE */
 @media screen and (max-width: 1230px) {
   .linha-input .bloco-input input {

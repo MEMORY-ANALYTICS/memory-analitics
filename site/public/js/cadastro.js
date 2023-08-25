@@ -74,7 +74,18 @@ function cadastrar() {
           resposta.json().then((json) => {
             console.log(json);
             console.log(JSON.stringify(json));
-            console.log("Foi cadastrado");
+            ratangulo_formulario.innerHTML = `
+            <div class="retangulo formulario retanguloModal">
+              <img
+                src="./assets/img/verificado.png"
+                alt=""
+                class="img_validado"
+              />
+              <p class="title">
+                Um email com a sua senha de acesso foi enviado para: ${emailContato}
+              </p>
+            </div>;        
+            `;
           });
         } else {
           console.log("Houve um erro ao realizar o cadastro!");
