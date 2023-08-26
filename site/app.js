@@ -6,6 +6,8 @@ var cors = require("cors");
 var path = require("path");
 var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
+require("dotenv").config() // arquivo dotenv para variaveis de ambiente
+
 var app = express();
 
 var indexRouter = require("./src/routes/index");
