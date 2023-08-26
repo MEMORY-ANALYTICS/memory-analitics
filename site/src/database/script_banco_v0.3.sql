@@ -168,4 +168,20 @@ from Empresa
 	join Funcionario on fkEmpresa = idEmpresa
     join Cargo on fkCargo = idCargo
     join Login on fkFunc = idFunc;
+
+-- Todos os servidores, seus registros, componentes monitorados e unidades de medida correspondentes
+select 
+	numeroSerieServer "Servidor",
+    sistemaOperacionalServer "Sistema Operacional",
+    localServer "Localização",
+    nomeComponente "Componente",
+    valorRegistro "Valor Lido",
+    simboloMedida "Simbolo",
+    nomeMedida "Medida",
+    dtHoraRegistro "Data de Leitura"
+from Registro 
+	join Servidores on idServer = fkServer
+    join Componente on idComponente = fkComponente
+    join Medida on idMedida = fkMedida
     
+	
