@@ -29,6 +29,19 @@ function mascaraTel(valor) {
 }
 // -- Final da mascara do telefone -- \\
 
+// -- Função para gerar senhas -- \\
+function geradorDeSenhas() {
+  var caracters =
+    "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ!@#$%^&*()+?><:{}[]";
+  var senha = "";
+
+  for (var i = 0; i < 16; i++) {
+    var numeroSorteado = Math.floor(Math.random() * caracters.length);
+    senha += caracters.substring(numeroSorteado, numeroSorteado + 1);
+  }
+  return senha;
+}
+
 function cadastrar() {
   var erro = false;
   var nomeEmpresa = nomeEmpresa_input.value;
@@ -36,6 +49,8 @@ function cadastrar() {
   var emailContato = emailContato_input.value;
   var telContato = telContato_input.value;
   var cnpj = cnpj_input.value;
+  var userPassword = geradorDeSenhas();
+  console.log(userPassword);
 
   // -- Validações de input -- \\
   if (
@@ -53,6 +68,7 @@ function cadastrar() {
   }
 
   if (!erro) {
+    console.log(userPassword);
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
@@ -64,6 +80,7 @@ function cadastrar() {
         emailContatoServer: emailContato,
         telContatoServer: telContato,
         cnpjServer: cnpj,
+        senhaCadastroServer: userPassword,
       }),
     })
       .then(function (resposta) {
@@ -81,15 +98,17 @@ function cadastrar() {
                 alt=""
                 class="img_validado"
               />
-              <p class="title">
-                Um email com a sua senha de acesso foi enviado para: ${emailContato}
-              </p>
+              <a href="./login.html">
+              <button" class="btn btn-success text-dark fs-1">
+                Login
+              </button>
+              </a>
             </div>;        
             `;
           });
         } else {
           console.log("Houve um erro ao realizar o cadastro!");
-          toastr.erro(
+          toastr.error(
             "Infelizmente, não conseguimos realizar o seu cadastro.\nTente denovo mais tarde!"
           );
 

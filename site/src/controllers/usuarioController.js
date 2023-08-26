@@ -39,6 +39,7 @@ function cadastrar(req, res) {
   var emailContato = req.body.emailContatoServer;
   var telContato = req.body.telContatoServer;
   var cnpj = req.body.cnpjServer;
+  var senhaCadastro = req.body.senhaCadastroServer;
 
   // Faça as validações dos valores
   if (nomeEmpresa == undefined) {
@@ -51,9 +52,18 @@ function cadastrar(req, res) {
     res.status(400).send("Seu CNPJ está undefined!");
   } else if (telContato == undefined) {
     res.status(400).send("Seu telefone de contato está undefined!");
+  } else if (senhaCadastro == undefined) {
+    res.status(400).send("Sua senha cadastro está undefined!");
   } else {
     usuarioModel
-      .cadastrar(nomeEmpresa, nomeAdm, emailContato, telContato, cnpj)
+      .cadastrar(
+        nomeEmpresa,
+        nomeAdm,
+        emailContato,
+        telContato,
+        cnpj,
+        senhaCadastro
+      )
       .then(function (resultado) {
         res.json(resultado);
       })
