@@ -42,6 +42,28 @@ function geradorDeSenhas() {
   return senha;
 }
 
+function enviarEmail(nome,email, senha) {
+  fetch("/email/enviar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nomeUser: nome,
+      emailUser: email,
+      senhaUser: senha,
+    }),
+  })
+    .then((resposta) => {
+      if (resposta.ok) {
+        console.log("Email enviado: " + resposta);
+      }
+    })
+    .catch((erro) => {
+      console.log("Erro ao enviar email: " + erro);
+    });
+}
+
 function cadastrar() {
   var erro = false;
   var nomeEmpresa = nomeEmpresa_input.value;
@@ -49,7 +71,9 @@ function cadastrar() {
   var emailContato = emailContato_input.value;
   var telContato = telContato_input.value;
   var cnpj = cnpj_input.value;
+  var emailContato = emailContato_input.value;
   var userPassword = geradorDeSenhas();
+  
   console.log(userPassword);
 
   // -- Validações de input -- \\
@@ -69,6 +93,8 @@ function cadastrar() {
 
   if (!erro) {
     console.log(userPassword);
+    enviarEmail(nomeAdm, emailContato, userPassword);
+
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
