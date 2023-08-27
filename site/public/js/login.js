@@ -31,15 +31,15 @@ function entrar() {
         resposta.json().then((json) => {
           console.log(json);
           console.log(JSON.stringify(json));
-          sessionStorage.EMAIL_USUARIO = json.email;
-          sessionStorage.NOME_USUARIO = json.nome;
-          window.location = "../cadastro.html";
+          sessionStorage.LOGIN_USUARIO = json[0].login;
+          sessionStorage.SENHA_USUARIO = json[0].senha;
+          window.location = "../dashboard/dashboard-bootstrap/index.html";
         });
       } else {
         console.log("Houve um erro ao tentar realizar o login!");
 
         resposta.text().then((texto) => {
-          console("teste");
+          console.log("teste");
           console.error(texto);
         });
       }
