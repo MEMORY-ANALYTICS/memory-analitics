@@ -1,26 +1,25 @@
 import mysql.connector as sql
 import mysql.connector.errorcode
 
-hostServer = 'localhost'
-passwordServer = 'sptech'
-userServer = 'aluno'
+hostServer = "localhost"
+passwordServer = "@Jsp0706"
+userServer = "root"
 portServer = 3306
-databaseServer = 'bd_MemoryAnalytics'
+databaseServer = "bd_MemoryAnalytics"
 
 
 def executar(instrucao):
-
     try:
         conexao = sql.connect(
-            host = hostServer,
-            password = passwordServer,
-            user = userServer,
-            port = portServer,
-            database = databaseServer
+            host=hostServer,
+            password=passwordServer,
+            user=userServer,
+            port=portServer,
+            database=databaseServer,
         )
 
     except mysql.connector.Error as error:
-        print('Erro ao efetuar conexão >>> ' + error)
+        print("Erro ao efetuar conexão >>> " + error)
 
     comando = conexao.cursor()
 
@@ -29,9 +28,7 @@ def executar(instrucao):
         comando.execute(instrucao)
         conexao.commit()
     except mysql.connector.Error as erro:
-        print('Erro ao executar comando!')
+        print("Erro ao executar comando!")
 
     comando.close()
     conexao.close()
-
-
