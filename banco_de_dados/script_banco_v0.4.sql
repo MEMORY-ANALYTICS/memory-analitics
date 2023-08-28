@@ -73,6 +73,7 @@ create table Medida
 create table Registro
 (
 	idRegistro int primary key auto_increment,
+    descRegistro varchar(15),
     dtHoraRegistro datetime,
     valorRegistro bigint,
     fkMedida int,
