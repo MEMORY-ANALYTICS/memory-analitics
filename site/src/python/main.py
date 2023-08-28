@@ -39,12 +39,17 @@ Quantidade de CPUs Fisicos == {qtd_cpus_fisicos} - """
 
     # % de Uso das CPUs == {dict_cpu}%
     for i in range(0, len(uso_cpus)):
+        desc = "Porcentagem CPU " + str(i + 1)
         dict_cpu.clear()
 
-        dict_cpu[f"Porcentagem CPU {(i)}"] = uso_cpus[i]
+        dict_cpu[f"Porcentagem CPU {(i + 1)}"] = uso_cpus[i]
 
         list_cpu.append(dict_cpu.copy())
         print(list_cpu[i])
+
+        executar(
+            f"insert into Registro values (null, '{desc}', now(), {uso_cpus[i]}, 2, 3, 5);"
+        )
 
     print(
         f"""
@@ -53,6 +58,10 @@ Frequência Atual da CPU == {(frequencia_cpu_atual/1000):.2f} GHz
 Frequência Máxima da CPU == {(frequencia_cpu_max/1000):.2f} GHz - 
 Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
     """
+    )
+
+    executar(
+        f"call RegistroCPU('{(tempo_uso_kernel/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{(interrupcoes_cpu/1000000):.2f}', '{(frequencia_cpu_atual/1000):.2f}')"
     )
 
     # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
@@ -74,6 +83,9 @@ Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
 
     dict_disk = {}
     list_disc = []
+    executar(
+        f"call RegistroMemoria('{memoria_usada/1000000000:.2f}',  '{memoria_livre/1000000000:.2f}', '{memoria_disponivel/1000000000:.2f}')"
+    )
 
     # -=-=-=-=-=-=-=-=-=-= Disco -=-=-=-=-=-=-=-=-=-=
     print(f"""------------------ Disco ---------------------""")
@@ -95,6 +107,9 @@ Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
 
         list_disc.append(dict_disk.copy())
         print(dict_disk)
+        executar(
+            f"call RegistroDisco('{(uso_total_disco/1000000000):.2f}','{(disco_usado/1000000000):.2f}','{(disco_livre/1000000000):.2f}','{porcent_disco}')"
+        )
 
     # -=-=-=-=-=-=-=-=-=-= Rede -=-=-=-=-=-=-=-=-=-=
 
@@ -117,6 +132,10 @@ Quantidade de Erros na Saida == {qtd_erros_saida}
 """
     )
 
+    executar(
+        f"call RegistroRede('{bytes_enviados/1000000:.2f}','{bytes_recebidos/1000000:.2f}','{qtd_erros_entrada}','{qtd_erros_saida}')"
+    )
+
     if osv.system == "Linux":
         lista = []
         # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
@@ -132,7 +151,8 @@ Quantidade de Erros na Saida == {qtd_erros_saida}
             Temperaturas do Entorno da CPU == {lista}
             """
         )
-
-    # executar("select * from ")
+        executar(
+            f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
+        )
 
     s(10)

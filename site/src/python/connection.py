@@ -2,7 +2,7 @@ import mysql.connector as sql
 import mysql.connector.errorcode
 
 hostServer = "localhost"
-passwordServer = "@Jsp0706"
+passwordServer = "sua senha"
 userServer = "root"
 portServer = 3306
 databaseServer = "bd_MemoryAnalytics"
@@ -29,6 +29,7 @@ def executar(instrucao):
         conexao.commit()
     except mysql.connector.Error as erro:
         print("Erro ao executar comando!")
+        print(erro)
 
     comando.close()
     conexao.close()
