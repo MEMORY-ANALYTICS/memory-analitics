@@ -7,7 +7,7 @@ import os
 osv = plat.uname()
 
 while True:
-    print("Seu sistema operacional é: " + osv.system)
+    print(f"Seu sistema operacional é: {osv.system}")
     ## os.system("clear")
     # -=-=-=-=-=-=-=-=-=-= CPU -=-=-=-=-=-=-=-=-=-=
 
@@ -143,7 +143,7 @@ Quantidade de Erros na Saida == {qtd_erros_saida}
         for i in range(0, len(ps.sensors_temperatures()["nvme"])):
             temperatura_cpu_label = ps.sensors_temperatures()["nvme"][i].label
             temperatura_cpu_atual = ps.sensors_temperatures()["nvme"][i].current
-            lista.append([temperatura_cpu_label + "°C", temperatura_cpu_atual + "°C"])
+            lista.append([f"{temperatura_cpu_label}°C", f"{temperatura_cpu_atual}°C"])
 
         print(
             f"""
