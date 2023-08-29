@@ -1,12 +1,17 @@
+import os
 import mysql.connector as sql
 import mysql.connector.errorcode
+from dotenv import load_dotenv
 
-hostServer = "localhost"
-passwordServer = "sua senha"
-userServer = "root"
-portServer = 3306
-databaseServer = "bd_MemoryAnalytics"
+load_dotenv()
 
+
+
+hostServer = os.environ.get('DB_HOST')
+passwordServer = os.environ.get("DB_PASSWORD")
+userServer = os.environ.get("DB_USER")
+portServer = int(os.environ.get("DB_PORT"))
+databaseServer = os.environ.get("DB_NAME")
 
 def executar(instrucao):
     try:
@@ -19,7 +24,7 @@ def executar(instrucao):
         )
 
     except mysql.connector.Error as error:
-        print("Erro ao efetuar conexão >>> " + error)
+        print(f"Erro ao efetuar conexão >>> {error}")
 
     comando = conexao.cursor()
 

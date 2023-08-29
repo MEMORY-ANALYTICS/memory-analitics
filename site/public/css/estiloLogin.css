@@ -135,6 +135,12 @@ html {
   font-weight: lighter;
 }
 
+input {
+  border: none;
+  outline: 0;
+  border-style: none;
+}
+
 /* INÍCIO DA RESPONSIVIDADE */
 @media screen and (max-width: 500px) {
   /* O max-width é para determinar que qualquer coisa menor

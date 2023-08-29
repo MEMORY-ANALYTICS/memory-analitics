@@ -21,3 +21,14 @@
   - Isabela Oliveira Noronha  
   - Otávio Walkovics Carvalho
   - Paulo Reis de Marcena
+
+  ## Instalação de dependências
+
+  Python:
+  ```bash
+  pip install -r requirements.txt
+  ```
+  JavaScript
+  ```bash
+  npm i
+  ```

@@ -194,6 +194,12 @@ img {
   color: rgb(1, 156, 156);
 }
 
+input {
+  border: none;
+  outline: 0;
+  border-style: none;
+}
+
 /* Imagem Cadastro */
 img {
   height: auto;
