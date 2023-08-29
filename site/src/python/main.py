@@ -1,4 +1,5 @@
 from connection import executar
+from message import mensagem_slack
 import psutil as ps
 import platform as plat
 from time import sleep as s
@@ -154,5 +155,10 @@ Quantidade de Erros na Saida == {qtd_erros_saida}
         executar(
             f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
         )
+    if(uso_cpus[0] > 70):
+        print(mensagem_slack("O uso da CPU está acima de 70%"))
 
+    if (memoria_usada/(10**9) > 4):
+        print(mensagem_slack("O uso de memória ram é excessivo!"))
     s(10)
+

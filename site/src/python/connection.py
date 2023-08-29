@@ -7,7 +7,7 @@ load_dotenv()
 
 
 
-hostServer = os.environ.get('DB_HOST')
+hostServer = os.environ.get('x')
 passwordServer = os.environ.get("DB_PASSWORD")
 userServer = os.environ.get("DB_USER")
 portServer = int(os.environ.get("DB_PORT"))
