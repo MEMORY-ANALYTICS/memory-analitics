@@ -29,23 +29,36 @@ function entrar() {
         console.log("testando");
 
         resposta.json().then((json) => {
+
           console.log(json);
           console.log(JSON.stringify(json));
+
           sessionStorage.LOGIN_USUARIO = json[0].login;
           sessionStorage.SENHA_USUARIO = json[0].senha;
+          sessionStorage.NOME_USUARIO = json[0].nomeFunc;
+          sessionStorage.EMAIL_USUARIO = json[0].emailFunc;
+          sessionStorage.TELEFONE_USUARIO = json[0].telefoneFunc;
+          sessionStorage.CARGO_USUARIO = json[0].fkCargo;
+
           window.location = "../dashboard/dashboard-bootstrap/index.html";
+
         });
       } else {
+
         console.log("Houve um erro ao tentar realizar o login!");
 
         resposta.text().then((texto) => {
+
           console.log("teste");
           console.error(texto);
+
         });
       }
     })
     .catch(function (erro) {
+
       console.log(erro);
+
     });
   // }
 

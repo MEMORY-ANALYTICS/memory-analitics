@@ -86,8 +86,8 @@ function cadastrar() {
   ) {
     toastr.error("Preencha todos os campos corretamente!");
     erro = true;
-  } else if (!emailContato.includes("@") || !emailContato.includes(".com")) {
-    toastr.error("Email inválido!\nAdicione @ ou '.com' ");
+  } else if (!emailContato.includes("@")) {
+    toastr.error("Email inválido!\nAdicione @");
     erro = true;
   }
 
