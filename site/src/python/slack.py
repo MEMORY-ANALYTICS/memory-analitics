@@ -1,10 +1,16 @@
 import json
 import requests
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+print(os.environ.get('SLACK_BOT'))
+
 
 def post_message_to_slack(text, blocks = None):
     return requests.post('https://slack.com/api/chat.postMessage', {
-        'token': "xoxb-5803756490416-5829949870369-uJM7woFMiThYz0R4GhEbEle5",
+        'token': os.environ.get('SLACK_BOT'),
         'channel': "C05NRC1NLCE",
         'icon_emoji': ":slack:",
         'text': text,
