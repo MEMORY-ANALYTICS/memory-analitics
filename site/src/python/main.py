@@ -3,12 +3,14 @@ from message import mensagem_slack
 import psutil as ps
 import platform as plat
 from time import sleep as s
+import datetime
 import os
 
 osv = plat.uname()
 
 while True:
     print(f"Seu sistema operacional é: {osv.system}")
+    dataAtual = datetime.datetime.now()
     ## os.system("clear")
     # -=-=-=-=-=-=-=-=-=-= CPU -=-=-=-=-=-=-=-=-=-=
 
@@ -159,6 +161,8 @@ Quantidade de Erros na Saida == {qtd_erros_saida}
         print(mensagem_slack("O uso da CPU está acima de 70%"))
 
     if (memoria_usada/(10**9) > 4):
-        print(mensagem_slack("O uso de memória ram é excessivo!"))
+        
+        print(mensagem_slack(f"""O uso de memória ram é excessivo!
+                             Data e hora do alerta: {dataAtual}""" ))
     s(10)
 
