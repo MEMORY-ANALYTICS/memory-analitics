@@ -38,9 +38,13 @@ function entrar() {
           sessionStorage.NOME_USUARIO = json[0].nomeFunc;
           sessionStorage.EMAIL_USUARIO = json[0].emailFunc;
           sessionStorage.TELEFONE_USUARIO = json[0].telefoneFunc;
-          sessionStorage.CARGO_USUARIO = json[0].fkCargo;
+          sessionStorage.CARGO_USUARIO = json[0].fkCargo == 3 ? "Gerente" : "Analista";
 
-          window.location = "../dashboard/dashboard-bootstrap/index.html";
+          if(sessionStorage.CARGO_USUARIO == "Gerente"){
+            window.location = "../dashboard/dashboard-bootstrap/paginaGerente.html";
+          }else{
+            window.location = "../dashboard/dashboard-bootstrap/paginaAnalista.html";
+          }
 
         });
       } else {
