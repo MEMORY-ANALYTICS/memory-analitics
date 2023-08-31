@@ -1,10 +1,11 @@
-from connection import executar
-from message import mensagem_slack
-import psutil as ps
-import platform as plat
-from time import sleep as s
 import datetime
 import os
+import platform as plat
+from time import sleep as s
+
+import psutil as ps
+from connection import executar
+from message import mensagem_slack
 
 osv = plat.uname()
 
@@ -51,7 +52,7 @@ Quantidade de CPUs Fisicos == {qtd_cpus_fisicos} - """
         print(list_cpu[i])
 
         executar(
-            f"insert into Registro values (null, '{desc}', now(), {uso_cpus[i]}, 2, 3, 5);"
+            f"insert into Registro values (null, now(), {uso_cpus[i]}, 2, 4);"
         )
 
     print(
@@ -64,7 +65,7 @@ Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
     )
 
     executar(
-        f"call RegistroCPU('{(tempo_uso_kernel/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{(interrupcoes_cpu/1000000):.2f}', '{(frequencia_cpu_atual/1000):.2f}')"
+        f"call RegistroCPU('{(tempo_ocioso/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{(interrupcoes_cpu/1000000):.2f}', '{(frequencia_cpu_atual/1000):.2f}')"
     )
 
     # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=

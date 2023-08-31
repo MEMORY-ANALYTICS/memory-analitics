@@ -1,4 +1,5 @@
 import os
+
 import mysql.connector as sql
 import mysql.connector.errorcode
 from dotenv import load_dotenv
@@ -7,7 +8,7 @@ load_dotenv()
 
 
 
-hostServer = os.environ.get('x')
+hostServer = os.environ.get('DB_HOST')
 passwordServer = os.environ.get("DB_PASSWORD")
 userServer = os.environ.get("DB_USER")
 portServer = int(os.environ.get("DB_PORT"))
@@ -35,6 +36,5 @@ def executar(instrucao):
     except mysql.connector.Error as erro:
         print("Erro ao executar comando!")
         print(erro)
-
-    comando.close()
+        
     conexao.close()
