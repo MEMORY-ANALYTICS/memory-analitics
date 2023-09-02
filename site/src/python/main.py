@@ -7,8 +7,13 @@ import datetime
 import os
 
 osv = plat.uname()
-
+contador = 0
+list_media_cpu = []
+list_media_memoria = []
+list_media_disco = []
+media_geral_cpu = 0
 while True:
+    
     print(f"Seu sistema operacional é: {osv.system}")
     dataAtual = datetime.datetime.now()
     ## os.system("clear")
@@ -16,7 +21,6 @@ while True:
 
     dict_cpu = {}
     list_cpu = []
-
     tempo_ocioso = ps.cpu_times().idle
     tempo_uso_kernel = ps.cpu_times().system
 
@@ -24,6 +28,8 @@ while True:
     qtd_cpus_fisicos = ps.cpu_count(logical=False)
 
     uso_cpus = ps.cpu_percent(interval=None, percpu=True)
+    uso_cpu_geral = ps.cpu_percent(interval=None, percpu=False)
+    media_geral_cpu = media_geral_cpu + uso_cpu_geral
 
     interrupcoes_cpu = ps.cpu_stats().interrupts
 
@@ -37,7 +43,8 @@ while True:
 Tempo Ocioso == {(tempo_ocioso/1000):.2f} s
 Tempo de Uso do Kernel == {(tempo_uso_kernel/1000):.2f} s
 Quantidade de CPUs Virtuais == {qtd_cpus_virtuais} -
-Quantidade de CPUs Fisicos == {qtd_cpus_fisicos} - """
+Quantidade de CPUs Fisicos == {qtd_cpus_fisicos} - 
+Uso geral da CPU == {uso_cpu_geral}"""
     )
 
     # % de Uso das CPUs == {dict_cpu}%
@@ -48,12 +55,20 @@ Quantidade de CPUs Fisicos == {qtd_cpus_fisicos} - """
         dict_cpu[f"Porcentagem CPU {(i + 1)}"] = uso_cpus[i]
 
         list_cpu.append(dict_cpu.copy())
-        print(list_cpu[i])
+        
 
+        if(contador == 0):
+            list_media_cpu.append(uso_cpus[i])
+            
+        else:
+            
+            soma = uso_cpus[i]
+            list_media_cpu[i] = list_media_cpu[i] + soma
+            
         executar(
             f"insert into Registro values (null, '{desc}', now(), {uso_cpus[i]}, 2, 3, 5);"
         )
-
+        
     print(
         f"""
 Tempo de interrupções da CPU == {(interrupcoes_cpu/1000000):.2f} s
@@ -62,6 +77,13 @@ Frequência Máxima da CPU == {(frequencia_cpu_max/1000):.2f} GHz -
 Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
     """
     )
+    if (contador == 3):
+        numero_cpu = 1
+        print (f"Média geral de uso da CPU: {round(media_geral_cpu/ contador, 2)}")
+        for i in list_media_cpu:
+            media = i / contador
+            print(f"Média de uso da CPU {numero_cpu}: {round(media,2)}%")
+            numero_cpu = numero_cpu +1
 
     executar(
         f"call RegistroCPU('{(tempo_uso_kernel/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{(interrupcoes_cpu/1000000):.2f}', '{(frequencia_cpu_atual/1000):.2f}')"
@@ -73,6 +95,10 @@ Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
     memoria_total = ps.virtual_memory().total
     memoria_livre = ps.virtual_memory().free
     memoria_disponivel = ps.virtual_memory().available
+    
+    porcentagem_uso_memoria = (round((memoria_usada * 100)/memoria_total,2)) 
+    list_media_memoria.append(porcentagem_uso_memoria)
+    
 
     print(
         f"""
@@ -83,6 +109,9 @@ Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
  Memória Disponível == {memoria_disponivel/1000000000:.2f} Gb
  """
     )
+    if (contador == 3):
+        media_memoria = sum(list_media_memoria)/ len(list_media_memoria)
+        print (f"Média de uso de memoria: {round(media_memoria,2)}%")
 
     dict_disk = {}
     list_disc = []
@@ -101,15 +130,21 @@ Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
         disco_usado = ps.disk_usage(f"{particao}").used
         disco_livre = ps.disk_usage(f"{particao}").free
         porcent_disco = ps.disk_usage(f"{particao}").percent
+        list_media_disco.append(porcent_disco)
 
         dict_disk["Particao"] = particao
         dict_disk["Total"] = f"{(uso_total_disco/1000000000):.2f} Gb"
         dict_disk["Usado"] = f"{(disco_usado/1000000000):.2f} Gb"
         dict_disk["Livre"] = f"{(disco_livre/1000000000):.2f} Gb"
         dict_disk["Porcentagem"] = f"{porcent_disco} %"
+        
+
 
         list_disc.append(dict_disk.copy())
         print(dict_disk)
+        if (contador == 3):
+            media_disco = sum(list_media_disco)/ len(list_media_disco)
+            print (f"Média de uso do disco: {round(media_disco,2)}%")
         executar(
             f"call RegistroDisco('{(uso_total_disco/1000000000):.2f}','{(disco_usado/1000000000):.2f}','{(disco_livre/1000000000):.2f}','{porcent_disco}')"
         )
@@ -164,5 +199,10 @@ Quantidade de Erros na Saida == {qtd_erros_saida}
         
         print(mensagem_slack(f"""O uso de memória ram é excessivo!
                              Data e hora do alerta: {dataAtual}""" ))
-    s(10)
+    
+    contador = contador + 1
+    if (contador == 4):
+        contador = 0
+    print (contador)
+    s(3)
 
