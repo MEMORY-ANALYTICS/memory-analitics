@@ -1,12 +1,12 @@
 -- Criando Banco de Dados
 create database bd_MemoryAnalytics;
 use bd_MemoryAnalytics;
--- drop database bd_memoryanalytics;
+-- drop database bd_MemoryAnalytics;
 -- -=-=-=-=-=-=-=-=-=-=-= Definindo as tabelas -=-=-=-=-=-=-=-=-=-=-=
 -- Tabela Empresa
-create table Empresa 
+create table Empresa
 (
-	idEmpresa int primary key auto_increment,
+      idEmpresa int primary key auto_increment,
     nomeEmpresa varchar(45) not null,
     cnpjEmpresa char(18) unique not null
 );
@@ -14,17 +14,17 @@ create table Empresa
 -- Tabela Cargo
 create table Cargo
 (
-	idCargo int primary key auto_increment,
+      idCargo int primary key auto_increment,
     nomeCargo varchar(20)
 );
 
 -- Tabela Funcionário
 create table Funcionario
 (
-	idFunc int primary key auto_increment,
+      idFunc int primary key auto_increment,
     nomeFunc varchar(80),
     emailFunc varchar(80),
-    telefoneFunc varchar(15), 
+    telefoneFunc varchar(15),
     fkCargo int,
     fkEmpresa int,
     foreign key(fkCargo) references Cargo(idCargo),
@@ -34,7 +34,7 @@ create table Funcionario
 -- Tabela Login
 create table Login
 (
-	idLogin int primary key auto_increment,
+      idLogin int primary key auto_increment,
     login varchar(80) not null unique,
     senha varchar(16) not null unique,
     fkFunc int,
@@ -44,7 +44,7 @@ create table Login
 -- Tabela Servidores
 create table Servidores
 (
-	idServer int primary key auto_increment,
+      idServer int primary key auto_increment,
     localServer varchar(45),
     ipServer varchar(12) unique,
     numeroSerieServer varchar(20) unique,
@@ -54,7 +54,7 @@ create table Servidores
 );
 
 -- Tabela Vizualização de dados
-create table visualizacao_dados 
+create table visualizacao_dados
 (
 idDados int primary key auto_increment,
 fkServidor int,
@@ -69,7 +69,7 @@ foreign key (fkServidor) references Servidores(idServer)
 -- Tabela Componente
 create table Componente
 (
-	idComponente int primary key auto_increment,
+      idComponente int primary key auto_increment,
     nomeComponente varchar(45),
     subComponente varchar(20)
 );
@@ -77,15 +77,15 @@ create table Componente
 -- Tabela Medida
 create table Medida
 (
-	idMedida int primary key auto_increment,
+      idMedida int primary key auto_increment,
     nomeMedida varchar(30),
     unidadeMedida varchar(20),
     simboloMedida varchar(4)
 );
 
-create table medidaComponente
+create table MedidaComponente
 (
-	idMedidaComponente int primary key auto_increment,
+      idMedidaComponente int primary key auto_increment,
     fkServidor int,
     fkComponente int,
     fkMedida int,
@@ -93,15 +93,15 @@ create table medidaComponente
     foreign key (fkComponente) references Componente(idComponente),
     foreign key (fkMedida) references Medida(idMedida)
     );
-    
-    
+   
+   
 -- Tabela Registros
 create table Registro
 (
-	idRegistro int primary key auto_increment,
+      idRegistro int primary key auto_increment,
     dtHoraRegistro datetime,
     valorRegistro varchar(45),
-    fkMedidaComponente int auto_increment,
+    fkMedidaComponente int,
     foreign key (fkMedidaComponente) references MedidaComponente(idMedidaComponente)
 );
 
@@ -138,7 +138,7 @@ insert into Login values
 (null,'maria123','maria123',5),
 (null,'larissa123','larissa123',6);
 
--- 	Tabela Servidores
+--    Tabela Servidores
 insert into Servidores values
 (null, "Setor F6", "192.158.1.38","6007041","Linux",1),
 (null, "Setor G4", "192.157.1.38","3008041","Windows",1),
@@ -148,7 +148,7 @@ insert into Servidores values
 
 
 -- Tabela Componentes
-insert into Componente values 
+insert into Componente values
 (null, 'DISCO', 'C://'),
 (null, 'MEMORIA', null),
 (null, 'CPU', 'CPU 1'),
@@ -163,19 +163,19 @@ insert into Medida values
 (null, 'Unidade', null, null),
 (null, 'Tempo', 'Segundos', 's'),
 (null, 'Frequencia', 'Giga Hertz','GHz');
-    
+   
 insert into MedidaComponente values
-(null, 5 , 1 , 2), 
-(null, 5 , 2 , 2), 
-(null, 5 , 3 , 2), 
+(null, 5 , 1 , 2),
+(null, 5 , 2 , 2),
+(null, 5 , 3 , 2),
 (null, 5 , 4 , 6);
 
 -- Tabela Registro
 insert into Registro values
-(null, now(), 23, null),
-(null, now(), 67, null),
-(null, now(), 30, null),
-(null, now(), 12, null);
+(null, now(), 23, 1),
+(null, now(), 67, 2),
+(null, now(), 30, 3),
+(null, now(), 12, 4);
 
 
 -- -=-=-=-=-=-=-=-=-=-=-= SELECTS -=-=-=-=-=-=-=-=-=-=-=
@@ -193,57 +193,57 @@ select * from Registro;
 -- -=-=-=-=-=-=-=-=-=-=-= JOINS -=-=-=-=-=-=-=-=-=-=-=
 
 -- Todos os funcionários, suas respectivas empresas e informações de login
-select 
-	nomeFunc "Nome",
+select
+      nomeFunc "Nome",
     emailFunc "Email",
     nomeEmpresa "Empresa",
     login "Login",
     senha "Senha",
     nomeCargo "Cargo"
 from Empresa
-	join Funcionario on fkEmpresa = idEmpresa
+      join Funcionario on fkEmpresa = idEmpresa
     join Cargo on fkCargo = idCargo
     join Login on fkFunc = idFunc;
 
 -- Todos os servidores, seus registros, componentes monitorados e unidades de medida correspondentes
-Select 
-	localServer 'Servidores',
+Select
+      localServer 'Servidores',
     ipServer 'Ip do servidor',
     nomeComponente 'Nome componente',
     valorRegistro 'Valor',
     simboloMedida 'Simbolo',
     dtHoraRegistro 'Hora e data'
 from MedidaComponente as mc
-	join Servidores on mc.fkServidor = idServer
+      join Servidores on mc.fkServidor = idServer
     join Componente on mc.fkComponente = idComponente
     join Registro on fkMedidaComponente = idMedidaComponente
     join Medida on mc.fkMedida = idMedida;
    
-    
+   
 -- -=-=-=-=-=-=-=-=-=-=-= Procedures -=-=-=-=-=-=-=-=-=-=-=
 
 DELIMITER $$
 create procedure Cadastro
 (
-	nomeEmpresa varchar(45), 
-    cnpj char(18), 
-    emailContato varchar(80), 
-    telContato varchar(15), 
-    nomeAdm varchar(80), 
+      nomeEmpresa varchar(45),
+    cnpj char(18),
+    emailContato varchar(80),
+    telContato varchar(15),
+    nomeAdm varchar(80),
     senha varchar(16))
 begin
-	insert into Empresa values (null, nomeEmpresa, cnpj);
+      insert into Empresa values (null, nomeEmpresa, cnpj);
     insert into Funcionario values (null, nomeAdm, emailContato, telContato, 3, (select idEmpresa from Empresa where cnpjEmpresa = cnpj));
-    insert into Login values (null, emailContato, senha, 
-		(select idFunc from Funcionario where emailFunc = emailContato and telefoneFunc = telContato and nomeFunc = nomeAdm));
+    insert into Login values (null, emailContato, senha,
+            (select idFunc from Funcionario where emailFunc = emailContato and telefoneFunc = telContato and nomeFunc = nomeAdm));
 end $$
 
-select * from registro;
+select * from Registro;
 select * from MedidaComponente;
 
 create procedure RegistroCPU
 (
-	tempoOcioso varchar(45),
+      tempoOcioso varchar(45),
     tempoUsoKernel varchar(45),
     interrupcoesCpu varchar(45),
     frequenciaCpuAtual varchar(45))
@@ -253,10 +253,10 @@ begin
    
    insert into Registro values (null, now(), tempoUsoKernel, null);
    insert into MedidaComponente values (null, 5 , 3 , 7);
-    
+   
    insert into Registro values (null, now(), interrupcoesCpu, null);
    insert into MedidaComponente values (null, 5 , 3 , 7);
-    
+   
    insert into Registro values (null, now(), frequenciaCpuAtual, null);
    insert into MedidaComponente values (null, 5 , 3 , 8);
 
@@ -264,64 +264,64 @@ end $$
 
 create procedure RegistroMemoria
 (
-	memoriaUsada varchar(45),
-	memoriaLivre varchar(45),
-	memoriaDisponivel varchar(45)
+      memoriaUsada varchar(45),
+      memoriaLivre varchar(45),
+      memoriaDisponivel varchar(45)
 )
 begin
-	insert into Registro values (null, now(), memoriaUsada, 'GB');
-	insert into Registro values (null, now(), memoriaLivre, 'GB');
-	insert into Registro values (null, now(), memoriaDisponivel, 'GB');
+      insert into Registro values (null, now(), memoriaUsada, 'GB');
+      insert into Registro values (null, now(), memoriaLivre, 'GB');
+      insert into Registro values (null, now(), memoriaDisponivel, 'GB');
 end $$
 
 create procedure RegistroDisco
 (
-	usoTotalDisco varchar(45),
-	discoUsado varchar(45),
-	discoLivre varchar(45),
+      usoTotalDisco varchar(45),
+      discoUsado varchar(45),
+      discoLivre varchar(45),
     porcentDisco varchar(45)    
 )
 begin
-	insert into Registro values (null, now(), usoTotalDisco, 'GB');
-	insert into Registro values (null, now(), discoUsado, 'GB');
-	insert into Registro values (null, now(), discoLivre, 'GB');
-	insert into Registro values (null, now(), porcentDisco, '%');
+      insert into Registro values (null, now(), usoTotalDisco, 'GB');
+      insert into Registro values (null, now(), discoUsado, 'GB');
+      insert into Registro values (null, now(), discoLivre, 'GB');
+      insert into Registro values (null, now(), porcentDisco, '%');
 end $$
 
 
 create procedure RegistroRede
 (
-	bytesEnviados varchar(45),
-	bytesRecebidos varchar(45),
-	qtdErrosEntrada varchar(45),
+      bytesEnviados varchar(45),
+      bytesRecebidos varchar(45),
+      qtdErrosEntrada varchar(45),
     qtdErrosSaida varchar(45)    
 )
 begin
-	insert into Registro values (null, now(), bytesEnviados, 'MB');
-	insert into Registro values (null, now(), bytesRecebidos, 'MB');
-	insert into Registro values (null, now(), qtdErrosEntrada, null);
-	insert into Registro values (null, now(), qtdErrosSaida, null);
+      insert into Registro values (null, now(), bytesEnviados, 'MB');
+      insert into Registro values (null, now(), bytesRecebidos, 'MB');
+      insert into Registro values (null, now(), qtdErrosEntrada, null);
+      insert into Registro values (null, now(), qtdErrosSaida, null);
 end $$
 
 create procedure RegistroTemperatura
 (
-	temperaturaCpuLabel varchar(45),
-	temperaturaCpuAtual varchar(45)
+      temperaturaCpuLabel varchar(45),
+      temperaturaCpuAtual varchar(45)
 )
 begin
-	insert into Registro values (null, now(), temperaturaCpuLabel, '°C');
-	insert into Registro values (null, now(), temperaturaCpuAtual, '°C');
+      insert into Registro values (null, now(), temperaturaCpuLabel, '°C');
+      insert into Registro values (null, now(), temperaturaCpuAtual, '°C');
 end $$
 
 
-create procedure vizualizacao_dados 
+create procedure vizualizacao_dados
 (
-	cpu_uso bigint,
+      cpu_uso bigint,
     disco_uso bigint,
     ram_uso  bigint
 )
 begin
-	insert into visualizacao_dados values(null, 5, cpu_uso, disco_uso, ram_uso, '%', now());
+      insert into visualizacao_dados values(null, 5, cpu_uso, disco_uso, ram_uso, '%', now());
 end $$
 
 DELIMITER ;
@@ -329,7 +329,7 @@ DELIMITER ;
     -- -=-=-=-=-=-=-=-=-=-=-= Views -=-=-=-=-=-=-=-=-=-=-=
 /*
 SELECT
-	dtHoraRegistro as "Hora do Registro",
+      dtHoraRegistro as "Hora do Registro",
   max(CASE WHEN nomeComponente = 'CPU' THEN valorRegistro ELSE null END) AS "CPU",
   max(CASE WHEN nomeComponente = 'Disco' THEN valorRegistro ELSE null END) AS "Disco",
   max(CASE WHEN nomeComponente = 'Rede' THEN valorRegistro ELSE null END) AS 'Rede',
@@ -341,40 +341,52 @@ join Componente on medida.fkRegistro = idComponente
 GROUP BY dtHoraRegistro;
 */
 
+select * from MedidaComponente;
+select * from Servidores;
+select * from Componente;
+select * from Medida;
+select * from Registro;
 
-    
-    
-    
+create view TabelaAnalitica as
+select
+    fkServidor Servidor,
+    nomeComponente Componente,
+    nomeMedida Medida,
+    valorRegistro Valor,
+    dtHoraRegistro Horario
+from MedidaComponente mc
+	join Servidores s on s.idServer = mc.fkServidor
+    join Componente c on c.idComponente = mc.fkComponente
+    join Medida m on m.idMedida = mc.fkMedida
+    join Registro r on r.fkMedidaComponente = mc.idMedidaComponente;
+   
+select * from TabelaAnalitica where Servidor = 5;
 
+SET @sql = NULL; -- Criando uma variável para armazenar o comando
 
+SELECT
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "max(case when Componente = '",Componente,"' and Medida = '",Medida,"' then Valor end) ",Medida,Componente
+    )
+  )
+INTO @sql
 
+FROM
+  TabelaAnalitica; -- Aqui vem o nome da sua view!
+ 
+select @sql;
 
+SET @sql = CONCAT('SELECT Servidor, Horario, ', @sql, '
+                 
+FROM TabelaAnalitica
+                   
+GROUP BY Servidor, Horario');
 
+select @sql;
 
+PREPARE stmt FROM @sql;
 
+EXECUTE stmt;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+DEALLOCATE PREPARE stmt;
