@@ -1,3 +1,4 @@
+from time import sleep
 from tkinter import *
 from tkinter import ttk
 
@@ -5,7 +6,16 @@ from captura_dados import *
 
 
 class Gui(ttk.Frame):
-    def __init__(self, system: str, cpu: dict, mem: dict, disco: dict, temp: dict, rede: dict, master=None):
+    def __init__(
+        self,
+        system: str,
+        cpu: dict,
+        mem: dict,
+        disco: dict,
+        temp: dict,
+        rede: dict,
+        master=None,
+    ):
         super().__init__(master)
         self.pack()
 
@@ -20,33 +30,30 @@ class Gui(ttk.Frame):
         self.rede = rede
 
         ttk.Label(self, text=f"Sistema: {self.system}").grid(
-            column=0, row=0, sticky=NW, pady=10, padx=2)
+            column=0, row=0, sticky=NW, pady=10, padx=2
+        )
         ttk.Label(self, text=f'Cores de CPU: {cpu["qtd_cpu"]}').grid(
-            column=1, row=0, sticky=NW, pady=10, ipadx=20)
+            column=1, row=0, sticky=NW, pady=10, ipadx=20
+        )
         ttk.Label(self, text=f'Threads de CPU: {cpu["qtd_vcpu"]}').grid(
-            column=2, row=0, sticky=NW, pady=10)
+            column=2, row=0, sticky=NW, pady=10
+        )
 
-        ttk.Label(self, text='CPU').grid(column=1, row=1, sticky=NW, ipadx=20)
-        ttk.Label(self, text='Memória').grid(
-            column=2, row=1, sticky=NW, ipadx=20)
-        ttk.Label(self, text='Disco').grid(
-            column=3, row=1, sticky=NW, ipadx=30)
-        ttk.Label(self, text='Rede:').grid(
-            column=4, row=1, sticky=NW, ipadx=20)
-        ttk.Label(self, text='Porcentagem de uso: ').grid(
-            column=0, row=2, sticky=W, ipadx=10, padx=2)
-        ttk.Label(self, text='Espaço total:').grid(
-            column=0, row=3, sticky=W, padx=2)
-        ttk.Label(self, text='Espaço livre:').grid(
-            column=0, row=4, sticky=W, padx=2)
-        ttk.Label(self, text='Espaço usado:').grid(
-            column=0, row=5, sticky=W, padx=2)
-        ttk.Label(self, text='Temperatura:').grid(
-            column=0, row=6, sticky=W, padx=2)
-        ttk.Label(self, text='Recebimento de dados:').grid(
-            column=0, row=7, sticky=W, padx=2)
-        ttk.Label(self, text='Envio de dados:').grid(
-            column=0, row=8, sticky=W, padx=2)
+        ttk.Label(self, text="CPU").grid(column=1, row=1, sticky=NW, ipadx=20)
+        ttk.Label(self, text="Memória").grid(column=2, row=1, sticky=NW, ipadx=20)
+        ttk.Label(self, text="Disco").grid(column=3, row=1, sticky=NW, ipadx=30)
+        ttk.Label(self, text="Rede:").grid(column=4, row=1, sticky=NW, ipadx=20)
+        ttk.Label(self, text="Porcentagem de uso: ").grid(
+            column=0, row=2, sticky=W, ipadx=10, padx=2
+        )
+        ttk.Label(self, text="Espaço total:").grid(column=0, row=3, sticky=W, padx=2)
+        ttk.Label(self, text="Espaço livre:").grid(column=0, row=4, sticky=W, padx=2)
+        ttk.Label(self, text="Espaço usado:").grid(column=0, row=5, sticky=W, padx=2)
+        ttk.Label(self, text="Temperatura:").grid(column=0, row=6, sticky=W, padx=2)
+        ttk.Label(self, text="Recebimento de dados:").grid(
+            column=0, row=7, sticky=W, padx=2
+        )
+        ttk.Label(self, text="Envio de dados:").grid(column=0, row=8, sticky=W, padx=2)
 
         self.cpu_use_var = StringVar()
         self.cpu_temp_var = StringVar()
@@ -86,12 +93,9 @@ class Gui(ttk.Frame):
         self.disco_total_var.set(f"{self.disco['disc_total']}")
 
         self.disco_use_label = ttk.Label(self, textvariable=self.disco_use_var)
-        self.disco_total_label = ttk.Label(
-            self, textvariable=self.disco_total_var)
-        self.disco_livre_label = ttk.Label(
-            self, textvariable=self.disco_livre_var)
-        self.disco_usado_label = ttk.Label(
-            self, textvariable=self.disco_usado_var)
+        self.disco_total_label = ttk.Label(self, textvariable=self.disco_total_var)
+        self.disco_livre_label = ttk.Label(self, textvariable=self.disco_livre_var)
+        self.disco_usado_label = ttk.Label(self, textvariable=self.disco_usado_var)
         self.disco_use_label.grid(column=3, row=2, sticky=W)
         self.disco_total_label.grid(column=3, row=3, sticky=W)
         self.disco_livre_label.grid(column=3, row=4, sticky=W)

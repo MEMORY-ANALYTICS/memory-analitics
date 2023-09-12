@@ -6,7 +6,7 @@ import psutil as ps
 from connection import executar
 from message import mensagem_slack
 
-osv = plat.uname().system
+
 contador = 0
 list_media_cpu = []
 list_media_memoria = []
@@ -87,27 +87,30 @@ def exibir_dados_cpu():
     )
     if contador == 3:
         numero_cpu = 1
-        print(
-            f"Média geral de uso da CPU: {round(media_geral_cpu/ contador, 2)}")
+        print(f"Média geral de uso da CPU: {round(media_geral_cpu/ contador, 2)}")
         for i in list_media_cpu:
             media = i / contador
             print(f"Média de uso da CPU {numero_cpu}: {round(media,2)}%")
             numero_cpu = numero_cpu + 1
 
     executar(
-        f"call RegistroCPU('{(tempo_ocioso/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{(interrupcoes_cpu/1000000):.2f}', '{(frequencia_cpu_atual/1000):.2f}')"
+        f"call RegistroCPU('{(tempo_ocioso/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{uso_cpu_geral}', '{(frequencia_cpu_atual/1000):.2f}')"
     )
 
-    if uso_cpus[0] > 70:
+    if uso_cpus[0] > 95:
         print(mensagem_slack("O uso da CPU está acima de 70%"))
 
-    return {'uso': uso_cpu_geral, 'qtd_cpu': qtd_cpus_fisicos, 'qtd_vcpu': qtd_cpus_virtuais}
+    return {
+        "uso": uso_cpu_geral,
+        "qtd_cpu": qtd_cpus_fisicos,
+        "qtd_vcpu": qtd_cpus_virtuais,
+    }
+
 
 # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
 
 
 def exibir_info_mem():
-
     memoria_usada = ps.virtual_memory().used
     memoria_total = ps.virtual_memory().total
     memoria_livre = ps.virtual_memory().free
@@ -130,10 +133,10 @@ def exibir_info_mem():
         print(f"Média de uso de memoria: {round(media_memoria,2)}%")
 
     executar(
-        f"call RegistroMemoria({memoria_usada/1000000000:.2f},  {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f})"
+        f"call RegistroMemoria({memoria_usada/1000000000:.2f},  {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f}, {porcentagem_uso_memoria})"
     )
 
-    if memoria_usada / (10**9) > 4:
+    if memoria_usada / (10**9) > 7:
         print(
             mensagem_slack(
                 f"""O uso de memória ram é excessivo!
@@ -141,18 +144,23 @@ def exibir_info_mem():
             )
         )
 
-    return {'mem_total': f"{memoria_total/1000000000:.2f}GB", 'mem_livre': f"{memoria_livre/1000000000:.2f} GB", 'mem_usada': f"{memoria_usada/1000000000:.2f}GB", 'pct_uso': f"{porcentagem_uso_memoria}%"}
+    return {
+        "mem_total": f"{memoria_total/1000000000:.2f}GB",
+        "mem_livre": f"{memoria_livre/1000000000:.2f} GB",
+        "mem_usada": f"{memoria_usada/1000000000:.2f}GB",
+        "pct_uso": f"{porcentagem_uso_memoria}%",
+    }
+
 
 # -=-=-=-=-=-=-=-=-=-= Disco -=-=-=-=-=-=-=-=-=-=
 
 
 def exibir_info_disco():
-
     dict_disk = {}
     list_disc = []
     print(f"""------------------ Disco ---------------------""")
     particoes_disco = ps.disk_partitions()
-   
+
     uso_total_disco = ps.disk_usage(f"/").total
     disco_usado = ps.disk_usage(f"/").used
     disco_livre = ps.disk_usage(f"/").free
@@ -174,13 +182,18 @@ def exibir_info_disco():
         f"call RegistroDisco('{(uso_total_disco/1000000000):.2f}','{(disco_usado/1000000000):.2f}','{(disco_livre/1000000000):.2f}','{porcent_disco}')"
     )
 
-    return {'disc_total': f"{(uso_total_disco/1000000000):.2f} GB", 'disc_usado': f"{(disco_usado/1000000000):.2f} GB", 'disc_livre': f"{(disco_livre/1000000000):.2f} GB", 'pct_uso': f"{porcent_disco}%"}
+    return {
+        "disc_total": f"{(uso_total_disco/1000000000):.2f} GB",
+        "disc_usado": f"{(disco_usado/1000000000):.2f} GB",
+        "disc_livre": f"{(disco_livre/1000000000):.2f} GB",
+        "pct_uso": f"{porcent_disco}%",
+    }
+
 
 # -=-=-=-=-=-=-=-=-=-= Rede -=-=-=-=-=-=-=-=-=-=
 
 
 def exibir_info_rede():
-
     bytes_enviados = ps.net_io_counters().bytes_sent
     bytes_recebidos = ps.net_io_counters().bytes_recv
 
@@ -204,29 +217,34 @@ def exibir_info_rede():
         f"call RegistroRede('{bytes_enviados/1000000:.2f}','{bytes_recebidos/1000000:.2f}','{qtd_erros_entrada}','{qtd_erros_saida}')"
     )
 
-    return {'bytes_out': f"{bytes_enviados/1000000:.2f} MB/s", 'bytes_in': f"{bytes_recebidos/1000000:.2f} MB/s", 'qtd_erros_in': qtd_erros_entrada, 'qtd_erros_saida': qtd_erros_saida}
+    return {
+        "bytes_out": f"{bytes_enviados/1000000:.2f} MB/s",
+        "bytes_in": f"{bytes_recebidos/1000000:.2f} MB/s",
+        "qtd_erros_in": qtd_erros_entrada,
+        "qtd_erros_saida": qtd_erros_saida,
+    }
 
 
-def exibir_info_temp():
-    lista = []
-    # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
+def exibir_info_temp(osv):
+    if (osv) == "Linux":
+        lista = []
+        # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
 
-    for i in range(0, len(ps.sensors_temperatures()["nvme"])):
-        temperatura_cpu_label = ps.sensors_temperatures()["nvme"][i].label
-        temperatura_cpu_atual = ps.sensors_temperatures()[
-            "nvme"][i].current
-        lista.append([f"{temperatura_cpu_label}°C",
-                        f"{temperatura_cpu_atual}°C"])
+        for i in range(0, len(ps.sensors_temperatures()["nvme"])):
+            temperatura_cpu_label = ps.sensors_temperatures()["nvme"][i].label
+            temperatura_cpu_atual = ps.sensors_temperatures()["nvme"][i].current
+            lista.append([f"{temperatura_cpu_label}°C", f"{temperatura_cpu_atual}°C"])
 
-    print(
-        f"""
-        ------------------ Temperatura --------------------- 
-        Temperaturas do Entorno da CPU == {lista}
-        """
-    )
-    executar(
-        f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
-    )
+        print(
+            f"""
+            ------------------ Temperatura --------------------- 
+            Temperaturas do Entorno da CPU == {lista}
+            """
+        )
+        executar(
+            f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
+        )
 
-    return {'cpu': f"{temperatura_cpu_atual}°C"}
-
+        return {"cpu": f"{temperatura_cpu_atual}°C"}
+    else:
+        return {"cpu": "Não é possível capturar no Windows"}
