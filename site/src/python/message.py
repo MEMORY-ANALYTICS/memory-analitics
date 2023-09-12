@@ -1,12 +1,10 @@
 import json
-import requests
 import os
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-print(os.environ.get('SLACK_BOT'))
-
-
 
 def mensagem_slack(text, blocks = None):
     return requests.post('https://slack.com/api/chat.postMessage', {
@@ -24,4 +22,3 @@ blocks = [{
     "text": ":thumbsup: Blocos."
   }
 }]
-
