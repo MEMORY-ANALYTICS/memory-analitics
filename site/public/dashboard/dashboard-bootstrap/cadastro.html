@@ -1,0 +1,137 @@
+<!DOCTYPE <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastrar Funcionario</title>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="../../css/estiloCadastro.css" />
+    <link
+      rel="shortcut icon"
+      href="../../assets/img/Logo.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./vendors/prism/prism.css" />
+    <link href="./vendors/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="./css/theme.min.css" rel="stylesheet" />
+    <link href="./css/user.min.css" rel="stylesheet" />
+
+    <!-- Link para o toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Inicio Área do formulário -->
+    <div class="area-formulario">
+      <div class="retangulo retangulo-fim" id="retangulo_fim"></div>
+      <div class="retangulo retangulo-meio" id="retangulo_meio"></div>
+
+      <!-- Início do Retângulo do formulário -->
+      <div class="retangulo formulario" id="ratangulo_formulario">
+        <!-- Inicio Container -->
+        <div class="container">
+          <!-- Inínicio área dos inputs -->
+          <div class="area-inputs">
+            <!-- Coluna Esquerda -->
+            <div class="coluna-inputs-esquerda">
+              <!-- Área de Título -->
+              <div class="area-titulo">
+                <span class="title"
+                  >Formulário de cadastro de funcionarios</span
+                >
+                <small class="subtitle">
+                  Já possui cadastro? <b>Clique aqui!</b></small
+                >
+              </div>
+              <img src="../../assets/img/imgCadastro.png" alt="" />
+            </div>
+
+            <!-- Coluna Direita -->
+            <div class="coluna-inputs-direita">
+              <div class="bloco-input">
+                <label for="">Nome do colaborador: </label>
+                <br />
+                <input
+                  type="text"
+                  name="nomeEmpresa_input"
+                  id="nomeEmpresa_input"
+                  placeholder="Nome completo"
+                />
+              </div>
+              <div class="linha-input">
+                <div class="bloco-input">
+                  <label for="">Data de nascimento</label>
+                  <br />
+                  <input
+                    type="text"
+                    name="nomeAdm_input"
+                    id="nomeAdm_input"
+                    placeholder="Data de nascimento"
+                  />
+                </div>
+                <div class="bloco-input">
+                  <label for="">Email para Contato</label>
+                  <br />
+                  <input
+                    type="email"
+                    name="emailContato_input"
+                    id="emailContato_input"
+                    placeholder="Email do colaborador"
+                  />
+                </div>
+              </div>
+              <div class="linha-input">
+                <div class="bloco-input">
+                  <label for="">Telefone para Contato</label>
+                  <br />
+                  <input
+                    type="tel"
+                    name="telContato_input"
+                    id="telContato_input"
+                    placeholder="(11) 34622-3234"
+                    onfocus="javascript: retirarFormatacaoTel(this);"
+                    onblur="javascript: formatarCampoTel(this);"
+                    maxlength="11"
+                  />
+                </div>
+                <div class="bloco-input">
+                  <label for="">CPF</label>
+                  <br />
+                  <input
+                    type="text"
+                    name="cnpj_input"
+                    id="cnpj_input"
+                    onfocus="javascript: retirarFormatacao(this);"
+                    onblur="javascript: formatarCampo(this);"
+                    maxlength="14"
+                    placeholder="CPF"
+                  />
+                </div>
+              </div>
+
+              <!-- Seção Botão -->
+              <div class="bloco-input bloco-botao">
+                <button onclick="cadastrar()">Cadastre-se</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="./js/cadastro.js"></script>

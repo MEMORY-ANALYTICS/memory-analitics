@@ -2,8 +2,8 @@ const nodemailer = require("nodemailer");
 
 const host = "smtp-mail.outlook.com";
 const port = 587;
-const user = process.env.MAILER_EMAIL;
-const pass = process.env.MAILER_PASS;
+const user = "MemoryAnalytics@outlook.com";
+const pass = "@grupo07";
 
 const transporter = nodemailer.createTransport({
   host: host,
@@ -24,8 +24,7 @@ async function enviar(nome, email, senha) {
   );
 
   const mailSent = await transporter.sendMail({
-    text: 
-`
+    text: `
 Olá ${nome}
 
 Recebemos a sua solicitação e estamos muito contentes que você optou por nossos serviços! 
