@@ -16,9 +16,6 @@ create table Cargo(
 idCargo int primary key auto_increment,
 nomeCargo varchar(20)
 );
-
-
- desc cargo;
  
 -- Tabela Funcionário
 create table Funcionario
@@ -251,16 +248,16 @@ create procedure RegistroCPU
     frequenciaCpuAtual varchar(45))
 begin
    insert into MedidaComponente values (null, 5 , 3 , 7);
-   insert into Registro values (null, now(), tempoOcioso, (select max(idMedidaComponente) from medidaComponente));
+   insert into Registro values (null, now(), tempoOcioso, (select max(idMedidaComponente) from MedidaComponente));
    
    insert into MedidaComponente values (null, 5 , 3 , 7);
-   insert into Registro values (null, now(), tempoUsoKernel, (select max(idMedidaComponente) from medidaComponente));
+   insert into Registro values (null, now(), tempoUsoKernel, (select max(idMedidaComponente) from MedidaComponente));
    
    insert into MedidaComponente values (null, 5 , 3 , 7);
-   insert into Registro values (null, now(), interrupcoesCpu, (select max(idMedidaComponente) from medidaComponente));
+   insert into Registro values (null, now(), interrupcoesCpu, (select max(idMedidaComponente) from MedidaComponente));
   
    insert into MedidaComponente values (null, 5 , 3 , 8);
-   insert into Registro values (null, now(), frequenciaCpuAtual, (select max(idMedidaComponente) from medidaComponente));
+   insert into Registro values (null, now(), frequenciaCpuAtual, (select max(idMedidaComponente) from MedidaComponente));
 
 end $$
 
@@ -272,11 +269,11 @@ create procedure RegistroMemoria
 )
 begin
 	insert into MedidaComponente values (null, 5 , 2 , 4);
-	insert into Registro values (null, now(), memoriaUsada, (select max(idMedidaComponente) from medidaComponente));
+	insert into Registro values (null, now(), memoriaUsada, (select max(idMedidaComponente) from MedidaComponente));
 	insert into MedidaComponente values (null, 5 , 2 , 4);
-	insert into Registro values (null, now(), memoriaLivre, (select max(idMedidaComponente) from medidaComponente));
+	insert into Registro values (null, now(), memoriaLivre, (select max(idMedidaComponente) from MedidaComponente));
 	insert into MedidaComponente values (null, 5 , 2 , 4);
-	insert into Registro values (null, now(), memoriaDisponivel, (select max(idMedidaComponente) from medidaComponente));
+	insert into Registro values (null, now(), memoriaDisponivel, (select max(idMedidaComponente) from MedidaComponente));
 end $$
 
 create procedure RegistroDisco
@@ -289,41 +286,38 @@ create procedure RegistroDisco
 begin
 
     insert into MedidaComponente values (null, 5 , 1 , 4);
-	insert into Registro values (null, now(), usoTotalDisco, (select max(idMedidaComponente) from medidaComponente));
+	insert into Registro values (null, now(), usoTotalDisco, (select max(idMedidaComponente) from MedidaComponente));
     
 	insert into MedidaComponente values (null, 5 , 1 , 4);
-    insert into Registro values (null, now(), discoUsado, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), discoUsado, (select max(idMedidaComponente) from MedidaComponente));
     
     insert into MedidaComponente values (null, 5 , 1 , 4);
-    insert into Registro values (null, now(), discoLivre, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), discoLivre, (select max(idMedidaComponente) from MedidaComponente));
     
     insert into MedidaComponente values (null, 5 , 1 , 2);
-    insert into Registro values (null, now(), porcentDisco, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), porcentDisco, (select max(idMedidaComponente) from MedidaComponente));
 end $$
-
 
 create procedure RegistroRede
 (
 	bytesEnviados varchar(45),
-    bytesRecebidos varchar(45),
+	bytesRecebidos varchar(45),
     qtdErrosEntrada varchar(45),
-    qtdErrosSaida varchar(45)    
+    qtdErrosSaida varchar(45)
 )
 begin
     insert into MedidaComponente values (null, 5 , 4 , 9);
-    insert into Registro values (null, now(), bytesEnviados, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), bytesEnviados, (select max(idMedidaComponente) from MedidaComponente));
     
     insert into MedidaComponente values (null, 5 , 4 , 9);
-    insert into Registro values (null, now(), bytesRecebidos, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), bytesRecebidos, (select max(idMedidaComponente) from MedidaComponente));
     
     insert into MedidaComponente values (null, 5 , 4 , 6);
-    insert into Registro values (null, now(), qtdErrosEntrada, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), qtdErrosEntrada, (select max(idMedidaComponente) from MedidaComponente));
     
     insert into MedidaComponente values (null, 5 , 4 , 6);
-    insert into Registro values (null, now(), qtdErrosSaida, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), qtdErrosSaida, (select max(idMedidaComponente) from MedidaComponente));
 end $$
-
-SELECT * FROM REGISTRO;
 
 create procedure RegistroTemperatura
 (
@@ -332,14 +326,13 @@ create procedure RegistroTemperatura
 )
 begin
     insert into MedidaComponente values (null, 5 , 3 , 1);
-    insert into Registro values (null, now(), temperaturaCpuLabel, (select max(idMedidaComponente) from medidaComponente));
+    insert into Registro values (null, now(), temperaturaCpuLabel, (select max(idMedidaComponente) from MedidaComponente));
     
     insert into MedidaComponente values (null, 5 , 3 , 1);
-    insert into Registro values (null, now(), temperaturaCpuAtual, (select max(idMedidaComponente) from medidaComponente));
-end $$
+    insert into Registro values (null, now(), temperaturaCpuAtual, (select max(idMedidaComponente) from MedidaComponente));
+end $$   
 
 DELIMITER ;
-   
     -- -=-=-=-=-=-=-=-=-=-=-= Views -=-=-=-=-=-=-=-=-=-=-=
 
 select * from MedidaComponente;
@@ -376,6 +369,8 @@ INTO @sql
 FROM
   TabelaAnalitica; -- Aqui vem o nome da sua view!
  
+select * from TabelaAnalitica;
+
 select @sql;
 
 SET @sql = CONCAT('SELECT Servidor, Horario, ', @sql, '
@@ -392,8 +387,8 @@ EXECUTE stmt;
 
 DEALLOCATE PREPARE stmt;
 
-select * from medidaComponente;
-select * from componente;
-select * from medida;
+select * from MedidaComponente;
+select * from Componente;
+select * from Medida;
 
--- drop database bd_memoryanalytics;
+-- drop database bd_MemoryAnalytics;
