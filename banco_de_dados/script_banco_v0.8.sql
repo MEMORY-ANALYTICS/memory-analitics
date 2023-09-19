@@ -302,23 +302,22 @@ create procedure RegistroRede
 (
 	bytesEnviados varchar(45),
 	bytesRecebidos varchar(45),
-    qtdErrosEntrada varchar(45),
-    qtdErrosSaida varchar(45)
+	qtdErrosEntrada varchar(45),
+	qtdErrosSaida varchar(45)
 )
 begin
-    insert into MedidaComponente values (null, 5 , 4 , 9);
+	insert into MedidaComponente values (null, 5,4,9);
     insert into Registro values (null, now(), bytesEnviados, (select max(idMedidaComponente) from MedidaComponente));
     
-    insert into MedidaComponente values (null, 5 , 4 , 9);
+    insert into MedidaComponente values (null, 5,4,9);
     insert into Registro values (null, now(), bytesRecebidos, (select max(idMedidaComponente) from MedidaComponente));
     
-    insert into MedidaComponente values (null, 5 , 4 , 6);
+    insert into MedidaComponente values (null, 5,4,6);
     insert into Registro values (null, now(), qtdErrosEntrada, (select max(idMedidaComponente) from MedidaComponente));
     
-    insert into MedidaComponente values (null, 5 , 4 , 6);
+    insert into MedidaComponente values (null, 5,4,6);
     insert into Registro values (null, now(), qtdErrosSaida, (select max(idMedidaComponente) from MedidaComponente));
 end $$
-
 create procedure RegistroTemperatura
 (
 	temperaturaCpuLabel varchar(45),
