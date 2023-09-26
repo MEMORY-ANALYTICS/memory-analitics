@@ -145,12 +145,12 @@ insert into Funcionario values
 
 -- Tabela Login
 insert into Login values
-(null,'joao123','joao123',1),
-(null,'marcos123','marcos123',2),
-(null,'solange123','solange123',3),
-(null,'luan123','luan123',4),
-(null,'maria123','maria123',5),
-(null,'larissa123','larissa123',6);
+(null,'joao@gmail.com','joao123',1),
+(null,'marcos@gmail.com','marcos123',2),
+(null,'solange@gmail.com','solange123',3),
+(null,'luan@gmail.com','luan123',4),
+(null,'maria@gmail.com','maria123',5),
+(null,'larissa@gmail.com','larissa123',6);
 
 --    Tabela Servidores
 insert into Servidores values
