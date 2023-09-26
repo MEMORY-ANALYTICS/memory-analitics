@@ -1,7 +1,10 @@
 <div>
   <h1>📘 | Memory Analytics</h1>
   <p> 
-    Somos uma startup de tecnologia e desenvolvimento de sistemas nacional voltada para o segmento de analise de hardware de contact center.
+    Somos uma startup de tecnologia e desenvolvimento de sistemas nacional 
+    fundada em 2023 com a finalidade de auxiliar no monitoramento de 
+    componentes de sistema operacionais de call center no Brasil a Memory 
+    Analytics veio para esse mercado que não para de crescer!
   </p>
 </div>
 
