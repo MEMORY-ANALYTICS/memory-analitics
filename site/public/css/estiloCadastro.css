@@ -71,11 +71,12 @@ html {
   border: none;
   color: #171c1d;
   font-weight: lighter;
+  font-size: 18px;
   padding-left: 10px;
 }
 
 .bloco-input label {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
 }
 
@@ -201,11 +202,6 @@ input {
   border-style: none;
 }
 
-/* Imagem Cadastro */
-img {
-  height: auto;
-  width: 90%;
-}
 
 .retanguloModal {
   width: 80%;
