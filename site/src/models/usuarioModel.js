@@ -7,7 +7,7 @@ function autenticar(email, senha) {
     senha
   );
   var instrucao = `
-  SELECT idLogin, login, senha, nomeFunc, emailFunc, telefoneFunc, fkCargo FROM Login
+  SELECT idLogin, login, senha, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa FROM Login
 	join Funcionario on idFunc = fkFunc
   WHERE Login = '${email}' AND senha = '${senha}';
     `;

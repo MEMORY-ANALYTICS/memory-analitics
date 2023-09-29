@@ -1,35 +1,32 @@
 var arrayFuncionarios = [];
-getAllFuncionarios();
+getAllFuncionarios(sessionStorage.getItem("EMPRESA_USUARIO"));
 
-function getAllFuncionarios() {
-  fetch(`/funcionario/getAll`)
+function getAllFuncionarios(fkEmpresa) {
+  console.log(fkEmpresa);
+  fetch(`/funcionario/getAll/${fkEmpresa}`)
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
-          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-          arrayFuncionarios = resposta;
-          adicionarFuncionarios();
+          console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
+          for(i= 0; i < resposta.length; i++){
+            tableFuncionarios.innerHTML += `
+            <tr>
+                <td>${resposta[i].nomeFunc}</td>
+                <td>${resposta[i].emailFunc}</td>
+                <td>${resposta[i].telefoneFunc}</td>
+            </tr>
+            `
+          }
         });
+          arrayFuncionarios = response;
       } else {
         console.error("Nenhum dado encontrado ou erro na API");
       }
     })
     .catch(function (error) {
       console.error(
-        `Erro na obtenção dos dados p/ idEmpresa: ${error.message}`
+        `Erro na obtenção dos dados p/ Usuario: ${error.message}`
       );
     });
-  return false;
 }
 
-function adicionarFuncionarios() {
-  arrayFuncionarios.forEach((x) => {
-    tableFuncionarios.innerHTML += `
-        <tr>
-            <td>${x.nomeFunc}</td>
-            <td>${x.emailFunc}</td>
-            <td>${x.telefoneFunc}</td>
-        </tr>
-        `;
-  });
-}

@@ -1,27 +1,24 @@
 var funcionarioModel = require("../models/funcionarioModels");
 
-function getAll(req, res) {
-    funcionarioModel
-    .getAll()
-    .then(function (resultadoAutenticar) {
-      console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+function getAll(req, res){
+    var fkEmpresa = req.params.fkEmpresa;
+    console.log('Estou no Controller com o valor de:' + fkEmpresa)
 
-      if (resultadoAutenticar.length > 0) {
-        console.log(resultadoAutenticar);
-        res.json(resultadoAutenticar);
-      } else if (resultadoAutenticar.length == 0) {
-        res.status(403).send("Não possui funcionarios cadastrados");
-      }
-    })
-    .catch(function (erro) {
-      console.log(erro);
-      console.log(
-        "\nHouve um erro ao realizar o login! Erro: ",
-        erro.sqlMessage
-      );
-      res.status(500).json(erro.sqlMessage);
+    funcionarioModel.getAll(fkEmpresa)
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("Resultado da Controller:"+ resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
     });
 }
+
 module.exports = {
     getAll
 };

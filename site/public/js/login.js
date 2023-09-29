@@ -39,6 +39,7 @@ function entrar() {
           sessionStorage.EMAIL_USUARIO = json[0].emailFunc;
           sessionStorage.TELEFONE_USUARIO = json[0].telefoneFunc;
           sessionStorage.CARGO_USUARIO = json[0].fkCargo == 3 ? "Gerente" : "Analista";
+          sessionStorage.EMPRESA_USUARIO = json[0].fkEmpresa;
 
           if(sessionStorage.CARGO_USUARIO == "Gerente"){
             window.location = "../dashboard/dashboard-bootstrap/paginaGerente.html";
