@@ -2,6 +2,8 @@
 DROP DATABASE if exists bd_MemoryAnalytics;
 create database bd_MemoryAnalytics;
 use bd_MemoryAnalytics;
+
+
 -- drop database bd_MemoryAnalytics;
 -- -=-=-=-=-=-=-=-=-=-=-= Definindo as tabelas -=-=-=-=-=-=-=-=-=-=-=
 -- Tabela Empresa
@@ -115,8 +117,8 @@ create table Registro
 idRegistro int primary key auto_increment,
 dtHoraRegistro datetime,
 valorRegistro varchar(45),
-fkMedidaComponente int,
-foreign key (fkMedidaComponente) references MedidaComponente(idMedidaComponente)
+fkMedidaComponente varchar(45)
+-- foreign key (fkMedidaComponente) references MedidaComponente(idMedidaComponente)
 );
 
 

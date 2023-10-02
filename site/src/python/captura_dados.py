@@ -104,7 +104,7 @@ def exibir_info_mem():
     )
 
     executar(
-        f"call RegistroMemoria({memoria_usada/1000000000:.2f},  {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f}, {porcentagem_uso_memoria})"
+        f"call RegistroMemoria({memoria_usada/1000000000:.2f}, {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f}, {porcentagem_uso_memoria})"
     )
 
     if memoria_usada / (10**9) > 7:
@@ -199,9 +199,9 @@ def exibir_info_temp(osv):
         lista = []
         # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
 
-        for i in range(0, len(ps.sensors_temperatures()["nvme"])):
-            temperatura_cpu_label = ps.sensors_temperatures()["nvme"][i].label
-            temperatura_cpu_atual = ps.sensors_temperatures()["nvme"][i].current
+        for i in range(0, len(ps.sensors_temperatures()["acpitz"])):
+            temperatura_cpu_label = ps.sensors_temperatures()["acpitz"][i].label
+            temperatura_cpu_atual = ps.sensors_temperatures()["acpitz"][i].current
             lista.append([f"{temperatura_cpu_label}°C", f"{temperatura_cpu_atual}°C"])
 
         print(
