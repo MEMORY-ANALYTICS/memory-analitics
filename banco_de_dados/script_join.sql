@@ -75,13 +75,16 @@ create procedure RegistroMemoria
 (
 memoriaUsada varchar(45),
 memoriaLivre varchar(45),
-memoriaDisponivel varchar(45)
+memoriaDisponivel varchar(45),
+memoriaUsoPorcentagem varchar(45)
 )
 begin
 insert into Registro values (null, now(), memoriaUsada, 'GB');
 insert into Registro values (null, now(), memoriaLivre, 'GB');
 insert into Registro values (null, now(), memoriaDisponivel, 'GB');
+insert into Registro values (null, now(), memoriaDisponivel, 'GB');
 end $$
+
 
 create procedure RegistroDisco
 (
