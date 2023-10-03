@@ -8,55 +8,71 @@ use bd_MemoryAnalytics;
 -- -=-=-=-=-=-=-=-=-=-=-= Definindo as tabelas -=-=-=-=-=-=-=-=-=-=-=
 -- Tabela Empresa
 
-DROP TABLE if exists Empresa;
-create table Empresa
+DROP TABLE if exists empresa;
+create table empresa
 (
 idEmpresa int primary key auto_increment,
 nomeEmpresa varchar(45) not null,
 cnpjEmpresa char(18) unique not null
 );
 
+DROP TABLE if exists endereco;
+CREATE TABLE endereco 
+(
+idEndereco INT,
+cep CHAR(8),
+logradouro VARCHAR(45),
+numero VARCHAR(45),
+cidade VARCHAR(45),
+estado VARCHAR(45),
+fkEmpresa INT, 
+FOREIGN KEY(fkEmpresa) REFERENCES empresa(idEmpresa) 
+);
+
+
 -- Tabela Cargo
-drop table if exists Cargo;
-create table Cargo
+drop table if exists cargo;
+create table cargo
 (
 idCargo int primary key auto_increment,
 nomeCargo varchar(20)
 );
 
 -- Tabela Funcionário
-drop table if exists Funcionario;
-create table Funcionario
+drop table if exists funcionario;
+create table funcionario
 (
 idFunc int primary key auto_increment,
 nomeFunc varchar(80),
 emailFunc varchar(80),
-telefoneFunc varchar(15),
-fkCargo int,
+telefoneFunc varchar(11),
+permissao char(1),
 fkEmpresa int,
+fkCargo int,
+fkSupervisor int,
 foreign key(fkCargo) references Cargo(idCargo),
 foreign key(fkEmpresa) references Empresa(idEmpresa)
 );
 
 -- Tabela Login
-drop table if exists Login;
-create table Login
+drop table if exists login;
+create table login
 (
 idLogin int primary key auto_increment,
 login varchar(80) not null unique,
 senha varchar(16) not null unique,
 fkFunc int,
-foreign key (fkFunc) references Funcionario(idFunc)
+foreign key (fkFunc) references funcionario(idFunc)
 );
 
--- Tabela Servidores
-drop table if exists Servidores;
-create table Servidores
+-- Tabela Servidor
+drop table if exists servidor;
+create table servidor
 (
 idServer int primary key auto_increment,
-localServer varchar(45),
+apelidoServer varchar(45),
 ipServer varchar(12) unique,
-numeroSerieServer varchar(20) unique,
+numeroSerieServer varchar(40) unique,
 sistemaOperacionalServer varchar(20),
 fkEmpresa int,
 foreign key(fkEmpresa) references Empresa(idEmpresa)
