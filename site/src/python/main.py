@@ -1,7 +1,6 @@
 from captura_dados import *
 from gui import Gui
 
-
 def main():
     osv = plat.uname().system
     cpu = exibir_dados_cpu()
