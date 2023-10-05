@@ -12,7 +12,23 @@ create table empresa
 (
 idEmpresa int primary key auto_increment,
 nomeEmpresa varchar(45) not null,
-cnpjEmpresa char(18) unique not null
+cnpjEmpresa char(18) unique not null,
+emailEmpresa varchar(50) not null,
+telEmpresa char(14) not null
+);
+
+
+drop table if exists endereco;
+create table endereco
+(
+idEndereco int primary key auto_increment,
+cep char(8),
+logradouro varchar(45),
+numero varchar(45),
+cidade varchar(45),
+estado varchar(45),
+fkEmpresa int,
+foreign key(fkEmpresa) references empresa(idEmpresa)
 );
 
 -- Tabela Cargo
@@ -30,7 +46,7 @@ create table funcionario
 idFunc int primary key auto_increment,
 nomeFunc varchar(80),
 emailFunc varchar(80),
-telefoneFunc varchar(15),
+telefoneFunc varchar(11),
 permissao char(1),
 fkEmpresa int,
 fkCargo int,
@@ -46,9 +62,9 @@ create table login
 (
 idLogin int primary key auto_increment,
 login varchar(80) not null unique,
-senha varchar(16) not null unique,
-fkFunc int,
-foreign key (fkFunc) references funcionario(idFunc)
+senha varchar(45) not null,
+fkFuncionario int not null,
+foreign key (fkFuncionario) references funcionario(idFunc)
 );
 
 -- Tabela Servidores
@@ -58,7 +74,7 @@ create table servidor
 idServer int primary key auto_increment,
 sistemaOperacionalServer varchar(20),
 apelidoServer varchar(45),
-ipServer varchar(12) unique,
+ipServer varchar(12) unique, -- Unique?
 numeroSerieServer varchar(20) unique,
 fkEmpresa int,
 foreign key(fkEmpresa) references empresa(idEmpresa)
