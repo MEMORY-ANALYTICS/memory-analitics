@@ -12,10 +12,10 @@
 
   <h1> 📌 | Nosso ramo </h1>
   <p>
-    muitas das vezes os contact centers são confundidos com os famosos call centers, essa 
-    confusão se dá principalmente por conta do tempo que o call center está presente no mercado 
+    Muitas vezes os Contact Centers são confundidos com os famosos Call Centers, essa 
+    confusão se dá principalmente por conta do tempo que o Call Center está presente no mercado 
     mundial – desde 1980, com seu surgimento na Alemanha – entretanto as diferenças são inúmeras.
-    O contact center facilita com que a empresa esteja mais próxima dos seus clientes e, consequentemente, 
+    O Contact Center facilita com que a empresa esteja mais próxima dos seus clientes e, consequentemente, 
     atenda às necessidades do mesmo a fim de ajudar cada vez mais na relação cliente-empresa. Ele agrega 
     valores e funções ao cliente que não são vistas nos call centers, e essas diferenças estão relacionadas 
     ao olhar dos gestores referente a evolução da tecnologia, já que atualmente os clientes buscam por formas 
@@ -30,7 +30,7 @@
     Contudo, não é incomum que sobrecargas nos Data Centers ocorram e abalem o funcionamento dos processos. Os custos gerados 
     pelas interrupções podem variar muito dependendo do tipo de atendimento recorrente da empresa. 
     Apesar de um servidor ser responsável por mais de um canal de comunicação (como vimos acima), ele ainda trabalha de modo individual. 
-    Portanto se uma empresa estabelece conato (em sua maioria) com o cliente através de e-mail, a chance do servidor parar por uma 
+    Portanto se uma empresa estabelece contato (em sua maioria) com o cliente através de e-mail, a chance do servidor parar por uma 
     sobrecarga nessa parte é maior, podendo acarretar horas de ausência de funcionamento para manutenção.
     A mesma regar vale para outros meios de comunicação. Com base em um estudo feito pela UJET Team, uma empresa com 7.500 atendimentos 
     por hora chega a perder R$1.833.787,00 reais para cada hora de interrupção do servidor. E cada hora interrompida, gera também a perda 
