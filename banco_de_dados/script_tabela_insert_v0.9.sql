@@ -2,82 +2,139 @@
 DROP DATABASE if exists bd_MemoryAnalytics;
 create database bd_MemoryAnalytics;
 use bd_MemoryAnalytics;
+
 -- drop database bd_MemoryAnalytics;
 -- -=-=-=-=-=-=-=-=-=-=-= Definindo as tabelas -=-=-=-=-=-=-=-=-=-=-=
 -- Tabela Empresa
 
-DROP TABLE if exists Empresa;
-create table Empresa
+DROP TABLE if exists empresa;
+create table empresa
 (
 idEmpresa int primary key auto_increment,
 nomeEmpresa varchar(45) not null,
-cnpjEmpresa char(18) unique not null
+cnpjEmpresa char(18) unique not null,
+emailEmpresa varchar(50) not null,
+telEmpresa char(14) not null
+);
+
+
+drop table if exists endereco;
+create table endereco
+(
+idEndereco int primary key auto_increment,
+cep char(8),
+logradouro varchar(45),
+numero varchar(45),
+cidade varchar(45),
+estado varchar(45),
+fkEmpresa int,
+foreign key(fkEmpresa) references empresa(idEmpresa)
 );
 
 -- Tabela Cargo
-drop table if exists Cargo;
-create table Cargo
+drop table if exists cargo;
+create table cargo
 (
 idCargo int primary key auto_increment,
-nomeCargo varchar(20)
+nomeCargo varchar(45)
 );
 
 -- Tabela Funcionário
-drop table if exists Funcionario;
-create table Funcionario
+drop table if exists funcionario;
+create table funcionario
 (
 idFunc int primary key auto_increment,
 nomeFunc varchar(80),
 emailFunc varchar(80),
-telefoneFunc varchar(15),
-fkCargo int,
+telefoneFunc varchar(11),
+permissao char(1),
 fkEmpresa int,
-foreign key(fkCargo) references Cargo(idCargo),
-foreign key(fkEmpresa) references Empresa(idEmpresa)
+fkCargo int,
+fkSupervisor int,
+foreign key(fkEmpresa) references empresa(idEmpresa),
+foreign key(fkCargo) references cargo(idCargo),
+foreign key(fkSupervisor) references funcionario(idFunc)
 );
 
 -- Tabela Login
-drop table if exists Login;
-create table Login
+drop table if exists login;
+create table login
 (
 idLogin int primary key auto_increment,
 login varchar(80) not null unique,
-senha varchar(16) not null unique,
-fkFunc int,
-foreign key (fkFunc) references Funcionario(idFunc)
+senha varchar(45) not null,
+fkFuncionario int not null,
+foreign key (fkFuncionario) references funcionario(idFunc)
 );
 
 -- Tabela Servidores
-drop table if exists Servidores;
-create table Servidores
+drop table if exists servidor;
+create table servidor
 (
 idServer int primary key auto_increment,
-localServer varchar(45),
-ipServer varchar(12) unique,
-numeroSerieServer varchar(20) unique,
 sistemaOperacionalServer varchar(20),
+apelidoServer varchar(45),
+ipServer varchar(12) unique, -- Unique?
+numeroSerieServer varchar(20) unique,
 fkEmpresa int,
-foreign key(fkEmpresa) references Empresa(idEmpresa)
+foreign key(fkEmpresa) references empresa(idEmpresa)
+);
+
+drop table if exists registro;
+create table registro
+(
+idRegistro int,
+valorRegistro double,
+dtHoraRegistro datetime
+);
+
+drop table if exists medidaComponente;
+CREATE TABLE medidaComponente (
+    idMedidaComponente INT PRIMARY KEY AUTO_INCREMENT,
+    nomeMedida VARCHAR(25),
+    simboloMedida VARCHAR(4),
+    unidadeMedida VARCHAR(45)
+);
+
+drop table if exists metricaComponente;
+create table metricaComponente
+(
+idMetrica int primary key,
+limiteMin varchar(45),
+limiteMax varchar(45),
+fkComponente int
 );
 
 
--- Tabela Vizualização de dados
-drop table if exists visualizacao_dados;
-create table visualizacao_dados
+drop table if exists componenteCompleto;
+create table componenteCompleto
 (
-idDados int primary key auto_increment,
+idComponenteCompleto varchar(45),
+fkSubComponente INT,
+fkModeloComponente int
+);
+
+drop table if exists componenteCompleto;
+create table componenteCompleto
+(
+idComponenteCompleto varchar(45),
+fkSubComponente INT,
+fkModeloComponente int
+);
+
+
+drop table if exists componente;
+create table componente
+(
+idComponente int,
 fkServidor int,
-CPU_USO bigint,
-DISCO_USO bigint,
-RAM_USO bigint,
-simbolo char(1),
-dtHoraRegistro datetime,
-foreign key (fkServidor) references Servidores(idServer)
+fkMedidaComponente int,
+fkComponenteTotal int
 );
 
 -- Tabela Componente
-drop table if exists Componente;
-create table Componente
+drop table if exists componente;
+create table componente
 (
 idComponente int primary key auto_increment,
 nomeComponente varchar(45),
@@ -109,14 +166,14 @@ foreign key (fkMedida) references Medida(idMedida)
    
    
 -- Tabela Registros
-Drop table if exists Registro;
-create table Registro
+Drop table if exists registro;
+create table registro
 (
 idRegistro int primary key auto_increment,
 dtHoraRegistro datetime,
 valorRegistro varchar(45),
-fkMedidaComponente int,
-foreign key (fkMedidaComponente) references MedidaComponente(idMedidaComponente)
+fkMedidaComponente int
+-- foreign key (fkMedidaComponente) references MedidaComponente(idMedidaComponente)
 );
 
 
@@ -145,12 +202,12 @@ insert into Funcionario values
 
 -- Tabela Login
 insert into Login values
-(null,'joao123','joao123',1),
-(null,'marcos123','marcos123',2),
-(null,'solange123','solange123',3),
-(null,'luan123','luan123',4),
-(null,'maria123','maria123',5),
-(null,'larissa123','larissa123',6);
+(null,'joao@gmail.com','joao123',1),
+(null,'marcos@gmail.com','marcos123',2),
+(null,'solange@gmail.com','solange123',3),
+(null,'luan@gmail.com','luan123',4),
+(null,'maria@gmail.com','maria123',5),
+(null,'larissa@gmail.com','larissa123',6);
 
 --    Tabela Servidores
 insert into Servidores values

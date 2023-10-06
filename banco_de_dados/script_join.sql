@@ -3,27 +3,27 @@ use bd_MemoryAnalytics;
 
 -- Todos os funcionários, suas respectivas empresas e informações de login
 select
-      nomeFunc "Nome",
+nomeFunc "Nome",
     emailFunc "Email",
     nomeEmpresa "Empresa",
     login "Login",
     senha "Senha",
     nomeCargo "Cargo"
 from Empresa
-      join Funcionario on fkEmpresa = idEmpresa
+join Funcionario on fkEmpresa = idEmpresa
     join Cargo on fkCargo = idCargo
     join Login on fkFunc = idFunc;
 
 -- Todos os servidores, seus registros, componentes monitorados e unidades de medida correspondentes
 Select
-      localServer 'Servidores',
+localServer 'Servidores',
     ipServer 'Ip do servidor',
     nomeComponente 'Nome componente',
     valorRegistro 'Valor',
     simboloMedida 'Simbolo',
     dtHoraRegistro 'Hora e data'
 from MedidaComponente as mc
-      join Servidores on mc.fkServidor = idServer
+join Servidores on mc.fkServidor = idServer
     join Componente on mc.fkComponente = idComponente
     join Registro on fkMedidaComponente = idMedidaComponente
     join Medida on mc.fkMedida = idMedida;
@@ -32,113 +32,312 @@ from MedidaComponente as mc
 -- -=-=-=-=-=-=-=-=-=-=-= Procedures -=-=-=-=-=-=-=-=-=-=-=
 
 DELIMITER $$
-create procedure Cadastro
+
+-- PROCEDURES DE CADASTRO --
+
+CREATE PROCEDURE CadastroEmpresa
 (
-      nomeEmpresa varchar(45),
-    cnpj char(18),
-    emailContato varchar(80),
-    telContato varchar(15),
-    nomeAdm varchar(80),
-    senha varchar(16))
-begin
-      insert into Empresa values (null, nomeEmpresa, cnpj);
-    insert into Funcionario values (null, nomeAdm, emailContato, telContato, 3, (select idEmpresa from Empresa where cnpjEmpresa = cnpj));
-    insert into Login values (null, emailContato, senha,
-            (select idFunc from Funcionario where emailFunc = emailContato and telefoneFunc = telContato and nomeFunc = nomeAdm));
-end $$
-
-select * from Registro;
-select * from MedidaComponente;
-
-create procedure RegistroCPU
-(
-      tempoOcioso varchar(45),
-    tempoUsoKernel varchar(45),
-    interrupcoesCpu varchar(45),
-    frequenciaCpuAtual varchar(45))
-begin
-   insert into MedidaComponente values (null, 5 , 3 , 7);
-   insert into Registro values (null, now(), tempoOcioso, null);
-   
-   insert into Registro values (null, now(), tempoUsoKernel, null);
-   insert into MedidaComponente values (null, 5 , 3 , 7);
-   
-   insert into Registro values (null, now(), interrupcoesCpu, null);
-   insert into MedidaComponente values (null, 5 , 3 , 7);
-   
-   insert into Registro values (null, now(), frequenciaCpuAtual, null);
-   insert into MedidaComponente values (null, 5 , 3 , 8);
-
-end $$
-
-create procedure RegistroMemoria
-(
-      memoriaUsada varchar(45),
-      memoriaLivre varchar(45),
-      memoriaDisponivel varchar(45)
+    nomeEmpresa VARCHAR(45),
+    cnpjEmpresa CHAR(14),
+    emailEmpresa VARCHAR(50),
+    telEmpresa CHAR(14)
 )
-begin
-      insert into Registro values (null, now(), memoriaUsada, 'GB');
-      insert into Registro values (null, now(), memoriaLivre, 'GB');
-      insert into Registro values (null, now(), memoriaDisponivel, 'GB');
-end $$
+BEGIN INSERT INTO empresa VALUES (NULL, nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa);
 
-create procedure RegistroDisco
+END $$
+
+CREATE PROCEDURE CadastroEndereco
 (
-      usoTotalDisco varchar(45),
-      discoUsado varchar(45),
-      discoLivre varchar(45),
-    porcentDisco varchar(45)    
+    cep CHAR(8),
+    logradouro VARCHAR(45),
+    numero VARCHAR(5),
+    cidade VARCHAR(45),
+    estado VARCHAR(45),
+    fkEmpresa INT
 )
-begin
-      insert into Registro values (null, now(), usoTotalDisco, 'GB');
-      insert into Registro values (null, now(), discoUsado, 'GB');
-      insert into Registro values (null, now(), discoLivre, 'GB');
-      insert into Registro values (null, now(), porcentDisco, '%');
-end $$
+BEGIN INSERT INTO endereco VALUES (NULL, cep, logradouro, numero, cidade, estado, fkEmpresa);
+END $$
 
-
-create procedure RegistroRede
+CREATE PROCEDURE CadastroCargo
 (
-      bytesEnviados varchar(45),
-      bytesRecebidos varchar(45),
-      qtdErrosEntrada varchar(45),
-    qtdErrosSaida varchar(45)    
+    nomeCargo VARCHAR(45)
 )
-begin
-      insert into Registro values (null, now(), bytesEnviados, 'MB');
-      insert into Registro values (null, now(), bytesRecebidos, 'MB');
-      insert into Registro values (null, now(), qtdErrosEntrada, null);
-      insert into Registro values (null, now(), qtdErrosSaida, null);
-end $$
+BEGIN 
+END $$
 
-create procedure RegistroTemperatura
+CREATE PROCEDURE CadastroFuncionario
 (
-      temperaturaCpuLabel varchar(45),
-      temperaturaCpuAtual varchar(45)
+    nomeFunc VARCHAR(80),
+    emailFunc VARCHAR(45),
+    telefoneFunc VARCHAR(11),
+    permissao CHAR(1),
+    fkEmpresa INT,
+    fkCargo INT,
+    fkSupervisor INT
 )
-begin
-      insert into Registro values (null, now(), temperaturaCpuLabel, '°C');
-      insert into Registro values (null, now(), temperaturaCpuAtual, '°C');
-end $$
+BEGIN INSERT INTO funcionario VALUES (NULL, nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor);
+END $$
 
-
-create procedure vizualizacao_dados
+CREATE PROCEDURE CadastroLogin
 (
-cpu_uso bigint,
-disco_uso bigint,
-ram_uso  bigint
+    login VARCHAR(80),
+    senha VARCHAR(45),
+    fkFuncionario INT
 )
-begin
- 	insert into visualizacao_dados values(null, 5, cpu_uso, disco_uso, ram_uso, '%', now());
-end $$
+BEGIN INSERT INTO login VALUES (NULL, login, senha, fkFuncionario);
+END $$
+
+CREATE PROCEDURE CadastroServidor
+(
+    sistemaOperacionalServer VARCHAR(20),
+    apelidoServer VARCHAR(45),
+    ipServer VARCHAR(12),
+    numeroSerieServer VARCHAR(20),
+    fkEmpresa INT
+)
+BEGIN INSERT INTO servidor VALUES (NULL, sistemaOperacionalServer, apelidoServer, ipServer, numeroSerieServer, fkEmpresa);
+END $$
+
+CREATE PROCEDURE CadastroMedidaComponente
+(
+    nomeMedida VARCHAR(25),
+    simboloMedida VARCHAR(4),
+    unidadeMedida VARCHAR(45)
+)
+BEGIN Insert into medidaComponente VALUES (NULL, nomeMedida, simboloMedida, unidadeMedida);
+END$$
+
+CREATE PROCEDURE CadastroMetricaComponente
+(
+    limiteMin VARCHAR(45),
+    limiteMax VARCHAR(45)
+)
+BEGIN INSERT INTO metricaComponente VALUES (NULL, limiteMin, limiteMax);
+END $$
+
+CREATE PROCEDURE CadastroNomeComponente
+(
+    nomeComponente VARCHAR(45)
+)
+BEGIN INSERT INTO nomeComponente VALUES (NULL, nomeComponente);
+END $$
+
+CREATE PROCEDURE CadastroModeloComponente
+(
+    fabricante VARCHAR(45),
+    nomeMOdelo VARCHAR(45),
+    codigoGeracao VARCHAR(45),
+    fkComponente INT
+)
+BEGIN INSERT INTO modeloComponente VALUES (NULL, fabricante, nomeModelo, codigoGeracao, fkComponente);
+END $$
+
+CREATE PROCEDURE CadastroSubComponente
+(
+    nomeSubComponente VARCHAR(45)
+)
+BEGIN INSERT INTO subComponente VALUES (NULL, nomeSubComponente);
+END $$
+
+CREATE PROCEDURE CadastroComponenteCompleto
+(
+    fkSubComponente INT,
+    fkModeloComponente INT,
+    fkMetricaComponente INT
+)
+BEGIN INSERT INTO componenteCompleto VALUES (NULL, fkSubComponente, fkModeloComponente, fkMetricaComponente);
+END $$
+
+CREATE PROCEDURE CadastroComponente
+(
+    fkServidor INT,
+    fkMedidaComponente INT,
+    fkComponenteCompleto INT
+)
+BEGIN INSERT INTO componente VALUES (NULL, fkServidor, fkMedidaComponente, fkComponenteCompleto);
+END $$
+
+
+CREATE PROCEDURE CadastroRegistro
+(
+    valorRegistro DOUBLE,
+    dtHoraRegistro DATETIME,
+    fkComponente INT
+)
+BEGIN INSERT INTO registro VALUES (NULL, valorRegistro, dtHoraRegistro, fkComponente);
+END $$
+
+-- PROCEDURES DE SELECT
+
+CREATE PROCEDURE PegarEmpresa(idEmpresa INT)
+BEGIN SELECT * FROM empresa WHERE empresa.idEmpresa = idEmpresa;
+END $$
+
+CREATE PROCEDURE PegarEndereco(idEndereco INT)
+BEGIN SELECT * FROM endereco WHERE endereco.idEndereco = idendereco;
+END $$
+
+CREATE PROCEDURE PegarCargo(idCargo INT)
+BEGIN SELECT * FROM cargo WHERE cargo.idCargo = cargo;
+END $$
+
+CREATE PROCEDURE pegarFuncionario(idFuncionario INT)
+BEGIN SELECT * FROM funcionario WHERE funcionario.idFuncionario = idFuncionario;
+END $$
+
+CREATE PROCEDURE PegarLogin(idLogin INT)
+BEGIN SELECT * FROM login WHERE login.idLogin = idLogin;
+END $$
+
+CREATE PROCEDURE PegarServidor(idServidor INT)
+BEGIN SELECT * FROM servidor WHERE servidor.idServidor = idServidor;
+END $$
+
+CREATE PROCEDURE PegarMedidaComponente(idMedidaComponente INT)
+BEGIN SELECT * FROM medidaComponente WHERE medidaComponente.idMedidaComponente = idMedidaComponente;
+END $$
+
+CREATE PROCEDURE PegarMetricaComponente(idMetricaComponente INT)
+BEGIN SELECT * FROM metricaComponente WHERE metricaComponente.idMetricaComponente = idMetricaComponente;
+END $$
+
+CREATE PROCEDURE PegarNomeComponente(idNomeComponente INT)
+BEGIN SELECT * FROM nomeComponente WHERE nomeComponente.idNomeComponente = idNomeComponente;
+END $$
+
+CREATE PROCEDURE PegarModeloComponente(idModeloCoponente INT)
+BEGIN SELECT * FROM modeloComponente WHERE modeloComponente.idModeloComponente = idModeloComponente;
+END $$
+
+CREATE PROCEDURE PegarSubComponente(idSubComponente INT)
+BEGIN SELECT * FROM subComponente WHERE subComponente.idSubComponente = idSubComponente;
+END $$
+
+CREATE PROCEDURE PegarComponenteCompleto(idComponenteCompleto INT)
+BEGIN SELECT * FROM componenteCompleto WHERE componenteCompleto.idComponenteCompleto = idComponenteCompleto;
+END $$
+
+CREATE PROCEDURE PegarComponente(idComponente INT)
+BEGIN SELECT * FROM componente WHERE componente.idComponente = idComponente;
+END $$
+
+CREATE PROCEDURE PegarRegistro(idRegistro INT)
+BEGIN SELECT * FROM registro WHERE registro.idRegistro = idRegistro;
+END $$
+
+-- PROCEDURES DE UPDATE --
 
 DELIMITER ;
+-- Procedures antigas --
+
+-- create procedure Cadastro
+-- (
+-- nomeEmpresa varchar(45),
+--     cnpj char(18),
+--     emailContato varchar(80),
+--     telContato varchar(15),
+--     nomeAdm varchar(80),
+--     senha varchar(16))
+-- begin
+-- insert into Empresa values (null, nomeEmpresa, cnpj);
+--     insert into Funcionario values (null, nomeAdm, emailContato, telContato, 3, (select idEmpresa from Empresa where cnpjEmpresa = cnpj));
+--     insert into Login values (null, emailContato, senha,
+-- (select idFunc from Funcionario where emailFunc = emailContato and telefoneFunc = telContato and nomeFunc = nomeAdm));
+-- end $$
+
+-- select * from Registro;
+-- select * from MedidaComponente;
+
+-- create procedure RegistroCPU
+-- (
+-- tempoOcioso varchar(45),
+--     tempoUsoKernel varchar(45),
+--     interrupcoesCpu varchar(45),
+--     frequenciaCpuAtual varchar(45))
+-- begin
+--    insert into MedidaComponente values (null, 5 , 3 , 7);
+--    insert into Registro values (null, now(), tempoOcioso, null);
+   
+--    insert into Registro values (null, now(), tempoUsoKernel, null);
+--    insert into MedidaComponente values (null, 5 , 3 , 7);
+   
+--    insert into Registro values (null, now(), interrupcoesCpu, null);
+--    insert into MedidaComponente values (null, 5 , 3 , 7);
+   
+--    insert into Registro values (null, now(), frequenciaCpuAtual, null);
+--    insert into MedidaComponente values (null, 5 , 3 , 8);
+
+-- end $$
+
+-- create procedure RegistroMemoria
+-- (
+-- memoriaUsada varchar(45),
+-- memoriaLivre varchar(45),
+-- memoriaDisponivel varchar(45),
+-- memoriaUsoPorcentagem varchar(45)
+-- )
+-- begin
+-- insert into Registro values (null, now(), memoriaUsada, 'GB');
+-- insert into Registro values (null, now(), memoriaLivre, 'GB');
+-- insert into Registro values (null, now(), memoriaDisponivel, 'GB');
+-- insert into Registro values (null, now(), memoriaDisponivel, 'GB');
+-- end $$
+
+
+-- create procedure RegistroDisco
+-- (
+-- usoTotalDisco varchar(45),
+-- discoUsado varchar(45),
+-- discoLivre varchar(45),
+--     porcentDisco varchar(45)    
+-- )
+-- begin
+-- insert into Registro values (null, now(), usoTotalDisco, 'GB');
+-- insert into Registro values (null, now(), discoUsado, 'GB');
+-- insert into Registro values (null, now(), discoLivre, 'GB');
+-- insert into Registro values (null, now(), porcentDisco, '%');
+-- end $$
+
+
+-- create procedure RegistroRede
+-- (
+-- bytesEnviados varchar(45),
+-- bytesRecebidos varchar(45),
+-- qtdErrosEntrada varchar(45),
+--     qtdErrosSaida varchar(45)    
+-- )
+-- begin
+-- insert into Registro values (null, now(), bytesEnviados, 'MB');
+-- insert into Registro values (null, now(), bytesRecebidos, 'MB');
+-- insert into Registro values (null, now(), qtdErrosEntrada, null);
+-- insert into Registro values (null, now(), qtdErrosSaida, null);
+-- end $$
+
+-- create procedure RegistroTemperatura
+-- (
+-- temperaturaCpuLabel varchar(45),
+-- temperaturaCpuAtual varchar(45)
+-- )
+-- begin
+-- insert into Registro values (null, now(), temperaturaCpuLabel, '°C');
+-- insert into Registro values (null, now(), temperaturaCpuAtual, '°C');
+-- end $$
+
+
+-- create procedure vizualizacao_dados
+-- (
+-- cpu_uso bigint,
+-- disco_uso bigint,
+-- ram_uso  bigint
+-- )
+-- begin
+-- insert into visualizacao_dados values(null, 5, cpu_uso, disco_uso, ram_uso, '%', now());
+-- end $$
    
     -- -=-=-=-=-=-=-=-=-=-=-= Views -=-=-=-=-=-=-=-=-=-=-=
 /*
 SELECT
-      dtHoraRegistro as "Hora do Registro",
+dtHoraRegistro as "Hora do Registro",
   max(CASE WHEN nomeComponente = 'CPU' THEN valorRegistro ELSE null END) AS "CPU",
   max(CASE WHEN nomeComponente = 'Disco' THEN valorRegistro ELSE null END) AS "Disco",
   max(CASE WHEN nomeComponente = 'Rede' THEN valorRegistro ELSE null END) AS 'Rede',
@@ -158,7 +357,7 @@ select * from Registro;
 
 create view TabelaAnalitica as
 select
-    fkServidor Servidor,
+fkServidor Servidor,
     nomeComponente Componente,
     nomeMedida Medida,
     valorRegistro Valor,

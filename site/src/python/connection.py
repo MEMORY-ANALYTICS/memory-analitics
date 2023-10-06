@@ -1,18 +1,15 @@
 import os
-
 import mysql.connector as sql
 import mysql.connector.errorcode
 from dotenv import load_dotenv
 
 load_dotenv()
 
-
-
 hostServer = os.environ.get('DB_HOST')
-passwordServer = os.environ.get("DB_PASSWORD")
-userServer = os.environ.get("DB_USER")
-portServer = int(os.environ.get("DB_PORT"))
-databaseServer = os.environ.get("DB_NAME")
+passwordServer = os.environ.get('DB_PASSWORD')
+userServer = os.environ.get('DB_USER')
+portServer =  int(os.environ.get("DB_PORT"))
+databaseServer = os.environ.get('DB_NAME')
 
 def executar(instrucao):
     try:
