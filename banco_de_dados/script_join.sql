@@ -119,7 +119,7 @@ CREATE PROCEDURE CadastroNomeComponente
 (
     nomeComponente VARCHAR(45)
 )
-BEGIN INSERT INTO nomeComponente (NULL, nomeComponente);
+BEGIN INSERT INTO nomeComponente VALUES (NULL, nomeComponente);
 END $$
 
 CREATE PROCEDURE CadastroModeloComponente
@@ -164,7 +164,7 @@ CREATE PROCEDURE CadastroRegistro
     dtHoraRegistro DATETIME,
     fkComponente INT
 )
-BEGIN INSERT INTO registro VALUES (NULL, valorRegistro, dtHoraRegistro, fkComponente)
+BEGIN INSERT INTO registro VALUES (NULL, valorRegistro, dtHoraRegistro, fkComponente);
 END $$
 
 -- PROCEDURES DE SELECT
@@ -206,7 +206,7 @@ BEGIN SELECT * FROM nomeComponente WHERE nomeComponente.idNomeComponente = idNom
 END $$
 
 CREATE PROCEDURE PegarModeloComponente(idModeloCoponente INT)
-BEGIN SELECT * FROM modeloComponente = modeloComponente.idModeloComponente = idModeloComponente;
+BEGIN SELECT * FROM modeloComponente WHERE modeloComponente.idModeloComponente = idModeloComponente;
 END $$
 
 CREATE PROCEDURE PegarSubComponente(idSubComponente INT)
