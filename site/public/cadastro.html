@@ -1,133 +1,253 @@
-<!DOCTYPE <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Formulário de Cadastro</title>
-
-    <!-- ===============================================-->
-    <!--    Stylesheets-->
-    <!-- ===============================================-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="stylesheet" href="./css/estiloCadastro.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./vendors/prism/prism.css" />
-    <link href="./vendors/swiper/swiper-bundle.min.css" rel="stylesheet" />
-    <link href="./css/theme.min.css" rel="stylesheet" />
-    <link href="./css/user.min.css" rel="stylesheet" />
-
-    <!-- Link para o toastr -->
+    <title>CADASTRO</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script src="cadastro.js"></script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
+
+      input,select {
+        border-radius: 25px !important;
+      }
+
+      * {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
   </head>
 
-  <body>
-    <!-- Inicio Área do formulário -->
-    <div class="area-formulario">
-      <div class="retangulo retangulo-fim" id="retangulo_fim"></div>
-      <div class="retangulo retangulo-meio" id="retangulo_meio"></div>
-
-      <!-- Início do Retângulo do formulário -->
-      <div class="retangulo formulario" id="ratangulo_formulario">
-        <!-- Inicio Container -->
-        <div class="container">
-          <!-- Inínicio área dos inputs -->
-          <div class="area-inputs">
-            <!-- Coluna Esquerda -->
-            <div class="coluna-inputs-esquerda">
-              <!-- Área de Título -->
-              <div class="area-titulo">
-                <span class="title">Formulário de Cadastro</span>
-                <small class="subtitle">
-                  Já possui cadastro? <b>Clique aqui!</b></small
-                >
-              </div>
-              <div style="display: flex; justify-content: center;">
-
-                <img src="./assets/img/imgCadastro.png" alt="" />
-              </div>
-            </div>
-
-            <!-- Coluna Direita -->
-            <div class="coluna-inputs-direita">
-              <div class="bloco-input">
-                <label for="">Razão Social</label>
-                <br />
-                <input
-                  type="text"
-                  name="nomeEmpresa_input"
-                  id="nomeEmpresa_input"
-                  placeholder="Nome da sua empresa"
-                />
-              </div>
-              <div class="linha-input">
-                <div class="bloco-input">
-                  <label for="">Nome do Administrador</label>
-                  <br />
+  <body style="background-color: #010e50">
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      "
+    >
+      <div class="container">
+        <div class="d-flex justify-content-around">
+          <div class="bg-white row w-25 ml-5 d-flex justify-content-center">
+            <p id="identificacao_cadastro">EMPRESA</p>
+          </div>
+          <div>&nbsp;</div>
+          <div>&nbsp;</div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div
+            class="bg-white row w-75 py-5 px-2"
+            style="box-shadow: 0px 4px 100px 3px #000"
+          >
+            <div class="w-100" id="cadastro_empresa">
+              <div class="mx-1 w-100 row">
+                <div class="form-group col-xl-8">
+                  <label for="cnpj_empresa">CNPJ</label>
                   <input
                     type="text"
-                    name="nomeAdm_input"
-                    id="nomeAdm_input"
-                    placeholder="Nome do Administrador"
+                    class="form-control"
+                    id="cnpj_empresa"
+                    placeholder="00.000.000/0000-00"
                   />
                 </div>
-                <div class="bloco-input">
-                  <label for="">Email para Contato</label>
-                  <br />
+                <div class="form-group col-xl-4">
+                  <label for="telefone_empresa">Telefone</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="telefone_empresa"
+                    placeholder="(11) 12345-1234"
+                  />
+                </div>
+              </div>
+              <div class="w-100 row mx-1">
+                <div class="form-group col-xl-12">
+                  <label for="nome_empresa">NOME</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nome_empresa"
+                    placeholder="Memory Analytics"
+                  />
+                </div>
+              </div>
+              <div class="mx-1 w-100 row">
+                <div class="form-group col-xl-9">
+                  <label for="email_empresa">EMAIL</label>
                   <input
                     type="email"
-                    name="emailContato_input"
-                    id="emailContato_input"
-                    placeholder="Email do Administrador"
+                    class="form-control"
+                    id="email_empresa"
+                    placeholder="memoryanalytics@email.com"
                   />
                 </div>
-              </div>
-              <div class="linha-input">
-                <div class="bloco-input">
-                  <label for="">Telefone para Contato</label>
-                  <br />
-                  <input
-                    type="tel"
-                    name="telContato_input"
-                    id="telContato_input"
-                    placeholder="(11) 34622-3234"
-                    onfocus="javascript: retirarFormatacaoTel(this);"
-                    onblur="javascript: formatarCampoTel(this);"
-                    maxlength="11"
-                  />
-                </div>
-                <div class="bloco-input">
-                  <label for="">CNPJ da Empresa</label>
-                  <br />
+                <div class="form-group col-xl-3">
+                  <label for="cep_empresa">CEP</label>
                   <input
                     type="text"
-                    name="cnpj_input"
-                    id="cnpj_input"
-                    onfocus="javascript: retirarFormatacao(this);"
-                    onblur="javascript: formatarCampo(this);"
-                    maxlength="14"
-                    placeholder="CNPJ da Empresa"
+                    class="form-control"
+                    id="cep_empresa"
+                    placeholder="00000-000"
                   />
                 </div>
               </div>
-
-              <!-- Seção Botão -->
-              <div class="bloco-input bloco-botao">
-                <button onclick="cadastrar()">Cadastre-se</button>
+              <div class="mx-1 w-100 row">
+                <div class="form-group col-xl-7">
+                  <label for="cidade_empresa">CIDADE</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="cidade_empresa"
+                    placeholder="São Bernardo do Campo"
+                  />
+                </div>
+                <div class="form-group col-xl-5">
+                  <label for="estado_empresa">ESTADO</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="estado_empresa"
+                    placeholder="São Paulo"
+                  />
+                </div>
+              </div>
+              <div class="mx-1 w-100 row">
+                <div class="form-group col-xl-9">
+                  <label for="logradouro_empresa">LOGRADOURO</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="logradouro_empresa"
+                    placeholder="R. Haddock Lobo"
+                  />
+                </div>
+                <div class="form-group col-xl-3">
+                  <label for="numero_logradouro_empresa">NÚMERO</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="numero_logradouro_empresa"
+                    placeholder="595"
+                  />
+                </div>
+              </div>
+              <div class="mx-1 w-100 row d-flex justify-content-center">
+                <button
+                  onclick="cadastrarEmpresa()"
+                  class="btn"
+                  style="
+                    width: 95%;
+                    border-radius: 10px;
+                    background-color: #010e50;
+                    color: white;
+                  "
+                >
+                  PRÓXIMA PÁGINA
+                </button>
+              </div>
+            </div>
+            <div class="w-100" style="display: none;" id="cadastro_funcionario">
+              <div class="w-100 row mx-1">
+                <div class="form-group col-xl-12">
+                  <label for="nome_empresa">NOME</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nome_empresa"
+                    placeholder="Memory Analytics"
+                  />
+                </div>
+              </div>
+              <div class="mx-1 w-100 row">
+                <div class="form-group col-xl-6">
+                  <label for="email_funcionario">EMAIL</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email_funcionario"
+                    placeholder="funcionario@email.com"
+                  />
+                </div>
+                <div class="form-group col-xl-6">
+                  <label for="telefone_funcionario">TELEFONE</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="telefone_funcionario"
+                    placeholder="(11) 12345-1234"
+                  />
+                </div>
+              </div>
+              <div class="mx-1 w-100 row">
+                <div class="form-group col-xl-9">
+                  <label for="supervisor_funcionario">Supervisor</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="supervisor_funcionario"
+                    placeholder="Gustavo"
+                  />
+                </div>
+                <div class="form-group col-xl-3">
+                  <label for="telefone_funcionario">CARGO</label>
+                  <select class="form-control" name="" id="">
+                    <option value="0" disabled selected>Escolha o cargo</option>
+                    <option value="1"> Cargo 1</option>
+                    <option value="2"> Cargo 2</option>
+                    <option value="3"> Cargo 3</option>
+                  </select>
+                </div>
+                
+              </div>
+              <div class="mx-1 w-100 row d-flex justify-content-center">
+                <button
+                  onclick="cadastrarFuncionario()"
+                  class="btn"
+                  style="
+                    width: 95%;
+                    border-radius: 10px;
+                    background-color: #010e50;
+                    color: white;
+                  "
+                >
+                  CADASTRAR
+                </button>
               </div>
             </div>
           </div>
         </div>
+        
       </div>
     </div>
   </body>
 </html>
-
-<script src="./js/cadastro.js"></script>
+<script>
+  function cadastrarEmpresa() {
+    document.getElementById("cadastro_empresa").style.display = "none";
+    document.getElementById("cadastro_funcionario").style.display = "block";
+    document.getElementById("identificacao_cadastro").innerHTML = "FUNCIONÁRIO"
+  }
+</script>
