@@ -307,6 +307,38 @@ CREATE PROCEDURE UpdateDadosFuncionario
     WHERE funcionario.idFuncionario = idFuncionario;
 END$$
 
+DROP PROCEDURE IF EXISTS UpdateDadosLogin;
+CREATE PROCEDURE UpdateDadosLogin
+(
+    login VARCHAR(80),
+    senha VARCHAR(45),
+    idLogin INT
+) BEGIN UPDATE login
+    SET login.login = login, 
+    login.senha = senha
+    WHERE login.idLogin = idLogin;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDadosServidor
+CREATE PROCEDURE UpdateDadosServidor
+(
+    sistemaOperacionalServer VARCHAR(20),
+    apelidoServer VARCHAR(45),
+    ipServer VARCHAR(12),
+    numeroSerieServer VARCHAR(20),
+    fkEmpresa INT,
+    idServidor INT
+) BEGIN UPDATE servidor
+    SET servidor.sistemaOperacionalServer = sistemaOperacionalServer,
+    servidor.apelidoServer = apelidoServer,
+    servidor.ipServer = ipServer,
+    servidor.numeroSerieServer = numeroSerieServer
+    WHERE servidor.fkEmpresa = fkEmpresa
+    AND servidor.idServidor = idServidor;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDados
+
 DELIMITER ;
 
 CALL UpdateDadosFuncionario("Raphael","Raphael@gmail.com",11991359797,"1",3,null,1);
