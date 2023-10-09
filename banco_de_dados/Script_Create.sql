@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS bd_memoryanalytics;
 CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
-use bd_memoryAnalytics;
+USE bd_memoryAnalytics;
 
 CREATE TABLE IF NOT EXISTS `empresa`(
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
@@ -58,19 +58,6 @@ fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
-CREATE TABLE IF NOT EXISTS `medidaComponente`(
-idMedidaComponente INT PRIMARY KEY AUTO_INCREMENT,
-nomeMedida VARCHAR(45),
-simboloMedida VARCHAR(10),
-unidadeMedida VARCHAR(45)
-);
-
-CREATE TABLE IF NOT EXISTS `metricaComponente`(
-idMetricaComponente INT PRIMARY KEY AUTO_INCREMENT,
-limiteMin VARCHAR(45),
-limiteMax VARCHAR(45)
-);
-
 CREATE TABLE IF NOT EXISTS `tipoComponente`(
 idTipoComponente INT PRIMARY KEY AUTO_INCREMENT,
 tipoComponente VARCHAR(45)
@@ -85,32 +72,44 @@ fkTipoComponente INT,
 FOREIGN KEY (fkTipoComponente) REFERENCES tipoComponente (idTipoComponente)
 );
 
-CREATE TABLE IF NOT EXISTS `componente`(
-idComponente INT PRIMARY KEY AUTO_INCREMENT,
-fkServidor INT,
-fkMedidaComponente INT,
+CREATE TABLE IF NOT EXISTS `metricaComponente`(
+idMetricaComponente INT PRIMARY KEY AUTO_INCREMENT,
+limiteMin VARCHAR(45),
+limiteMax VARCHAR(45),
 fkModeloComponente INT,
-FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente),
 FOREIGN KEY (fkModeloComponente) REFERENCES modeloComponente (idModeloComponente)
 );
 
+CREATE TABLE IF NOT EXISTS `componente`(
+idComponente INT PRIMARY KEY AUTO_INCREMENT,
+fkServidor INT,
+fkModeloComponente INT,
+FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
+FOREIGN KEY (fkModeloComponente) REFERENCES modeloComponente (idModeloComponente)
+);
 
 CREATE TABLE IF NOT EXISTS `subComponente`(
 idSubComponente INT PRIMARY KEY AUTO_INCREMENT,
 nomeSubComponente VARCHAR(45),
-fkMetricaComponente INT,
 fkComponente INT,
-FOREIGN KEY (fkMetricaComponente) REFERENCES metricaComponente (idMetricaComponente),
 FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+);
+
+CREATE TABLE IF NOT EXISTS `medidaComponente`(
+idMedidaComponente INT PRIMARY KEY AUTO_INCREMENT,
+nomeMedida VARCHAR(45),
+simboloMedida VARCHAR(10),
+unidadeMedida VARCHAR(45),
+fkSubComponente INT,
+FOREIGN KEY (fkSubComponente) REFERENCES subComponente (idSubcomponente)
 );
 
 CREATE TABLE IF NOT EXISTS `registro`(
 idRegistro INT,
 valorRegistro DOUBLE,
 dtHoraRegistro DATETIME,
-fkComponente INT,
-FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+fkMedidaComponente INT,
+FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente)
 );
 
 -- Inserir dados na tabela 'empresa'
@@ -149,18 +148,6 @@ INSERT INTO servidor (SistemaOperacionalServer, apelidoServer, ipServer, numeroS
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
 
--- Inserir dados na tabela 'medidaComponente'
-INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida) VALUES
-('Temperatura', '°C', 'Celsius'),
-('Pressão', 'Pa', 'Pascal'),
-('Umidade', '%', 'Porcentagem');
-
--- Inserir dados na tabela 'metricaComponente'
-INSERT INTO metricaComponente (limiteMin, limiteMax) VALUES
-('0', '100'),
-('10', '90'),
-('20', '80');
-
 -- Inserir dados na tabela 'tipoComponente'
 INSERT INTO tipoComponente (tipoComponente) VALUES
 ('Sensor'),
@@ -173,20 +160,32 @@ INSERT INTO modeloComponente (fabricante, nomeModelo, codigogeracao, fkTipoCompo
 ('Fabricante B', 'Modelo Y', 'COD456', 2),
 ('Fabricante C', 'Modelo Z', 'COD789', 3);
 
+-- Inserir dados na tabela 'metricaComponente'
+INSERT INTO metricaComponente (limiteMin, limiteMax, fkModeloComponente) VALUES
+('0', '100', 1),
+('10', '90', 2),
+('20', '80', 3);
+
 -- Inserir dados na tabela 'componente'
-INSERT INTO componente (fkServidor, fkMedidaComponente, fkModeloComponente) VALUES
-(1, 1, 1),
-(2, 2, 2),
-(3, 3, 3);
+INSERT INTO componente (fkServidor, fkModeloComponente) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
 
 -- Inserir dados na tabela 'subComponente'
-INSERT INTO subComponente (nomeSubComponente, fkMetricaComponente, fkComponente) VALUES
-('SubComponente 1', 1, 1),
-('SubComponente 2', 2, 2),
-('SubComponente 3', 3, 3);
+INSERT INTO subComponente (nomeSubComponente, fkComponente) VALUES
+('SubComponente 1', 1),
+('SubComponente 2', 2),
+('SubComponente 3', 3);
+
+-- Inserir dados na tabela 'medidaComponente'
+INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida, fkSubComponente) VALUES
+('Temperatura', '°C', 'Celsius', 1),
+('Pressão', 'Pa', 'Pascal', 2),
+('Umidade', '%', 'Porcentagem', 3);
 
 -- Inserir dados na tabela 'registro'
-INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkComponente) VALUES
+INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkMedidaComponente) VALUES
 (1, 25.5, '2023-10-09 10:00:00', 1),
 (2, 35.0, '2023-10-09 11:00:00', 2),
 (3, 50.0, '2023-10-09 12:00:00', 3);
