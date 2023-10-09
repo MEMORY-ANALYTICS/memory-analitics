@@ -2,31 +2,31 @@ use bd_MemoryAnalytics;
 -- -=-=-=-=-=-=-=-=-=-=-= JOINS -=-=-=-=-=-=-=-=-=-=-=
 
 -- Todos os funcionários, suas respectivas empresas e informações de login
-select
-nomeFunc "Nome",
-    emailFunc "Email",
-    nomeEmpresa "Empresa",
-    login "Login",
-    senha "Senha",
-    nomeCargo "Cargo"
-from Empresa
-join Funcionario on fkEmpresa = idEmpresa
-    join Cargo on fkCargo = idCargo
-    join Login on fkFunc = idFunc;
+-- select
+-- nomeFunc "Nome",
+--     emailFunc "Email",
+--     nomeEmpresa "Empresa",
+--     login "Login",
+--     senha "Senha",
+--     nomeCargo "Cargo"
+-- from Empresa
+-- join Funcionario on fkEmpresa = idEmpresa
+--     join Cargo on fkCargo = idCargo
+--     join Login on fkFunc = idFunc;
 
--- Todos os servidores, seus registros, componentes monitorados e unidades de medida correspondentes
-Select
-localServer 'Servidores',
-    ipServer 'Ip do servidor',
-    nomeComponente 'Nome componente',
-    valorRegistro 'Valor',
-    simboloMedida 'Simbolo',
-    dtHoraRegistro 'Hora e data'
-from MedidaComponente as mc
-join Servidores on mc.fkServidor = idServer
-    join Componente on mc.fkComponente = idComponente
-    join Registro on fkMedidaComponente = idMedidaComponente
-    join Medida on mc.fkMedida = idMedida;
+-- -- Todos os servidores, seus registros, componentes monitorados e unidades de medida correspondentes
+-- Select
+-- localServer 'Servidores',
+--     ipServer 'Ip do servidor',
+--     nomeComponente 'Nome componente',
+--     valorRegistro 'Valor',
+--     simboloMedida 'Simbolo',
+--     dtHoraRegistro 'Hora e data'
+-- from MedidaComponente as mc
+-- join Servidores on mc.fkServidor = idServer
+--     join Componente on mc.fkComponente = idComponente
+--     join Registro on fkMedidaComponente = idMedidaComponente
+--     join Medida on mc.fkMedida = idMedida;
    
    
 -- -=-=-=-=-=-=-=-=-=-=-= Procedures -=-=-=-=-=-=-=-=-=-=-=
@@ -35,6 +35,7 @@ DELIMITER $$
 
 -- PROCEDURES DE CADASTRO --
 
+DROP PROCEDURE IF EXISTS CadastroEmpresa;
 CREATE PROCEDURE CadastroEmpresa
 (
     nomeEmpresa VARCHAR(45),
@@ -46,6 +47,7 @@ BEGIN INSERT INTO empresa VALUES (NULL, nomeEmpresa, cnpjEmpresa, emailEmpresa, 
 
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroEndereco;
 CREATE PROCEDURE CadastroEndereco
 (
     cep CHAR(8),
@@ -58,6 +60,7 @@ CREATE PROCEDURE CadastroEndereco
 BEGIN INSERT INTO endereco VALUES (NULL, cep, logradouro, numero, cidade, estado, fkEmpresa);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroCargo;
 CREATE PROCEDURE CadastroCargo
 (
     nomeCargo VARCHAR(45)
@@ -65,6 +68,7 @@ CREATE PROCEDURE CadastroCargo
 BEGIN 
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroFuncionario;
 CREATE PROCEDURE CadastroFuncionario
 (
     nomeFunc VARCHAR(80),
@@ -78,6 +82,7 @@ CREATE PROCEDURE CadastroFuncionario
 BEGIN INSERT INTO funcionario VALUES (NULL, nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroLogin;
 CREATE PROCEDURE CadastroLogin
 (
     login VARCHAR(80),
@@ -87,6 +92,7 @@ CREATE PROCEDURE CadastroLogin
 BEGIN INSERT INTO login VALUES (NULL, login, senha, fkFuncionario);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroServidor;
 CREATE PROCEDURE CadastroServidor
 (
     sistemaOperacionalServer VARCHAR(20),
@@ -98,6 +104,7 @@ CREATE PROCEDURE CadastroServidor
 BEGIN INSERT INTO servidor VALUES (NULL, sistemaOperacionalServer, apelidoServer, ipServer, numeroSerieServer, fkEmpresa);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroMedidaComponente;
 CREATE PROCEDURE CadastroMedidaComponente
 (
     nomeMedida VARCHAR(25),
@@ -107,6 +114,7 @@ CREATE PROCEDURE CadastroMedidaComponente
 BEGIN Insert into medidaComponente VALUES (NULL, nomeMedida, simboloMedida, unidadeMedida);
 END$$
 
+DROP PROCEDURE IF EXISTS CadastroMetricaComponente;
 CREATE PROCEDURE CadastroMetricaComponente
 (
     limiteMin VARCHAR(45),
@@ -115,6 +123,7 @@ CREATE PROCEDURE CadastroMetricaComponente
 BEGIN INSERT INTO metricaComponente VALUES (NULL, limiteMin, limiteMax);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroNomeComponente;
 CREATE PROCEDURE CadastroNomeComponente
 (
     nomeComponente VARCHAR(45)
@@ -122,6 +131,7 @@ CREATE PROCEDURE CadastroNomeComponente
 BEGIN INSERT INTO nomeComponente VALUES (NULL, nomeComponente);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroModeloComponente;
 CREATE PROCEDURE CadastroModeloComponente
 (
     fabricante VARCHAR(45),
@@ -132,6 +142,7 @@ CREATE PROCEDURE CadastroModeloComponente
 BEGIN INSERT INTO modeloComponente VALUES (NULL, fabricante, nomeModelo, codigoGeracao, fkComponente);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroSubComponente;
 CREATE PROCEDURE CadastroSubComponente
 (
     nomeSubComponente VARCHAR(45)
@@ -139,6 +150,7 @@ CREATE PROCEDURE CadastroSubComponente
 BEGIN INSERT INTO subComponente VALUES (NULL, nomeSubComponente);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroComponenteCompleto;
 CREATE PROCEDURE CadastroComponenteCompleto
 (
     fkSubComponente INT,
@@ -148,6 +160,7 @@ CREATE PROCEDURE CadastroComponenteCompleto
 BEGIN INSERT INTO componenteCompleto VALUES (NULL, fkSubComponente, fkModeloComponente, fkMetricaComponente);
 END $$
 
+DROP PROCEDURE IF EXISTS CadastroComponente;
 CREATE PROCEDURE CadastroComponente
 (
     fkServidor INT,
@@ -158,6 +171,7 @@ BEGIN INSERT INTO componente VALUES (NULL, fkServidor, fkMedidaComponente, fkCom
 END $$
 
 
+DROP PROCEDURE IF EXISTS CadastroRegistro;
 CREATE PROCEDURE CadastroRegistro
 (
     valorRegistro DOUBLE,
@@ -169,68 +183,137 @@ END $$
 
 -- PROCEDURES DE SELECT
 
+DROP PROCEDURE IF EXISTS PegarEmpresa;
 CREATE PROCEDURE PegarEmpresa(idEmpresa INT)
 BEGIN SELECT * FROM empresa WHERE empresa.idEmpresa = idEmpresa;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarEndereco;
 CREATE PROCEDURE PegarEndereco(idEndereco INT)
 BEGIN SELECT * FROM endereco WHERE endereco.idEndereco = idendereco;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarCargo;
 CREATE PROCEDURE PegarCargo(idCargo INT)
 BEGIN SELECT * FROM cargo WHERE cargo.idCargo = cargo;
 END $$
 
+DROP PROCEDURE IF EXISTS pegarFuncionario;
 CREATE PROCEDURE pegarFuncionario(idFuncionario INT)
 BEGIN SELECT * FROM funcionario WHERE funcionario.idFuncionario = idFuncionario;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarLogin;
 CREATE PROCEDURE PegarLogin(idLogin INT)
 BEGIN SELECT * FROM login WHERE login.idLogin = idLogin;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarServidor;
 CREATE PROCEDURE PegarServidor(idServidor INT)
 BEGIN SELECT * FROM servidor WHERE servidor.idServidor = idServidor;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarMedidaComponente;
 CREATE PROCEDURE PegarMedidaComponente(idMedidaComponente INT)
 BEGIN SELECT * FROM medidaComponente WHERE medidaComponente.idMedidaComponente = idMedidaComponente;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarMetricaComponente;
 CREATE PROCEDURE PegarMetricaComponente(idMetricaComponente INT)
 BEGIN SELECT * FROM metricaComponente WHERE metricaComponente.idMetricaComponente = idMetricaComponente;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarNomeComponente;
 CREATE PROCEDURE PegarNomeComponente(idNomeComponente INT)
 BEGIN SELECT * FROM nomeComponente WHERE nomeComponente.idNomeComponente = idNomeComponente;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarModeloComponente;
 CREATE PROCEDURE PegarModeloComponente(idModeloCoponente INT)
 BEGIN SELECT * FROM modeloComponente WHERE modeloComponente.idModeloComponente = idModeloComponente;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarSubComponente;
 CREATE PROCEDURE PegarSubComponente(idSubComponente INT)
 BEGIN SELECT * FROM subComponente WHERE subComponente.idSubComponente = idSubComponente;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarComponenteCompleto;
 CREATE PROCEDURE PegarComponenteCompleto(idComponenteCompleto INT)
 BEGIN SELECT * FROM componenteCompleto WHERE componenteCompleto.idComponenteCompleto = idComponenteCompleto;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarComponente;
 CREATE PROCEDURE PegarComponente(idComponente INT)
 BEGIN SELECT * FROM componente WHERE componente.idComponente = idComponente;
 END $$
 
+DROP PROCEDURE IF EXISTS PegarRegistro;
 CREATE PROCEDURE PegarRegistro(idRegistro INT)
 BEGIN SELECT * FROM registro WHERE registro.idRegistro = idRegistro;
 END $$
 
 -- PROCEDURES DE UPDATE --
 
+DROP PROCEDURE IF EXISTS UpdateDadosEmpresa;
+CREATE PROCEDURE UpdateDadosEmpresa
+(
+    nomeEmpresa VARCHAR(45),
+    emailEmpresa VARCHAR(50),
+    telEmpresa CHAR(14),
+    idEmpresa INT
+)BEGIN UPDATE empresa 
+    SET empresa.nomeEmpresa = nomeEmpresa, 
+    empresa.emailEmpresa = emailEmpresa, 
+    empresa.telEmpresa = telEmpresa 
+    WHERE empresa.idEmpresa = idEmpresa;
+END $$
+
+DROP PROCEDURE IF EXISTS UpdateDadosEndereço;
+CREATE PROCEDURE UpdateDadosEndereço
+(
+    cep CHAR(8),
+    logradouro VARCHAR(45),
+    numero INT,
+    cidade VARCHAR(45),
+    estado VARCHAR(45),
+    fkEmpresa INT,
+)BEGIN UPDATE endereco
+    SET endereco.cep = cep,
+    endereco.logradouro = logradouro,
+    endereco.numero = numero,
+    endereco.cidade = cidade, 
+    endereco.estado = estado 
+    WHERE endereco.fkEmpresa = fkEmpresa;
+END $$
+
+DROP PROCEDURE IF EXISTS UpdateDadosFuncionario;
+CREATE PROCEDURE UpdateDadosFuncionario
+(
+    nomeFunc VARCHAR(80),
+    emailFunc VARCHAR(45),
+    telefoneFunc CHAR(11),
+    permissao CHAR(1),
+    fkCargo INT,
+    fkSupervisor INT,
+    idFuncionario INT
+) BEGIN UPDATE funcionario 
+    SET funcionario.nomeFunc = nomeFunc,
+    funcionario.emailFunc = emailFunc,
+    funcionario.telefoneFunc = telefoneFunc,
+    funcionario.permissao = permissao,
+    funcionario.fkCargo = fkCargo,
+    funcionario.fkSupervisor = fkSupervisor
+    WHERE funcionario.idFuncionario = idFuncionario;
+END$$
+
 DELIMITER ;
+
+CALL UpdateDadosFuncionario("Raphael","Raphael@gmail.com",11991359797,"1",3,null,1);
 -- Procedures antigas --
 
--- create procedure Cadastro
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE Cadastro
 -- (
 -- nomeEmpresa varchar(45),
 --     cnpj char(18),
@@ -248,7 +331,8 @@ DELIMITER ;
 -- select * from Registro;
 -- select * from MedidaComponente;
 
--- create procedure RegistroCPU
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE RegistroCPU
 -- (
 -- tempoOcioso varchar(45),
 --     tempoUsoKernel varchar(45),
@@ -269,7 +353,8 @@ DELIMITER ;
 
 -- end $$
 
--- create procedure RegistroMemoria
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE RegistroMemoria
 -- (
 -- memoriaUsada varchar(45),
 -- memoriaLivre varchar(45),
@@ -284,7 +369,8 @@ DELIMITER ;
 -- end $$
 
 
--- create procedure RegistroDisco
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE RegistroDisco
 -- (
 -- usoTotalDisco varchar(45),
 -- discoUsado varchar(45),
@@ -299,7 +385,8 @@ DELIMITER ;
 -- end $$
 
 
--- create procedure RegistroRede
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE RegistroRede
 -- (
 -- bytesEnviados varchar(45),
 -- bytesRecebidos varchar(45),
@@ -313,7 +400,8 @@ DELIMITER ;
 -- insert into Registro values (null, now(), qtdErrosSaida, null);
 -- end $$
 
--- create procedure RegistroTemperatura
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE RegistroTemperatura
 -- (
 -- temperaturaCpuLabel varchar(45),
 -- temperaturaCpuAtual varchar(45)
@@ -324,7 +412,8 @@ DELIMITER ;
 -- end $$
 
 
--- create procedure vizualizacao_dados
+-- DROP PROCEDURE IF EXISTS;
+-- CREATE PROCEDURE vizualizacao_dados
 -- (
 -- cpu_uso bigint,
 -- disco_uso bigint,
@@ -349,52 +438,52 @@ join Componente on medida.fkRegistro = idComponente
 GROUP BY dtHoraRegistro;
 */
 
-select * from MedidaComponente;
-select * from Servidores;
-select * from Componente;
-select * from Medida;
-select * from Registro;
+-- select * from MedidaComponente;
+-- select * from Servidores;
+-- select * from Componente;
+-- select * from Medida;
+-- select * from Registro;
 
-create view TabelaAnalitica as
-select
-fkServidor Servidor,
-    nomeComponente Componente,
-    nomeMedida Medida,
-    valorRegistro Valor,
-    dtHoraRegistro Horario
-from MedidaComponente mc
-	join Servidores s on s.idServer = mc.fkServidor
-    join Componente c on c.idComponente = mc.fkComponente
-    join Medida m on m.idMedida = mc.fkMedida
-    join Registro r on r.fkMedidaComponente = mc.idMedidaComponente;
+-- create view TabelaAnalitica as
+-- select
+-- fkServidor Servidor,
+--     nomeComponente Componente,
+--     nomeMedida Medida,
+--     valorRegistro Valor,
+--     dtHoraRegistro Horario
+-- from MedidaComponente mc
+-- 	join Servidores s on s.idServer = mc.fkServidor
+--     join Componente c on c.idComponente = mc.fkComponente
+--     join Medida m on m.idMedida = mc.fkMedida
+--     join Registro r on r.fkMedidaComponente = mc.idMedidaComponente;
    
-select * from TabelaAnalitica where Servidor = 5;
+-- select * from TabelaAnalitica where Servidor = 5;
 
-SET @sql = NULL; -- Criando uma variável para armazenar o comando
+-- SET @sql = NULL; -- Criando uma variável para armazenar o comando
 
-SELECT
-  GROUP_CONCAT(DISTINCT
-    CONCAT(
-      "max(case when Componente = '",Componente,"' and Medida = '",Medida,"' then Valor end) ",Medida,Componente
-    )
-  )
-INTO @sql
+-- SELECT
+--   GROUP_CONCAT(DISTINCT
+--     CONCAT(
+--       "max(case when Componente = '",Componente,"' and Medida = '",Medida,"' then Valor end) ",Medida,Componente
+--     )
+--   )
+-- INTO @sql
 
-FROM
-  TabelaAnalitica; -- Aqui vem o nome da sua view!
+-- FROM
+--   TabelaAnalitica; -- Aqui vem o nome da sua view!
  
-select @sql;
+-- select @sql;
 
-SET @sql = CONCAT('SELECT Servidor, Horario, ', @sql, '
+-- SET @sql = CONCAT('SELECT Servidor, Horario, ', @sql, '
                  
-FROM TabelaAnalitica
+-- FROM TabelaAnalitica
                    
-GROUP BY Servidor, Horario');
+-- GROUP BY Servidor, Horario');
 
-select @sql;
+-- select @sql;
 
-PREPARE stmt FROM @sql;
+-- PREPARE stmt FROM @sql;
 
-EXECUTE stmt;
+-- EXECUTE stmt;
 
-DEALLOCATE PREPARE stmt;
+-- DEALLOCATE PREPARE stmt;
