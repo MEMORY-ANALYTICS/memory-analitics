@@ -11,7 +11,6 @@ insert into empresa values
 insert into endereco values
 (null, '05425000', 'Rua Eugênio de Medeiros', 305, 'São Paulo', 'SP', '11º andar', 1),
 (null, '04538-133', 'Av. Brig. Faria Lima', '3477', 'São Paulo', 'SP', null, 2);
-
 -- Tabela Cargo
 insert into cargo values
 (null, 'Analista de Hardware'),
@@ -54,6 +53,14 @@ insert into servidores values
 -- (null, 'REDE', null);
 
 -- Tabela Medida Componente
+-- Tabela Nome Componente
+-- rever atributos dessa tabela
+insert into nomeComponente values
+(null, 'Disco'),
+(null, 'Memória RAM'),
+(null, 'CPU'),
+(null, 'Rede');
+
 insert into medidaComponente values
 (null, 'Temperatura', '°C', 'Celsius'),
 (null, 'Uso', '%', 'Porcentagem'),
@@ -83,6 +90,12 @@ insert into modeloComponente values
 (null, 'Dell', '32Go - 2RX4 DDR4 RDIMM', '?');
 -- Onde ver o número da geração dos modelos
 -- placa de rede fabricantes e modelos?
+   
+-- insert into MedidaComponente values
+-- (null, 5 , 1 , 2),
+-- (null, 5 , 2 , 2),
+-- (null, 5 , 3 , 2),
+-- (null, 5 , 4 , 6);
 
 -- Tabela SubComponente
 -- insert into subComponente values
