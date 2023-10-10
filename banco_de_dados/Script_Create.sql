@@ -49,7 +49,7 @@ FOREIGN KEY (fkFuncionario) REFERENCES funcionario (idFuncionario)
 );
 
 CREATE TABLE IF NOT EXISTS `servidor`(
-idServidor INT PRIMARY KEY AUTO_INCREMENT,
+idServer INT PRIMARY KEY AUTO_INCREMENT,
 SistemaOperacionalServer VARCHAR(20),
 apelidoServer VARCHAR(45),
 ipServer CHAR(12),
