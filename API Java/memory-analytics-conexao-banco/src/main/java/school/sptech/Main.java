@@ -1,5 +1,4 @@
 package school.sptech;
-
 import com.github.britooo.looca.api.core.Looca;
 
 public class Main {

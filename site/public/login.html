@@ -3,81 +3,120 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Memory Analytics</title>
-    <link rel="stylesheet" href="./css/estiloLogin.css" />
-    <link
-      rel="shortcut icon"
-      href="./assets/img/Logo.png"
-      type="image/x-icon"
-    />
-
-    <!-- Link para o toastr -->
+    <title>Login</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
+      input{
+        border-radius: 25px!important;
+      }
+      *{
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
   </head>
-
-  <body>
-    <!-- Início formulário -->
-    <div class="areaFormulario">
-      <!-- Retângulos que ficam no fundo -->
-      <div class="retangulo retangulo-fim"></div>
-      <div class="retangulo retangulo-meio"></div>
-
-      <!-- Início do retângulo que contem o formulário -->
-      <div class="retangulo formulario">
-        <!-- Início do container / Informações do formulário -->
-        <div class="container">
-          <div class="area-titulo">
-            <span>Entrar</span>
-          </div>
-
-          <!-- Início area dos inputs -->
-          <div class="area-input">
-            <div class="bloco-input">
-              <label for="">Email</label>
-              <br />
+  <body style="background-color: #010e50">
+    <div style="display: flex; flex-direction: row-reverse" class="w-50">
+      <div style="z-index: -1">
+        <img src="./assets/img/bolhas.svg" style="position: absolute; margin-top: 2vh;" />
+      </div>
+    </div>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      "
+    >
+      <div
+        class="bg-white d-flex justify-content-center"
+        style="
+          height: 70vh;
+          width: 30vw;
+          align-items: center;
+          flex-direction: column;
+          box-shadow: 0px 4px 100px 3px #000;
+        "
+      >
+        <div class="d-flex justify-content-center mb-5">
+          <h1 style="font-family: 'Inter', sans-serif">Login</h1>
+        </div>
+        <div class="w-100 mt-5">
+          <div class="d-flex justify-content-center">
+            <div class="form-group w-75">
+              <label for="email">Email</label>
               <input
                 type="email"
-                name="email_input"
-                id="email_input"
-                placeholder="Digite seu email aqui!"
+                class="form-control"
+                id="email"
+                placeholder="usuario@email.com"
               />
             </div>
-
-            <div class="bloco-input">
-              <label for="">Senha</label>
-              <br />
+          </div>
+          <div class="d-flex justify-content-center">
+            <div class="form-group w-75">
+              <label for="senha">Senha</label>
               <input
                 type="password"
-                name="senha_input"
-                id="senha_input"
-                placeholder="Digite sua senha aqui!"
+                class="form-control"
+                id="senha"
+                placeholder="*********"
               />
             </div>
           </div>
-
-          <!-- Fim area dos inputs/ botão e link pro cadastro-->
-          <div class="area-botao">
-            <button onclick="entrar()">Entrar</button>
-            <small
-              >Não possui uma conta?
-              <a href="./cadastro.html">Clique aqui</a></small
-            >
+        </div>
+        <div
+          style="
+            z-index: -1;
+            display: flex;
+            margin-right: 42vw;
+            flex-direction: row-reverse;
+          "
+        >
+          <div>
+            <img src="./assets/img/bolhas.svg" style="position: absolute; rotate: 190deg;" />
           </div>
         </div>
-
-        <!-- Fim do container -->
+        <div class="w-75 mt-5">
+          <button
+            class="btn w-100"
+            style="
+              color: white;
+              background-color: #010e50;
+              filter: drop-shadow(0px 0px 8px #000);
+            "
+          >
+            ENTRAR
+          </button>
+        </div>
+        <div class="mt-2">
+          <p>
+            Não possui cadastro? <span> <a href="cadastro.html"> Cadastre-se </a> </span>
+          </p>
+        </div>
       </div>
-
-      <!-- Fim do retângulo que contem o formulário -->
     </div>
-
-    <!-- Fim Formulário -->
   </body>
 </html>
-
-<script src="./js/login.js"></script>
