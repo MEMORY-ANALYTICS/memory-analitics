@@ -214,9 +214,9 @@ CREATE PROCEDURE PegarMetricaComponente(idMetricaComponente INT)
 BEGIN SELECT * FROM metricaComponente WHERE metricaComponente.idMetricaComponente = idMetricaComponente;
 END $$
 
-DROP PROCEDURE IF EXISTS PegarNomeComponente;
-CREATE PROCEDURE PegarNomeComponente(idNomeComponente INT)
-BEGIN SELECT * FROM nomeComponente WHERE nomeComponente.idNomeComponente = idNomeComponente;
+DROP PROCEDURE IF EXISTS PegarTipoComponente;
+CREATE PROCEDURE PegarTipoComponente(idTipoComponente INT)
+BEGIN SELECT * FROM tipoComponente WHERE tipoComponente.idTipoComponente = idTipoComponente;
 END $$
 
 DROP PROCEDURE IF EXISTS PegarModeloComponente;
@@ -227,11 +227,6 @@ END $$
 DROP PROCEDURE IF EXISTS PegarSubComponente;
 CREATE PROCEDURE PegarSubComponente(idSubComponente INT)
 BEGIN SELECT * FROM subComponente WHERE subComponente.idSubComponente = idSubComponente;
-END $$
-
-DROP PROCEDURE IF EXISTS PegarComponenteCompleto;
-CREATE PROCEDURE PegarComponenteCompleto(idComponenteCompleto INT)
-BEGIN SELECT * FROM componenteCompleto WHERE componenteCompleto.idComponenteCompleto = idComponenteCompleto;
 END $$
 
 DROP PROCEDURE IF EXISTS PegarComponente;
@@ -318,18 +313,109 @@ CREATE PROCEDURE UpdateDadosServidor
     ipServer VARCHAR(12),
     numeroSerieServer VARCHAR(20),
     fkEmpresa INT,
-    idServidor INT
+    idServer INT
 ) BEGIN UPDATE servidor
     SET servidor.sistemaOperacionalServer = sistemaOperacionalServer,
     servidor.apelidoServer = apelidoServer,
     servidor.ipServer = ipServer,
     servidor.numeroSerieServer = numeroSerieServer
     WHERE servidor.fkEmpresa = fkEmpresa
-    AND servidor.idServidor = idServidor;
+    AND servidor.idServer = idServer;
 END$$
 
-DROP PROCEDURE IF EXISTS UpdateDados
+DROP PROCEDURE IF EXISTS UpdateDadosComponente
+CREATE PROCEDURE UpdateDadosComponente
+(
+    fkServidor INT,
+    fkModeloComponente INT,
+    idComponente INT
+) BEGIN UPDATE componente
+    SET componente.fkServidor = fkServidor,
+    componente.fkModeloComponente = fkModeloComponente,
+    WHERE componente.idComponente = idComponente;
+END$$
 
+DROP PROCEDURE IF EXISTS UpdateDadosModeloComponente
+CREATE PROCEDURE UpdateDadosModeloComponente
+(
+    fabricante VARCHAR(45),
+    nomeModelo VARCHAR(45),
+    codigoGeracao VARCHAR(45),
+    fkTipoComponente INT,
+    idModeloComponente INT
+) BEGIN UPDATE modeloComponente
+    SET modeloComponente.fabrucante = fabricante,
+    modeloComponente.nomeModelo = nomeModelo,
+    modeloComponente.codigoGeracao = codigoGeracao,
+    modeloComponente.fkTipoComponente = fkTipoComponente,
+    WHERE modeloComponente.idModeloComponente = idModeloComponente;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDadosMetricaComponente
+CREATE PROCEDURE UpdateDadosMetricaComponente
+(
+    limiteMin VARCHAR(45),
+    limiteMax VARCHAR(45),
+    fkModeloComponente INT,
+    idModeloComponente INT
+) BEGIN UPDATE metricaComponente
+    SET metricaComponente.limiteMin = limiteMin,
+    metricaComponente.limiteMax = limiteMax,
+    metricaComponente.fkModeloComponente,
+    WHERE metricaComponente.idMetricaComponente = idMetricaComponente;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDadosTipoComponente
+CREATE PROCEDURE UpdateDadosTipoComponente
+(
+    tipoComponente VARCHAR(45),
+    idTipoComponente INT
+) BEGIN UPDATE tipoComponente
+    SET tipoComponente.tipoComponente = tipoComponente
+    WHERE tipoComponente.idTipoComponente = idTipoComponente;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDadosSubComponente
+CREATE PROCEDURE UpdateDadosSubComponente
+(
+    nomeSubComponente VARCHAR(45),
+    fkComponente INT,
+    idSubComponente INT
+) BEGIN UPDATE subComponente
+    SET subComponente.nomeSubComponente = nomeSubComponente,
+    subComponente.fkComponente = fkComponente
+    WHERE subComponente.idSubcomponente = idSubComponente;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDadosMedidaComponente
+CREATE UpdateDadosMedidaComponente
+(
+    nomeMedida VARCHAR(25),
+    simboloMedida VARCHAR(4),
+    unidadeMedida VARCHAR(45),
+    fkSubComponente INT,
+    idMedidaComponente INT
+)BEGIN UPDATE medidaComponente
+    SET medidaComponente.nomeMedida = nomeMedida,
+    medidaComponente.simboloMedida = simboloMedida,
+    medidaComponente.unidadeMedida = unidadeMedida,
+    medidaComponente.fkSubComponente = fkSubComponente
+    WHERE medidaComponente.idMedidaComponete = idMedidaComponente;
+END$$
+
+DROP PROCEDURE IF EXISTS UpdateDadosRegistro
+CREATE PROCEDURE UpdateDadosRegistro
+(
+    valorRegistro DOUBLE,
+    dtHoraRegistro DATETIME,
+    fkMedidaComponente INT,
+    idRegistro INT
+) BEGIN UPDATE registro
+    SET registro.valorRegistro = valorRegistro,
+    registro.dtHoraRegistro = dtHoraRegistro,
+    registro.fkMedidaComponente = fkMedidaComponente
+    WHERE registro.idRegistro = idRegistro;
+END$$
 DELIMITER ;
 
 CALL UpdateDadosFuncionario("Raphael","Raphael@gmail.com",11991359797,"1",3,null,1);
