@@ -99,17 +99,24 @@ CREATE TABLE IF NOT EXISTS `medidaComponente`(
 idMedidaComponente INT PRIMARY KEY AUTO_INCREMENT,
 nomeMedida VARCHAR(45),
 simboloMedida VARCHAR(10),
-unidadeMedida VARCHAR(45),
-fkSubComponente INT,
-FOREIGN KEY (fkSubComponente) REFERENCES subComponente (idSubcomponente)
+unidadeMedida VARCHAR(45)
+);
+
+CREATE TABLE IF NOT EXISTS `detalheSubComponente`(
+fkSubComponente INT PRIMARY KEY,
+fkMedidaComponente INT PRIMARY KEY,
+FOREIGN KEY (fkSubComponente) REFERENCES subComponente (idSubComponente),
+FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente)
 );
 
 CREATE TABLE IF NOT EXISTS `registro`(
 idRegistro INT,
 valorRegistro DOUBLE,
 dtHoraRegistro DATETIME,
-fkMedidaComponente INT,
-FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente)
+fkDSCSubComponente INT,
+fkDSCMedidaComponente INT,
+FOREIGN KEY (fkDSCSubComponente) REFERENCES detalheSubComponente (fkSubComponente),
+FOREIGN KEY (fkDSCMedidaComponente) REFERENCES detalheSubComponente (fkMedidaComponente)
 );
 
 -- Inserir dados na tabela 'empresa'
