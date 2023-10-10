@@ -65,7 +65,7 @@ CREATE PROCEDURE CadastroCargo
 (
     nomeCargo VARCHAR(45)
 )
-BEGIN 
+BEGIN INSERT INTO Cargo VALUES (NULL, nomeCargo);
 END $$
 
 DROP PROCEDURE IF EXISTS CadastroFuncionario;
@@ -104,81 +104,72 @@ CREATE PROCEDURE CadastroServidor
 BEGIN INSERT INTO servidor VALUES (NULL, sistemaOperacionalServer, apelidoServer, ipServer, numeroSerieServer, fkEmpresa);
 END $$
 
-DROP PROCEDURE IF EXISTS CadastroMedidaComponente;
-CREATE PROCEDURE CadastroMedidaComponente
+DROP PROCEDURE IF EXISTS CadastroComponente;
+CREATE PROCEDURE CadastroComponente
 (
-    nomeMedida VARCHAR(25),
-    simboloMedida VARCHAR(4),
-    unidadeMedida VARCHAR(45)
+    fkServidor INT,
+    fkModeloComponente INT,
 )
-BEGIN Insert into medidaComponente VALUES (NULL, nomeMedida, simboloMedida, unidadeMedida);
-END$$
-
-DROP PROCEDURE IF EXISTS CadastroMetricaComponente;
-CREATE PROCEDURE CadastroMetricaComponente
-(
-    limiteMin VARCHAR(45),
-    limiteMax VARCHAR(45)
-)
-BEGIN INSERT INTO metricaComponente VALUES (NULL, limiteMin, limiteMax);
-END $$
-
-DROP PROCEDURE IF EXISTS CadastroNomeComponente;
-CREATE PROCEDURE CadastroNomeComponente
-(
-    nomeComponente VARCHAR(45)
-)
-BEGIN INSERT INTO nomeComponente VALUES (NULL, nomeComponente);
+BEGIN INSERT INTO componente VALUES (NULL, fkServidor, fkModeloComponente);
 END $$
 
 DROP PROCEDURE IF EXISTS CadastroModeloComponente;
 CREATE PROCEDURE CadastroModeloComponente
 (
     fabricante VARCHAR(45),
-    nomeMOdelo VARCHAR(45),
+    nomeModelo VARCHAR(45),
     codigoGeracao VARCHAR(45),
-    fkComponente INT
+    fkTipoComponente INT
 )
-BEGIN INSERT INTO modeloComponente VALUES (NULL, fabricante, nomeModelo, codigoGeracao, fkComponente);
+BEGIN INSERT INTO modeloComponente VALUES (NULL, fabricante, nomeModelo, codigoGeracao, fkTipoComponente);
+END $$
+
+DROP PROCEDURE IF EXISTS CadastroTipoComponente;
+CREATE PROCEDURE CadastroTipoComponente
+(
+    tipoComponente VARCHAR(45)
+)
+BEGIN INSERT INTO tipoComponente VALUES (NULL, tipoComponente);
+END $$
+
+DROP PROCEDURE IF EXISTS CadastroMetricaComponente;
+CREATE PROCEDURE CadastroMetricaComponente
+(
+    limiteMin VARCHAR(45),
+    limiteMax VARCHAR(45),
+    fkModeloComponente INT
+)
+BEGIN INSERT INTO metricaComponente VALUES (NULL, limiteMin, limiteMax, fkModeloComponente);
 END $$
 
 DROP PROCEDURE IF EXISTS CadastroSubComponente;
 CREATE PROCEDURE CadastroSubComponente
 (
-    nomeSubComponente VARCHAR(45)
+    nomeSubComponente VARCHAR(45),
+    fkComponente INT
 )
-BEGIN INSERT INTO subComponente VALUES (NULL, nomeSubComponente);
+BEGIN INSERT INTO subComponente VALUES (NULL, nomeSubComponente, fkComponente);
 END $$
 
-DROP PROCEDURE IF EXISTS CadastroComponenteCompleto;
-CREATE PROCEDURE CadastroComponenteCompleto
+DROP PROCEDURE IF EXISTS CadastroMedidaComponente;
+CREATE PROCEDURE CadastroMedidaComponente
 (
-    fkSubComponente INT,
-    fkModeloComponente INT,
-    fkMetricaComponente INT
+    nomeMedida VARCHAR(25),
+    simboloMedida VARCHAR(4),
+    unidadeMedida VARCHAR(45),
+    fkSubComponente INT
 )
-BEGIN INSERT INTO componenteCompleto VALUES (NULL, fkSubComponente, fkModeloComponente, fkMetricaComponente);
-END $$
-
-DROP PROCEDURE IF EXISTS CadastroComponente;
-CREATE PROCEDURE CadastroComponente
-(
-    fkServidor INT,
-    fkMedidaComponente INT,
-    fkComponenteCompleto INT
-)
-BEGIN INSERT INTO componente VALUES (NULL, fkServidor, fkMedidaComponente, fkComponenteCompleto);
-END $$
-
+BEGIN INSERT INTO medidaComponente VALUES (NULL, nomeMedida, simboloMedida, unidadeMedida,fkSubComponente);
+END$$
 
 DROP PROCEDURE IF EXISTS CadastroRegistro;
 CREATE PROCEDURE CadastroRegistro
 (
     valorRegistro DOUBLE,
     dtHoraRegistro DATETIME,
-    fkComponente INT
+    fkMedidaComponente INT
 )
-BEGIN INSERT INTO registro VALUES (NULL, valorRegistro, dtHoraRegistro, fkComponente);
+BEGIN INSERT INTO registro VALUES (NULL, valorRegistro, dtHoraRegistro, fkMedidaComponente);
 END $$
 
 -- PROCEDURES DE SELECT
