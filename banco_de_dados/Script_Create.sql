@@ -53,11 +53,11 @@ FOREIGN KEY (fkFuncionario) REFERENCES funcionario (idFuncionario)
 );
 
 CREATE TABLE IF NOT EXISTS `servidor`(
-idServer INT PRIMARY KEY AUTO_INCREMENT,
-SistemaOperacionalServer VARCHAR(20),
-apelidoServer VARCHAR(45),
-ipServer CHAR(12),
-numeroSerieServer VARCHAR(20),
+idServidor INT PRIMARY KEY AUTO_INCREMENT,
+SistemaOperacionalServidor VARCHAR(20),
+apelidoServidor VARCHAR(45),
+ipServidor CHAR(12),
+numeroSerieServidor VARCHAR(20),
 fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
@@ -107,10 +107,11 @@ unidadeMedida VARCHAR(45)
 );
 
 CREATE TABLE IF NOT EXISTS `detalheSubComponente`(
-fkSubComponente INT PRIMARY KEY,
-fkMedidaComponente INT PRIMARY KEY,
+fkSubComponente INT NOT NULL,
+fkMedidaComponente INT NOT NULL,
 FOREIGN KEY (fkSubComponente) REFERENCES subComponente (idSubComponente),
-FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente)
+FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente),
+PRIMARY KEY (fkSubComponente, fkMedidaComponente)
 );
 
 CREATE TABLE IF NOT EXISTS `registro`(
