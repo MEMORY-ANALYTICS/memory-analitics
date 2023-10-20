@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS bd_memoryanalytics;
 CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
-USE bd_memoryAnalytics;
+USE bd_memoryanalytics;
 
 CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bd_memoryanalytics.* TO urubu100;
@@ -125,6 +125,8 @@ FOREIGN KEY (fkDSCMedidaComponente) REFERENCES detalheSubComponente (fkMedidaCom
 );
 
 -- Inserir dados na tabela 'empresa'
+INSERT INTO empresa VALUES (1, 'Memory Analytics','12345698901234', 'memoryanalytics@gmail.com', '1342334455');
+select * from empresa;
 INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
 ('Empresa A', '12345678901234', 'empresaA@email.com', '1122334455'),
 ('Empresa B', '56789012345678', 'empresaB@email.com', '2233445566'),
@@ -196,10 +198,13 @@ INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida) VALUES
 ('Pressão', 'Pa', 'Pascal'),
 ('Umidade', '%', 'Porcentagem');
 
--- Inserir dados na tabela 'registro'
-INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro) VALUES
-(1, 25.5, '2023-10-09 10:00:00'),
-(2, 35.0, '2023-10-09 11:00:00'),
-(3, 50.0, '2023-10-09 12:00:00');
+INSERT INTO detalheSubComponente Values
+(1,1),
+(2,2),
+(3,3);
 
-select count(idServidor) from Servidor join componente on idServidor = fkServidor join subComponente on idComponente = fkComponente join detalheSubComponente on idSubComponente = fkSubComponente join Registro on fkSubComponente;
+-- Inserir dados na tabela 'registro'
+INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkDSCSubComponente, fkDSCMedidaComponente) VALUES
+(1, 25.5, '2023-10-09 10:00:00', 1, 1),
+(2, 35.0, '2023-10-09 11:00:00', 2, 2),
+(3, 50.0, '2023-10-09 12:00:00', 3, 3);
