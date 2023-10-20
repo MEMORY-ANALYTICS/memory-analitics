@@ -155,7 +155,7 @@ INSERT INTO login (login, senha, fkFuncionario) VALUES
 ('pedro789', 'senha789', 100002);
 
 -- Inserir dados na tabela 'servidor'
-INSERT INTO servidor (SistemaOperacionalServer, apelidoServer, ipServer, numeroSerieServer, fkEmpresa) VALUES
+INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
 ('Linux', 'Servidor A', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
@@ -191,13 +191,15 @@ INSERT INTO subComponente (nomeSubComponente, fkComponente) VALUES
 ('SubComponente 3', 3);
 
 -- Inserir dados na tabela 'medidaComponente'
-INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida, fkSubComponente) VALUES
-('Temperatura', '°C', 'Celsius', 1),
-('Pressão', 'Pa', 'Pascal', 2),
-('Umidade', '%', 'Porcentagem', 3);
+INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida) VALUES
+('Temperatura', '°C', 'Celsius'),
+('Pressão', 'Pa', 'Pascal'),
+('Umidade', '%', 'Porcentagem');
 
 -- Inserir dados na tabela 'registro'
-INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkMedidaComponente) VALUES
-(1, 25.5, '2023-10-09 10:00:00', 1),
-(2, 35.0, '2023-10-09 11:00:00', 2),
-(3, 50.0, '2023-10-09 12:00:00', 3);
+INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro) VALUES
+(1, 25.5, '2023-10-09 10:00:00'),
+(2, 35.0, '2023-10-09 11:00:00'),
+(3, 50.0, '2023-10-09 12:00:00');
+
+select count(idServidor) from Servidor join componente on idServidor = fkServidor join subComponente on idComponente = fkComponente join detalheSubComponente on idSubComponente = fkSubComponente join Registro on fkSubComponente;
