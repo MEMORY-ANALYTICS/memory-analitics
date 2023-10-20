@@ -4,7 +4,7 @@ function getServInstaveis(req, res){
     var fkEmpresa = req.params.fkEmpresa;
     console.log('Estou no Controller com o valor de:' + fkEmpresa)
 
-    dashboardGModel.getServIstaveis(fkEmpresa)
+    dashboardGModel.getServInstaveis(fkEmpresa)
     .then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
