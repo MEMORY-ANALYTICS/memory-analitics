@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS bd_memoryanalytics;
 CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
-USE bd_memoryanalytics;
+USE bd_memoryAnalytics;
 
 CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bd_memoryanalytics.* TO urubu100;
@@ -9,17 +9,17 @@ FLUSH PRIVILEGES;
 CREATE TABLE IF NOT EXISTS `empresa`(
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
 nomeEmpresa VARCHAR(45),
-cnpjEmpresa CHAR(14),
+cnpjEmpresa CHAR(18),
 emailEmpresa VARCHAR(50),
-telEmpresa CHAR(10)
+telEmpresa CHAR(15)
 ) AUTO_INCREMENT = 10000;
 
 CREATE TABLE IF NOT EXISTS `endereco`(
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-cep CHAR(8),
-logradouro VARCHAR(45),
+cep CHAR(9),
+logradouro VARCHAR(60),
 numero INT,
-cidade VARCHAR(45),
+cidade VARCHAR(60),
 estado VARCHAR(45),
 fkEmpresa INT,
 FOREIGN KEY (`fkEmpresa`) REFERENCES empresa (idEmpresa)
@@ -46,7 +46,7 @@ FOREIGN KEY (fkSupervisor) REFERENCES funcionario (idFuncionario)
 
 CREATE TABLE IF NOT EXISTS `login`(
 idLogin INT PRIMARY KEY AUTO_INCREMENT,
-login VARCHAR(80),
+email VARCHAR(80),
 senha VARCHAR(45),
 fkFuncionario INT,
 FOREIGN KEY (fkFuncionario) REFERENCES funcionario (idFuncionario)
@@ -125,8 +125,6 @@ FOREIGN KEY (fkDSCMedidaComponente) REFERENCES detalheSubComponente (fkMedidaCom
 );
 
 -- Inserir dados na tabela 'empresa'
-INSERT INTO empresa VALUES (1, 'Memory Analytics','12345698901234', 'memoryanalytics@gmail.com', '1342334455');
-select * from empresa;
 INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
 ('Empresa A', '12345678901234', 'empresaA@email.com', '1122334455'),
 ('Empresa B', '56789012345678', 'empresaB@email.com', '2233445566'),
@@ -157,7 +155,7 @@ INSERT INTO login (login, senha, fkFuncionario) VALUES
 ('pedro789', 'senha789', 100002);
 
 -- Inserir dados na tabela 'servidor'
-INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
+INSERT INTO servidor (SistemaOperacionalServer, apelidoServer, ipServer, numeroSerieServer, fkEmpresa) VALUES
 ('Linux', 'Servidor A', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
@@ -193,18 +191,22 @@ INSERT INTO subComponente (nomeSubComponente, fkComponente) VALUES
 ('SubComponente 3', 3);
 
 -- Inserir dados na tabela 'medidaComponente'
-INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida) VALUES
-('Temperatura', '°C', 'Celsius'),
-('Pressão', 'Pa', 'Pascal'),
-('Umidade', '%', 'Porcentagem');
-
-INSERT INTO detalheSubComponente Values
-(1,1),
-(2,2),
-(3,3);
+INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida, fkSubComponente) VALUES
+('Temperatura', '°C', 'Celsius', 1),
+('Pressão', 'Pa', 'Pascal', 2),
+('Umidade', '%', 'Porcentagem', 3);
 
 -- Inserir dados na tabela 'registro'
-INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkDSCSubComponente, fkDSCMedidaComponente) VALUES
-(1, 25.5, '2023-10-09 10:00:00', 1, 1),
-(2, 35.0, '2023-10-09 11:00:00', 2, 2),
-(3, 50.0, '2023-10-09 12:00:00', 3, 3);
+INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkMedidaComponente) VALUES
+(1, 25.5, '2023-10-09 10:00:00', 1),
+(2, 35.0, '2023-10-09 11:00:00', 2),
+(3, 50.0, '2023-10-09 12:00:00', 3);
+
+select * from empresa;
+select * from endereco;
+select * from funcionario;	
+select * from login;
+
+SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa FROM funcionario
+	join login on idFuncionario = fkFuncionario
+  WHERE email = '' AND senha = '';
