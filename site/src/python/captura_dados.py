@@ -10,14 +10,25 @@ list_media_cpu = []
 list_media_memoria = []
 list_media_disco = []
 media_geral_cpu = 0 
+nome_user = ps.users()[0][0]
+id_server = executar(
+    f"SELECT idServidor FROM servidor WHERE apelidoServidor = '{nome_user}';"
+)
+data_atual = datetime.datetime.now()
+teste = executar(
+    f"SELECT * FROM componente WHERE idServidor = {id_server[0][0]};"
+)
+print(id_server[0])
+print(id_server[0][0])
+print(teste)
 
-
-dataAtual = datetime.datetime.now()
 
 # -=-=-=-=-=-=-=-=-=-= CPU -=-=-=-=-=-=-=-=-=-=
 
 
 def exibir_dados_cpu():
+
+    s(2)
     global media_geral_cpu
     global list_media_cpu
 
@@ -49,6 +60,12 @@ def exibir_dados_cpu():
     Uso geral da CPU == {uso_cpu_geral}"""
     )
 
+
+    frequencia_cpu_atual_tratado = (frequencia_cpu_atual/1000)
+    frequencia_cpu_max_tratado = (frequencia_cpu_max/1000)
+    frequencia_cpu_min_tratado = (frequencia_cpu_min/1000)
+    lista_freq_cpu = [frequencia_cpu_atual_tratado,frequencia_cpu_max_tratado,frequencia_cpu_min_tratado]
+
     # % de Uso das CPUs == {dict_cpu}%
     for i in range(0, len(uso_cpus)):
         desc = "Porcentagem CPU " + str(i + 1)
@@ -56,20 +73,31 @@ def exibir_dados_cpu():
 
         dict_cpu[f"Porcentagem CPU {(i + 1)}"] = uso_cpus[i]
 
+        executar(
+            f"Insert into registro values(null,{uso_cpus[i]}," + 
+            f"'{data_atual}', {[4]}, {3})"
+        )
+
         list_cpu.append(dict_cpu.copy())
+
+
+    
 
     print(
         f"""
     Tempo de interrupções da CPU == {(interrupcoes_cpu/1000000):.2f} s
-    Frequência Atual da CPU == {(frequencia_cpu_atual/1000):.2f} GHz
-    Frequência Máxima da CPU == {(frequencia_cpu_max/1000):.2f} GHz - 
-    Frequência Mínima da CPU == {(frequencia_cpu_min/1000):.2f} GHz -
+    Frequência Atual da CPU == {(frequencia_cpu_atual):.2f} GHz
+    Frequência Máxima da CPU == {(frequencia_cpu_max_tratado):.2f} GHz - 
+    Frequência Mínima da CPU == {frequencia_cpu_min_tratado:.2f} GHz -
     """
     )
 
-    executar(
-        f"call RegistroCPU('{(tempo_ocioso/1000):.2f}', '{(tempo_uso_kernel/1000):.2f}', '{uso_cpu_geral}', '{(frequencia_cpu_atual/1000):.2f}')"
-    )
+
+    for i in range(0, len(lista_freq_cpu)):
+        executar(
+            f"Insert into registro values(null,{lista_freq_cpu[i]}," + 
+            f"'{data_atual}', {id_server}, {4})"
+        )
 
     if uso_cpus[0] > 95:
         print(mensagem_slack("O uso da CPU está acima de 70%"))
@@ -93,6 +121,8 @@ def exibir_info_mem():
     porcentagem_uso_memoria = round((memoria_usada * 100) / memoria_total, 2)
     list_media_memoria.append(porcentagem_uso_memoria)
 
+    memoria_total
+
     print(
         f"""
     ------------------ Memória --------------------- 
@@ -103,15 +133,15 @@ def exibir_info_mem():
     """
     )
 
-    executar(
-        f"call RegistroMemoria({memoria_usada/1000000000:.2f}, {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f}, {porcentagem_uso_memoria})"
-    )
+    #executar(
+    #    f"call RegistroMemoria({memoria_usada/1000000000:.2f}, {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f}, {porcentagem_uso_memoria})"
+    #)
 
     if memoria_usada / (10**9) > 7:
         print(
             mensagem_slack(
                 f"""O uso de memória ram é excessivo!
-                                Data e hora do alerta: {dataAtual}"""
+                                Data e hora do alerta: {data_atual}"""
             )
         )
 
@@ -147,9 +177,9 @@ def exibir_info_disco():
     list_disc.append(dict_disk.copy())
     print(dict_disk)
    
-    executar(
-        f"call RegistroDisco('{(uso_total_disco/1000000000):.2f}','{(disco_usado/1000000000):.2f}','{(disco_livre/1000000000):.2f}','{porcent_disco}')"
-    )
+    #executar(
+    #    f"call RegistroDisco('{(uso_total_disco/1000000000):.2f}','{(disco_usado/1000000000):.2f}','{(disco_livre/1000000000):.2f}','{porcent_disco}')"
+    #)
 
     return {
         "disc_total": f"{(uso_total_disco/1000000000):.2f} GB",
@@ -182,9 +212,9 @@ def exibir_info_rede():
     """
     )
 
-    executar(
-        f"call RegistroRede('{bytes_enviados/1000000:.2f}','{bytes_recebidos/1000000:.2f}','{qtd_erros_entrada}','{qtd_erros_saida}')"
-    )
+    #executar(
+    #    f"call RegistroRede('{bytes_enviados/1000000:.2f}','{bytes_recebidos/1000000:.2f}','{qtd_erros_entrada}','{qtd_erros_saida}')"
+    #)
 
     return {
         "bytes_out": f"{bytes_enviados/1000000:.2f} MB/s",
@@ -210,9 +240,9 @@ def exibir_info_temp(osv):
             Temperaturas do Entorno da CPU == {lista}
             """
         )
-        executar(
-            f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
-        )
+        #executar(
+        #    f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
+        #)
 
         return {"cpu": f"{temperatura_cpu_atual}°C"}
     else:

@@ -1,10 +1,10 @@
 var dashboardGModel = require("../models/dashboardGModels");
 
-function getServIntaveis(req, res){
+function getServInstaveis(req, res){
     var fkEmpresa = req.params.fkEmpresa;
     console.log('Estou no Controller com o valor de:' + fkEmpresa)
 
-    dashboardGModel.getServIntaveis(fkEmpresa)
+    dashboardGModel.getServInstaveis(fkEmpresa)
     .then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
@@ -20,5 +20,5 @@ function getServIntaveis(req, res){
 }
 
 module.exports = {
-    getServIntaveis
+    getServInstaveis
 };

@@ -29,7 +29,12 @@ def executar(instrucao):
     try:
         print(f"Executando comando: \n{instrucao}")
         comando.execute(instrucao)
-        conexao.commit()
+        primeira_frase = instrucao.split()[0]
+        if(primeira_frase == "SELECT"):
+            retorno = comando.fetchall()
+            return retorno
+        else:
+            conexao.commit()
     except mysql.connector.Error as erro:
         print("Erro ao executar comando!")
         print(erro)

@@ -9608,7 +9608,7 @@ a.text-secondary:hover, a.text-secondary:focus {
 }
 
 .text-success {
-  color: #1cc88a !important;
+  color: #e74a3b !important;
 }
 
 a.text-success:hover, a.text-success:focus {
@@ -10057,7 +10057,7 @@ a:focus {
 }
 
 .border-left-success {
-  border-left: 0.25rem solid #1cc88a !important;
+  border-left: 0.25rem solid #e74a3b !important;
 }
 
 .border-bottom-success {
