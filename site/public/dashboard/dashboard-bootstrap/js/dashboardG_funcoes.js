@@ -5,7 +5,7 @@ function getServInstaveis() {
     
             resposta.json().then(function (json) {
                 var numServInstaveis = json[0].qtdServInstaveis
-                console.log("Dados recebidos: ", JSON.stringify(json));
+                // console.log("Dados recebidos: ", JSON.stringify(json));
                 console.log = (json)
                 
                 servInstaveis.innerHTML = numServInstaveis
@@ -17,7 +17,8 @@ function getServInstaveis() {
         console.error(resposta);
     });
     
-    
 }
 
-setInterval(getServInstaveis(), 2)
+
+
+getServInstaveis();

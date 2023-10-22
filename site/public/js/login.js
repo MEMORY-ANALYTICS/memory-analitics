@@ -1,13 +1,13 @@
 function entrar() {
-  var emailVar = email_input.value;
-  var senhaVar = senha_input.value;
+  var email = document.getElementById("email_input").value;
+  var senha = document.getElementById("senha_input").value;
 
-  if (emailVar == "" || senhaVar == "") {
-    toastr.error("Preencha todos os campos corretamente!");
+  if (email == "" || senha == "") {
+    alert("Preencha todos os campos corretamente!");
   }
 
-  console.log("FORM LOGIN: ", emailVar);
-  console.log("FORM SENHA: ", senhaVar);
+  console.log("FORM LOGIN: ", email);
+  console.log("FORM SENHA: ", senha);
 
   fetch("/usuarios/autenticar", {
     method: "POST",
@@ -15,8 +15,8 @@ function entrar() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      emailServer: emailVar,
-      senhaServer: senhaVar,
+      emailServer: email,
+      senhaServer: senha,
     }),
   })
     .then(function (resposta) {
@@ -38,7 +38,7 @@ function entrar() {
           sessionStorage.NOME_USUARIO = json[0].nomeFunc;
           sessionStorage.EMAIL_USUARIO = json[0].emailFunc;
           sessionStorage.TELEFONE_USUARIO = json[0].telefoneFunc;
-          sessionStorage.CARGO_USUARIO = json[0].fkCargo == 3 ? "Gerente" : "Analista";
+          sessionStorage.CARGO_USUARIO = json[0].fkCargo == 1 ? "Gerente" : "Analista";
           sessionStorage.EMPRESA_USUARIO = json[0].fkEmpresa;
 
           if(sessionStorage.CARGO_USUARIO == "Gerente"){

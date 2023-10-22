@@ -222,11 +222,93 @@ INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkDSCSubCompone
 (null, 109.5, '2023-10-09 16:30:00', 2, 2), 
 (null, 97.0, '2023-10-09 17:00:00', 3, 3);
 
-select * from empresa;
-select * from endereco;
-select * from funcionario;	
 select * from login;
 
-SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa FROM funcionario
-	join login on idFuncionario = fkFuncionario
-  WHERE email = '' AND senha = '';
+select * from Registro;
+select * from metricaComponente;
+select * from servidor;
+select * from componente;
+select * from medidacomponente;
+select * from subcomponente;
+select * from detalhesubcomponente;
+
+# VIEW SERVIDORES INSTAVEIS
+create view getServInstaveis as select count(Servidor.idServidor) as qtdRegistrosLimiteMax from Servidor join componente on idServidor = fkServidor 
+join subComponente on idComponente = fkComponente 
+join detalheSubComponente on idSubComponente = fkSubComponente 
+join Registro on fkSubComponente = fkDSCSubComponente 
+join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
+join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
+where Registro.valorRegistro > metricaComponente.limiteMax;
+# drop view getServInstaveis;
+
+# SELECT count(idServidor) as qtdServInstaveis FROM getServInstaveis JOIN servidor WHERE fkEmpresa = 10002;
+
+# VIEWS ESTADO SERVIDORES GERAL
+
+create view getServidoresSeguros as select count(Servidor.idServidor) as qtdServSeguros, fkEmpresa from Servidor join componente on idServidor = fkServidor 
+join subComponente on idComponente = fkComponente 
+join detalheSubComponente on idSubComponente = fkSubComponente 
+join Registro on fkSubComponente = fkDSCSubComponente 
+join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
+join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
+where Registro.valorRegistro <= metricaComponente.limiteMax * 0.85 and Registro.valorRegistro >= metricaComponente.limiteMin * 1.15 group by fkEmpresa;
+select * from getServidoresSeguros;
+
+create view getServidoresAlertas as select count(Servidor.idServidor) as qtdServAlertas, fkEmpresa from Servidor join componente on idServidor = fkServidor 
+join subComponente on idComponente = fkComponente 
+join detalheSubComponente on idSubComponente = fkSubComponente 
+join Registro on fkSubComponente = fkDSCSubComponente 
+join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
+join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
+where Registro.valorRegistro > metricaComponente.limiteMax * 0.85 and Registro.valorRegistro < metricaComponente.limiteMax or Registro.valorRegistro < metricaComponente.limiteMin * 1.15 and Registro.valorRegistro > metricaComponente.limiteMin group by fkEmpresa;
+select * from getServidoresAlertas;
+
+create view getServidoresCriticos as select count(Servidor.idServidor) as qtdServCriticos, fkEmpresa from Servidor join componente on idServidor = fkServidor 
+join subComponente on idComponente = fkComponente 
+join detalheSubComponente on idSubComponente = fkSubComponente 
+join Registro on fkSubComponente = fkDSCSubComponente 
+join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
+join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
+where Registro.valorRegistro > metricaComponente.limiteMax or Registro.valorRegistro < metricaComponente.limiteMin group by fkEmpresa;
+select * from getServidoresCriticos;
+
+
+# drop view getServidoresCriticos;
+
+create view getEstadoGeralServ as select qtdServSeguros, qtdServAlertas, qtdServCriticos, S.fkEmpresa from getServidoresSeguros S, getServidoresAlertas A, getServidoresCriticos C where S.fkEmpresa = A.fkEmpresa and S.fkEmpresa = C.fkEmpresa and A.fkEmpresa = C.fkEmpresa;
+select * from getEstadoGeralServ WHERE fkEmpresa = 10000;
+SELECT qtdServSeguros, qtdServAlertas, qtdServCriticos FROM getEstadoGeralServ JOIN servidor WHERE fkEmpresa = 10002;
+
+select qtdServSeguros, qtdServAlertas, qtdServCriticos, S.fkEmpresa from getServidoresSeguros S, getServidoresAlertas A, getServidoresCriticos C where S.fkEmpresa = A.fkEmpresa and S.fkEmpresa = C.fkEmpresa and A.fkEmpresa = C.fkEmpresa;
+
+
+# VIEW ESCALABILIDADE
+
+CREATE OR REPLACE VIEW capacidade_e_escalabilidade AS
+SELECT
+    s.idServidor,
+    s.apelidoServidor,
+    s.SistemaOperacionalServidor,
+    s.ipServidor,
+    e.nomeEmpresa,
+    c.nomeCargo,
+    AVG(CASE WHEN mc.nomeModelo = 'Modelo X' THEN r.valorRegistro ELSE 0 END) AS uso_memoria,
+    AVG(CASE WHEN mc.nomeModelo = 'Modelo Y' THEN r.valorRegistro ELSE 0 END) AS uso_cpu
+FROM
+    servidor AS s
+JOIN empresa AS e ON s.fkEmpresa = e.idEmpresa
+JOIN funcionario AS f ON e.idEmpresa = f.fkEmpresa
+JOIN cargo AS c ON f.fkCargo = c.idCargo
+JOIN modeloComponente AS mc ON s.idServidor = mc.fkTipoComponente
+JOIN metricaComponente AS mco ON mc.idModeloComponente = mco.fkModeloComponente
+JOIN registro AS r ON mco.idMetricaComponente = r.fkDSCMedidaComponente
+GROUP BY
+    s.idServidor,
+    s.apelidoServidor,
+    s.SistemaOperacionalServidor,
+    s.ipServidor,
+    e.nomeEmpresa,
+    c.nomeCargo;
+    
+    SELECT * FROM capacidade_e_escalabilidade;

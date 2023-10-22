@@ -9608,7 +9608,7 @@ a.text-secondary:hover, a.text-secondary:focus {
 }
 
 .text-success {
-  color: #e74a3b !important;
+  color: #F0CA4A ;
 }
 
 a.text-success:hover, a.text-success:focus {
@@ -9616,7 +9616,7 @@ a.text-success:hover, a.text-success:focus {
 }
 
 .text-info {
-  color: #36b9cc !important;
+  color: #e74a3b ;
 }
 
 a.text-info:hover, a.text-info:focus {
