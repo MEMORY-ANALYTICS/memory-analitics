@@ -2,125 +2,117 @@ use br_MemoryAnalytics;
 
 -- -=-=-=-=-=-=-=-=-=-=-= Inserindo Dados -=-=-=-=-=-=-=-=-=-=-=
 
--- Tabela Empresa
-insert into empresa values
-(null, 'Uceae', '01235794000012', 'uceae.contatar@gmail.com', '(11)91234-5763'),
-(null, 'Memory Analytics', '32564433000012', 'memory_analytics@gmail.com', '(11)97763-5425');
+-- Inserir dados na tabela 'empresa'
+INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
+('Empresa A', '12345678901234', 'empresaA@email.com', '1122334455'),
+('Empresa B', '56789012345678', 'empresaB@email.com', '2233445566'),
+('Empresa C', '90123456789012', 'empresaC@email.com', '3344556677');
 
--- Tabela Endereço
-insert into endereco values
-(null, '05425000', 'Rua Eugênio de Medeiros', 305, 'São Paulo', 'SP', '11º andar', 1),
-(null, '04538-133', 'Av. Brig. Faria Lima', '3477', 'São Paulo', 'SP', null, 2);
--- Tabela Cargo
-insert into cargo values
-(null, 'Analista de Hardware'),
-(null, 'Analista de Sistema'),
-(null, 'Gerente');
--- adicionar opção outro cargo na tela, dar opção para enviar um pedido para cadastrar um cargo novo.
+-- Inserir dados na tabela 'endereco'
+INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
+('12345678', 'Rua A', 123, 'Cidade A', 'Estado A', 10000),
+('23456789', 'Rua B', 456, 'Cidade B', 'Estado B', 10001),
+('34567890', 'Rua C', 789, 'Cidade C', 'Estado C', 10002);
 
--- Tabela Funcionário
-insert into funcionario values
-(null, 'João Miguel Almeida', 'joao@gmail.com','11983220192', 1, 1, 3, null),
-(null, 'Marcos Araújo', 'marcos@gmail.com','11933340099', 2, 1, 1, 1),
-(null, 'Solange Medeiros', 'solange@gmail.com','11983228776', 3, 1, 2, 1),
-(null, 'Luan Santos', 'luan@gmail.com','11923280192', 1, 2, 3, null),
-(null, 'Maria da Penha', 'maria@gmail.com','11983522190', 2, 2, 2, 4),
-(null, 'Larissa Pinheiro de Brito', 'larissa@gmail.com','11912230112', 2, 2, 1, 4);
+-- Inserir dados na tabela 'cargo'
+INSERT INTO cargo (nomeCargo) VALUES
+('Gerente'),
+('Analista'),
+('Técnico');
 
--- Tabela Login
-insert into login values
-(null,'joao@gmail.com','joao123',1),
-(null,'marcos@gmail.com','marcos123',2),
-(null,'solange@gmail.com','solange123',3),
-(null,'luan@gmail.com','luan123',4),
-(null,'maria@gmail.com','maria123',5),
-(null,'larissa@gmail.com','larissa123',6);
+-- Inserir dados na tabela 'funcionario'
+INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor) VALUES
+('João', 'joao@email.com', '11122233344', 'A', 10000, 1, NULL),
+('Maria', 'maria@email.com', '22233344455', 'A', 10001, 2, 100000),
+('Pedro', 'pedro@email.com', '33344455566', 'B', 10002, 3, 100000);
 
---    Tabela Servidores
-insert into servidores values
-(null, "Linux", "Setor F6", "192.158.1.38","6007041",1),
-(null, "Windows", "Setor G4", "192.157.1.38","3008041", 1),
-(null, "Linux", "Setor T8", "192.156.1.38","6347056", 2),
-(null, "Unix", "Setor H3", "192.155.1.38","6901231",2),
-(null, "Windows", "Setor de teste", "999.999.9.99", "9999999", 2);
+-- Inserir dados na tabela 'login'
+INSERT INTO login (email, senha, fkFuncionario) VALUES
+('joao@email.com', 'senha123', 100000),
+('maria456', 'senha456', 100001),
+('pedro789', 'senha789', 100002);
+
+-- Inserir dados na tabela 'servidor'
+INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
+('Linux', 'Servidor A', '192.168.1.1', 'SERV123', 10000),
+('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
+('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
+
+-- Inserir dados na tabela 'componente'
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', '2000','4000',1),
+('Corsair', 'Vengeance', 'RAM', '0','16',1), 
+('WD', 'Black', 'DISCO', '0','500',1), 
+('TPLink','NP3200','REDE','1','1000',1),
+('Intel', 'Xeon', 'CPU', '2000','4000',2),
+('Corsair', 'Vengeance', 'RAM', '0','16',2), 
+('WD', 'Black', 'DISCO', '0','500',2),
+('TPLink','NP3200','REDE','1','1000',2), 
+('Intel', 'Xeon', 'CPU', '2000','4000',3),
+('Corsair', 'Vengeance', 'RAM', '0','16',3), 
+('WD', 'Black', 'DISCO', '0','500',3), 
+('TPLink','NP3200','REDE','1','1000',3);
+
+-- Inserir dados na tabela 'subComponente'
+INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
+('Core 1', 1),
+('Core 2', 1),
+('Core 3', 1),
+('Core 4', 1),
+('Core 1', 4),
+('Core 2', 4),
+('Core 3', 4),
+('Core 4', 4),
+('Core 1', 6),
+('Core 2', 6),
+('Core 3', 6),
+('Core 4', 6),
+('Leitura RAM', 2),
+('Leitura RAM', 5),
+('Leitura RAM', 8),
+('Partição DISCO 1', 3),
+('Partição DISCO 2', 3),
+('Partição DISCO 3', 3),
+('Partição DISCO 1', 6),
+('Partição DISCO 2', 6),
+('Partição DISCO 3', 6),
+('Partição DISCO 1', 9),
+('Partição DISCO 2', 9),
+('Partição DISCO 3', 9),
+('Leitura REDE', 4),
+('Leitura REDE', 8),
+('Leitura REDE', 12);
+
+-- Inserir dados na tabela 'medidaComponente'
+INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
+('Armazenamento', 'GB'),
+('Frequência', 'MHz'),
+('Porcentagem de Uso', '%'),
+('Transferência de Rede','Mbps'),
+('Quantidade de Erros Rede','Int');
+
+-- Inserir dados na tabela 'registro'
+INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+(2200, '2023-10-09 10:00:00', 5, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 6, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 7, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 8, 2),  -- CPU
+(10, '2023-10-09 10:00:00', 5, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 6, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 7, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 8, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-10-09 10:30:00', 14, 1),  -- RAM
+(50, '2023-10-09 10:30:00', 14, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-10-09 10:30:00', 19, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 20, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 21, 1),  -- DISCO
+(50, '2023-10-09 10:30:00', 19, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 20, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 21, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-10-09 10:30:00', 26, 4),  -- REDE
+(50, '2023-10-09 10:30:00', 26, 3);  -- REDE
 
 
--- Tabela Componentes
--- insert into Componente values
--- (null, 'DISCO', 'C://'),
--- (null, 'MEMORIA', null),
--- (null, 'CPU', 'CPU 1'),
--- (null, 'REDE', null);
-
--- Tabela Medida Componente
--- Tabela Nome Componente
--- rever atributos dessa tabela
-insert into nomeComponente values
-(null, 'Disco'),
-(null, 'Memória RAM'),
-(null, 'CPU'),
-(null, 'Rede');
-
-insert into medidaComponente values
-(null, 'Temperatura', '°C', 'Celsius'),
-(null, 'Uso', '%', 'Porcentagem'),
-(null, 'Frequencia', 'Hz', 'Hertz'),
-(null, 'Capacidade', 'Gb', 'Giga Byte'),
-(null, 'Latência', 'B', 'Byte'),
-(null, 'Unidade', null, null),
-(null, 'Tempo', 's', 'Segundos'),
-(null, 'Frequencia', 'GHz', 'Giga Hertz');
-
--- Tabela Métrica Componente
-insert into metricaComponente values
-(null, 20, 25); -- Graus Celsius
-
--- Tabela Nome Componente
--- rever atributos dessa tabela
-insert into nomeComponente values
-(null, 'Disco'),
-(null, 'Memória RAM'),
-(null, 'CPU'),
-(null, 'Placa de Rede');
-
--- Tabela Modelo Componente
-insert into modeloComponente values
-(null, 'Intel', 'Xeon E5-2697 V2', '?'),
-(null, 'AMD', 'Ryzen 9 5900X', '?'),
-(null, 'Dell', '32Go - 2RX4 DDR4 RDIMM', '?');
--- Onde ver o número da geração dos modelos
--- placa de rede fabricantes e modelos?
-   
--- insert into MedidaComponente values
--- (null, 5 , 1 , 2),
--- (null, 5 , 2 , 2),
--- (null, 5 , 3 , 2),
--- (null, 5 , 4 , 6);
-
--- Tabela SubComponente
--- insert into subComponente values
--- (),
-
--- Tabela Componente Completo
-
--- Tabela Componente
-
--- Tabela Registro
-insert into registro values
-(null, 23, now(), 1),
-(null, 67, now(), 2),
-(null, 30, now(), 3),
-(null, 12, now(), 4);
-
-
--- -=-=-=-=-=-=-=-=-=-=-= SELECTS -=-=-=-=-=-=-=-=-=-=-=
-
--- select * from Empresa;
--- select * from Cargo;
--- select * from Funcionario;
--- select * from Login;
--- select * from Servidores;
--- select * from Componente;
--- select * from Medida;
--- select * from MedidaComponente;
--- select * from Registro;
