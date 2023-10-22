@@ -18,8 +18,13 @@ public class DiscoLocal {
 
     public DiscoLocal() {
         Looca looca = new Looca();
-        listaDiscos = looca.getGrupoDeDiscos().getDiscos();
-        listaDiscos.addAll(looca.getGrupoDeDiscos().getDiscos());
+        this.listaDiscos = looca.getGrupoDeDiscos().getDiscos();
+    }
+
+    public void listarTodosDiscos(){
+        for( Disco disco : listaDiscos){
+            System.out.println(disco);
+        }
     }
 
 }

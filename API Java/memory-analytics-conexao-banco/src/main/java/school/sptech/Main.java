@@ -1,8 +1,5 @@
 package school.sptech;
-import com.github.britooo.looca.api.core.Looca;
-import school.sptech.Hardware.Cpu;
-import school.sptech.Hardware.DiscoLocal;
-import school.sptech.Hardware.MemoriaRam;
+import school.sptech.Hardware.*;
 
 import java.util.List;
 
@@ -19,7 +16,10 @@ public class Main {
 //        System.out.println(
 //        looca.getGrupoDeDiscos().getDiscos()
 //        );
+
         DiscoLocal d1 = new DiscoLocal();
-        System.out.println(d1);
+
+        d1.listarTodosDiscos();
+
     }
 }
