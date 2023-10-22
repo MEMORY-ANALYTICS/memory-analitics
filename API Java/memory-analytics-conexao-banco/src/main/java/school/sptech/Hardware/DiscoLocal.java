@@ -26,5 +26,4 @@ public class DiscoLocal {
             System.out.println(disco);
         }
     }
-
 }
