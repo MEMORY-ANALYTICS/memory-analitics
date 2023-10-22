@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `recurso`(
 );
 
 CREATE TABLE IF NOT EXISTS `medidaComponente`(
-  idMedidaComponente INT,
+  idMedidaComponente INT PRIMARY KEY auto_increment,
   tipoMedida VARCHAR(25),
   unidadeMedida VARCHAR(45)
 );
