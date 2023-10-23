@@ -35,7 +35,7 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
-('Linux', 'Servidor A', '192.168.1.1', 'SERV123', 10000),
+('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
 
@@ -88,9 +88,10 @@ INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
 INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
 ('Armazenamento', 'GB'),
 ('Frequência', 'MHz'),
-('Porcentagem de Uso', '%'),
-('Transferência de Rede','Mbps'),
-('Quantidade de Erros Rede','Int');
+('Porcentagem', '%'),
+('Transferência','Mbps'),
+('Quantidade','Int'),
+('Velocidade', 's');
 
 -- Inserir dados na tabela 'registro'
 INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
