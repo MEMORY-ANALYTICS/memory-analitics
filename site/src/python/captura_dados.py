@@ -45,110 +45,30 @@ else:
 
     # # -=-=-=-=-=-=-=-=-=-= CPU -=-=-=-=-=-=-=-=-=-=
 
-    
-qtd_cpus_virtuais = psutil.cpu_count()
-qtd_cpus_fisicos = psutil.cpu_count(logical=False)
-uso_cpus = psutil.cpu_percent(interval=None, percpu=True)
-uso_cpu_geral = psutil.cpu_percent(interval=None, percpu=False)
-frequencia_cpu_atual = psutil.cpu_freq().current
-frequencia_cpu_max = psutil.cpu_freq().max
-frequencia_cpu_min = psutil.cpu_freq().min
-lista_freq_cpu = [frequencia_cpu_atual,frequencia_cpu_max,frequencia_cpu_min]
+def exibir_dados_cpu():
+        
+    qtd_cpus_virtuais = psutil.cpu_count()
+    qtd_cpus_fisicos = psutil.cpu_count(logical=False)
+    uso_cpus = psutil.cpu_percent(interval=None, percpu=True)
+    uso_cpu_geral = psutil.cpu_percent(interval=None, percpu=False)
+    frequencia_cpu_atual = psutil.cpu_freq().current
+    frequencia_cpu_max = psutil.cpu_freq().max
+    frequencia_cpu_min = psutil.cpu_freq().min
+    lista_freq_cpu = [frequencia_cpu_atual,frequencia_cpu_max,frequencia_cpu_min]
 
-print(
-    f"""
-+---------------------- CPU -------------------------+
-    Quantidade de CPUs Virtuais == {qtd_cpus_virtuais}         
-    Quantidade de CPUs Fisicos == {qtd_cpus_fisicos}           
-    Média de uso da CPU (%) == {uso_cpu_geral}                 
-    Frequência Atual da CPU == {frequencia_cpu_atual} MHz      
-    Frequência Máxima da CPU == {frequencia_cpu_max} MHz       
-    Frequência Mínima da CPU == {frequencia_cpu_min} MHz       
-+----------------------     -------------------------+
-""")
+    print(
+        f"""
+    +---------------------- CPU -------------------------+
+        Quantidade de CPUs Virtuais == {qtd_cpus_virtuais}         
+        Quantidade de CPUs Fisicos == {qtd_cpus_fisicos}           
+        Média de uso da CPU (%) == {uso_cpu_geral}                 
+        Frequência Atual da CPU == {frequencia_cpu_atual} MHz      
+        Frequência Máxima da CPU == {frequencia_cpu_max} MHz       
+        Frequência Mínima da CPU == {frequencia_cpu_min} MHz       
+    +----------------------     -------------------------+
+    """)
 
-
-
-
-    # def exibir_dados_cpu():
-
-    #     sleep(2)
-    #     global media_geral_cpu
-    #     global list_media_cpu
-
-    #     dict_cpu = {}
-    #     list_cpu = []
-    #     tempo_ocioso = psutil.cpu_times().idle
-    #     tempo_uso_kernel = psutil.cpu_times().system
-
-    #     qtd_cpus_virtuais = psutil.cpu_count()
-    #     qtd_cpus_fisicos = psutil.cpu_count(logical=False)
-
-    #     uso_cpus = psutil.cpu_percent(interval=None, percpu=True)
-    #     uso_cpu_geral = psutil.cpu_percent(interval=None, percpu=False)
-    #     media_geral_cpu = media_geral_cpu + uso_cpu_geral
-
-    #     interrupcoes_cpu = psutil.cpu_stats().interrupts
-
-    #     frequencia_cpu_atual = psutil.cpu_freq().current
-    #     frequencia_cpu_max = psutil.cpu_freq().max
-    #     frequencia_cpu_min = psutil.cpu_freq().min
-
-    #     print(
-    #         f"""
-    #     ------------------ CPU --------------------- 
-    #     Tempo Ocioso == {(tempo_ocioso/1000):.2f} s
-    #     Tempo de Uso do Kernel == {(tempo_uso_kernel/1000):.2f} s
-    #     Quantidade de CPUs Virtuais == {qtd_cpus_virtuais} -
-    #     Quantidade de CPUs Fisicos == {qtd_cpus_fisicos} - 
-    #     Uso geral da CPU == {uso_cpu_geral}"""
-    #     )
-
-
-    #     frequencia_cpu_atual_tratado = (frequencia_cpu_atual/1000)
-    #     frequencia_cpu_max_tratado = (frequencia_cpu_max/1000)
-    #     frequencia_cpu_min_tratado = (frequencia_cpu_min/1000)
-    #     lista_freq_cpu = [frequencia_cpu_atual_tratado,frequencia_cpu_max_tratado,frequencia_cpu_min_tratado]
-
-    #     # % de Uso das CPUs == {dict_cpu}%
-    #     for i in range(0, len(uso_cpus)):
-    #         desc = "Porcentagem CPU " + str(i + 1)
-    #         dict_cpu.clear()
-
-    #         dict_cpu[f"Porcentagem CPU {(i + 1)}"] = uso_cpus[i]
-
-    #         executar(
-    #             f"Insert into registro values(null,{uso_cpus[i]}," + 
-    #             f"'{data_atual}', {[4]}, {3})"
-    #         )
-
-    #         list_cpu.append(dict_cpu.copy())
-            
-    #     print(
-    #         f"""
-    #     Tempo de interrupções da CPU == {(interrupcoes_cpu/1000000):.2f} s
-    #     Frequência Atual da CPU == {(frequencia_cpu_atual_tratado):.2f} GHz
-    #     Frequência Máxima da CPU == {(frequencia_cpu_max_tratado):.2f} GHz - 
-    #     Frequência Mínima da CPU == {frequencia_cpu_min_tratado:.2f} GHz -
-    #     """)
-
-    #     for i in range(0, len(lista_freq_cpu)):
-    #         executar(
-    #             f"Insert into registro values(null,{lista_freq_cpu[i]}," + 
-    #             f"'{data_atual}', {id_server}, {4})"
-    #         )
-
-    #     if uso_cpus[0] > 95:
-    #         print(mensagem_slack("O uso da CPU está acima de 70%"))
-
-    #     return {
-    #         "uso": uso_cpu_geral,
-    #         "qtd_cpu": qtd_cpus_fisicos,
-    #         "qtd_vcpu": qtd_cpus_virtuais,
-    #     }
-
-
-    # # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
+# # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
 
 
     # def exibir_info_mem():
