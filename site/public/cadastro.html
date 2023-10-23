@@ -281,9 +281,17 @@
   </body>
 </html>
 <script>
+  function validarEmpresa(){
+    
+  }
   function cadastrarEmpresa() {
+
+    if (validarEmpresa) {
+      
     document.getElementById("cadastro_empresa").style.display = "none";
     document.getElementById("cadastro_funcionario").style.display = "block";
     document.getElementById("identificacao_cadastro").innerHTML = "FUNCIONÁRIO";
-  }
+        
+    }
+}
 </script>
