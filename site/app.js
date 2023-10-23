@@ -15,6 +15,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var emailRouter = require("./src/routes/email");
 var empresaRouter = require("./src/routes/empresa");
 var dashboardGRouter = require("./src/routes/dashboardG");
+var funcionarioRouter = require("./src/routes/funcionario");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,6 +28,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/email", emailRouter);
 app.use("/empresa", empresaRouter);
 app.use("/dashboardG", dashboardGRouter);
+app.use("/funcionario", funcionarioRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
