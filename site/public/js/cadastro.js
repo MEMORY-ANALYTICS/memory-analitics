@@ -42,7 +42,7 @@ function geradorDeSenhas() {
   return senha;
 }
 
-function enviarEmail(nome,email, senha) {
+function enviarEmail(nome, email, senha) {
   fetch("/email/enviar", {
     method: "POST",
     headers: {
@@ -64,106 +64,119 @@ function enviarEmail(nome,email, senha) {
     });
 }
 
-function cadastrar() {
-  var erro = false;
-  var nomeEmpresa = nomeEmpresa_input.value;
-  var nomeAdm = nomeAdm_input.value;
-  var emailContato = emailContato_input.value;
-  var telContato = telContato_input.value;
-  var cnpj = cnpj_input.value;
-  var emailContato = emailContato_input.value;
-  var userPassword = geradorDeSenhas();
-  
-  console.log(userPassword);
+function cadastrarEmpresa() {
+  // Recupere os valores dos campos do formulário da empresa
+  var nomeEmpresa = document.getElementById("nome_empresa").value;
+  var cnpj = document.getElementById("cnpj_empresa").value;
+  var telEmpresa = document.getElementById("telefone_empresa").value;
+  var emailEmpresa = document.getElementById("email_empresa").value;
+  ///////////////////////////////////////////////////////////////////////////
+  var cep = document.getElementById("cep_empresa").value;
+  var cidade = document.getElementById("cidade_empresa").value;
+  var estado = document.getElementById("estado_empresa").value;
+  var logradouro = document.getElementById("logradouro_empresa").value;
+  var numero = document.getElementById("numero_logradouro_empresa").value;
+  ////////////////////////////////////////////////////////////////////////////
+  var nomeFuncionario = document.getElementById("nome_funcionario").value;
+  var emailFuncionario = document.getElementById("email_funcionario").value;
+  var telFuncionario = document.getElementById("telefone_funcionario").value;
+  var cargo = document.getElementById("cargo_funcionario").value;
+  var senha = document.getElementById("senha_funcionario").value;
 
-  // -- Validações de input -- \\
+  var empresaData = {
+    nome: nomeEmpresa,
+    cnpj: cnpj,
+    telEmpresa: telEmpresa,
+    emailEmpresa: emailEmpresa,
+    cep: cep,
+    cidade: cidade,
+    estado: estado,
+    logradouro: logradouro,
+    numero: numero,
+    nomeFuncionario: nomeFuncionario,
+    emailFuncionario: emailFuncionario,
+    telFuncionario: telFuncionario,
+    cargo: cargo,
+    senha: senha
+  };
+
+  fetch("empresa/cadastrarEmpresa", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(empresaData),
+  })
+    .then(function (response) {
+      // Verifique se a solicitação foi bem-sucedida
+      if (response.ok) {
+        return response.json(); // Se estiver tudo certo, analise a resposta JSON (se houver)
+      } else {
+        throw new Error("Erro ao cadastrar empresa"); // Se houver um erro, lance uma exceção
+      }
+    })
+    .then(function (data) {
+      // Lide com a resposta do servidor, se necessário
+      console.log(data);
+    })
+    .catch(function (error) {
+      // Lide com erros de solicitação, se necessário
+      console.error(error);
+    });
+}
+// -- Validações de input -- \\
+function moverEmpresa() {
+  var nomeEmpresa = document.getElementById("nome_empresa").value;
+  var cnpj = document.getElementById("cnpj_empresa").value;
+  var telEmpresa = document.getElementById("telefone_empresa").value;
+  var emailEmpresa = document.getElementById("email_empresa").value;
+  ///////////////////////////////////////////////////////////////////////////
+  var cep = document.getElementById("cep_empresa").value;
+  var cidade = document.getElementById("cidade_empresa").value;
+  var estado = document.getElementById("estado_empresa").value;
+  var logradouro = document.getElementById("logradouro_empresa").value;
+  var numero = document.getElementById("numero_logradouro_empresa").value;
+
   if (
     nomeEmpresa == "" ||
-    nomeAdm == "" ||
-    emailContato == "" ||
-    telContato == "" ||
-    cnpj == ""
+    cnpj == "" ||
+    telEmpresa == "" ||
+    emailEmpresa == "" ||
+    ///////////////////////////////////////////////////////////////////////////
+    cep == "" ||
+    cidade == "" ||
+    estado == "" ||
+    logradouro == "" ||
+    numero == ""
   ) {
-    toastr.error("Preencha todos os campos corretamente!");
+    alert("Preencha todos os campos corretamente!");
     erro = true;
-  } else if (!emailContato.includes("@")) {
-    toastr.error("Email inválido!\nAdicione @");
-    erro = true;
-  }
-
-  if (!erro) {
-    console.log(userPassword);
-    enviarEmail(nomeAdm, emailContato, userPassword);
-
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        nomeEmpresaServer: nomeEmpresa,
-        nomeAdmServer: nomeAdm,
-        emailContatoServer: emailContato,
-        telContatoServer: telContato,
-        cnpjServer: cnpj,
-        senhaCadastroServer: userPassword,
-      }),
-    })
-      .then(function (resposta) {
-        console.log("Entrando do then");
-        console.log(resposta);
-
-        if (resposta.ok) {
-          resposta.json().then((json) => {
-            console.log(json);
-            console.log(JSON.stringify(json));
-            ratangulo_formulario.innerHTML = `
-            <div class="retangulo formulario retanguloModal">
-              <img
-                src="./assets/img/verificado.png"
-                alt=""
-                class="img_validado"
-              />
-              <a href="./login.html">
-              <button" class="btn btn-success text-dark fs-1">
-                Login
-              </button>
-              </a>
-            </div>;        
-            `;
-          });
-        } else {
-          console.log("Houve um erro ao realizar o cadastro!");
-          toastr.error(
-            "Infelizmente, não conseguimos realizar o seu cadastro.\nTente denovo mais tarde!"
-          );
-
-          resposta.text().then((texto) => {
-            console.error(texto);
-          });
-        }
-      })
-      .catch(function (erro) {
-        console.log(erro);
-      });
-    return false;
+  } else {
+    document.getElementById("cadastro_empresa").style.display = "none";
+    document.getElementById("cadastro_funcionario").style.display = "block";
   }
 }
 
-toastr.options = {
-  closeButton: false,
-  debug: false,
-  newestOnTop: false,
-  progressBar: false,
-  positionClass: "toast-bottom-right",
-  preventDuplicates: false,
-  onclick: null,
-  showDuration: "300",
-  hideDuration: "1000",
-  timeOut: "5000",
-  extendedTimeOut: "1000",
-  showEasing: "swing",
-  hideEasing: "linear",
-  showMethod: "fadeIn",
-  hideMethod: "fadeOut",
-};
+function moverFuncionario() {
+  var nomeFuncionario = document.getElementById("nome_funcionario").value;
+  var emailFuncionario = document.getElementById("email_funcionario").value;
+  var telFuncionario = document.getElementById("telefone_funcionario").value;
+  var cargo = document.getElementById("cargo_funcionario").value;
+  var senha = document.getElementById("senha_funcionario").value;
+
+  if(
+    nomeFuncionario == "" ||
+    emailFuncionario == "" ||
+    telFuncionario == "" ||
+    cargo == "" ||
+    senha == ""
+  ) {
+    alert("Insira as informações corretamente!")
+  }
+  else {
+    alert("Cadastro bem sucedido! - Redirecionando...")
+    cadastrarEmpresa()
+    window.location.href = "./login.html";
+  }
+}
+

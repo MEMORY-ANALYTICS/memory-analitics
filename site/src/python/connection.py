@@ -20,18 +20,20 @@ def executar(instrucao):
             port=portServer,
             database=databaseServer,
         )
-
     except mysql.connector.Error as error:
         print(f"Erro ao efetuar conexão >>> {error}")
-
     comando = conexao.cursor()
 
     try:
-        print(f"Executando comando: \n{instrucao}")
+        # print(f"Executando comando: \n{instrucao}")
         comando.execute(instrucao)
-        conexao.commit()
+        primeira_frase = instrucao.split()[0]
+        if(primeira_frase == "SELECT"):
+            retorno = comando.fetchall()
+            return retorno
+        else:
+            conexao.commit()
     except mysql.connector.Error as erro:
         print("Erro ao executar comando!")
         print(erro)
-        
     conexao.close()

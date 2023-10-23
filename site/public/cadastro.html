@@ -25,11 +25,12 @@
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"
     ></script>
-    <script src="cadastro.js"></script>
+    
+    <script src="./js/cadastro.js"></script>
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
-
+      
       body {
         overflow-x: hidden;
         overflow-y: hidden;
@@ -177,7 +178,7 @@
               </div>
               <div class="mx-1 w-100 row d-flex justify-content-center">
                 <button
-                  onclick="cadastrarEmpresa()"
+                  onclick="moverEmpresa()"
                   class="btn"
                   style="
                     width: 95%;
@@ -197,11 +198,11 @@
               </div>
               <div class="w-100 row mx-1">
                 <div class="form-group col-xl-12">
-                  <label for="nome_empresa">NOME</label>
+                  <label for="nome_funcionario">NOME</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="nome_empresa"
+                    id="nome_funcionario"
                     placeholder="Memory Analytics"
                   />
                 </div>
@@ -228,17 +229,17 @@
               </div>
               <div class="mx-1 w-100 row">
                 <div class="form-group col-xl-9">
-                  <label for="supervisor_funcionario">Supervisor</label>
+                  <label for="senha_funcionario">SENHA</label>
                   <input
-                    type="text"
+                    type="password"
                     class="form-control"
-                    id="supervisor_funcionario"
-                    placeholder="Gustavo"
+                    id="senha_funcionario"
+                    placeholder="*********"
                   />
                 </div>
                 <div class="form-group col-xl-3">
                   <label for="telefone_funcionario">CARGO</label>
-                  <select class="form-control" name="" id="">
+                  <select class="form-control" name="" id="cargo_funcionario">
                     <option value="0" disabled selected>Escolha o cargo</option>
                     <option value="1">Cargo 1</option>
                     <option value="2">Cargo 2</option>
@@ -248,7 +249,7 @@
               </div>
               <div class="mx-1 w-100 row d-flex justify-content-center">
                 <button
-                  onclick="cadastrarFuncionario()"
+                  onclick="moverFuncionario()"
                   class="btn"
                   style="
                     width: 95%;
