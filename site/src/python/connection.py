@@ -20,10 +20,8 @@ def executar(instrucao):
             port=portServer,
             database=databaseServer,
         )
-
     except mysql.connector.Error as error:
         print(f"Erro ao efetuar conexão >>> {error}")
-
     comando = conexao.cursor()
 
     try:
@@ -38,5 +36,4 @@ def executar(instrucao):
     except mysql.connector.Error as erro:
         print("Erro ao executar comando!")
         print(erro)
-        
     conexao.close()
