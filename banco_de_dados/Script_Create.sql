@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `medidaComponente`(
 );
 
 CREATE TABLE IF NOT EXISTS `registro`(
-  idRegistro INT,
+  idRegistro INT PRIMARY KEY AUTO_INCREMENT,
   valorRegistro DOUBLE,
   dtHoraRegistro DATETIME,
   fkRecurso INT,

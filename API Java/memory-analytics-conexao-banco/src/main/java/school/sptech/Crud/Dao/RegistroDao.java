@@ -1,10 +1,12 @@
 package school.sptech.Crud.Dao;
 
+import com.github.britooo.looca.api.core.Looca;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Crud.Recurso;
 import school.sptech.Crud.Registro;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,5 +50,21 @@ public class RegistroDao {
                         "AND tipoComponente = 'RAM'",
                 new BeanPropertyRowMapper<>(Registro.class)
         );
+    }
+
+    //-------------------------------------------------------------------------------------------------
+    public void adicionarRegistroCpu(){
+        Looca looca = new Looca();
+        LocalDateTime DataHoraAgora = LocalDateTime.now();
+
+       // con.query("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",);
+    }
+    public void adicionarRegistroDisco(){
+        Looca looca = new Looca();
+        //con.query("INSERT INTO registro VALUE (null, )");
+    }
+    public void adicionarRegistroRam(){
+        Looca looca = new Looca();
+        //.query("INSERT INTO registro VALUE (null, )");
     }
 }
