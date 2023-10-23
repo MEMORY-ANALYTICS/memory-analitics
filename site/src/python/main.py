@@ -8,9 +8,11 @@ def main():
     disco = exibir_info_disco()
     rede = exibir_info_rede()
     temp = exibir_info_temp(osv)
-    tela = Gui(osv, cpu, mem, disco, temp, rede)
-    tela.mainloop()
+    # tela = Gui(osv, cpu, mem, disco, temp, rede)
+    # tela.mainloop()
 
 
 if __name__ == "__main__":
-    main()
+    while True:
+        main()
+        sleep(5)
