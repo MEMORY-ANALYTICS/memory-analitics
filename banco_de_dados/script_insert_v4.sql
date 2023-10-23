@@ -41,10 +41,10 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, n
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
-('Intel', 'Xeon', 'CPU', '2000','4000',1),
-('Corsair', 'Vengeance', 'RAM', '0','16',1), 
-('WD', 'Black', 'DISCO', '0','500',1), 
-('TPLink','NP3200','REDE','1','1000',1),
+('Intel', 'Xeon', 'CPU', '2000','4000',1), -- CPU
+('Corsair', 'Vengeance', 'RAM', '0','16',1), -- RAM
+('WD', 'Black', 'DISCO', '0','500',1), -- DISCO
+('TPLink','NP3200','REDE','1','1000',1), -- REDE
 ('Intel', 'Xeon', 'CPU', '2000','4000',2),
 ('Corsair', 'Vengeance', 'RAM', '0','16',2), 
 ('WD', 'Black', 'DISCO', '0','500',2),
@@ -60,30 +60,32 @@ INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
 ('Core 2', 1),
 ('Core 3', 1),
 ('Core 4', 1),
-('Core 1', 4),
-('Core 2', 4),
-('Core 3', 4),
-('Core 4', 4),
-('Core 1', 6),
-('Core 2', 6),
-('Core 3', 6),
-('Core 4', 6),
+('Core 1', 5),
+('Core 2', 5),
+('Core 3', 5),
+('Core 4', 5),
+('Core 1', 9),
+('Core 2', 9),
+('Core 3', 9),
+('Core 4', 9),
 ('Leitura RAM', 2),
-('Leitura RAM', 5),
-('Leitura RAM', 8),
+('Leitura RAM', 6),
+('Leitura RAM', 10),
 ('Partição DISCO 1', 3),
 ('Partição DISCO 2', 3),
 ('Partição DISCO 3', 3),
-('Partição DISCO 1', 6),
-('Partição DISCO 2', 6),
-('Partição DISCO 3', 6),
-('Partição DISCO 1', 9),
-('Partição DISCO 2', 9),
-('Partição DISCO 3', 9),
+('Partição DISCO 1', 7),
+('Partição DISCO 2', 7),
+('Partição DISCO 3', 7),
+('Partição DISCO 1', 11),
+('Partição DISCO 2', 11),
+('Partição DISCO 3', 11),
 ('Leitura REDE', 4),
 ('Leitura REDE', 8),
 ('Leitura REDE', 12);
 
+select * from Componente;
+Select * from recurso;
 -- Inserir dados na tabela 'medidaComponente'
 INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
 ('Armazenamento', 'GB'),
@@ -99,6 +101,7 @@ INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponen
 (2200, '2023-10-09 10:00:00', 6, 2),  -- CPU
 (2200, '2023-10-09 10:00:00', 7, 2),  -- CPU
 (2200, '2023-10-09 10:00:00', 8, 2),  -- CPU
+
 (10, '2023-10-09 10:00:00', 5, 3),  -- CPU
 (10, '2023-10-09 10:00:00', 6, 3),  -- CPU
 (10, '2023-10-09 10:00:00', 7, 3),  -- CPU
@@ -117,4 +120,12 @@ INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponen
 (500, '2023-10-09 10:30:00', 26, 4),  -- REDE
 (50, '2023-10-09 10:30:00', 26, 3);  -- REDE
 
+select * from recurso;
+select * from componente;
+select * from Empresa;
 
+select * from registro;
+
+SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 10001;
+
+SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';

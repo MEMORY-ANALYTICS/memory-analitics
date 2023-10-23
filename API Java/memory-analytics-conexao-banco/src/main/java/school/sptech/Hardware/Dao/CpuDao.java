@@ -13,9 +13,9 @@ public class CpuDao {
         this.con = con;
     }
 
-    public List<Cpu> listar() {
+    public List<Cpu> listarTodosOsValores() {
         return con.query(
-                "SELECT * FROM registro",
+                "SELECT * FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'CPU'",
                 new BeanPropertyRowMapper<>(Cpu.class));
     }
 
