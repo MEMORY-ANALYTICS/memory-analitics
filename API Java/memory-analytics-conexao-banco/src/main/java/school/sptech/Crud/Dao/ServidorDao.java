@@ -19,8 +19,11 @@ public class ServidorDao {
     }
 
     public List<Servidor> selectAllServidor(){
-        return con.query("SELECT * FROM servidor WHERE fkEmpresa = 10001;",
+        return con.query("SELECT * FROM servidor WHERE fkEmpresa = 1;",
                 new BeanPropertyRowMapper<>(Servidor.class));
+    }
+
+    public ServidorDao() {
     }
 
     public Boolean existeServidor(String ipServidor){
@@ -37,7 +40,7 @@ public class ServidorDao {
 
     public void adicionarServidor(String apelidoServidor, String numeroSerieServidor){
         Looca looca = new Looca();
-        con.update("INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES (?, ?, ?, ?, ?)",
+        con.update("INSERT INTO servidor(SistemaOperacionalServidor, apelidoServidor,ipServidor,numeroSerieServidor,fkEmpresa) VALUES (?, ?, ?, ?, ?)",
                 looca.getSistema().getSistemaOperacional(), apelidoServidor, looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoIpv4(),
                 numeroSerieServidor, 1);
     }
