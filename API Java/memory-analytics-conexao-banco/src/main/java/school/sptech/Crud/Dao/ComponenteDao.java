@@ -19,7 +19,7 @@ public class ComponenteDao {
     }
 
     public List<Componente> selectAllComponente(){
-        return con.query("SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,fkServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 10001;",
+        return con.query("SELECT idComponente, fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,fkServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 1;",
                 new BeanPropertyRowMapper<>(Componente.class));
     }
 

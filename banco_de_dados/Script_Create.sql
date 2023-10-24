@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS bd_memoryanalytics;
 CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
-USE bd_memoryAnalytics;
+USE bd_memoryanalytics;
 
 CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
 GRANT SELECT, INSERT, UPDATE, DELETE ON bd_memoryanalytics.* TO urubu100;
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `servidor`(
 idServidor INT PRIMARY KEY AUTO_INCREMENT,
 SistemaOperacionalServidor VARCHAR(20),
 apelidoServidor VARCHAR(45),
-ipServidor CHAR(12),
+ipServidor varchar(25),
 numeroSerieServidor VARCHAR(20),
 fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
