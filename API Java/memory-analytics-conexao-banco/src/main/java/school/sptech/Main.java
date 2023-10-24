@@ -10,51 +10,34 @@ import school.sptech.Crud.Servidor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-//        Cpu cpu1 = new Cpu();
-//        System.out.println(cpu1);
-
-//        MemoriaRam m1 = new MemoriaRam();
-
-//        System.out.println(m1);
-
-        Looca looca = new Looca();
-
-        //System.out.println(looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getBytesEnviados());
-        //System.out.println(looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getBytesRecebidos());
-        Double valorBrutoEmGb = looca.getMemoria().getEmUso()/ Math.pow(10, 9);
-        String valorFormatado = ("%.2f".formatted(valorBrutoEmGb));
-
-        Double valorUso = looca.getMemoria().getEmUso()/ Math.pow(10, 9);
-        double totalRam = looca.getMemoria().getTotal()/ Math.pow(10, 9);
-        valorUso = valorUso*100;
-        Double porcentagemUso = valorUso/totalRam;
-        String valorFormatadoPorcentagemRam = ("%.2f".formatted(porcentagemUso));
-        System.out.println(valorFormatadoPorcentagemRam);
-
-//        System.out.println(
-//        looca.getGrupoDeDiscos().getDiscos()
-//        );
-
-//        DiscoLocal d1 = new DiscoLocal();
-
-//        d1.listarTodosDiscos();
+        Scanner leitor = new Scanner(System.in);
+        Scanner leitorString = new Scanner(System.in);
 
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
-        //   CpuDao danone = new CpuDao(con);
+        while(true) {
+            setTimeout(() -> {
+                System.out.println("a");
+                System.out.println("B");
+            }, 10000);
 
-//       RegistroDao r1 = new RegistroDao(con);
-////
-//        //System.out.println(r1.selectAllRegistros());
-//        System.out.println(r1.selectAllRegistroRam());
+        }
 
-        //ComponenteDao c1 = new ComponenteDao(con);
-        //System.out.println(c1.selectAllComponente());
-
-
+    }
+    public static void setTimeout(Runnable runnable, int delay){
+        new Thread(() -> {
+            try {
+                Thread.sleep(delay);
+                runnable.run();
+            }
+            catch (Exception e){
+                System.err.println(e);
+            }
+        }).start();
     }
 }
