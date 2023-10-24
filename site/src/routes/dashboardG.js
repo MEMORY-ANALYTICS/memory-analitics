@@ -19,5 +19,9 @@ router.get("/getCompProblematico/:fkEmpresa", function (req, res){
 router.get("/obterDadosGrafico/:nomeEmpresa", function (req, res){
     dashboardGController.obterDadosGrafico(req, res);
 });
+
+router.get("/tempo-real/:nomeEmpresa", function (req, res) {
+    medidaController.buscarMedidasEmTempoReal(req, res);
+})
 module.exports = router;
 

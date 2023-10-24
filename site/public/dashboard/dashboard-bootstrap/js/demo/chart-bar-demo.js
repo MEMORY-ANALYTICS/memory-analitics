@@ -8,7 +8,7 @@ function obterDadosGrafico(nomeEmpresa) {
         clearTimeout(proximaAtualizacao);
     }
 
-    fetch("/dashboardG/obterDadosGrafico/'Empresa B'").then(function (response) {
+    fetch(`/dashboardG/obterDadosGrafico/"Empresa B"`).then(function (response) {
         if (response.ok) {
             
             response.json().then(function (resposta) {
@@ -30,6 +30,17 @@ function obterDadosGrafico(nomeEmpresa) {
     function plotarGrafico(resposta, nomeEmpresa) {
 
         // console.log('iniciando plotagem do gráfico...');
+
+        let dados = {
+          labels: ["Maio", "Junho", "Julho", "Agosto", "Setembro"],
+          datasets: [{
+              label: 'Umidade',
+              data: [],
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+          }]
+      };
 
         // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
@@ -123,10 +134,67 @@ var myBarChart = new Chart(ctx, {
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i].picosDeUso;
             myBarChart.data.datasets[0].data.push(resposta[i].picosDeUso);
+            dados.datasets[0].data.push(registro.picosDeUso);
         }
 
-        // setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+        setTimeout(() => atualizarGrafico('Empresa B', dados, myBarChart), 2000);
     }
+
+    function atualizarGrafico(nomeEmpresa, dados, myChart) {
+
+
+
+      fetch(`/dashboardG/obterDadosGrafico/"Empresa B"`).then(function (response) {
+          if (response.ok) {
+              response.json().then(function (novoRegistro) {
+
+                  obterdados(nomeEmpresa);
+                  // alertar(novoRegistro, idAquario);
+                  console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                  console.log(`Dados atuais do gráfico:`);
+                  console.log(dados);
+
+                  let avisoCaptura = document.getElementById(`avisoCaptura${nomeEmpresa}`)
+                  avisoCaptura.innerHTML = ""
+
+
+                  if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                      console.log("---------------------------------------------------------------")
+                      console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                      avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                      console.log("Horário do novo dado capturado:")
+                      console.log(novoRegistro[0].momento_grafico)
+                      console.log("Horário do último dado capturado:")
+                      console.log(dados.labels[dados.labels.length - 1])
+                      console.log("---------------------------------------------------------------")
+                  } else {
+                      // tirando e colocando valores no gráfico
+                      dados.labels.shift(); // apagar o primeiro
+                      dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+                      dados.datasets[0].data.shift();  // apagar o primeiro de umidade
+                      dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+
+                      dados.datasets[1].data.shift();  // apagar o primeiro de temperatura
+                      dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                      myBarChart.update();
+                  }
+
+                  // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                  proximaAtualizacao = setTimeout(() => atualizarGrafico(nomeEmpresa, dados, myBarChart), 2000);
+              });
+          } else {
+              console.error('Nenhum dado encontrado ou erro na API');
+              // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+              proximaAtualizacao = setTimeout(() => atualizarGrafico(nomeEmpresa, dados, myBarChart), 2000);
+          }
+      })
+          .catch(function (error) {
+              console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+          });
+
+  }
 
 // Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
