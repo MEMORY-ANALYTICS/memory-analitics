@@ -7,6 +7,7 @@ from message import mensagem_slack
 
 nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
 data_atual = datetime.datetime.now()
+data_formatada = data_atual.strftime('%Y-%m-%d %H:%M:%S')
 id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = 'SERVIDOR D';")
 if id_server == []:
     verificacao = False
@@ -16,7 +17,7 @@ else:
     f"SELECT * FROM componente WHERE fkServidor = {id_server[0][0]}") 
     
     def verificar_recurso():
-        global lista_componentes_sem_cadastro
+        global lista_componentes_sem_recurso
         global qtd_componentes
         global lista_recurso
         qtd_cpu = 0
@@ -53,18 +54,18 @@ else:
         # print(ids_rede)
         i = 0
         qtd_recurso = len(lista_recurso)
-        lista_componentes_sem_cadastro = []
+        lista_componentes_sem_recurso = []
         while i < len(lista_componentes):
             lista_recurso += executar(
                 f"SELECT * FROM recurso WHERE fkComponente = {lista_componentes[i][0]}"
             )
             if qtd_recurso == len(lista_recurso):
-                lista_componentes_sem_cadastro += [lista_componentes[i]]
+                lista_componentes_sem_recurso += [lista_componentes[i]]
             else:
                 qtd_recurso = len(lista_recurso)
             i+=1
         # print(lista_recurso)
-        # print(lista_componentes_sem_cadastro)
+        # print(lista_componentes_sem_recurso)
     verificar_recurso()
     # =-=-=-=-=-=-=-=-=- CPU -=-=-=-=-=-=-=-=-=-=
 
@@ -80,15 +81,15 @@ else:
         frequencia_cpu_max = psutil.cpu_freq().max
         frequencia_cpu_min = psutil.cpu_freq().min
         i = 0
-        if len(lista_componentes_sem_cadastro) != 0:
-                    while i < len(lista_componentes_sem_cadastro):
-                        if(lista_componentes_sem_cadastro[i][3] == "CPU"):
+        if len(lista_componentes_sem_recurso) != 0:
+                    while i < len(lista_componentes_sem_recurso):
+                        if(lista_componentes_sem_recurso[i][3] == "CPU"):
                             k = 0
                             while k < len(uso_cpus):
                                  if k == 0:
-                                     executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('CPU',{lista_componentes_sem_cadastro[i][0]});")
+                                     executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('CPU',{lista_componentes_sem_recurso[i][0]});")
                                  k+=1
-                                 executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Core {k}',{lista_componentes_sem_cadastro[i][0]});")
+                                 executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Core {k}',{lista_componentes_sem_recurso[i][0]});")
                             break
                         i+=1
         i = 0
@@ -103,10 +104,29 @@ else:
             i+=1
         print(f"""
         Média de uso da CPU (%) == {uso_cpu_geral}                 
-        Atual da CPU == {frequencia_cpu_atual} MHz      
+        Frequência Atual da CPU == {frequencia_cpu_atual} MHz      
         Frequência Máxima da CPU == {frequencia_cpu_max} MHz       
         Frequência Mínima da CPU == {frequencia_cpu_min} MHz       
         """)
+
+        i = 0
+        core = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            if lista_recurso[i][1] == "CPU":
+                executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                        ({float(qtd_cpus_virtuais)},'{data_formatada}',{lista_recurso[i][0]},10),
+                        ({float(qtd_cpus_fisicos)},'{data_formatada}',{lista_recurso[i][0]},11),
+                        ({uso_cpu_geral},'{data_formatada}',{lista_recurso[i][0]},1),
+                        ({frequencia_cpu_atual},'{data_formatada}',{lista_recurso[i][0]},5),
+                        ({frequencia_cpu_max},'{data_formatada}',{lista_recurso[i][0]},6),
+                        ({frequencia_cpu_min},'{data_formatada}',{lista_recurso[i][0]},7);""")
+            elif primeira_frase == "Core":
+                uso_cpu_da_vez = uso_cpus[core]
+                executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                        ({uso_cpu_da_vez},'{data_formatada}',{lista_recurso[i][0]},1);""")
+                core+=1
+            i+=1
 
     # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
 
@@ -114,38 +134,49 @@ else:
 
         verificar_recurso()
         
-        memoria_usada = psutil.virtual_memory().used
-        memoria_total = psutil.virtual_memory().total
-        memoria_livre = psutil.virtual_memory().free
-        memoria_disponivel = psutil.virtual_memory().available
+        memoria_usada = psutil.virtual_memory().used/1000000000
+        memoria_total = psutil.virtual_memory().total/1000000000
+        memoria_disponivel = psutil.virtual_memory().available/1000000000
         porcentagem_uso_memoria = round((memoria_usada * 100) / memoria_total, 2)
 
-        if len(lista_componentes_sem_cadastro) != 0:
+        if len(lista_componentes_sem_recurso) != 0:
             i = 0
             ram = 0
-            while i < len(lista_componentes_sem_cadastro):
-                if(lista_componentes_sem_cadastro[i][3] == "RAM"):
-                    if i == 0:
-                        executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('RAM', {lista_componentes_sem_cadastro[i][0]});")                        
+            while i < len(lista_componentes_sem_recurso):
+                if(lista_componentes_sem_recurso[i][3] == "RAM"):
                     ram+=1
-                    executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Leitura RAM {ram}', {lista_componentes_sem_cadastro[i][0]});")
+                    executar(f"""INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Leitura RAM {ram}', {lista_componentes_sem_recurso[i][0]});""")
                     break
                 i+=1
 
         print(f"""
         ------------------ Memória --------------------- 
-        Memória Total == {memoria_total/1000000000:.2f} GB 
-        Memória Usada == {memoria_usada/1000000000:.2f} GB
-        Memória Livre == {memoria_livre/1000000000:.2f} GB
-        Memória Disponível == {memoria_disponivel/1000000000:.2f} GB
+        Memória Total == {memoria_total:.2f} GB 
+        Memória Usada == {memoria_usada:.2f} GB
+        Memória Disponível == {memoria_disponivel:.2f} GB
         Ram usada (%) == {porcentagem_uso_memoria}
         """)
+
+        i = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            if primeira_frase == "Leitura":
+                segunda_frase = lista_recurso[i][1].split()[1]
+                if segunda_frase == "RAM":
+                    executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                    ({memoria_total:.2f},'{data_formatada}',{lista_recurso[i][0]},2),
+                    ({memoria_disponivel:.2f},'{data_formatada}',{lista_recurso[i][0]},3),
+                    ({memoria_usada:.2f},'{data_formatada}',{lista_recurso[i][0]},4),
+                    ({porcentagem_uso_memoria},'{data_formatada}',{lista_recurso[i][0]},1);
+                    """)
+            i+=1
+
 
         if memoria_usada / (10**9) > 7:
             print(
                 mensagem_slack(
                     f"""O uso de memória ram é excessivo!
-                                    Data e hora do alerta: {data_atual}"""
+                                    Data e hora do alerta: '{data_formatada}'"""
                 )
             )
 
@@ -155,21 +186,19 @@ else:
 
         verificar_recurso()
 
-        particoes_disco = psutil.disk_partitions()
+        # particoes_disco = psutil.disk_partitions()
         uso_total_disco = (psutil.disk_usage(f"/").total)/1000000000
         disco_usado = (psutil.disk_usage(f"/").used)/1000000000
         disco_livre = (psutil.disk_usage(f"/").free)/1000000000
         porcent_disco = psutil.disk_usage(f"/").percent
 
-        if len(lista_componentes_sem_cadastro) != 0:
+        if len(lista_componentes_sem_recurso) != 0:
             i = 0
             disco =0
-            while i < len(lista_componentes_sem_cadastro):
-                if(lista_componentes_sem_cadastro[i][3] == "DISCO"):
-                    if i == 0:
-                        executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Disco', {lista_componentes_sem_cadastro[i][0]});")                        
+            while i < len(lista_componentes_sem_recurso):
+                if(lista_componentes_sem_recurso[i][3] == "DISCO"):                       
                     disco+=1
-                    executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Disco {disco}', {lista_componentes_sem_cadastro[i][0]});")
+                    executar(f"""INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Disco {disco}', {lista_componentes_sem_recurso[i][0]});""")
                     break
                 i+=1
 
@@ -180,6 +209,18 @@ else:
         Disco Disponível == {disco_livre:.2f} GB
         Disco Usado (%) == {porcent_disco} %
         """)
+
+        i = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            if primeira_frase == "Disco":
+                executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                ({uso_total_disco:.2f},'{data_formatada}',{lista_recurso[i][0]},2),
+                ({disco_livre:.2f},'{data_formatada}',{lista_recurso[i][0]},3),
+                ({disco_usado:.2f},'{data_formatada}',{lista_recurso[i][0]},4),
+                ({porcent_disco},'{data_formatada}',{lista_recurso[i][0]},1);
+                """)
+            i+=1
 
     # -=-=-=-=-=-=-=-=-=- Rede -=-=-=-=-=-=-=-=-=-=
 
@@ -192,11 +233,11 @@ else:
         qtd_erros_entrada = psutil.net_io_counters().errin
         qtd_erros_saida = psutil.net_io_counters().errout
 
-        if len(lista_componentes_sem_cadastro) != 0:
+        if len(lista_componentes_sem_recurso) != 0:
             i = 0
-            while i < len(lista_componentes_sem_cadastro):
-                if(lista_componentes_sem_cadastro[i][3] == "REDE"):
-                    executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Leitura REDE', {lista_componentes_sem_cadastro[i][0]});")
+            while i < len(lista_componentes_sem_recurso):
+                if(lista_componentes_sem_recurso[i][3] == "REDE"):
+                    executar(f"""INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Leitura REDE', {lista_componentes_sem_recurso[i][0]});""")
                     break
                 i+=1
 
@@ -207,6 +248,21 @@ else:
         Quantidade de Erros na Entrada == {qtd_erros_entrada}
         Quantidade de Erros na Saida == {qtd_erros_saida}
         """)
+
+        i = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            
+            if primeira_frase == "Leitura":
+                segunda_frase = lista_recurso[i][1].split()[1]
+                if segunda_frase == "REDE":
+                    executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                    ({bytes_enviados:.2f},'{data_formatada}',{lista_recurso[i][0]},8),
+                    ({bytes_recebidos:.2f},'{data_formatada}',{lista_recurso[i][0]},9),
+                    ({qtd_erros_entrada},'{data_formatada}',{lista_recurso[i][0]},12),
+                    ({qtd_erros_saida},'{data_formatada}',{lista_recurso[i][0]},13);
+                    """)
+            i+=1
 
     # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
 
@@ -228,5 +284,12 @@ else:
                         Temperaturas do Entorno da CPU == {lista}
                 """
             )
+            i = 0
+            while i < len(lista_recurso):
+                if lista_recurso[i][1] == "CPU":
+                    executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                            ({temperatura_cpu_atual},'{data_formatada}',{lista_recurso[i][0]},15),
+                            ({temperatura_cpu_label},'{data_formatada}',{lista_recurso[i][0]},15);
+                            """)
         else:
             print("------------------ Temperatura --------------------- \n Não é possível capturar temperatura no Windows\n\n")
