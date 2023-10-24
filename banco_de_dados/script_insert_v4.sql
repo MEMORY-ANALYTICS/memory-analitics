@@ -82,19 +82,23 @@ INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
 ('Partição DISCO 3', 11),
 ('Leitura REDE', 4),
 ('Leitura REDE', 8),
-('Leitura REDE', 12);
+('Leitura REDE', 12),
+('Leitura REDE', 16);
 
 select * from componente;
 Select * from recurso;
 -- Inserir dados na tabela 'medidaComponente'
 INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
-('Armazenamento', 'GB'),
+('Porcentagem Uso', '%'),
+('Armazenamento Total', 'GB'),
+('Armazenamento Disponível', 'GB'),
+('Armazenamento Usado', 'GB'),
 ('Frequência', 'MHz'),
-('Porcentagem', '%'),
 ('Transferência Enviados','Mbps'),
+('Transferência Recebidos','Mbps'),
 ('Quantidade','Int'),
 ('Velocidade', 's'),
-('Transferência Recebidos','Mbps');
+('Temperatura', '°C');
 
 -- Inserir dados na tabela 'registro'
 INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
