@@ -1,39 +1,46 @@
 function cadastrarComponente() {
   var erro = false;
-  var fabricante_componente = fabricante_componente.value;
-  var nomeModelo_componente = nomeModelo_componente.value;
-  var ipServidor = ip_server.value;
-  var numeroSerieServidor = num_serie.value;
-  var fkEmpresa = sessionStorage.getItem("EMPRESA_USUARIO");
+  var fabricanteComponente = fabricante_componente.value;
+  var nomeModeloComponente = nomeModelo_componente.value;
+  var tipoComponente = tipo_componente.value;
+  var limiteMinComponente = limiteMin_componente.value;
+  var limiteMaxComponente = limiteMax_componente.value;
+  var fkServidor = getIdByApelidoLike(apelido_servidor.value);
 
-  if (SistemaOperacionalServidor == "") {
+   if (fabricanteComponente == "") {
     document.getElementById("fabricante_componente").style =
       "border-color: red !important";
     erro = true;
-  } else if (apelidoServidor == "") {
+  } else if (nomeModeloComponente == "") {
     document.getElementById("nomeModelo_componente").style =
       "border-color: red !important";
     erro = true;
-  } else if (ipServidor == "") {
-    ip_server.style = "border-color: red !important";
+  } else if (tipoComponente == "") {
+    document.getElementById("tipo_componente").style =
+      "border-color: red !important";
     erro = true;
-  } else if (numeroSerieServidor == "") {
-    num_serie.style = "border-color: red !important";
-  } else if (fkEmpresa == "" || undefined) {
-    alert("fkEmpresa não pode ser nulo!");
+  } else if (limiteMinComponente == "" || undefined) {
+    alert("limiteMin_componente não pode ser nulo!");
+  }
+   else if (limiteMaxComponente == "" || undefined) {
+    alert("limiteMin_componente não pode ser nulo!");
+  }
+   else if (fkServidor == "" || undefined) {
+    alert("limiteMin_componente não pode ser nulo!");
   }
   if (!erro) {
-    fetch(`/servidor/cadastrar`, {
+    fetch(`/componente/cadastrar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        SistemaOperacionalServidor: SistemaOperacionalServidor,
-        apelidoServidor: apelidoServidor,
-        ipServidor: ipServidor,
-        numeroSerieServidor: numeroSerieServidor,
-        fkEmpresa: fkEmpresa,
+        fabricante_componente: fabricanteComponente,
+        nomeModelo_componente: nomeModeloComponente,
+        tipo_componente: tipoComponente,
+        limiteMin_componente: limiteMinComponente,
+        limiteMax_componente: limiteMaxComponente,
+        fkServidor: fkServidor
       }),
     })
       .then(function (resposta) {
@@ -52,26 +59,25 @@ function cadastrarComponente() {
       });
   }
 }
-
-function getIdByApelidoLike() {
-  var apelidoServidor = apelidoServidor.value;
-  if (apelidoServidor == "") {
-    alert("Apelido do servidor não pode ser nulo");
-  } else {
-    fetch(`/servidor/getIdByApelidoLike/${apelidoServidor}`)
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-
-        if (resposta.ok) {
-          resposta.json().then(function (response) {
-            return response[0].idServidor;
-          });
-        } else {
-          return null;
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+var fkServidorGlobal;
+function getIdByApelidoLike(apelidoServidor) {
+  var fkServidor;
+  fetch(`/servidor/getIdByApelidoLike/${apelidoServidor}`).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        var fkServidorArray = resposta[0];
+        fkServidor = fkServidorArray.idEmpresa;
+        fkServidorglobal = fkServidor;
+        console.log(fkServidorglobal);
       });
-  }
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ ultimo idEmpresa: ${error.message}`);
+    });
+  return fkServidor;
 }
+

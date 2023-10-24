@@ -2,18 +2,15 @@ var componenteModel = require("../models/componenteModel");
 
 function cadastrarComponente(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var apelidoServidor = req.body.apelidoServidor;
-    var fabricante = req.body.fabricante;
-    var nomeModelo = req.body.nomeModelo;
-    var tipoComponente = req.body.tipoComponente;
-    var limiteMin = req.body.limiteMin;
-    var limiteMax = req.body.limiteMax;
+    var fabricante = req.body.fabricante_componente;
+    var nomeModelo = req.body.nomeModelo_componente;
+    var tipoComponente = req.body.tipo_componente;
+    var limiteMin = req.body.limiteMin_componente;
+    var limiteMax = req.body.limiteMax_componente;
     var fkServidor = req.body.fkServidor;
     // Faça as validações dos valores
-    if (apelidoServidor == undefined) {
-        res.status(400).send("apelidoServidor está undefined!");
-    } else if (fabricante == undefined) {
-        res.status(400).send("apelidoServidor está undefined!");
+     if (fabricante == undefined) {
+        res.status(400).send("fabricante está undefined!");
     } else if (nomeModelo == undefined) {
         res.status(400).send("numeroSerieServidor está undefined!");
     } else if (tipoComponente == undefined) {
@@ -31,7 +28,7 @@ function cadastrarComponente(req, res) {
     else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        componenteModel.cadastrarComponente(apelidoServidor, fabricante, nomeModelo, tipoComponente,limiteMin,limiteMax,fkServidor)
+        componenteModel.cadastrarComponente(fabricante, nomeModelo, tipoComponente,limiteMin,limiteMax,fkServidor)
             .then(
                 function (resultado) {
                     res.json(resultado);
