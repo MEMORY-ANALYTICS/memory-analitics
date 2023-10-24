@@ -38,7 +38,7 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, n
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
-('Linux', 'Servidor D', '192.168.1.4', 'SERV789', 10002);
+('Linux', 'mined', '192.168.1.4', 'SERV789', 10002);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -146,3 +146,46 @@ SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apel
 SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';
 
 SELECT * from registro;
+
+CREATE VIEW RegistrosComCaminho AS
+SELECT 
+    r.dtHoraRegistro AS Data_Hora_Registro,
+    r.fkMedidaComponente,
+    mc.tipoMedida AS Tipo_Medida,
+    MAX(CASE WHEN mc.tipoMedida = 'Porcentagem Uso' THEN r.valorRegistro END) AS Porcentagem_Uso,
+    MAX(CASE WHEN mc.tipoMedida = 'Armazenamento Total' THEN r.valorRegistro END) AS Armazenamento_Total,
+    MAX(CASE WHEN mc.tipoMedida = 'Armazenamento Disponível' THEN r.valorRegistro END) AS Armazenamento_Disponivel,
+    MAX(CASE WHEN mc.tipoMedida = 'Armazenamento Usado' THEN r.valorRegistro END) AS Armazenamento_Usado,
+    MAX(CASE WHEN mc.tipoMedida = 'Frequência Atual' THEN r.valorRegistro END) AS Frequencia_Atual,
+    MAX(CASE WHEN mc.tipoMedida = 'Frequência Máxima' THEN r.valorRegistro END) AS Frequencia_Maxima,
+    MAX(CASE WHEN mc.tipoMedida = 'Frequência Mínima' THEN r.valorRegistro END) AS Frequencia_Minima,
+    MAX(CASE WHEN mc.tipoMedida = 'Transferência Enviados' THEN r.valorRegistro END) AS Transferencia_Enviados,
+    MAX(CASE WHEN mc.tipoMedida = 'Transferência Recebidos' THEN r.valorRegistro END) AS Transferencia_Recebidos,
+    MAX(CASE WHEN mc.tipoMedida = 'Quantidade Virtuais' THEN r.valorRegistro END) AS Quantidade_Virtuais,
+    MAX(CASE WHEN mc.tipoMedida = 'Quantidade Físicas' THEN r.valorRegistro END) AS Quantidade_Fisicas,
+    MAX(CASE WHEN mc.tipoMedida = 'Quantidade Erros Entrada' THEN r.valorRegistro END) AS Quantidade_Erros_Entrada,
+    MAX(CASE WHEN mc.tipoMedida = 'Quantidade Erros na Saída' THEN r.valorRegistro END) AS Quantidade_Erros_Saida,
+    MAX(CASE WHEN mc.tipoMedida = 'Tempo' THEN r.valorRegistro END) AS Tempo,
+    MAX(CASE WHEN mc.tipoMedida = 'Temperatura' THEN r.valorRegistro END) AS Temperatura,
+    rc.tipoRecurso AS Tipo_Recurso,
+    c.fabricante AS Fabricante_Componente,
+    c.nomeModelo AS Modelo_Componente,
+    s.apelidoServidor AS Apelido_Servidor,
+    e.nomeEmpresa AS Nome_Empresa
+FROM registro r
+JOIN recurso rc ON r.fkRecurso = rc.idRecurso
+JOIN componente c ON rc.fkComponente = c.idComponente
+JOIN medidaComponente mc ON r.fkMedidaComponente = mc.idMedidaComponente
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+GROUP BY
+    r.dtHoraRegistro,
+    r.fkMedidaComponente,
+    mc.tipoMedida,
+    rc.tipoRecurso,
+    c.fabricante,
+    c.nomeModelo,
+    s.apelidoServidor,
+    e.nomeEmpresa;
+
+select * from RegistrosComCaminho;
