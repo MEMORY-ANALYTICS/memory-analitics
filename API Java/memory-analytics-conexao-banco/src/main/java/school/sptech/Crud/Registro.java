@@ -8,7 +8,7 @@ import java.util.List;
 public class Registro {
 
     private Integer idRegistro;
-    private Integer valorRegistro;
+    private String valorRegistro;
     private LocalDateTime dtHoraRegistro;
     private Integer fkRecurso;
     private Integer fkMedidaComponente;
@@ -18,7 +18,7 @@ public class Registro {
     public Registro() {
     }
 
-    public Registro(Integer valorRegistro, LocalDateTime dtHoraRegistro, Integer fkRecurso, Integer fkMedidaComponente, String tipoRecurso) {
+    public Registro(String valorRegistro, LocalDateTime dtHoraRegistro, Integer fkRecurso, Integer fkMedidaComponente, String tipoRecurso) {
         this.valorRegistro = valorRegistro;
         this.dtHoraRegistro = dtHoraRegistro;
         this.fkRecurso = fkRecurso;
@@ -26,7 +26,8 @@ public class Registro {
         this.tipoRecurso = tipoRecurso;
     }
 
-    public Registro(Integer idRegistro, Integer valorRegistro, LocalDateTime dtHoraRegistro, Integer fkRecurso, Integer fkMedidaComponente, String tipoRecurso) {
+    public Registro(Integer idRegistro, String valorRegistro, LocalDateTime dtHoraRegistro,
+                    Integer fkRecurso, Integer fkMedidaComponente, String tipoRecurso) {
         this.idRegistro = idRegistro;
         this.valorRegistro = valorRegistro;
         this.dtHoraRegistro = dtHoraRegistro;
@@ -58,11 +59,11 @@ public class Registro {
         this.idRegistro = idRegistro;
     }
 
-    public Integer getValorRegistro() {
+    public String getValorRegistro() {
         return valorRegistro;
     }
 
-    public void setValorRegistro(Integer valorRegistro) {
+    public void setValorRegistro(String valorRegistro) {
         this.valorRegistro = valorRegistro;
     }
 
