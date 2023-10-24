@@ -52,11 +52,34 @@ function obterDadosGrafico(nomeEmpresa) {
   return database.executar(instrucao);
 }
 
+function buscarMedidasEmTempoReal(nomeEmpresa) {
+  console.log(
+    "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+  );
+  // var instrucao = `
+  // SELECT sum((ExcedeuLimites)) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = ${nomeEmpresa} GROUP BY MesAno;
+  //   `;
+    var instrucao = `
+    SELECT GROUP_CONCAT(picosDeUso) AS Resultado
+    FROM (
+      SELECT SUM(ExcedeuLimites) AS picosDeUso
+      FROM limitesExcedidos
+      WHERE NomeEmpresa = ${nomeEmpresa}
+      GROUP BY MesAno
+      ORDER BY MesAno
+      LIMIT 5
+    ) subquery;
+    `;
+  
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 
 module.exports = {
     getServInstaveis,
     getEstadoGeralServ,
     getCompProblematico,
-    obterDadosGrafico
+    obterDadosGrafico,
+    buscarMedidasEmTempoReal
 };

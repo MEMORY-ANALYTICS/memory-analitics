@@ -333,14 +333,6 @@ select * from medidacomponente;
 
 # SERVIDORES INSTAVEIS
 
-SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS quantidade_servidores_excedidos
-FROM empresa e
-JOIN servidor s ON e.idEmpresa = s.fkEmpresa
-JOIN componente c ON s.idServidor = c.fkServidor
-JOIN registro r ON c.idComponente = r.fkRecurso
-WHERE r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin
-GROUP BY e.nomeEmpresa;
-
 CREATE OR REPLACE VIEW getServInstaveis as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServInstaveis
 FROM empresa e
 JOIN servidor s ON e.idEmpresa = s.fkEmpresa
@@ -395,18 +387,6 @@ WHERE e.idEmpresa = 10000
 GROUP BY c.tipoComponente
 ORDER BY total_registros_excedidos DESC limit 1;
 
-  SELECT c.tipoComponente AS nomeComponente, COUNT(*) AS total_registros_excedidos
-FROM componente c
-JOIN servidor s ON c.fkServidor = s.idServidor
-JOIN empresa e ON s.fkEmpresa = e.idEmpresa
-JOIN registro r ON c.idComponente = r.fkRecurso
-WHERE e.idEmpresa = 10000
-    AND (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
-GROUP BY c.tipoComponente
-ORDER BY total_registros_excedidos DESC limit 1;
-
-
-
 # GRAFICO PICO DE USO
 
 CREATE OR REPLACE VIEW limitesExcedidos AS SELECT 
@@ -422,17 +402,4 @@ JOIN empresa e ON s.fkEmpresa = e.idEmpresa
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
-SELECT 
-    e.nomeEmpresa AS NomeEmpresa,
-    DATE_FORMAT(r.dtHoraRegistro, '%Y-%m') AS MesAno,
-    c.tipoComponente AS TipoComponente,
-    SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
-FROM registro r
-JOIN recurso rc ON r.fkRecurso = rc.idRecurso
-JOIN componente c ON rc.fkComponente = c.idComponente
-JOIN servidor s ON c.fkServidor = s.idServidor
-JOIN empresa e ON s.fkEmpresa = e.idEmpresa
-GROUP BY NomeEmpresa, MesAno, TipoComponente
-ORDER BY NomeEmpresa, MesAno, TipoComponente;
-
-SELECT sum((ExcedeuLimites)) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa B' GROUP BY MesAno;
+SELECT SUM(ExcedeuLimites) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa B' GROUP BY MesAno ORDER BY MesAno LIMIT 5;
