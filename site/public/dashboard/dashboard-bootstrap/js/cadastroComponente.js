@@ -1,7 +1,7 @@
 function cadastrarServidor() {
     var erro = false;
-    var SistemaOperacionalServidor = sistema_operacional.value;
-    var apelidoServidor = apelido_servidor.value;
+    var fabricante_componente = fabricante_componente.value;
+    var nomeModelo_componente = nomeModelo_componente.value;
     var ipServidor = ip_server.value;
     var numeroSerieServidor = num_serie.value;
     var fkEmpresa = sessionStorage.getItem("EMPRESA_USUARIO");
