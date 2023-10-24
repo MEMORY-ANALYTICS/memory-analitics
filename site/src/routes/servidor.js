@@ -10,4 +10,8 @@ router.post("/cadastrar", function (req, res){
 router.get("/getAll/:fkEmpresa", function (req, res){
     servidorController.getAll(req, res);
 });
+
+router.post("/atualizar", function (req, res){
+    servidorController.atualizarServidor(req, res);
+});
 module.exports = router; 

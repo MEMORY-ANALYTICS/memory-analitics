@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Visualizar Servidores</title>
+    <title>Visualizar Componentes</title>
 
     
 
@@ -25,7 +25,7 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <script src="./js/visualServer.js"></script>
+    <script src="./js/visualFunc.js"></script>
 
 </head>
 
@@ -62,23 +62,6 @@
             <div class="sidebar-heading">
                 Configurações
             </div>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Gerenciar Servidores</span>
-                </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opções</h6>
-                        <a class="collapse-item" href="cadastroServer.html">Cadastrar</a>
-                        <a class="collapse-item" href="visualServer.html">Visualizar</a>
-                    </div>
-                </div>
-            </li>
-
-            <hr class="sidebar-divider">
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -336,93 +319,37 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Visualização de servidores</h1>
-                    <p class="mb-4">Página dedicada a consulta de servidores cadastrados e suas informações<a>
+                    <h1 class="h3 mb-2 text-gray-800">Visualização de funcionários</h1>
+                    <p class="mb-4">Página dedicada a consulta de usuarios cadastrados e suas informações<a>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Servidores cadastrados</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Fucionários cadastrados</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Sistema Operacional</th>
-                                            <th>Apelido</th>
-                                            <th>IP</th>
-                                            <th>Número de Série</th>
+                                            <th>Nome</th>
+                                            <th>E-mail</th>
+                                            <th>Telefone</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Sistema Operacional</th>
-                                            <th>Apelido</th>
-                                            <th>IP</th>
-                                            <th>Número de Série</th>
+                                            <th>Nome</th>
+                                            <th>E-mail</th>
+                                            <th>Telefone</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody id="tableServers">
+                                    <tbody id="tableFuncionarios">
                                        
                                         
  
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h1 class="h3 mb-2 text-gray-800">Atualização de servidores</h1>
-                        <div class="d-flex justify-content-center">
-                            <div class="w-100">
-                                <div class="w-100 row">
-                                    <div class="form-group col-xl-12">
-                                        <label for="sistema_operacional">Sistema Operacional</label>
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          id="sistema_operacional"
-                                          placeholder="Linux"
-                                        />
-                                      </div>
-                                </div>
-                                <div class="w-100 row">
-                                    <div class="form-group col-xl-12">
-                                        <label for="apelido_servidor">Apelido - DEVE SER IGUAL AO LISTADO</label>
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          id="apelido_servidor"
-                                          placeholder="Servidor A"
-                                        />
-                                      </div>
-                                </div>
-                                <div class="w-100 row">
-                                    <div class="form-group col-xl-12">
-                                        <label for="ip_server">IP</label>
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          id="ip_server"
-                                          placeholder="192.168.15.1"
-                                        />
-                                      </div>
-                                </div>
-                                <div class="w-100 row">
-                                    <div class="form-group col-xl-12">
-                                        <label for="num_serie">NÚMERO DE SÉRIE</label>
-                                        <input
-                                          type="text"
-                                          class="form-control"
-                                          id="num_serie"
-                                          placeholder="SERV6895"
-                                        />
-                                      </div>
-                                </div>
-                                <div class="w-100 row d-flex justify-content-center">
-                                    <button class="text-white btn col-xl-12 bg-success" onclick="atualizarServidor()">ATUALIZAR SERVIDOR</button>
-                                </div>
                             </div>
                         </div>
                     </div>
