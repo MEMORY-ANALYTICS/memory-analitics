@@ -24,6 +24,15 @@ public class Main {
 
         //System.out.println(looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getBytesEnviados());
         //System.out.println(looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getBytesRecebidos());
+        Double valorBrutoEmGb = looca.getMemoria().getEmUso()/ Math.pow(10, 9);
+        String valorFormatado = ("%.2f".formatted(valorBrutoEmGb));
+
+        Double valorUso = looca.getMemoria().getEmUso()/ Math.pow(10, 9);
+        double totalRam = looca.getMemoria().getTotal()/ Math.pow(10, 9);
+        valorUso = valorUso*100;
+        Double porcentagemUso = valorUso/totalRam;
+        String valorFormatadoPorcentagemRam = ("%.2f".formatted(porcentagemUso));
+        System.out.println(valorFormatadoPorcentagemRam);
 
 //        System.out.println(
 //        looca.getGrupoDeDiscos().getDiscos()

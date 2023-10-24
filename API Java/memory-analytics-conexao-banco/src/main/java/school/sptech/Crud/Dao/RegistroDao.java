@@ -93,7 +93,7 @@ public class RegistroDao {
                          valorFormatadoUsoDiscoGb, dataHoraAtual, fkRecurso, 1);
 
             //Porcentagem
-            valorUsoParticao = valorUsoParticao/ looca.getGrupoDeDiscos().getDiscos().get(0).getTamanho()*100;
+            valorUsoParticao = valorUsoParticao*100/ looca.getGrupoDeDiscos().getDiscos().get(0).getTamanho();
             valorFormatadoUsoDisco = ("%.2f".formatted(valorUsoParticao));
             con.update("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",
                     valorFormatadoUsoDisco, dataHoraAtual, fkRecurso, 3);
@@ -110,11 +110,15 @@ public class RegistroDao {
                 valorFormatado, dataHoraAtual, fkRecurso, 1);
 
         //Em porcentagem -> em processo
-        //double valorUso = looca.getMemoria().getEmUso().byteValue();
-        //double totalRam = looca.getMemoria().getTotal();
-        //valorUso = valorUso*100;
-        //Double porcentagemUso = valorUso/totalRam;
-        //System.out.println(porcentagemUso);
+        Double valorUso = looca.getMemoria().getEmUso()/ Math.pow(10, 9);
+        double totalRam = looca.getMemoria().getTotal()/ Math.pow(10, 9);
+        valorUso = valorUso*100;
+        Double porcentagemUso = valorUso/totalRam;
+        String valorFormatadoPorcentagemRam = ("%.2f".formatted(porcentagemUso));
+        //System.out.println(valorFormatadoPorcentagemRam);
+
+        con.update("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",
+                valorFormatadoPorcentagemRam, dataHoraAtual, fkRecurso, 3);
     }
 
     public void adicionarRegistroRede(Integer fkRecurso){
