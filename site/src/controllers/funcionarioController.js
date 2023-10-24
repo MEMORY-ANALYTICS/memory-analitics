@@ -31,21 +31,21 @@ function cadastrarFuncionario(req, res) {
     // Faça as validações dos valores
     if (nomeFunc == undefined) {
         res.status(400).send("nomeFunc está undefined!");
-    } else if (telCelularFunc == undefined) {
-        res.status(400).send("telCelularFunc está undefined!");
-    } else if (bairroFunc == undefined) {
-        res.status(400).send("bairroFunc está undefined!");
-    } else if (cidadeFunc == undefined) {
-        res.status(400).send("cidadeFunc está undefined!");
+    } else if (emailFunc == undefined) {
+        res.status(400).send("emailFunc está undefined!");
+    } else if (telefoneFunc == undefined) {
+        res.status(400).send("telefoneFunc está undefined!");
+    } else if (permissao == undefined) {
+        res.status(400).send("permissao está undefined!");
     }
-    else if (numeroFunc == undefined) {
-        res.status(400).send("numeroFunc está undefined!");
+    else if (fkEmpresa == undefined) {
+        res.status(400).send("fkEmpresa está undefined!");
     }
-    else if(fkLogin == undefined){
-        res.status(400).send("fkLogin está undefined!");
+    else if(fkCargo == undefined){
+        res.status(400).send("fkCargo está undefined!");
     } 
-    else if(alimentoPref == undefined){
-        res.status(400).send("alimentoPref está undefined!");
+    else if(fkSupervisor == undefined){
+        res.status(400).send("fkSupervisor está undefined!");
     }
     else {
 
@@ -69,5 +69,6 @@ function cadastrarFuncionario(req, res) {
 }
 
 module.exports = {	
-    getAll	
+    getAll,
+    cadastrarFuncionario
 };	

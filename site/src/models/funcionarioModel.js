@@ -13,9 +13,11 @@ function getAll(fkEmpresa) {
 
 function cadastrarFuncionario(nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor){
     var instrucao = `INSERT INTO Funcionario VALUES (null, ${nomeFunc},${emailFunc},${telefoneFunc},${permissao},${fkEmpresa},${fkCargo},${fkSupervisor});`
+    return database.executar(instrucao);
 }
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 
 module.exports = {
-    getAll
+    getAll,
+    cadastrarFuncionario
 };
