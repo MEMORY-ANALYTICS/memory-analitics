@@ -7,15 +7,27 @@ function cadastrarServidor() {
     var fkEmpresa = sessionStorage.getItem("EMPRESA_USUARIO");
 
     if(SistemaOperacionalServidor == ""){
-        alert("Sistema operacional não pode ser nulo!")
-    }else if(apelidoServidor == ""){
-        alert("apelidoServidor não pode ser nulo!")
-    }else if(ipServidor == ""){
-        alert("ipServidor não pode ser nulo!")
+        
+        sistema_operacional.style ='border-color: red !important'
+        erro=true
     }
-    else if(numeroSerieServidor == ""){
-        alert("numeroSerieServidor não pode ser nulo!")
-    }else if(fkEmpresa == "" || undefined){
+    if(apelidoServidor == ""){
+       
+        apelido_servidor.style ='border-color: red !important'
+        erro=true
+    }
+    if(ipServidor == ""){
+        
+        ip_server.style ='border-color: red !important'
+        erro=true
+    }
+    
+    if(numeroSerieServidor == ""){
+        
+        num_serie.style='border-color: red !important'
+        erro=true
+    } 
+    if(fkEmpresa == "" || undefined){ 
         alert("fkEmpresa não pode ser nulo!")
     }
     if (!erro) {
@@ -46,5 +58,7 @@ function cadastrarServidor() {
         .catch(function (resposta) {
           console.log(`#ERRO: ${resposta}`);
         });
+    }else {
+      alert("Houve um erro ao tentar realizar o cadastro do Servidor!")
     }
   } 

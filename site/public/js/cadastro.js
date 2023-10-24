@@ -154,29 +154,32 @@ function moverEmpresa() {
 
     alert("Preencha todos os campos corretamente!");
     if(nomeEmpresa==""){
-      nome_empresa.style ='border-color: red'
+      nome_empresa.style ='border-color: red !important'
     }
     if (cnpj=="") {
-      cnpj_empresa.style ='border-color: red'
+      cnpj_empresa.style ='border-color: red !important'
     }
     if (telEmpresa=="") {
-      telefone_empresa.style ='border-color: red'
+      telefone_empresa.style ='border-color: red !important'
     }
     if(emailEmpresa==""){
-      email_empresa.style ='border-color: red'
+      email_empresa.style ='border-color: red !important'
+    }
+    if(estado==""){
+      estado_empresa.style='border-color: red !important'
     }
     if(cep==""){
-      cep_empresa.style ='border-color: red'
+      cep_empresa.style ='border-color: red !important'
     }
     
     if(cidade==""){
-      cidade_empresa.style ='border-color: red'
+      cidade_empresa.style ='border-color: red !important'
     }
     if(logradouro==""){
-      logradouro_empresa.style ='border-color: red'
+      logradouro_empresa.style ='border-color: red !important'
     }
     if (numero=="") {
-      numero_empresa.style ='border-color: red'
+      numero_logradouro_empresa.style ='border-color: red !important'
     }
 
    
@@ -203,19 +206,19 @@ function moverFuncionario() {
   ) {
     alert("Insira as informações corretamente!")
     if(nomeFuncionario==""){
-      nome_funcionario.style ='border-color: red'
+      nome_funcionario.style ='border-color: red !important'
     }
     if (emailFuncionario=="") {
-      email_funcionario.style ='border-color: red'
+      email_funcionario.style ='border-color: red !important'
     }
     if (telFuncionario=="") {
-      telefone_funcionario.style = 'border-color: red'
+      telefone_funcionario.style = 'border-color: red !important'
     }
     if(cargo==""){
-      cargo_funcionario.style = 'border-color: red'
+      cargo_funcionario.style = 'border-color: red !important'
     }
     if(senha==""){
-      senha_funcionario.style = 'border-color: red'
+      senha_funcionario.style = 'border-color: red !important' 
     }
   }
   else {
