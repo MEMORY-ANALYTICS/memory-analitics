@@ -60,13 +60,6 @@ function entrar() {
 
 
        alert("Houve um erro ao tentar realizar o login!")
-       email_input.style ='border-color: red'
-       senha_input.style ='border-color: red'
-
-       email_validacao.style ='display: none'
-       senha_validacao.style ='display: none'
-
-
        
        
 
