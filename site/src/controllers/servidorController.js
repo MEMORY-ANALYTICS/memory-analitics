@@ -18,6 +18,24 @@ function getAll(req, res){
         res.status(500).json(erro.sqlMessage);	
     });	
 }	
+function getIdByApelidoLike(req, res){
+    var apelidoServidor = req.params.apelidoServidor;
+    console.log('Estou no Controller com o valor de:' + apelidoServidor)
+
+    servidorModel.getIdByApelidoLike(apelidoServidor)
+    .then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+            console.log("Resultado da Controller:"+ resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 function cadastrarServidor(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -104,5 +122,6 @@ function atualizarServidor(req, res) {
 module.exports = {
     cadastrarServidor,
     getAll,
-    atualizarServidor
+    atualizarServidor,
+    getIdByApelidoLike
 } 

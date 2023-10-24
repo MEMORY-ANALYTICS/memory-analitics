@@ -17,6 +17,7 @@ var empresaRouter = require("./src/routes/empresa");
 var dashboardGRouter = require("./src/routes/dashboardG");
 var funcionarioRouter = require("./src/routes/funcionario");
 var servidorRouter = require("./src/routes/servidor");
+var componenteRouter = require("./src/routes/componente");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +32,7 @@ app.use("/empresa", empresaRouter);
 app.use("/dashboardG", dashboardGRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/servidor", servidorRouter);
+app.use("/componente", componenteRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);

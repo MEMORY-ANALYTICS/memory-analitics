@@ -13,6 +13,13 @@ function cadastrarServidor(SistemaOperacionalServidor, apelidoServidor, ipServid
     return database.executar(instrucao);
 }
 
+function getIdByApelidoLike(apelidoServidor){
+  var instrucao = `
+  select idServidor from servidor where apelidoServidor like '%${apelidoServidor}%';`
+
+  return database.executar(instrucao);
+}
+
 function atualizarServidor(SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) {
   console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
   
@@ -38,5 +45,6 @@ function getAll(fkEmpresa) {
 module.exports = {
     cadastrarServidor,
     getAll,
-    atualizarServidor
+    atualizarServidor,
+    getIdByApelidoLike
 } 
