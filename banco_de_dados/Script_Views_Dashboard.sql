@@ -1,134 +1,13 @@
-DROP DATABASE IF EXISTS bd_memoryanalytics;
-CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
-USE bd_memoryAnalytics;
+use bd_memoryanalytics;
 
-CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
-GRANT SELECT, INSERT, UPDATE, DELETE ON bd_memoryanalytics.* TO urubu100;
-FLUSH PRIVILEGES;
-
-CREATE TABLE IF NOT EXISTS `empresa`(
-idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-nomeEmpresa VARCHAR(45),
-cnpjEmpresa CHAR(18),
-emailEmpresa VARCHAR(50),
-telEmpresa CHAR(15)
-) AUTO_INCREMENT = 10000;
-
-CREATE TABLE IF NOT EXISTS `endereco`(
-idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-cep CHAR(9),
-logradouro VARCHAR(60),
-numero INT,
-cidade VARCHAR(60),
-estado VARCHAR(45),
-fkEmpresa INT,
-FOREIGN KEY (`fkEmpresa`) REFERENCES empresa (idEmpresa)
-);
-
-CREATE TABLE IF NOT EXISTS `cargo`(
-idCargo INT PRIMARY KEY AUTO_INCREMENT,
-nomeCargo VARCHAR(45)
-);
-
-CREATE TABLE IF NOT EXISTS `funcionario`(
-idFuncionario INT PRIMARY KEY AUTO_INCREMENT,
-nomeFunc VARCHAR(80),
-emailFunc VARCHAR(45),
-telefoneFunc CHAR(11),
-permissao CHAR(1),
-fkEmpresa INT,
-fkCargo INT,
-fkSupervisor INT,
-FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),
-FOREIGN KEY (fkCargo) REFERENCES cargo (idCargo),
-FOREIGN KEY (fkSupervisor) REFERENCES funcionario (idFuncionario)
-) AUTO_INCREMENT = 100000;
-
-CREATE TABLE IF NOT EXISTS `login`(
-idLogin INT PRIMARY KEY AUTO_INCREMENT,
-email VARCHAR(80),
-senha VARCHAR(45),
-fkFuncionario INT,
-FOREIGN KEY (fkFuncionario) REFERENCES funcionario (idFuncionario)
-);
-
-CREATE TABLE IF NOT EXISTS `servidor`(
-idServidor INT PRIMARY KEY AUTO_INCREMENT,
-SistemaOperacionalServidor VARCHAR(20),
-apelidoServidor VARCHAR(45),
-ipServidor CHAR(12),
-numeroSerieServidor VARCHAR(20),
-fkEmpresa INT,
-FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
-);
-
-CREATE TABLE IF NOT EXISTS `tipoComponente`(
-idTipoComponente INT PRIMARY KEY AUTO_INCREMENT,
-tipoComponente VARCHAR(45)
-);
-
-CREATE TABLE IF NOT EXISTS `modeloComponente`(
-idModeloComponente INT PRIMARY KEY AUTO_INCREMENT,
-fabricante VARCHAR(45),
-nomeModelo VARCHAR(45),
-codigogeracao VARCHAR(45),
-fkTipoComponente INT,
-FOREIGN KEY (fkTipoComponente) REFERENCES tipoComponente (idTipoComponente)
-);
-
-CREATE TABLE IF NOT EXISTS `metricaComponente`(
-idMetricaComponente INT PRIMARY KEY AUTO_INCREMENT,
-limiteMin VARCHAR(45),
-limiteMax VARCHAR(45),
-fkModeloComponente INT,
-FOREIGN KEY (fkModeloComponente) REFERENCES modeloComponente (idModeloComponente)
-);
-
-CREATE TABLE IF NOT EXISTS `componente`(
-idComponente INT PRIMARY KEY AUTO_INCREMENT,
-fkServidor INT,
-fkModeloComponente INT,
-FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor),
-FOREIGN KEY (fkModeloComponente) REFERENCES modeloComponente (idModeloComponente)
-);
-
-CREATE TABLE IF NOT EXISTS `subComponente`(
-idSubComponente INT PRIMARY KEY AUTO_INCREMENT,
-nomeSubComponente VARCHAR(45),
-fkComponente INT,
-FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
-);
-
-CREATE TABLE IF NOT EXISTS `medidaComponente`(
-idMedidaComponente INT PRIMARY KEY AUTO_INCREMENT,
-nomeMedida VARCHAR(45),
-simboloMedida VARCHAR(10),
-unidadeMedida VARCHAR(45)
-);
-
-CREATE TABLE IF NOT EXISTS `detalheSubComponente`(
-fkSubComponente INT NOT NULL,
-fkMedidaComponente INT NOT NULL,
-FOREIGN KEY (fkSubComponente) REFERENCES subComponente (idSubComponente),
-FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente),
-PRIMARY KEY (fkSubComponente, fkMedidaComponente)
-);
-
-CREATE TABLE IF NOT EXISTS `registro`(
-idRegistro INT PRIMARY KEY AUTO_INCREMENT,
-valorRegistro DOUBLE,
-dtHoraRegistro DATETIME,
-fkDSCSubComponente INT,
-fkDSCMedidaComponente INT,
-FOREIGN KEY (fkDSCSubComponente) REFERENCES detalheSubComponente (fkSubComponente),
-FOREIGN KEY (fkDSCMedidaComponente) REFERENCES detalheSubComponente (fkMedidaComponente)
-);
+-- -=-=-=-=-=-=-=-=-=-=-= Inserindo Dados -=-=-=-=-=-=-=-=-=-=-=
 
 -- Inserir dados na tabela 'empresa'
+INSERT INTO empresa VALUES (1 , 'Memory Analytics','12345675601234', 'memoryAnalytics@gmail.com', '1122884455' );
 INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
-('Empresa A', '12345678901234', 'empresaA@email.com', '1122334455'),
-('Empresa B', '56789012345678', 'empresaB@email.com', '2233445566'),
-('Empresa C', '90123456789012', 'empresaC@email.com', '3344556677');
+('Empresa A', '12345678901234', 'empresaA@gmail.com', '1122334455'),
+('Empresa B', '56789012345678', 'empresaB@gmail.com', '2233445566'),
+('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677');
 
 -- Inserir dados na tabela 'endereco'
 INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
@@ -149,166 +28,411 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Pedro', 'pedro@email.com', '33344455566', 'B', 10002, 3, 100000);
 
 -- Inserir dados na tabela 'login'
-INSERT INTO login (login, senha, fkFuncionario) VALUES
-('joao123', 'senha123', 100000),
+INSERT INTO login (email, senha, fkFuncionario) VALUES
+('joao@email.com', 'senha123', 100000),
 ('maria456', 'senha456', 100001),
 ('pedro789', 'senha789', 100002);
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
-('Linux', 'Servidor A', '192.168.1.1', 'SERV123', 10000),
+('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
-('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
-
--- Inserir dados na tabela 'tipoComponente'
-INSERT INTO tipoComponente (tipoComponente) VALUES
-('Sensor'),
-('Atuador'),
-('Controlador');
-
--- Inserir dados na tabela 'modeloComponente'
-INSERT INTO modeloComponente (fabricante, nomeModelo, codigogeracao, fkTipoComponente) VALUES
-('Fabricante A', 'Modelo X', 'COD123', 1),
-('Fabricante B', 'Modelo Y', 'COD456', 2),
-('Fabricante C', 'Modelo Z', 'COD789', 3);
-
--- Inserir dados na tabela 'metricaComponente'
-INSERT INTO metricaComponente (limiteMin, limiteMax, fkModeloComponente) VALUES
-('0', '100', 1),
-('10', '90', 2),
-('20', '80', 3);
+('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
+('Windows', 'Servidor D', '192.168.1.7', 'SERV421', 10001),
+('Windows', 'Servidor E', '192.168.1.5', 'SERV623', 10001),
+('Windows', 'Servidor F', '192.168.1.6', 'SERV151', 10001),
+('Windows', 'Servidor G', '192.168.1.9', 'SERV985', 10001);
 
 -- Inserir dados na tabela 'componente'
-INSERT INTO componente (fkServidor, fkModeloComponente) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', '2000','4000',1), -- CPU
+('Corsair', 'Vengeance', 'RAM', '0','16',1), -- RAM
+('WD', 'Black', 'DISCO', '0','500',1), -- DISCO
+('TPLink','NP3200','REDE','1','1000',1), -- REDE
+('Intel', 'Xeon', 'CPU', '2000','4000',2),
+('Corsair', 'Vengeance', 'RAM', '0','16',2), 
+('WD', 'Black', 'DISCO', '0','500',2),
+('TPLink','NP3200','REDE','1','1000',2), 
+('Intel', 'Xeon', 'CPU', '2000','4000',3),
+('Corsair', 'Vengeance', 'RAM', '0','16',3), 
+('WD', 'Black', 'DISCO', '0','500',3),
+('TPLink','NP3200','REDE','1','1000',3), 
+('Intel', 'Xeon', 'CPU', '2000','4000',4),
+('Corsair', 'Vengeance', 'RAM', '0','16',4), 
+('WD', 'Black', 'DISCO', '0','500',4), 
+('TPLink','NP3200','REDE','1','1000',4),
+('Intel', 'Xeon', 'CPU', '2000','4000',5),
+('Corsair', 'Vengeance', 'RAM', '0','16',5), 
+('WD', 'Black', 'DISCO', '0','500',5), 
+('TPLink','NP3200','REDE','1','1000',5),
+('Intel', 'Xeon', 'CPU', '2000','4000',6),
+('Corsair', 'Vengeance', 'RAM', '0','16',6), 
+('WD', 'Black', 'DISCO', '0','500',6), 
+('TPLink','NP3200','REDE','1','1000',6),
+('Intel', 'Xeon', 'CPU', '2000','4000',7),
+('Corsair', 'Vengeance', 'RAM', '0','16',7), 
+('WD', 'Black', 'DISCO', '0','500',7), 
+('TPLink','NP3200','REDE','1','1000',7);
 
 -- Inserir dados na tabela 'subComponente'
-INSERT INTO subComponente (nomeSubComponente, fkComponente) VALUES
-('SubComponente 1', 1),
-('SubComponente 2', 2),
-('SubComponente 3', 3);
+INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
+('Core 1', 1),
+('Core 2', 1),
+('Core 3', 1),
+('Core 4', 1),
+('Leitura RAM', 2),
+('DISCO 1', 3),
+('DISCO 2', 3),
+('DISCO 3', 3),
+('Leitura REDE', 4),
+
+('Core 1', 5),
+('Core 2', 5),
+('Core 3', 5),
+('Core 4', 5),
+('Leitura RAM', 6),
+('DISCO 1', 7),
+('DISCO 2', 7),
+('DISCO 3', 7),
+('Leitura REDE', 8),
+
+('Core 1', 9),
+('Core 2', 9),
+('Core 3', 9),
+('Core 4', 9),
+('Leitura RAM', 10),
+('DISCO 1', 11),
+('DISCO 2', 11),
+('DISCO 3', 11),
+('Leitura REDE', 12),
+
+('Core 1', 13),
+('Core 2', 13),
+('Core 3', 13),
+('Core 4', 13),
+('Leitura RAM', 14),
+('DISCO 1', 15),
+('DISCO 2', 15),
+('DISCO 3', 15),
+('Leitura REDE', 16),
+
+('Core 1', 17),
+('Core 2', 17),
+('Core 3', 17),
+('Core 4', 17),
+('Leitura RAM', 18),
+('DISCO 1', 19),
+('DISCO 2', 19),
+('DISCO 3', 19),
+('Leitura REDE', 20),
+
+('Core 1', 21),
+('Core 2', 21),
+('Core 3', 21),
+('Core 4', 21),
+('Leitura RAM', 22),
+('DISCO 1', 23),
+('DISCO 2', 23),
+('DISCO 3', 23),
+('Leitura REDE', 24),
+
+('Core 1', 25),
+('Core 2', 25),
+('Core 3', 25),
+('Core 4', 25),
+('Leitura RAM', 26),
+('DISCO 1', 27),
+('DISCO 2', 27),
+('DISCO 3', 27),
+('Leitura REDE', 28);
 
 -- Inserir dados na tabela 'medidaComponente'
-INSERT INTO medidaComponente (nomeMedida, simboloMedida, unidadeMedida) VALUES
-('Temperatura', '°C', 'Celsius'),
-('Pressão', 'Pa', 'Pascal'),
-('Umidade', '%', 'Porcentagem');
-
-INSERT INTO detalheSubComponente VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
+('Armazenamento', 'GB'),
+('Frequência', 'MHz'),
+('Porcentagem', '%'),
+('Transferência','Mbps'),
+('Quantidade','Int'),
+('Velocidade', 's');
 
 -- Inserir dados na tabela 'registro'
-INSERT INTO registro (idRegistro, valorRegistro, dtHoraRegistro, fkDSCSubComponente, fkDSCMedidaComponente) VALUES
-(null, 25.5, '2023-10-09 10:00:00', 1, 1), #Seguros
-(null, 31.5, '2023-10-09 10:30:00', 1, 1),
-(null, 50.0, '2023-10-09 10:45:00', 1, 1),
-(null, 35.0, '2023-10-09 11:00:00', 2, 2),
-(null, 28.0, '2023-10-09 11:30:00', 2, 2),
-(null, 61.0, '2023-10-09 11:45:00', 2, 2),
-(null, 50.0, '2023-10-09 12:00:00', 3, 3),
-(null, 62.0, '2023-10-09 12:30:00', 3, 3),
-(null, 44.5, '2023-10-09 12:45:00', 3, 3),
-(null, 90.0, '2023-10-09 13:00:00', 1, 1), #Alertas
-(null, 95.0, '2023-10-09 13:30:00', 1, 1),
-(null, 12.0, '2023-10-09 14:00:00', 2, 2),
-(null, 84.0, '2023-10-09 14:30:00', 2, 2),
-(null, 75.0, '2023-10-09 15:00:00', 3, 3),
-(null, 23.0, '2023-10-09 15:30:00', 3, 3),
-(null, -5.0, '2023-10-09 16:00:00', 1, 1), # Criticos
-(null, 109.5, '2023-10-09 16:30:00', 2, 2), 
-(null, 97.0, '2023-10-09 17:00:00', 3, 3);
+INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+(2200, '2023-10-09 10:00:00', 1, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 2, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 3, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 4, 2),  -- CPU
 
-select * from login;
+(10, '2023-10-09 10:00:00', 1, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 2, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 3, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 4, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-10-09 10:30:00', 5, 1),  -- RAM
+(50, '2023-10-09 10:30:00', 5, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-10-09 10:30:00', 6, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 7, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 8, 1),  -- DISCO
+(50, '2023-10-09 10:30:00', 6, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 7, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 8, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-10-09 10:30:00', 9, 4),  -- REDE
+(50, '2023-10-09 10:30:00', 9, 3),  -- REDE
 
-select * from Registro;
-select * from metricaComponente;
+
+(2200, '2023-10-09 10:00:00', 10, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 11, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 12, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 13, 2),  -- CPU
+
+(10, '2023-10-09 10:00:00', 10, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 11, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 12, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 13, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-10-09 10:30:00', 14, 1),  -- RAM
+(50, '2023-10-09 10:30:00', 14, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-10-09 10:30:00', 15, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 16, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 17, 1),  -- DISCO
+(50, '2023-10-09 10:30:00', 15, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 16, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 17, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-10-09 10:30:00', 18, 4),  -- REDE
+(50, '2023-10-09 10:30:00', 18, 3),  -- REDE
+
+
+(2200, '2023-10-09 10:00:00', 19, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 20, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 21, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 22, 2),  -- CPU
+
+(10, '2023-10-09 10:00:00', 19, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 20, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 21, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 22, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-10-09 10:30:00', 23, 1),  -- RAM
+(50, '2023-10-09 10:30:00', 23, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-10-09 10:30:00', 24, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 25, 1),  -- DISCO
+(250, '2023-10-09 10:30:00', 26, 1),  -- DISCO
+(50, '2023-10-09 10:30:00', 24, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 25, 3),  -- DISCO
+(50, '2023-10-09 10:30:00', 26, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-10-09 10:30:00', 27, 4),  -- REDE
+(50, '2023-10-09 10:30:00', 27, 3),  -- REDE
+
+
+(2200, '2023-09-09 10:00:00', 28, 2),  -- CPU
+(2200, '2023-09-09 10:00:00', 29, 2),  -- CPU
+(2200, '2023-09-09 10:00:00', 30, 2),  -- CPU
+(2200, '2023-09-09 10:00:00', 31, 2),  -- CPU
+
+(10, '2023-09-09 10:00:00', 28, 3),  -- CPU
+(10, '2023-09-09 10:00:00', 29, 3),  -- CPU
+(10, '2023-09-09 10:00:00', 30, 3),  -- CPU
+(10, '2023-09-09 10:00:00', 31, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-09-09 10:30:00', 32, 1),  -- RAM
+(50, '2023-09-09 10:30:00', 32, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-09-09 10:30:00', 33, 1),  -- DISCO
+(250, '2023-09-09 10:30:00', 34, 1),  -- DISCO
+(250, '2023-09-09 10:30:00', 35, 1),  -- DISCO
+(50, '2023-09-09 10:30:00', 33, 3),  -- DISCO
+(50, '2023-09-09 10:30:00', 34, 3),  -- DISCO
+(50, '2023-09-09 10:30:00', 35, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-09-09 10:30:00', 36, 4),  -- REDE
+(50, '2023-09-09 10:30:00', 36, 3),  -- REDE
+
+
+(2200, '2023-08-09 10:00:00', 37, 2),  -- CPU
+(2200, '2023-08-09 10:00:00', 38, 2),  -- CPU
+(2200, '2023-08-09 10:00:00', 39, 2),  -- CPU
+(2200, '2023-08-09 10:00:00', 40, 2),  -- CPU
+
+(10, '2023-08-09 10:00:00', 37, 3),  -- CPU
+(10, '2023-08-09 10:00:00', 38, 3),  -- CPU
+(10, '2023-08-09 10:00:00', 39, 3),  -- CPU
+(10, '2023-08-09 10:00:00', 40, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-08-09 10:30:00', 41, 1),  -- RAM
+(50, '2023-08-09 10:30:00', 41, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-08-09 10:30:00', 42, 1),  -- DISCO
+(250, '2023-08-09 10:30:00', 43, 1),  -- DISCO
+(250, '2023-08-09 10:30:00', 44, 1),  -- DISCO
+(50, '2023-08-09 10:30:00', 42, 3),  -- DISCO
+(50, '2023-08-09 10:30:00', 43, 3),  -- DISCO
+(50, '2023-08-09 10:30:00', 44, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-08-09 10:30:00', 45, 4),  -- REDE
+(50, '2023-08-09 10:30:00', 45, 3),  -- REDE
+
+
+(2200, '2023-07-09 10:00:00', 46, 2),  -- CPU
+(2200, '2023-07-09 10:00:00', 47, 2),  -- CPU
+(2200, '2023-07-09 10:00:00', 48, 2),  -- CPU
+(2200, '2023-07-09 10:00:00', 49, 2),  -- CPU
+
+(10, '2023-07-09 10:00:00', 46, 3),  -- CPU
+(22, '2023-07-09 10:00:00', 47, 3),  -- CPU
+(5, '2023-07-09 10:00:00', 48, 3),  -- CPU
+(10, '2023-07-09 10:00:00', 49, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-07-09 10:30:00', 50, 1),  -- RAM
+(50, '2023-07-09 10:30:00', 50, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-07-09 10:30:00', 51, 1),  -- DISCO
+(700, '2023-07-09 10:30:00', 52, 1),  -- DISCO
+(250, '2023-07-09 10:30:00', 53, 1),  -- DISCO
+(50, '2023-07-09 10:30:00', 51, 3),  -- DISCO
+(50, '2023-07-09 10:30:00', 52, 3),  -- DISCO
+(50, '2023-07-09 10:30:00', 53, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-07-09 10:30:00', 54, 4),  -- REDE
+(50, '2023-07-09 10:30:00', 54, 3),  -- REDE
+
+
+(5000, '2023-06-09 10:00:00', 55, 2),  -- CPU
+(1100, '2023-06-09 10:00:00', 56, 2),  -- CPU
+(2700, '2023-06-09 10:00:00', 57, 2),  -- CPU
+(3100, '2023-06-09 10:00:00', 58, 2),  -- CPU
+
+(10, '2023-06-09 10:00:00', 55, 3),  -- CPU
+(10, '2023-06-09 10:00:00', 56, 3),  -- CPU
+(10, '2023-06-09 10:00:00', 57, 3),  -- CPU
+(10, '2023-06-09 10:00:00', 58, 3),  -- CPU
+-- ------------------------------------------------
+(8, '2023-06-09 10:30:00', 59, 1),  -- RAM
+(50, '2023-06-09 10:30:00', 59, 3),  -- RAM
+-- ------------------------------------------------
+(250, '2023-06-09 10:30:00', 60, 1),  -- DISCO
+(250, '2023-06-09 10:30:00', 61, 1),  -- DISCO
+(250, '2023-06-09 10:30:00', 62, 1),  -- DISCO
+(50, '2023-06-09 10:30:00', 60, 3),  -- DISCO
+(50, '2023-06-09 10:30:00', 61, 3),  -- DISCO
+(50, '2023-06-09 10:30:00', 62, 3),  -- DISCO
+-- ------------------------------------------------
+(500, '2023-06-09 10:30:00', 63, 4),  -- REDE
+(50, '2023-06-09 10:30:00', 36, 3);  -- REDE
+
+select * from Empresa;
 select * from servidor;
 select * from componente;
+select * from recurso;
+select * from registro;
 select * from medidacomponente;
-select * from subcomponente;
-select * from detalhesubcomponente;
 
-# VIEW SERVIDORES INSTAVEIS
-create view getServInstaveis as select count(Servidor.idServidor) as qtdRegistrosLimiteMax from Servidor join componente on idServidor = fkServidor 
-join subComponente on idComponente = fkComponente 
-join detalheSubComponente on idSubComponente = fkSubComponente 
-join Registro on fkSubComponente = fkDSCSubComponente 
-join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
-join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
-where Registro.valorRegistro > metricaComponente.limiteMax;
-# drop view getServInstaveis;
+# SERVIDORES INSTAVEIS
 
-# SELECT count(idServidor) as qtdServInstaveis FROM getServInstaveis JOIN servidor WHERE fkEmpresa = 10002;
+SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS quantidade_servidores_excedidos
+FROM empresa e
+JOIN servidor s ON e.idEmpresa = s.fkEmpresa
+JOIN componente c ON s.idServidor = c.fkServidor
+JOIN registro r ON c.idComponente = r.fkRecurso
+WHERE r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin
+GROUP BY e.nomeEmpresa;
 
-# VIEWS ESTADO SERVIDORES GERAL
+CREATE OR REPLACE VIEW getServInstaveis as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServInstaveis
+FROM empresa e
+JOIN servidor s ON e.idEmpresa = s.fkEmpresa
+JOIN componente c ON s.idServidor = c.fkServidor
+JOIN registro r ON c.idComponente = r.fkRecurso
+WHERE (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+GROUP BY e.nomeEmpresa;
 
-create view getServidoresSeguros as select count(Servidor.idServidor) as qtdServSeguros, fkEmpresa from Servidor join componente on idServidor = fkServidor 
-join subComponente on idComponente = fkComponente 
-join detalheSubComponente on idSubComponente = fkSubComponente 
-join Registro on fkSubComponente = fkDSCSubComponente 
-join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
-join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
-where Registro.valorRegistro <= metricaComponente.limiteMax * 0.85 and Registro.valorRegistro >= metricaComponente.limiteMin * 1.15 group by fkEmpresa;
-select * from getServidoresSeguros;
+SELECT qtdServInstaveis FROM getServInstaveis;
 
-create view getServidoresAlertas as select count(Servidor.idServidor) as qtdServAlertas, fkEmpresa from Servidor join componente on idServidor = fkServidor 
-join subComponente on idComponente = fkComponente 
-join detalheSubComponente on idSubComponente = fkSubComponente 
-join Registro on fkSubComponente = fkDSCSubComponente 
-join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
-join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
-where Registro.valorRegistro > metricaComponente.limiteMax * 0.85 and Registro.valorRegistro < metricaComponente.limiteMax or Registro.valorRegistro < metricaComponente.limiteMin * 1.15 and Registro.valorRegistro > metricaComponente.limiteMin group by fkEmpresa;
-select * from getServidoresAlertas;
+# GERAL SERVIDORES
 
-create view getServidoresCriticos as select count(Servidor.idServidor) as qtdServCriticos, fkEmpresa from Servidor join componente on idServidor = fkServidor 
-join subComponente on idComponente = fkComponente 
-join detalheSubComponente on idSubComponente = fkSubComponente 
-join Registro on fkSubComponente = fkDSCSubComponente 
-join ModeloComponente on componente.fkModeloComponente = ModeloComponente.idModeloComponente
-join metricaComponente on ModeloComponente.idModeloComponente = metricaComponente.fkModeloComponente 
-where Registro.valorRegistro > metricaComponente.limiteMax or Registro.valorRegistro < metricaComponente.limiteMin group by fkEmpresa;
-select * from getServidoresCriticos;
+CREATE OR REPLACE VIEW getServAlertas as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServAlertas
+FROM empresa e
+JOIN servidor s ON e.idEmpresa = s.fkEmpresa
+JOIN componente c ON s.idServidor = c.fkServidor
+JOIN registro r ON c.idComponente = r.fkRecurso
+WHERE (r.valorRegistro > c.limiteMax * 0.85 AND r.valorRegistro < c.limiteMax OR r.valorRegistro < c.limiteMin * 1.15 AND r.valorRegistro > c.limiteMin)
+GROUP BY e.nomeEmpresa;
 
+SELECT * FROM getServAlertas;
 
-# drop view getServidoresCriticos;
+CREATE OR REPLACE VIEW getServSeguros as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServSeguros
+FROM empresa e
+JOIN servidor s ON e.idEmpresa = s.fkEmpresa
+JOIN componente c ON s.idServidor = c.fkServidor
+JOIN registro r ON c.idComponente = r.fkRecurso
+WHERE (r.valorRegistro < c.limiteMax * 0.85 AND r.valorRegistro > c.limiteMin * 1.15)
+GROUP BY e.nomeEmpresa;
 
-create view getEstadoGeralServ as select qtdServSeguros, qtdServAlertas, qtdServCriticos, S.fkEmpresa from getServidoresSeguros S, getServidoresAlertas A, getServidoresCriticos C where S.fkEmpresa = A.fkEmpresa and S.fkEmpresa = C.fkEmpresa and A.fkEmpresa = C.fkEmpresa;
-select * from getEstadoGeralServ WHERE fkEmpresa = 10000;
-SELECT qtdServSeguros, qtdServAlertas, qtdServCriticos FROM getEstadoGeralServ JOIN servidor WHERE fkEmpresa = 10002;
+SELECT * FROM getServSeguros;
 
-select qtdServSeguros, qtdServAlertas, qtdServCriticos, S.fkEmpresa from getServidoresSeguros S, getServidoresAlertas A, getServidoresCriticos C where S.fkEmpresa = A.fkEmpresa and S.fkEmpresa = C.fkEmpresa and A.fkEmpresa = C.fkEmpresa;
+CREATE OR REPLACE VIEW getEstadoGeralServ AS SELECT S.nomeEmpresa, qtdServSeguros, qtdServAlertas, qtdServInstaveis FROM getServSeguros S 
+JOIN getServAlertas A 
+JOIN getServInstaveis I 
+WHERE S.nomeEmpresa = A.nomeEmpresa 
+AND S.nomeEmpresa = I.nomeEmpresa 
+AND A.nomeEmpresa = I.nomeEmpresa;
+
+SELECT * FROM getEstadoGeralServ WHERE nomeEmpresa = "Empresa B";
 
 
-# VIEW ESCALABILIDADE
+# COMPONENTE PROBLEMATICO
 
-CREATE OR REPLACE VIEW capacidade_e_escalabilidade AS
-SELECT
-    s.idServidor,
-    s.apelidoServidor,
-    s.SistemaOperacionalServidor,
-    s.ipServidor,
-    e.nomeEmpresa,
-    c.nomeCargo,
-    AVG(CASE WHEN mc.nomeModelo = 'Modelo X' THEN r.valorRegistro ELSE 0 END) AS uso_memoria,
-    AVG(CASE WHEN mc.nomeModelo = 'Modelo Y' THEN r.valorRegistro ELSE 0 END) AS uso_cpu
-FROM
-    servidor AS s
-JOIN empresa AS e ON s.fkEmpresa = e.idEmpresa
-JOIN funcionario AS f ON e.idEmpresa = f.fkEmpresa
-JOIN cargo AS c ON f.fkCargo = c.idCargo
-JOIN modeloComponente AS mc ON s.idServidor = mc.fkTipoComponente
-JOIN metricaComponente AS mco ON mc.idModeloComponente = mco.fkModeloComponente
-JOIN registro AS r ON mco.idMetricaComponente = r.fkDSCMedidaComponente
-GROUP BY
-    s.idServidor,
-    s.apelidoServidor,
-    s.SistemaOperacionalServidor,
-    s.ipServidor,
-    e.nomeEmpresa,
-    c.nomeCargo;
-    
-    SELECT * FROM capacidade_e_escalabilidade;
+SELECT c.tipoComponente AS nomeComponente, COUNT(*) AS total_registros_excedidos
+FROM componente c
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+JOIN registro r ON c.idComponente = r.fkRecurso
+WHERE e.idEmpresa = 10000 
+    AND (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+GROUP BY c.tipoComponente
+ORDER BY total_registros_excedidos DESC limit 1;
+
+  SELECT c.tipoComponente AS nomeComponente, COUNT(*) AS total_registros_excedidos
+FROM componente c
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+JOIN registro r ON c.idComponente = r.fkRecurso
+WHERE e.idEmpresa = 10000
+    AND (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+GROUP BY c.tipoComponente
+ORDER BY total_registros_excedidos DESC limit 1;
+
+
+
+# GRAFICO PICO DE USO
+
+CREATE OR REPLACE VIEW limitesExcedidos AS SELECT 
+    e.nomeEmpresa AS NomeEmpresa,
+    DATE_FORMAT(r.dtHoraRegistro, '%Y-%m') AS MesAno,
+    c.tipoComponente AS TipoComponente,
+    SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
+FROM registro r
+JOIN recurso rc ON r.fkRecurso = rc.idRecurso
+JOIN componente c ON rc.fkComponente = c.idComponente
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+GROUP BY NomeEmpresa, MesAno, TipoComponente
+ORDER BY NomeEmpresa, MesAno, TipoComponente;
+
+SELECT 
+    e.nomeEmpresa AS NomeEmpresa,
+    DATE_FORMAT(r.dtHoraRegistro, '%Y-%m') AS MesAno,
+    c.tipoComponente AS TipoComponente,
+    SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
+FROM registro r
+JOIN recurso rc ON r.fkRecurso = rc.idRecurso
+JOIN componente c ON rc.fkComponente = c.idComponente
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+GROUP BY NomeEmpresa, MesAno, TipoComponente
+ORDER BY NomeEmpresa, MesAno, TipoComponente;
+
+SELECT sum((ExcedeuLimites)) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa B' GROUP BY MesAno;
