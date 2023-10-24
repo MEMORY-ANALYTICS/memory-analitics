@@ -3,7 +3,7 @@ var numServAlertas
 var numServCriticos
 
 function getEstadoGeralServ() {
-  fetch("/dashboardG/getEstadoGeralServ/10002").then(function (resposta) {
+  fetch("/dashboardG/getEstadoGeralServ/'Empresa B'").then(function (resposta) {
     if (resposta.ok) {
 
       resposta.json().then(function (json) {
@@ -11,18 +11,13 @@ function getEstadoGeralServ() {
 
         var servSeguros = json[0].qtdServSeguros;
         var servAlertas = json[0].qtdServAlertas;
-        var servCriticos = json[0].qtdServCriticos;
+        var servCriticos = json[0].qtdServInstaveis;
 
         // myPieChart2.data.datasets[0].data.push(json[0].qtdServSeguros);
         // myPieChart2.data.datasets[0].data.push(json[0].qtdServAlertas);
         // myPieChart2.data.datasets[0].data.push(json[0].qtdServCriticos);
         // console.log("Dados recebidos: ", JSON.stringify(json));
         console.log = (json)
-
-          // Set new default font family and font color to mimic Bootstrap's default styling
-          // (Chart.defaults.global.defaultFontFamily = "Nunito"),
-          // '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-        Chart.defaults.global.defaultFontColor = "#858796";
 
         // Pie Chart Example
         var ctx = document.getElementById("myPieChart");
@@ -57,6 +52,11 @@ function getEstadoGeralServ() {
             cutoutPercentage: 80,
           },
         });
+          // Set new default font family and font color to mimic Bootstrap's default styling
+          // (Chart.defaults.global.defaultFontFamily = "Nunito"),
+          // '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = "#858796";
+
       });
     } else {
       throw ('Houve um erro na API!');
@@ -69,6 +69,6 @@ function getEstadoGeralServ() {
 
 getEstadoGeralServ();
 
-
+        
 
 
