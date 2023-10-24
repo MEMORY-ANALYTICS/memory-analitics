@@ -1,6 +1,6 @@
 
 function getServInstaveis() {
-    fetch("/dashboardG/getServInstaveis/10002").then(function (resposta) {
+    fetch("/dashboardG/getServInstaveis/'Empresa A'").then(function (resposta) {
         if (resposta.ok) {
     
             resposta.json().then(function (json) {
@@ -19,6 +19,28 @@ function getServInstaveis() {
     
 }
 
+function getCompProblematico() {
+    fetch("/dashboardG/getCompProblematico/10000").then(function (resposta) {
+        if (resposta.ok) {
+    
+            resposta.json().then(function (json) {
+                var numcompProblematico = json[0].nomeComponente
+                // console.log("Dados recebidos: ", JSON.stringify(json));
+                console.log = (json)
+                
+                compProblematico.innerHTML = numcompProblematico
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+    
+}
+
+
 
 
 getServInstaveis();
+getCompProblematico();
