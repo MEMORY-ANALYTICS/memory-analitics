@@ -36,4 +36,5 @@ public class RecursoDao {
         return con.query("SELECT tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';",
                 new BeanPropertyRowMapper<>(Recurso.class));
     }
+
 }

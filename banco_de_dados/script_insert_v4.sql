@@ -37,7 +37,8 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
-('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002);
+('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
+('Linux', 'Servidor D', '192.168.1.4', 'SERV789', 10002);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -52,7 +53,11 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('Intel', 'Xeon', 'CPU', '2000','4000',3),
 ('Corsair', 'Vengeance', 'RAM', '0','16',3), 
 ('WD', 'Black', 'DISCO', '0','500',3), 
-('TPLink','NP3200','REDE','1','1000',3);
+('TPLink','NP3200','REDE','1','1000',3),
+('Intel', 'Xeon', 'CPU', '2000','4000',4),
+('Corsair', 'Vengeance', 'RAM', '0','16',4), 
+('WD', 'Black', 'DISCO', '0','500',4), 
+('TPLink','NP3200','REDE','1','1000',4);
 
 -- Inserir dados na tabela 'subComponente'
 INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
@@ -84,16 +89,26 @@ INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
 ('Leitura REDE', 8),
 ('Leitura REDE', 12);
 
-select * from Componente;
+select * from componente;
 Select * from recurso;
 -- Inserir dados na tabela 'medidaComponente'
+select * from medidaComponente;
 INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
-('Armazenamento', 'GB'),
-('Frequência', 'MHz'),
-('Porcentagem', '%'),
-('Transferência','Mbps'),
-('Quantidade','Int'),
-('Velocidade', 's');
+('Porcentagem Uso', '%'),  					-- 1
+('Armazenamento Total', 'GB'),				-- 2
+('Armazenamento Disponível', 'GB'),			-- 3
+('Armazenamento Usado', 'GB'),				-- 4
+('Frequência Atual', 'MHz'),				-- 5
+('Frequência Máxima', 'MHz'),				-- 6
+('Frequência Mínima', 'MHz'),				-- 7
+('Transferência Enviados','Mbps'),			-- 8
+('Transferência Recebidos','Mbps'),			-- 9
+('Quantidade Virtuais','Int'),				-- 10
+('Quantidade Físicas','Int'),				-- 11
+('Quantidade Erros Entrada','Int'),	-- 12
+('Quantidade Erros na Saída','Int'),		-- 13
+('Tempo', 's'),								-- 14
+('Temperatura', '°C');						-- 15
 
 -- Inserir dados na tabela 'registro'
 INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
@@ -122,10 +137,12 @@ INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponen
 
 select * from recurso;
 select * from componente;
-select * from Empresa;
+select * from empresa;
 
 select * from registro;
 
 SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 10001;
 
 SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';
+
+SELECT * from registro;

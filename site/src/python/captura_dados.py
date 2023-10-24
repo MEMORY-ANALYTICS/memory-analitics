@@ -4,205 +4,292 @@ from time import sleep
 import psutil
 from connection import executar
 from message import mensagem_slack
-from numexpr import cpuinfo
 
 nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
 data_atual = datetime.datetime.now()
-id_server = executar(
-    f"SELECT idServidor FROM servidor WHERE apelidoServidor = '{nome_user}';"
-)
+data_formatada = data_atual.strftime('%Y-%m-%d %H:%M:%S')
+id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = 'SERVIDOR D';")
 if id_server == []:
-    print(f"Desculpe, o servidor {nome_user} ainda não foi cadastrado em nosso sistema, por favor acesse nosso site e cadastre este servidor.")
+    verificacao = False
 else:
+    verificacao = True
     lista_componentes = executar(
-        f"SELECT * FROM componente WHERE fkServidor = {id_server[0][0]}"
-    )
-    qtd_componentes = len(lista_componentes)
+    f"SELECT * FROM componente WHERE fkServidor = {id_server[0][0]}") 
+    
+    def verificar_recurso():
+        global lista_componentes_sem_recurso
+        global qtd_componentes
+        global lista_recurso
+        qtd_cpu = 0
+        qtd_ram = 0
+        qtd_disco = 0
+        qtd_rede = 0
+        ids_cpu = []
+        ids_ram = []
+        ids_disco = []
+        ids_rede = []
+        lista_recurso = []
 
-    qtd_cpu = 0
-    qtd_ram = 0
-    qtd_disco = 0
-    qtd_rede = 0
+        qtd_componentes = len(lista_componentes)
+        for componente_da_vez in lista_componentes:
+            match componente_da_vez[3]:
+                case "CPU":
+                    qtd_cpu+=1
+                    ids_cpu.append(componente_da_vez[0])
+                case "RAM":
+                    qtd_ram+=1
+                    ids_ram.append(componente_da_vez[0])
+                case "DISCO":
+                    qtd_disco+=1
+                    ids_disco.append(componente_da_vez[0])
+                case "REDE":
+                    qtd_rede+=1
+                    ids_rede.append(componente_da_vez[0])
+                case _:
+                    print(f"Componente {componente_da_vez[3]} não é reconhecido pelo nosso sistema.")
+        # print(lista_componentes)
+        # print(ids_cpu)
+        # print(ids_ram)
+        # print(ids_disco)
+        # print(ids_rede)
+        i = 0
+        qtd_recurso = len(lista_recurso)
+        lista_componentes_sem_recurso = []
+        while i < len(lista_componentes):
+            lista_recurso += executar(
+                f"SELECT * FROM recurso WHERE fkComponente = {lista_componentes[i][0]}"
+            )
+            if qtd_recurso == len(lista_recurso):
+                lista_componentes_sem_recurso += [lista_componentes[i]]
+            else:
+                qtd_recurso = len(lista_recurso)
+            i+=1
+        # print(lista_recurso)
+        # print(lista_componentes_sem_recurso)
+    verificar_recurso()
+    # =-=-=-=-=-=-=-=-=- CPU -=-=-=-=-=-=-=-=-=-=
 
-    for componente_da_vez in lista_componentes:
-        match componente_da_vez[3]:
-            case "CPU":
-                 qtd_cpu+=1
-            case "RAM":
-                qtd_ram+=1
-            case "DISCO":
-                qtd_disco+=1
-            case "REDE":
-                qtd_rede+=1
-            case _:
-                print(f"Componente {componente_da_vez[3]} não é reconhecido pelo nosso sistema.")
-    print(qtd_cpu)
-    print(qtd_disco)
-    print(qtd_ram)
-    print(qtd_rede)
+    def exibir_dados_cpu():
 
+        verificar_recurso()
 
-
-    # # -=-=-=-=-=-=-=-=-=-= CPU -=-=-=-=-=-=-=-=-=-=
-
-def exibir_dados_cpu():
-        
-    qtd_cpus_virtuais = psutil.cpu_count()
-    qtd_cpus_fisicos = psutil.cpu_count(logical=False)
-    uso_cpus = psutil.cpu_percent(interval=None, percpu=True)
-    uso_cpu_geral = psutil.cpu_percent(interval=None, percpu=False)
-    frequencia_cpu_atual = psutil.cpu_freq().current
-    frequencia_cpu_max = psutil.cpu_freq().max
-    frequencia_cpu_min = psutil.cpu_freq().min
-    lista_freq_cpu = [frequencia_cpu_atual,frequencia_cpu_max,frequencia_cpu_min]
-
-    print(
-        f"""
-    +---------------------- CPU -------------------------+
+        qtd_cpus_virtuais = psutil.cpu_count()
+        qtd_cpus_fisicos = psutil.cpu_count(logical=False)
+        uso_cpus = psutil.cpu_percent(interval=None, percpu=True)
+        uso_cpu_geral = psutil.cpu_percent(interval=None, percpu=False)
+        frequencia_cpu_atual = psutil.cpu_freq().current
+        frequencia_cpu_max = psutil.cpu_freq().max
+        frequencia_cpu_min = psutil.cpu_freq().min
+        i = 0
+        if len(lista_componentes_sem_recurso) != 0:
+                    while i < len(lista_componentes_sem_recurso):
+                        if(lista_componentes_sem_recurso[i][3] == "CPU"):
+                            k = 0
+                            while k < len(uso_cpus):
+                                 if k == 0:
+                                     executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('CPU',{lista_componentes_sem_recurso[i][0]});")
+                                 k+=1
+                                 executar(f"INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Core {k}',{lista_componentes_sem_recurso[i][0]});")
+                            break
+                        i+=1
+        i = 0
+        print(f"""
+        --------------------- CPU ---------------------
         Quantidade de CPUs Virtuais == {qtd_cpus_virtuais}         
-        Quantidade de CPUs Fisicos == {qtd_cpus_fisicos}           
+        Quantidade de CPUs Fisicos == {qtd_cpus_fisicos}
+        """)
+        while i < len(uso_cpus):
+            print(
+                f"""        Uso por CPU : Core {i+1} == {uso_cpus[i]}""")
+            i+=1
+        print(f"""
         Média de uso da CPU (%) == {uso_cpu_geral}                 
         Frequência Atual da CPU == {frequencia_cpu_atual} MHz      
         Frequência Máxima da CPU == {frequencia_cpu_max} MHz       
         Frequência Mínima da CPU == {frequencia_cpu_min} MHz       
-    +----------------------     -------------------------+
-    """)
+        """)
 
-# # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
+        i = 0
+        core = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            if lista_recurso[i][1] == "CPU":
+                executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                        ({float(qtd_cpus_virtuais)},'{data_formatada}',{lista_recurso[i][0]},10),
+                        ({float(qtd_cpus_fisicos)},'{data_formatada}',{lista_recurso[i][0]},11),
+                        ({uso_cpu_geral},'{data_formatada}',{lista_recurso[i][0]},1),
+                        ({frequencia_cpu_atual},'{data_formatada}',{lista_recurso[i][0]},5),
+                        ({frequencia_cpu_max},'{data_formatada}',{lista_recurso[i][0]},6),
+                        ({frequencia_cpu_min},'{data_formatada}',{lista_recurso[i][0]},7);""")
+            elif primeira_frase == "Core":
+                uso_cpu_da_vez = uso_cpus[core]
+                executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                        ({uso_cpu_da_vez},'{data_formatada}',{lista_recurso[i][0]},1);""")
+                core+=1
+            i+=1
 
+    # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
 
-    # def exibir_info_mem():
-    #     memoria_usada = psutil.virtual_memory().used
-    #     memoria_total = psutil.virtual_memory().total
-    #     memoria_livre = psutil.virtual_memory().free
-    #     memoria_disponivel = psutil.virtual_memory().available
+    def exibir_info_mem():
 
-    #     porcentagem_uso_memoria = round((memoria_usada * 100) / memoria_total, 2)
-    #     list_media_memoria.append(porcentagem_uso_memoria)
+        verificar_recurso()
+        
+        memoria_usada = psutil.virtual_memory().used/1000000000
+        memoria_total = psutil.virtual_memory().total/1000000000
+        memoria_disponivel = psutil.virtual_memory().available/1000000000
+        porcentagem_uso_memoria = round((memoria_usada * 100) / memoria_total, 2)
 
-    #     memoria_total
+        if len(lista_componentes_sem_recurso) != 0:
+            i = 0
+            ram = 0
+            while i < len(lista_componentes_sem_recurso):
+                if(lista_componentes_sem_recurso[i][3] == "RAM"):
+                    ram+=1
+                    executar(f"""INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Leitura RAM {ram}', {lista_componentes_sem_recurso[i][0]});""")
+                    break
+                i+=1
 
-    #     print(
-    #         f"""
-    #     ------------------ Memória --------------------- 
-    #     Memória Total == {memoria_total/1000000000:.2f} GB -
-    #     Memória Usada == {memoria_usada/1000000000:.2f} GB
-    #     Memória Livre == {memoria_livre/1000000000:.2f} GB
-    #     Memória Disponível == {memoria_disponivel/1000000000:.2f} GB
-    #     """
-    #     )
+        print(f"""
+        ------------------ Memória --------------------- 
+        Memória Total == {memoria_total:.2f} GB 
+        Memória Usada == {memoria_usada:.2f} GB
+        Memória Disponível == {memoria_disponivel:.2f} GB
+        Ram usada (%) == {porcentagem_uso_memoria}
+        """)
 
-    #     #executar(
-    #     #    f"call RegistroMemoria({memoria_usada/1000000000:.2f}, {memoria_livre/1000000000:.2f}, {memoria_disponivel/1000000000:.2f}, {porcentagem_uso_memoria})"
-    #     #)
-
-    #     if memoria_usada / (10**9) > 7:
-    #         print(
-    #             mensagem_slack(
-    #                 f"""O uso de memória ram é excessivo!
-    #                                 Data e hora do alerta: {data_atual}"""
-    #             )
-    #         )
-
-    #     return {
-    #         "mem_total": f"{memoria_total/1000000000:.2f}GB",
-    #         "mem_livre": f"{memoria_livre/1000000000:.2f} GB",
-    #         "mem_usada": f"{memoria_usada/1000000000:.2f}GB",
-    #         "pct_uso": f"{porcentagem_uso_memoria}%",
-    #     }
-
-
-    # # -=-=-=-=-=-=-=-=-=-= Disco -=-=-=-=-=-=-=-=-=-=
-
-
-    # def exibir_info_disco():
-    #     dict_disk = {}
-    #     list_disc = []
-    #     print(f"""------------------ Disco ---------------------""")
-    #     particoes_disco = psutil.disk_partitions()
-
-    #     uso_total_disco = psutil.disk_usage(f"/").total
-    #     disco_usado = psutil.disk_usage(f"/").used
-    #     disco_livre = psutil.disk_usage(f"/").free
-    #     porcent_disco = psutil.disk_usage(f"/").percent
-    #     list_media_disco.append(porcent_disco)
-
-    #     dict_disk["Particao"] = particoes_disco[0].device
-    #     dict_disk["Total"] = f"{(uso_total_disco/1000000000):.2f} GB"
-    #     dict_disk["Usado"] = f"{(disco_usado/1000000000):.2f} GB"
-    #     dict_disk["Livre"] = f"{(disco_livre/1000000000):.2f} GB"
-    #     dict_disk["Porcentagem"] = f"{porcent_disco} %"
-
-    #     list_disc.append(dict_disk.copy())
-    #     print(dict_disk)
-    
-    #     #executar(
-    #     #    f"call RegistroDisco('{(uso_total_disco/1000000000):.2f}','{(disco_usado/1000000000):.2f}','{(disco_livre/1000000000):.2f}','{porcent_disco}')"
-    #     #)
-
-    #     return {
-    #         "disc_total": f"{(uso_total_disco/1000000000):.2f} GB",
-    #         "disc_usado": f"{(disco_usado/1000000000):.2f} GB",
-    #         "disc_livre": f"{(disco_livre/1000000000):.2f} GB",
-    #         "pct_uso": f"{porcent_disco}%",
-    #     }
+        i = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            if primeira_frase == "Leitura":
+                segunda_frase = lista_recurso[i][1].split()[1]
+                if segunda_frase == "RAM":
+                    executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                    ({memoria_total:.2f},'{data_formatada}',{lista_recurso[i][0]},2),
+                    ({memoria_disponivel:.2f},'{data_formatada}',{lista_recurso[i][0]},3),
+                    ({memoria_usada:.2f},'{data_formatada}',{lista_recurso[i][0]},4),
+                    ({porcentagem_uso_memoria},'{data_formatada}',{lista_recurso[i][0]},1);
+                    """)
+            i+=1
 
 
-    # # -=-=-=-=-=-=-=-=-=-= Rede -=-=-=-=-=-=-=-=-=-=
+        if memoria_usada / (10**9) > 7:
+            print(
+                mensagem_slack(
+                    f"""O uso de memória ram é excessivo!
+                                    Data e hora do alerta: '{data_formatada}'"""
+                )
+            )
 
+    # -=-=-=-=-=-=-=-=-=-= Disco -=-=-=-=-=-=-=-=-=-=
 
-    # def exibir_info_rede():
-    #     bytes_enviados = psutil.net_io_counters().bytes_sent
-    #     bytes_recebidos = psutil.net_io_counters().bytes_recv
+    def exibir_info_disco():
 
-    #     qtd_erros_entrada = psutil.net_io_counters().errin
-    #     qtd_erros_saida = psutil.net_io_counters().errout
+        verificar_recurso()
 
-    #     # velocidade_rede_cabo = psutil.net_if_stats()[0].speed
-    #     # cabo_conectado = psutil.net_if_stats()[0].isup
+        # particoes_disco = psutil.disk_partitions()
+        uso_total_disco = (psutil.disk_usage(f"/").total)/1000000000
+        disco_usado = (psutil.disk_usage(f"/").used)/1000000000
+        disco_livre = (psutil.disk_usage(f"/").free)/1000000000
+        porcent_disco = psutil.disk_usage(f"/").percent
 
-    #     print(
-    #         f"""
-    #     ------------------ Rede --------------------- 
-    #     Bytes Enviados == {bytes_enviados/1000000:.2f} MB
-    #     Bytes Recebidos == {bytes_recebidos/1000000:.2f} MB
-    #     Quantidade de Erros na Entrada == {qtd_erros_entrada}
-    #     Quantidade de Erros na Saida == {qtd_erros_saida}
-    #     """
-    #     )
+        if len(lista_componentes_sem_recurso) != 0:
+            i = 0
+            disco =0
+            while i < len(lista_componentes_sem_recurso):
+                if(lista_componentes_sem_recurso[i][3] == "DISCO"):                       
+                    disco+=1
+                    executar(f"""INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Disco {disco}', {lista_componentes_sem_recurso[i][0]});""")
+                    break
+                i+=1
 
-    #     #executar(
-    #     #    f"call RegistroRede('{bytes_enviados/1000000:.2f}','{bytes_recebidos/1000000:.2f}','{qtd_erros_entrada}','{qtd_erros_saida}')"
-    #     #)
+        print(f"""
+        ------------------ Disco --------------------- 
+        Disco Total == {uso_total_disco:.2f} GB 
+        Disco Usado == {disco_usado:.2f} GB
+        Disco Disponível == {disco_livre:.2f} GB
+        Disco Usado (%) == {porcent_disco} %
+        """)
 
-    #     return {
-    #         "bytes_out": f"{bytes_enviados/1000000:.2f} MB/s",
-    #         "bytes_in": f"{bytes_recebidos/1000000:.2f} MB/s",
-    #         "qtd_erros_in": qtd_erros_entrada,
-    #         "qtd_erros_saida": qtd_erros_saida,
-    #     }
+        i = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            if primeira_frase == "Disco":
+                executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                ({uso_total_disco:.2f},'{data_formatada}',{lista_recurso[i][0]},2),
+                ({disco_livre:.2f},'{data_formatada}',{lista_recurso[i][0]},3),
+                ({disco_usado:.2f},'{data_formatada}',{lista_recurso[i][0]},4),
+                ({porcent_disco},'{data_formatada}',{lista_recurso[i][0]},1);
+                """)
+            i+=1
 
+    # -=-=-=-=-=-=-=-=-=- Rede -=-=-=-=-=-=-=-=-=-=
 
-    # def exibir_info_temp(osv):
-    #     if (osv) == "Linux":
-    #         lista = []
-    #         # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
+    def exibir_info_rede():
 
-    #         for i in range(0, len(psutil.sensors_temperatures()["acpitz"])):
-    #             temperatura_cpu_label = psutil.sensors_temperatures()["acpitz"][i].label
-    #             temperatura_cpu_atual = psutil.sensors_temperatures()["acpitz"][i].current
-    #             lista.append([f"{temperatura_cpu_label}°C", f"{temperatura_cpu_atual}°C"])
+        verificar_recurso()
 
-    #         print(
-    #             f"""
-    #             ------------------ Temperatura --------------------- 
-    #             Temperaturas do Entorno da CPU == {lista}
-    #             """
-    #         )
-    #         #executar(
-    #         #    f"call RegistroTemperatura('{temperatura_cpu_label}','{temperatura_cpu_atual}')"
-    #         #)
+        bytes_enviados = (psutil.net_io_counters().bytes_sent)/1000000
+        bytes_recebidos = (psutil.net_io_counters().bytes_recv)/1000000
+        qtd_erros_entrada = psutil.net_io_counters().errin
+        qtd_erros_saida = psutil.net_io_counters().errout
 
-    #         return {"cpu": f"{temperatura_cpu_atual}°C"}
-    #     else:
-    #         return {"cpu": "Não é possível capturar no Windows"}
+        if len(lista_componentes_sem_recurso) != 0:
+            i = 0
+            while i < len(lista_componentes_sem_recurso):
+                if(lista_componentes_sem_recurso[i][3] == "REDE"):
+                    executar(f"""INSERT INTO recurso (tipoRecurso, fkComponente) VALUES ('Leitura REDE', {lista_componentes_sem_recurso[i][0]});""")
+                    break
+                i+=1
+
+        print(f"""
+        ------------------ Rede --------------------- 
+        Bytes Enviados (Upload) == {bytes_enviados:.2f} Mbps
+        Bytes Recebidos (Download) == {bytes_recebidos:.2f} Mbps
+        Quantidade de Erros na Entrada == {qtd_erros_entrada}
+        Quantidade de Erros na Saida == {qtd_erros_saida}
+        """)
+
+        i = 0
+        while i < len(lista_recurso):
+            primeira_frase = lista_recurso[i][1].split()[0]
+            
+            if primeira_frase == "Leitura":
+                segunda_frase = lista_recurso[i][1].split()[1]
+                if segunda_frase == "REDE":
+                    executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                    ({bytes_enviados:.2f},'{data_formatada}',{lista_recurso[i][0]},8),
+                    ({bytes_recebidos:.2f},'{data_formatada}',{lista_recurso[i][0]},9),
+                    ({qtd_erros_entrada},'{data_formatada}',{lista_recurso[i][0]},12),
+                    ({qtd_erros_saida},'{data_formatada}',{lista_recurso[i][0]},13);
+                    """)
+            i+=1
+
+    # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
+
+    def exibir_info_temp(osv):
+
+        verificar_recurso()
+
+        if (osv) == "Linux":
+            lista = []
+
+            for i in range(0, len(psutil.sensors_temperatures()["acpitz"])):
+                temperatura_cpu_label = psutil.sensors_temperatures()["acpitz"][i].label
+                temperatura_cpu_atual = psutil.sensors_temperatures()["acpitz"][i].current
+                lista.append([f"{temperatura_cpu_label}°C", f"{temperatura_cpu_atual}°C"])
+
+            print(
+                f"""
+                        ------------------ Temperatura --------------------- 
+                        Temperaturas do Entorno da CPU == {lista}
+                """
+            )
+            i = 0
+            while i < len(lista_recurso):
+                if lista_recurso[i][1] == "CPU":
+                    executar(f"""INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+                            ({temperatura_cpu_atual},'{data_formatada}',{lista_recurso[i][0]},15),
+                            ({temperatura_cpu_label},'{data_formatada}',{lista_recurso[i][0]},15);
+                            """)
+        else:
+            print("------------------ Temperatura --------------------- \n Não é possível capturar temperatura no Windows\n\n")

@@ -25,7 +25,7 @@ def executar(instrucao):
     comando = conexao.cursor()
 
     try:
-        print(f"Executando comando: \n{instrucao}")
+        # print(f"Executando comando: \n{instrucao}")
         comando.execute(instrucao)
         primeira_frase = instrucao.split()[0]
         if(primeira_frase == "SELECT"):

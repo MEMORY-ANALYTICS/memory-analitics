@@ -1,9 +1,16 @@
+
 function entrar() {
+  email_input.style ='border-color: black'
+senha_input.style ='border-color: black'
   var email = document.getElementById("email_input").value;
   var senha = document.getElementById("senha_input").value;
 
-  if (email == "" || senha == "") {
-    alert("Preencha todos os campos corretamente!");
+  if (email == "") {
+    email_input.style ='border-color: red'
+  } 
+  
+  if(senha == ""){
+    senha_input.style ='border-color: red'
   }
 
   console.log("FORM LOGIN: ", email);
@@ -50,7 +57,12 @@ function entrar() {
         });
       } else {
 
-        console.log("Houve um erro ao tentar realizar o login!");
+       console.log("Houve um erro ao tentar realizar o login!");
+
+
+       alert("Houve um erro ao tentar realizar o login!")
+       
+       
 
         resposta.text().then((texto) => {
 
@@ -70,24 +82,3 @@ function entrar() {
   return false;
 }
 
-// function sumirMensagem() {
-//   cardErro.style.display = "none";
-// }
-
-toastr.options = {
-  closeButton: false,
-  debug: false,
-  newestOnTop: false,
-  progressBar: false,
-  positionClass: "toast-bottom-right",
-  preventDuplicates: false,
-  onclick: null,
-  showDuration: "300",
-  hideDuration: "1000",
-  timeOut: "5000",
-  extendedTimeOut: "1000",
-  showEasing: "swing",
-  hideEasing: "linear",
-  showMethod: "fadeIn",
-  hideMethod: "fadeOut",
-};
