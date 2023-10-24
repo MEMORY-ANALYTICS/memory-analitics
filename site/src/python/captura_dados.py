@@ -5,9 +5,19 @@ import psutil
 from connection import executar
 from message import mensagem_slack
 
+qtd_cpu = 0
+qtd_ram = 0
+qtd_disco = 0
+qtd_rede = 0
+ids_cpu = []
+ids_ram = []
+ids_disco = []
+ids_rede = []
+lista_recurso = []
+i = 0
 nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
 data_atual = datetime.datetime.now()
-id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = '{nome_user}';")
+id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = 'SERVIDOR D';")
 if id_server == []:
     verificacao = False
 else:
@@ -15,35 +25,51 @@ else:
     lista_componentes = executar(
     f"SELECT * FROM componente WHERE fkServidor = {id_server[0][0]}") 
     qtd_componentes = len(lista_componentes)
-
-    qtd_cpu = 0
-    qtd_ram = 0
-    qtd_disco = 0
-    qtd_rede = 0
     for componente_da_vez in lista_componentes:
         match componente_da_vez[3]:
             case "CPU":
-                    qtd_cpu+=1
+                qtd_cpu+=1
+                ids_cpu.append(componente_da_vez[0])
             case "RAM":
                 qtd_ram+=1
+                ids_ram.append(componente_da_vez[0])
             case "DISCO":
                 qtd_disco+=1
+                ids_disco.append(componente_da_vez[0])
             case "REDE":
                 qtd_rede+=1
+                ids_rede.append(componente_da_vez[0])
             case _:
                 print(f"Componente {componente_da_vez[3]} não é reconhecido pelo nosso sistema.")
-    print(qtd_cpu)
-    print(qtd_disco)
-    print(qtd_ram)
-    print(qtd_rede)
-
-
-
+        i+=1
+    print(lista_componentes)
+    print(ids_cpu)
+    print(ids_ram)
+    print(ids_disco)
+    print(ids_rede)
+    i = 0
+    qtd_recurso = len(lista_recurso)
+    lista_componentes_sem_cadastro = []
+    while i < len(lista_componentes):
+        lista_recurso += executar(
+            f"SELECT * FROM recurso WHERE fkComponente = {lista_componentes[i][0]}"
+        )
+        if qtd_recurso == len(lista_recurso):
+            lista_componentes_sem_cadastro += [lista_componentes[i]]
+        i+=1
+    print(lista_recurso)
+    print(lista_componentes_sem_cadastro)
 
     # =-=-=-=-=-=-=-=-=- CPU -=-=-=-=-=-=-=-=-=-=
 
     def exibir_dados_cpu():
-            
+
+        # i = 0
+        # while i < len(lista_componentes_sem_cadastro):
+        #     if(lista_componentes_sem_cadastro[i][3] == "CPU"):
+                
+        #     i+=1
+
         qtd_cpus_virtuais = psutil.cpu_count()
         qtd_cpus_fisicos = psutil.cpu_count(logical=False)
         uso_cpus = psutil.cpu_percent(interval=None, percpu=True)
@@ -51,40 +77,42 @@ else:
         frequencia_cpu_atual = psutil.cpu_freq().current
         frequencia_cpu_max = psutil.cpu_freq().max
         frequencia_cpu_min = psutil.cpu_freq().min
-        lista_freq_cpu = [frequencia_cpu_atual,frequencia_cpu_max,frequencia_cpu_min]
 
-        print(
-            f"""
-        +---------------------- CPU -------------------------+
-            Quantidade de CPUs Virtuais == {qtd_cpus_virtuais}         
-            Quantidade de CPUs Fisicos == {qtd_cpus_fisicos}       
-            Média de uso da CPU (%) == {uso_cpu_geral}                 
-            Frequência Atual da CPU == {frequencia_cpu_atual} MHz      
-            Frequência Máxima da CPU == {frequencia_cpu_max} MHz       
-            Frequência Mínima da CPU == {frequencia_cpu_min} MHz       
-        +----------------------     -------------------------+
+        print(f"""
+        --------------------- CPU ---------------------
+        Quantidade de CPUs Virtuais == {qtd_cpus_virtuais}         
+        Quantidade de CPUs Fisicos == {qtd_cpus_fisicos}
+        """)
+        i = 0
+        while i < len(uso_cpus):
+            print(
+                f"""        Uso por CPU : Core {i+1} == {uso_cpus[i]}""")
+            i+=1
+        print(f"""
+        Média de uso da CPU (%) == {uso_cpu_geral}                 
+        Atual da CPU == {frequencia_cpu_atual} MHz      
+        Frequência Máxima da CPU == {frequencia_cpu_max} MHz       
+        Frequência Mínima da CPU == {frequencia_cpu_min} MHz       
         """)
 
-    def exibir_info_mem():
-        # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
+    # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
 
-        list_media_memoria = []
+    def exibir_info_mem():
+        
         memoria_usada = psutil.virtual_memory().used
         memoria_total = psutil.virtual_memory().total
         memoria_livre = psutil.virtual_memory().free
         memoria_disponivel = psutil.virtual_memory().available
         porcentagem_uso_memoria = round((memoria_usada * 100) / memoria_total, 2)
 
-        print(
-            f"""
+        print(f"""
         ------------------ Memória --------------------- 
         Memória Total == {memoria_total/1000000000:.2f} GB 
         Memória Usada == {memoria_usada/1000000000:.2f} GB
         Memória Livre == {memoria_livre/1000000000:.2f} GB
         Memória Disponível == {memoria_disponivel/1000000000:.2f} GB
         Ram usada (%) == {porcentagem_uso_memoria}
-        """
-        )
+        """)
 
         if memoria_usada / (10**9) > 7:
             print(
@@ -104,15 +132,13 @@ else:
         disco_livre = (psutil.disk_usage(f"/").free)/1000000000
         porcent_disco = psutil.disk_usage(f"/").percent
 
-        print(
-                f"""
-            ------------------ Disco --------------------- 
-            Disco Total == {uso_total_disco:.2f} GB 
-            Disco Usado == {disco_usado:.2f} GB
-            Disco Disponível == {disco_livre:.2f} GB
-            Disco Usado (%) == {porcent_disco} %
-            """
-            )
+        print(f"""
+        ------------------ Disco --------------------- 
+        Disco Total == {uso_total_disco:.2f} GB 
+        Disco Usado == {disco_usado:.2f} GB
+        Disco Disponível == {disco_livre:.2f} GB
+        Disco Usado (%) == {porcent_disco} %
+        """)
 
     # -=-=-=-=-=-=-=-=-=- Rede -=-=-=-=-=-=-=-=-=-=
 
@@ -123,21 +149,19 @@ else:
         qtd_erros_entrada = psutil.net_io_counters().errin
         qtd_erros_saida = psutil.net_io_counters().errout
 
-        print(
-            f"""
+        print(f"""
         ------------------ Rede --------------------- 
-        Bytes Enviados (Upload) == {bytes_enviados:.2f} MB
-        Bytes Recebidos (Download) == {bytes_recebidos:.2f} MB
+        Bytes Enviados (Upload) == {bytes_enviados:.2f} Mbps
+        Bytes Recebidos (Download) == {bytes_recebidos:.2f} Mbps
         Quantidade de Erros na Entrada == {qtd_erros_entrada}
         Quantidade de Erros na Saida == {qtd_erros_saida}
-        """
-        )
+        """)
 
+    # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
 
     def exibir_info_temp(osv):
         if (osv) == "Linux":
             lista = []
-            # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
 
             for i in range(0, len(psutil.sensors_temperatures()["acpitz"])):
                 temperatura_cpu_label = psutil.sensors_temperatures()["acpitz"][i].label
@@ -146,8 +170,8 @@ else:
 
             print(
                 f"""
-                ------------------ Temperatura --------------------- 
-                Temperaturas do Entorno da CPU == {lista}
+                        ------------------ Temperatura --------------------- 
+                        Temperaturas do Entorno da CPU == {lista}
                 """
             )
         else:
