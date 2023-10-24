@@ -62,7 +62,7 @@
           box-shadow: 0px 4px 100px 3px #000;
         "
       >
-        <div class="d-flex justify-content-center mb-5">
+        <div class="d-flex justify-content-center mb-5" style="margin-bottom: -2rem!important;">
           <h1 style="font-family: 'Inter', sans-serif">Login</h1>
         </div>
         <div class="w-100 mt-5">
@@ -74,18 +74,20 @@
                 class="form-control"
                 id="email_input"
                 placeholder="usuario@email.com"
-              />
+                />
+                <label for="email_validacao" style="align-items: center; color: red;">Email invállido</label>
             </div>
           </div>
           <div class="d-flex justify-content-center">
             <div class="form-group w-75">
               <label for="senha_input">Senha</label>
               <input
-                type="password"
-                class="form-control"
-                id="senha_input"
-                placeholder="*********"
+              type="password"
+              class="form-control"
+              id="senha_input"
+              placeholder="*********"
               />
+              <label for="senha_validacao" style="align-items: center; color: red;">Senha invállida</label>
             </div>
           </div>
         </div>

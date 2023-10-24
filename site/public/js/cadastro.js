@@ -137,6 +137,8 @@ function moverEmpresa() {
   var logradouro = document.getElementById("logradouro_empresa").value;
   var numero = document.getElementById("numero_logradouro_empresa").value;
 
+
+
   if (
     nomeEmpresa == "" ||
     cnpj == "" ||
@@ -149,8 +151,36 @@ function moverEmpresa() {
     logradouro == "" ||
     numero == ""
   ) {
+
     alert("Preencha todos os campos corretamente!");
-    erro = true;
+    if(nomeEmpresa==""){
+      nome_empresa.style ='border-color: red'
+    }
+    if (cnpj=="") {
+      cnpj_empresa.style ='border-color: red'
+    }
+    if (telEmpresa=="") {
+      telefone_empresa.style ='border-color: red'
+    }
+    if(emailEmpresa==""){
+      email_empresa.style ='border-color: red'
+    }
+    if(cep==""){
+      cep_empresa.style ='border-color: red'
+    }
+    
+    if(cidade==""){
+      cidade_empresa.style ='border-color: red'
+    }
+    if(logradouro==""){
+      logradouro_empresa.style ='border-color: red'
+    }
+    if (numero=="") {
+      numero_empresa.style ='border-color: red'
+    }
+
+   
+    
   } else {
     document.getElementById("cadastro_empresa").style.display = "none";
     document.getElementById("cadastro_funcionario").style.display = "block";
@@ -172,6 +202,21 @@ function moverFuncionario() {
     senha == ""
   ) {
     alert("Insira as informações corretamente!")
+    if(nomeFuncionario==""){
+      nome_funcionario.style ='border-color: red'
+    }
+    if (emailFuncionario=="") {
+      email_funcionario.style ='border-color: red'
+    }
+    if (telFuncionario=="") {
+      telefone_funcionario.style = 'border-color: red'
+    }
+    if(cargo==""){
+      cargo_funcionario.style = 'border-color: red'
+    }
+    if(senha==""){
+      senha_funcionario.style = 'border-color: red'
+    }
   }
   else {
     alert("Cadastro bem sucedido! - Redirecionando...")

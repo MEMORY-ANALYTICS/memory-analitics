@@ -93,6 +93,7 @@
                     id="cnpj_empresa"
                     placeholder="00.000.000/0000-00"
                   />
+                  <label for="cnpj_validacao" style="color: red;">CNPJ inválido</label>
                 </div>
                 <div class="form-group col-xl-4">
                   <label for="telefone_empresa">Telefone</label>
@@ -102,6 +103,7 @@
                     id="telefone_empresa"
                     placeholder="(11) 12345-1234"
                   />
+                  <label for="telefone_validacao" style="color: red;">telefone inválido</label>
                 </div>
               </div>
               <div class="w-100 row mx-1">
@@ -113,6 +115,7 @@
                     id="nome_empresa"
                     placeholder="Memory Analytics"
                   />
+                  <label for="nome_validacao" style="color: red;">nome inválido</label>
                 </div>
               </div>
               <div class="mx-1 w-100 row">
@@ -124,6 +127,7 @@
                     id="email_empresa"
                     placeholder="memoryanalytics@email.com"
                   />
+                  <label for="email_validacao" style="color: red;">email inválido</label>
                 </div>
                 <div class="form-group col-xl-3">
                   <label for="cep_empresa">CEP</label>
@@ -133,6 +137,7 @@
                     id="cep_empresa"
                     placeholder="00000-000"
                   />
+                  <label for="cep_validacao" style="color: red;">CEP inválido</label>
                 </div>
               </div>
               <div class="mx-1 w-100 row">
@@ -144,6 +149,7 @@
                     id="cidade_empresa"
                     placeholder="São Bernardo do Campo"
                   />
+                  <label for="cidade_validacao" style="color: red;">cidade inválida</label>
                 </div>
                 <div class="form-group col-xl-5">
                   <label for="estado_empresa">ESTADO</label>
@@ -153,6 +159,7 @@
                     id="estado_empresa"
                     placeholder="São Paulo"
                   />
+                  <label for="estado_validacao" style="color: red;">Estado inválido</label>
                 </div>
               </div>
               <div class="mx-1 w-100 row">
@@ -164,6 +171,7 @@
                     id="logradouro_empresa"
                     placeholder="R. Haddock Lobo"
                   />
+                  <label for="logradouro_validacao" style="color: red;">Logradouro inválido</label>
                 </div>
                 <div class="form-group col-xl-3">
                   <label for="numero_logradouro_empresa">NÚMERO</label>
@@ -174,6 +182,7 @@
                     id="numero_logradouro_empresa"
                     placeholder="595"
                   />
+                  <label for="numero_logradouro_empresa" style="color: red;">Número inválido</label>
                 </div>
               </div>
               <div class="mx-1 w-100 row d-flex justify-content-center">
@@ -200,11 +209,12 @@
                 <div class="form-group col-xl-12">
                   <label for="nome_funcionario">NOME</label>
                   <input
-                    type="text"
-                    class="form-control"
-                    id="nome_funcionario"
-                    placeholder="Memory Analytics"
+                  type="text"
+                  class="form-control"
+                  id="nome_funcionario"
+                  placeholder="Memory Analytics"
                   />
+                  <label for="numero_validacao" style="color: red;">Número inválido</label>
                 </div>
               </div>
               <div class="mx-1 w-100 row">
@@ -216,9 +226,11 @@
                     id="email_funcionario"
                     placeholder="funcionario@email.com"
                   />
+                  <label for="email_validacao" style="color: red;">Email inválido</label>
                 </div>
                 <div class="form-group col-xl-6">
                   <label for="telefone_funcionario">TELEFONE</label>
+                  <label for="telefone_validacao" style="color: red;">Telefone inválido</label>
                   <input
                     type="number"
                     class="form-control"
@@ -282,17 +294,13 @@
   </body>
 </html>
 <script>
-  function validarEmpresa(){
-    
-  }
+  
   function cadastrarEmpresa() {
 
-    if (validarEmpresa) {
-      
+    
     document.getElementById("cadastro_empresa").style.display = "none";
     document.getElementById("cadastro_funcionario").style.display = "block";
     document.getElementById("identificacao_cadastro").innerHTML = "FUNCIONÁRIO";
-        
-    }
+   
 }
 </script>
