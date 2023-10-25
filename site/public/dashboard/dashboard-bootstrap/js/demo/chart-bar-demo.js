@@ -45,7 +45,7 @@ function obterDadosGrafico(nomeEmpresa) {
         // Bar Chart Example
 var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
-  type: 'bar',
+  type: 'line',
   data: {
     labels: ["Maio", "Junho", "Julho", "Agosto", "Setembro"],
     datasets: [{
