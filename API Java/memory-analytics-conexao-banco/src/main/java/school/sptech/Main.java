@@ -5,8 +5,10 @@ import com.github.britooo.looca.api.group.discos.Disco;
 import com.github.britooo.looca.api.group.rede.Rede;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Crud.Dao.ComponenteDao;
+import school.sptech.Crud.Dao.RecursoDao;
 import school.sptech.Crud.Dao.RegistroDao;
 import school.sptech.Crud.Dao.ServidorDao;
+import school.sptech.Crud.Recurso;
 import school.sptech.Crud.Servidor;
 import school.sptech.Hardware.Informacoes;
 import school.sptech.Hardware.Processos;
@@ -24,14 +26,27 @@ public class Main {
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
 
-        Processos p1 = new Processos();
-        p1.listarTodosProcessos();
+        //Processos p1 = new Processos();
+        //p1.listarTodosProcessos();
 
-        Informacoes i1 = new Informacoes();
-        i1.pegarInformacoes();
-//        ServidorDao servidor = new ServidorDao(con);
-//        servidor.adicionarServidor("Servidor1", "ABC12");
-//        System.out.println(servidor.selectAllServidor());
+        //Informacoes i1 = new Informacoes();
+
+        //i1.pegarInformacoes();
+
+        ServidorDao servidor1 = new ServidorDao(con);
+        servidor1.adicionarServidor("Servidor1", "ABC12");
+        System.out.println(servidor1.selectAllServidor());
+
+        ComponenteDao componente1 = new ComponenteDao(con);
+        componente1.adicionarCpu("0", "70", 5);
+        System.out.println(componente1.selectAllComponente());
+
+        RecursoDao recurso1 = new RecursoDao(con);
+        recurso1.adicionarRecursoCpu(17);
+        System.out.println(recurso1.selectAllRecursosCpu());
+
+        RegistroDao registro1 = new RegistroDao(con);
+
 
 //        while(true) {
 //            setTimeout(() -> {

@@ -49,9 +49,9 @@ senha_input.style ='border-color: black'
           sessionStorage.EMPRESA_USUARIO = json[0].fkEmpresa;
 
           if(sessionStorage.CARGO_USUARIO == "Gerente"){
-            window.location = "../dashboard/dashboard-bootstrap/paginaGerente.html";
+            window.location = "./dashboard/dashboard-bootstrap/dashboards/paginaGerente.html";
           }else{
-            window.location = "../dashboard/dashboard-bootstrap/paginaAnalista.html";
+            window.location = "./dashboard/dashboard-bootstrap/dashboards/paginaAnalista.html";
           }
 
         });

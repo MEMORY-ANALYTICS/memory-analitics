@@ -139,13 +139,15 @@ select * from recurso;
 select * from componente;
 select * from empresa;
 
-select * from registro;
+-- SELECT * FROM recurso JOIN componente on fkComponente = idComponente JOIN servidor ON fkServidor = idServidor where fkEmpresa = 1 AND tipoComponente LIKE 'CPU%';
 
-SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 10001;
+-- select * from registro;
 
-SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';
+-- SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 10001;
 
-SELECT * from registro;
+-- SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';
+
+-- SELECT * from registro;
 
 CREATE VIEW RegistrosComCaminho AS
 SELECT 

@@ -103,13 +103,14 @@ public class Componente {
     @Override
     public String toString() {
         return "\nComponente{" +
+                "idComponente=" + idComponente +
                 ", fabricante='" + fabricante + '\'' +
                 ", nomeModelo='" + nomeModelo + '\'' +
                 ", tipoComponente='" + tipoComponente + '\'' +
                 ", limiteMin='" + limiteMin + '\'' +
                 ", limiteMax='" + limiteMax + '\'' +
                 ", fkServidor=" + fkServidor +
-                ", apelidoServidor=" + apelidoServidor +
+                ", apelidoServidor='" + apelidoServidor + '\'' +
                 '}';
     }
 }

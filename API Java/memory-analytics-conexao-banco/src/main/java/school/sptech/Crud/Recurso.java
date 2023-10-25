@@ -46,7 +46,7 @@ public class Recurso {
 
     @Override
     public String toString() {
-        return "Recurso{" +
+        return "\nRecurso{" +
                 "idRecurso=" + idRecurso +
                 ", tipoRecurso='" + tipoRecurso + '\'' +
                 ", fkComponente=" + fkComponente +
