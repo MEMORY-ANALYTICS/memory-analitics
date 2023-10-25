@@ -1,6 +1,6 @@
 
 function getServInstaveis() {
-    fetch(`/dashboardG/getServInstaveis/${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}`).then(function (resposta) {
+    fetch(`/dashboardG/getServInstaveis/"${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}"`).then(function (resposta) {
         if (resposta.ok) {
     console.log(resposta)
             resposta.json().then(function (json) {
