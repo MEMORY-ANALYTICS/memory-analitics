@@ -1,9 +1,10 @@
 
 function getServInstaveis() {
-    fetch("/dashboardG/getServInstaveis/'Empresa A'").then(function (resposta) {
+    fetch(`/dashboardG/getServInstaveis/"${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}"`).then(function (resposta) {
         if (resposta.ok) {
-    
+    console.log(resposta)
             resposta.json().then(function (json) {
+                // console.log(resposta)
                 var numServInstaveis = json[0].qtdServInstaveis
                 // console.log("Dados recebidos: ", JSON.stringify(json));
                 console.log = (json)
@@ -20,7 +21,7 @@ function getServInstaveis() {
 }
 
 function getCompProblematico() {
-    fetch("/dashboardG/getCompProblematico/10000").then(function (resposta) {
+    fetch(`/dashboardG/getCompProblematico/${sessionStorage.getItem("EMPRESA_USUARIO")}`).then(function (resposta) {
         if (resposta.ok) {
     
             resposta.json().then(function (json) {

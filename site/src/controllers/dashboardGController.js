@@ -8,7 +8,7 @@ function getServInstaveis(req, res){
     .then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
-            console.log("Resultado da Controller:"+ resultado);
+            console.log("Resultado da Controller:"+ JSON.stringify(resultado));
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
         }

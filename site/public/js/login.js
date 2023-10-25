@@ -47,6 +47,7 @@ senha_input.style ='border-color: black'
           sessionStorage.TELEFONE_USUARIO = json[0].telefoneFunc;
           sessionStorage.CARGO_USUARIO = json[0].fkCargo == 1 ? "Gerente" : "Analista";
           sessionStorage.EMPRESA_USUARIO = json[0].fkEmpresa;
+          sessionStorage.NOME_EMPRESA_USUARIO = json[0].nomeEmpresa;
 
           if(sessionStorage.CARGO_USUARIO == "Gerente"){
             window.location = "./dashboard/dashboard-bootstrap/dashboards/paginaGerente.html";
