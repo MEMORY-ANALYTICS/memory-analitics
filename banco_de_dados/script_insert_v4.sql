@@ -7,7 +7,8 @@ INSERT INTO empresa VALUES (1 , 'Memory Analytics','12345675601234', 'memoryAnal
 INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
 ('Empresa A', '12345678901234', 'empresaA@gmail.com', '1122334455'),
 ('Empresa B', '56789012345678', 'empresaB@gmail.com', '2233445566'),
-('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677');
+('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677'),
+('Empresa D', '90123456789012', 'empresaD@gmail.com', '3344556677');
 
 -- Inserir dados na tabela 'endereco'
 INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
