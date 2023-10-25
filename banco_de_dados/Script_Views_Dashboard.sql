@@ -324,6 +324,8 @@ INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponen
 (500, '2023-06-09 10:30:00', 63, 4),  -- REDE
 (50, '2023-06-09 10:30:00', 36, 3);  -- REDE
 
+select * from funcionario;
+select * from login;
 select * from Empresa;
 select * from servidor;
 select * from componente;
@@ -341,7 +343,11 @@ JOIN registro r ON c.idComponente = r.fkRecurso
 WHERE (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
 GROUP BY e.nomeEmpresa;
 
-SELECT qtdServInstaveis FROM getServInstaveis;
+SELECT * FROM getServInstaveis where nomeEmpresa;
+
+SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
+	JOIN empresa ON fkEmpresa = idEmpresa join login on idFuncionario = fkFuncionario 
+  WHERE email = 'joao@email.com' AND senha = 'senha123';
 
 # GERAL SERVIDORES
 
@@ -387,7 +393,19 @@ WHERE e.idEmpresa = 10000
 GROUP BY c.tipoComponente
 ORDER BY total_registros_excedidos DESC limit 1;
 
+SELECT c.tipoComponente, fkServidor
+FROM componente c
+JOIN recurso r ON c.idComponente = r.fkComponente
+INNER JOIN registro rg ON r.idRecurso = rg.fkRecurso
+WHERE rg.valorRegistro > c.limiteMin OR rg.valorRegistro > c.limiteMax
+GROUP BY c.tipoComponente
+ORDER BY COUNT(*) DESC
+LIMIT 1;
+
 # GRAFICO PICO DE USO
+
+Error Code: 1055. Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bd_memoryanalytics.c.fkServidor' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by	0.015 sec
+
 
 CREATE OR REPLACE VIEW limitesExcedidos AS SELECT 
     e.nomeEmpresa AS NomeEmpresa,
