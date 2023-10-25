@@ -37,8 +37,8 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
-('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
-('Linux', 'mined', '192.168.1.4', 'SERV789', 10002);
+('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),
+('Linux', 'mined', '192.168.1.4', 'SERV789', 10003);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -59,39 +59,6 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('WD', 'Black', 'DISCO', '0','500',4), 
 ('TPLink','NP3200','REDE','1','1000',4);
 
--- Inserir dados na tabela 'subComponente'
-INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
-('Core 1', 1),
-('Core 2', 1),
-('Core 3', 1),
-('Core 4', 1),
-('Core 1', 5),
-('Core 2', 5),
-('Core 3', 5),
-('Core 4', 5),
-('Core 1', 9),
-('Core 2', 9),
-('Core 3', 9),
-('Core 4', 9),
-('Leitura RAM', 2),
-('Leitura RAM', 6),
-('Leitura RAM', 10),
-('Partição DISCO 1', 3),
-('Partição DISCO 2', 3),
-('Partição DISCO 3', 3),
-('Partição DISCO 1', 7),
-('Partição DISCO 2', 7),
-('Partição DISCO 3', 7),
-('Partição DISCO 1', 11),
-('Partição DISCO 2', 11),
-('Partição DISCO 3', 11),
-('Leitura REDE', 4),
-('Leitura REDE', 8),
-('Leitura REDE', 12);
-
-select * from componente;
-Select * from recurso;
--- Inserir dados na tabela 'medidaComponente'
 select * from medidaComponente;
 INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
 ('Porcentagem Uso', '%'),  					-- 1
@@ -110,50 +77,16 @@ INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
 ('Tempo', 's'),								-- 14
 ('Temperatura', '°C');						-- 15
 
--- Inserir dados na tabela 'registro'
-INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
-(2200, '2023-10-09 10:00:00', 5, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 6, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 7, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 8, 2),  -- CPU
 
-(10, '2023-10-09 10:00:00', 5, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 6, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 7, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 8, 3),  -- CPU
--- ------------------------------------------------
-(8, '2023-10-09 10:30:00', 14, 1),  -- RAM
-(50, '2023-10-09 10:30:00', 14, 3),  -- RAM
--- ------------------------------------------------
-(250, '2023-10-09 10:30:00', 19, 1),  -- DISCO
-(250, '2023-10-09 10:30:00', 20, 1),  -- DISCO
-(250, '2023-10-09 10:30:00', 21, 1),  -- DISCO
-(50, '2023-10-09 10:30:00', 19, 3),  -- DISCO
-(50, '2023-10-09 10:30:00', 20, 3),  -- DISCO
-(50, '2023-10-09 10:30:00', 21, 3),  -- DISCO
--- ------------------------------------------------
-(500, '2023-10-09 10:30:00', 26, 4),  -- REDE
-(50, '2023-10-09 10:30:00', 26, 3);  -- REDE
-
-select * from recurso;
-select * from componente;
-select * from empresa;
-
--- SELECT * FROM recurso JOIN componente on fkComponente = idComponente JOIN servidor ON fkServidor = idServidor where fkEmpresa = 1 AND tipoComponente LIKE 'CPU%';
-
--- select * from registro;
-
--- SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apelidoServidor FROM componente JOIN servidor ON fkServidor = idServidor WHERE fkEmpresa = 10001;
-
--- SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'RAM';
-
--- SELECT * from registro;
-
-CREATE VIEW RegistrosComCaminho AS
+CREATE VIEW teste AS
 SELECT 
     r.dtHoraRegistro AS Data_Hora_Registro,
-    r.fkMedidaComponente,
-    mc.tipoMedida AS Tipo_Medida,
+    r.fkRecurso,
+    rc.tipoRecurso AS Tipo_Recurso,
+    c.fabricante AS Fabricante_Componente,
+    c.nomeModelo AS Modelo_Componente,
+    s.apelidoServidor AS Apelido_Servidor,
+    e.nomeEmpresa AS Nome_Empresa,
     MAX(CASE WHEN mc.tipoMedida = 'Porcentagem Uso' THEN r.valorRegistro END) AS Porcentagem_Uso,
     MAX(CASE WHEN mc.tipoMedida = 'Armazenamento Total' THEN r.valorRegistro END) AS Armazenamento_Total,
     MAX(CASE WHEN mc.tipoMedida = 'Armazenamento Disponível' THEN r.valorRegistro END) AS Armazenamento_Disponivel,
@@ -168,13 +101,13 @@ SELECT
     MAX(CASE WHEN mc.tipoMedida = 'Quantidade Erros Entrada' THEN r.valorRegistro END) AS Quantidade_Erros_Entrada,
     MAX(CASE WHEN mc.tipoMedida = 'Quantidade Erros na Saída' THEN r.valorRegistro END) AS Quantidade_Erros_Saida,
     MAX(CASE WHEN mc.tipoMedida = 'Tempo' THEN r.valorRegistro END) AS Tempo,
-    MAX(CASE WHEN mc.tipoMedida = 'Temperatura' THEN r.valorRegistro END) AS Temperatura,
-    rc.tipoRecurso AS Tipo_Recurso,
-    c.fabricante AS Fabricante_Componente,
-    c.nomeModelo AS Modelo_Componente,
-    s.apelidoServidor AS Apelido_Servidor,
-    e.nomeEmpresa AS Nome_Empresa
-FROM registro r
+    MAX(CASE WHEN mc.tipoMedida = 'Temperatura' THEN r.valorRegistro END) AS Temperatura
+FROM (
+    SELECT r1.dtHoraRegistro, r1.fkRecurso
+    FROM registro r1
+    GROUP BY r1.dtHoraRegistro, r1.fkRecurso
+) AS grouped
+JOIN registro r ON grouped.dtHoraRegistro = r.dtHoraRegistro AND grouped.fkRecurso = r.fkRecurso
 JOIN recurso rc ON r.fkRecurso = rc.idRecurso
 JOIN componente c ON rc.fkComponente = c.idComponente
 JOIN medidaComponente mc ON r.fkMedidaComponente = mc.idMedidaComponente
@@ -182,12 +115,57 @@ JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
 GROUP BY
     r.dtHoraRegistro,
-    r.fkMedidaComponente,
-    mc.tipoMedida,
+    r.fkRecurso,
     rc.tipoRecurso,
     c.fabricante,
     c.nomeModelo,
     s.apelidoServidor,
     e.nomeEmpresa;
 
-select * from RegistrosComCaminho;
+select * from teste;
+
+CREATE VIEW testeteste AS
+SELECT 
+    r.dtHoraRegistro AS Data_Hora_Registro,
+    r.fkRecurso,
+    rc.tipoRecurso AS Tipo_Recurso,
+    c.fabricante AS Fabricante_Componente,
+    c.nomeModelo AS Modelo_Componente,
+    s.apelidoServidor AS Apelido_Servidor,
+    e.nomeEmpresa AS Nome_Empresa,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Porcentagem Uso' THEN r.valorRegistro END), 0) AS Porcentagem_Uso,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Frequência Atual' THEN r.valorRegistro END), 0) AS Frequencia_Atual,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Frequência Máxima' THEN r.valorRegistro END), 0) AS Frequencia_Maxima,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Frequência Mínima' THEN r.valorRegistro END), 0) AS Frequencia_Minima,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Quantidade Virtuais' THEN r.valorRegistro END), 0) AS Quantidade_Virtuais,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Quantidade Físicas' THEN r.valorRegistro END), 0) AS Quantidade_Fisicas,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Armazenamento Total' THEN r.valorRegistro END), 0) AS Armazenamento_Total,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Armazenamento Disponível' THEN r.valorRegistro END), 0) AS Armazenamento_Disponivel,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Armazenamento Usado' THEN r.valorRegistro END), 0) AS Armazenamento_Usado,
+	COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Transferência Enviados' THEN r.valorRegistro END), 0) AS Transferencia_Enviados,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Transferência Recebidos' THEN r.valorRegistro END), 0) AS Transferencia_Recebidos,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Quantidade Erros Entrada' THEN r.valorRegistro END), 0) AS Quantidade_Erros_Entrada,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Quantidade Erros na Saída' THEN r.valorRegistro END), 0) AS Quantidade_Erros_Saida,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Tempo' THEN r.valorRegistro END), 0) AS Tempo,
+    COALESCE(SUM(CASE WHEN mc.tipoMedida = 'Temperatura' THEN r.valorRegistro END), 0) AS Temperatura
+FROM (
+    SELECT r1.dtHoraRegistro, r1.fkRecurso
+    FROM registro r1
+    GROUP BY r1.dtHoraRegistro, r1.fkRecurso
+) AS grouped
+JOIN registro r ON grouped.dtHoraRegistro = r.dtHoraRegistro AND grouped.fkRecurso = r.fkRecurso
+JOIN recurso rc ON r.fkRecurso = rc.idRecurso
+JOIN componente c ON rc.fkComponente = c.idComponente
+JOIN medidaComponente mc ON r.fkMedidaComponente = mc.idMedidaComponente
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+GROUP BY
+    r.dtHoraRegistro,
+    r.fkRecurso,
+    rc.tipoRecurso,
+    c.fabricante,
+    c.nomeModelo,
+    s.apelidoServidor,
+    e.nomeEmpresa;
+    select * from testeteste;
+	

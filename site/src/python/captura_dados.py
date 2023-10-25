@@ -1,4 +1,3 @@
-import datetime
 import platform as plat
 from time import sleep
 import psutil
@@ -6,8 +5,6 @@ from connection import executar
 from message import mensagem_slack
 
 nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
-data_atual = datetime.datetime.now()
-data_formatada = data_atual.strftime('%Y-%m-%d %H:%M:%S')
 id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = '{nome_user}';")
 if id_server == []:
     verificacao = False
@@ -69,7 +66,7 @@ else:
     verificar_recurso()
     # =-=-=-=-=-=-=-=-=- CPU -=-=-=-=-=-=-=-=-=-=
 
-    def exibir_dados_cpu():
+    def exibir_dados_cpu(data_formatada):
 
         verificar_recurso()
 
@@ -130,7 +127,7 @@ else:
 
     # -=-=-=-=-=-=-=-=-=-= Memória -=-=-=-=-=-=-=-=-=-=
 
-    def exibir_info_mem():
+    def exibir_info_mem(data_formatada):
 
         verificar_recurso()
         
@@ -182,7 +179,7 @@ else:
 
     # -=-=-=-=-=-=-=-=-=-= Disco -=-=-=-=-=-=-=-=-=-=
 
-    def exibir_info_disco():
+    def exibir_info_disco(data_formatada):
 
         verificar_recurso()
 
@@ -224,7 +221,7 @@ else:
 
     # -=-=-=-=-=-=-=-=-=- Rede -=-=-=-=-=-=-=-=-=-=
 
-    def exibir_info_rede():
+    def exibir_info_rede(data_formatada):
 
         verificar_recurso()
 
@@ -266,7 +263,7 @@ else:
 
     # -=-=-=-=-=-=-=-=-=-= Temperatura -=-=-=-=-=-=-=-=-=-=
 
-    def exibir_info_temp(osv):
+    def exibir_info_temp(osv,data_formatada):
 
         verificar_recurso()
 
