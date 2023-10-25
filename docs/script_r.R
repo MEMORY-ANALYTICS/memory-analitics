@@ -14,7 +14,7 @@ labs(x="Hora",y="Temperatura (°C)") +
 ggtitle("Temperatura em São Paulo") +
 geom_smooth(method = "lm") 
 
-grafico_temperatura
+
 
 
 grafico_umidade <- ggplot(dados_climatempo, aes(x=DataHora, y = Umidade)) + 
@@ -23,12 +23,16 @@ grafico_umidade <- ggplot(dados_climatempo, aes(x=DataHora, y = Umidade)) +
   ggtitle("Umidade em São Paulo") +
   geom_smooth(method = "lm") 
 
-grafico_umidade
-
 grafico_pressao<- ggplot(dados_climatempo, aes(x=DataHora, y = Pressao)) + 
   geom_point() + 
   labs(x="Hora",y="Pressão (hPa)") +
   ggtitle("Pressão em São Paulo") +
   geom_smooth(method = "lm") 
 
+
+grafico_umidade
+
 grafico_pressao
+
+grafico_temperatura
+

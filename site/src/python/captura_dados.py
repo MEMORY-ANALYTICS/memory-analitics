@@ -8,7 +8,7 @@ from message import mensagem_slack
 nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
 data_atual = datetime.datetime.now()
 data_formatada = data_atual.strftime('%Y-%m-%d %H:%M:%S')
-id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = 'SERVIDOR D';")
+id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = '{nome_user}';")
 if id_server == []:
     verificacao = False
 else:
