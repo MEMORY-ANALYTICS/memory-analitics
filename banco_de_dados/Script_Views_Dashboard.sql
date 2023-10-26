@@ -378,7 +378,7 @@ WHERE S.nomeEmpresa = A.nomeEmpresa
 AND S.nomeEmpresa = I.nomeEmpresa 
 AND A.nomeEmpresa = I.nomeEmpresa;
 
-SELECT * FROM getEstadoGeralServ WHERE nomeEmpresa = "Empresa B";
+SELECT * FROM getEstadoGeralServ WHERE nomeEmpresa = "Empresa C";
 
 
 # COMPONENTE PROBLEMATICO
@@ -388,19 +388,58 @@ FROM componente c
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
 JOIN registro r ON c.idComponente = r.fkRecurso
-WHERE e.idEmpresa = 10000 
+WHERE e.idEmpresa = 10001 
     AND (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
 GROUP BY c.tipoComponente
 ORDER BY total_registros_excedidos DESC limit 1;
 
-SELECT c.tipoComponente, fkServidor
-FROM componente c
-JOIN recurso r ON c.idComponente = r.fkComponente
-INNER JOIN registro rg ON r.idRecurso = rg.fkRecurso
-WHERE rg.valorRegistro > c.limiteMin OR rg.valorRegistro > c.limiteMax
-GROUP BY c.tipoComponente
-ORDER BY COUNT(*) DESC
-LIMIT 1;
+create or replace view getCompProblematico as select tipoComponente, count(tipoComponente) from registro rg 
+join recurso r on rg.fkRecurso = r.idRecurso 
+join componente c on r.fkComponente = c.idComponente
+join servidor s on c.fkServidor = s.idServidor
+join medidacomponente m on rg.fkMedidaComponente = m.idMedidaComponente 
+where (rg.valorRegistro > c.limiteMax or rg.valorRegistro < c.limiteMin) and fkMedidaComponente = 1 and fkEmpresa = 10002 group by tipoComponente order by count(tipoComponente) desc limit 1;
+
+SELECT tipoComponente AS nomeComponente, count(tipoComponente) FROM registro rg 
+	JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+	JOIN componente c ON r.fkComponente = c.idComponente
+	JOIN servidor s ON c.fkServidor = s.idServidor
+	JOIN medidacomponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
+WHERE (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin) 
+	AND fkMedidaComponente = 1 
+	AND fkEmpresa = 10002 
+GROUP BY tipoComponente 
+ORDER BY count(tipoComponente) 
+DESC LIMIT 1;
+
+
+select * from getCompProblematico where fkEmpresa = 10002;
+
+select * from registro;
+truncate registro;
+
+select sum from registro rg 
+join recurso r on rg.fkRecurso = r.idRecurso 
+join componente c on r.fkComponente = c.idComponente
+join servidor s on c.fkServidor = s.idServidor 
+where rg.valorRegistro > c.limiteMax or rg.valorRegistro < c.limiteMin group by tipoComponente;
+
+where rg.valorRegistro > c.limiteMax or rg.valorRegistro < c.limiteMin;
+
+select * from componente;
+
+SELECT tipoComponente
+FROM componente
+WHERE idComponente = (
+    SELECT c.idComponente
+    FROM componente c
+    INNER JOIN registro r ON c.idComponente = r.fkComponente
+    WHERE r.valorRegistro > c.limiteMin OR r.valorRegistro > c.limiteMax
+    GROUP BY c.idComponente
+    ORDER BY COUNT(*) DESC
+    LIMIT 1
+);
+
 
 # GRAFICO PICO DE USO
 
@@ -417,7 +456,34 @@ JOIN recurso rc ON r.fkRecurso = rc.idRecurso
 JOIN componente c ON rc.fkComponente = c.idComponente
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+WHERE e.nomeEmpresa = 'Empresa B'
+GROUP BY NomeEmpresa, MesAno, TipoComponente
+ORDER BY NomeEmpresa, MesAno, TipoComponente;
+
+SELECT 
+    e.nomeEmpresa AS NomeEmpresa,
+    DATE_FORMAT(r.dtHoraRegistro, '%Y-%m') AS MesAno,
+    c.tipoComponente AS TipoComponente,
+    SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
+FROM registro r
+JOIN recurso rc ON r.fkRecurso = rc.idRecurso
+JOIN componente c ON rc.fkComponente = c.idComponente
+JOIN servidor s ON c.fkServidor = s.idServidor
+JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+WHERE e.nomeEmpresa = 'nomeEmpresa'
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
 SELECT SUM(ExcedeuLimites) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa B' GROUP BY MesAno ORDER BY MesAno LIMIT 5;
+
+create table testeeee 
+(id int primary key,
+valor int);
+
+insert into testeeee values
+(1, 53),
+(2, 32),
+(3, 11),
+(4, 87);
+
+select * from testeeee order by valor;

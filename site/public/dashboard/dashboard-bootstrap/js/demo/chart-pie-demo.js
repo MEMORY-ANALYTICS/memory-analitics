@@ -3,7 +3,7 @@ var numServAlertas
 var numServCriticos
 
 function getEstadoGeralServ() {
-  fetch("/dashboardG/getEstadoGeralServ/'Empresa B'").then(function (resposta) {
+  fetch(`/dashboardG/getEstadoGeralServ/"${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}"`).then(function (resposta) {
     if (resposta.ok) {
 
       resposta.json().then(function (json) {
@@ -52,9 +52,9 @@ function getEstadoGeralServ() {
             cutoutPercentage: 80,
           },
         });
-          // Set new default font family and font color to mimic Bootstrap's default styling
-          // (Chart.defaults.global.defaultFontFamily = "Nunito"),
-          // '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        // (Chart.defaults.global.defaultFontFamily = "Nunito"),
+        // '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.global.defaultFontColor = "#858796";
 
       });
@@ -69,6 +69,6 @@ function getEstadoGeralServ() {
 
 getEstadoGeralServ();
 
-        
+
 
 

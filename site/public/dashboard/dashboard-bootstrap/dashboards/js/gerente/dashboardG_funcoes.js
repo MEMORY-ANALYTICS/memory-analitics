@@ -2,7 +2,7 @@
 function getServInstaveis() {
     fetch(`/dashboardG/getServInstaveis/"${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}"`).then(function (resposta) {
         if (resposta.ok) {
-    console.log(resposta)
+    // console.log(resposta)
             resposta.json().then(function (json) {
                 // console.log(resposta)
                 var numServInstaveis = json[0].qtdServInstaveis
