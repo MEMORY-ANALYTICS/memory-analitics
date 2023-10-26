@@ -405,6 +405,15 @@ SELECT tipoComponente AS nomeComponente, count(tipoComponente) FROM registro rg
 	JOIN componente c ON r.fkComponente = c.idComponente
 	JOIN servidor s ON c.fkServidor = s.idServidor
 	JOIN medidacomponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
+WHERE fkEmpresa = 10002 
+GROUP BY tipoComponente 
+ORDER BY count(tipoComponente);
+
+SELECT tipoComponente AS nomeComponente, count(tipoComponente) FROM registro rg 
+	JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+	JOIN componente c ON r.fkComponente = c.idComponente
+	JOIN servidor s ON c.fkServidor = s.idServidor
+	JOIN medidacomponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
 WHERE (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin) 
 	AND fkMedidaComponente = 1 
 	AND fkEmpresa = 10002 
