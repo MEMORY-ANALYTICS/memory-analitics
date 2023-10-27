@@ -1,5 +1,6 @@
 var idServidorGlobal;
 async function cadastrarComponente() {
+  getIdByApelidoLike(apelido_servidor.value);
   var erro = false;
   var fabricanteComponente = fabricante_componente.value;
   var nomeModeloComponente = nomeModelo_componente.value;
