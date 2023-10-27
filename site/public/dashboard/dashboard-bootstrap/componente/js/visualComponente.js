@@ -3,7 +3,7 @@ getAllComponentes(sessionStorage.getItem("EMPRESA_USUARIO"));
 
 function getAllComponentes(fkEmpresa) {
   console.log(fkEmpresa);
-  fetch(`/funcionario/getAll/${fkEmpresa}`)
+  fetch(`/componente/getAll/${fkEmpresa}`)
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -11,9 +11,12 @@ function getAllComponentes(fkEmpresa) {
           for(i= 0; i < resposta.length; i++){
             tableComponentes.innerHTML += `
             <tr>
-                <td>${resposta[i].nomeFunc}</td>
-                <td>${resposta[i].emailFunc}</td>
-                <td>${resposta[i].telefoneFunc}</td>
+                <td>${resposta[i].nomeModelo}</td>
+                <td>${resposta[i].fabricante}</td>
+                <td>${resposta[i].tipoComponente}</td>
+                <td>${resposta[i].limiteMin}</td>
+                <td>${resposta[i].limiteMax}</td>
+                <td>${resposta[i].apelidoServidor}</td>
             </tr>
             `
           }
