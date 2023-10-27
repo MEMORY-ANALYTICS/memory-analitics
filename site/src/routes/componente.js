@@ -7,4 +7,8 @@ var componenteController = require("../controllers/componenteController");
 router.post("/cadastrar", function (req, res){
     componenteController.cadastrarComponente(req, res);
 });
+
+router.get("/getAll/:fkEmpresa", function(req,res){
+    componenteController.getAll(req,res);
+})
 module.exports = router; 
