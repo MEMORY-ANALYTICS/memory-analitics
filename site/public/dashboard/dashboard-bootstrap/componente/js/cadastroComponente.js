@@ -1,12 +1,14 @@
-function cadastrarComponente() {
+var idServidorGlobal;
+async function cadastrarComponente() {
   var erro = false;
   var fabricanteComponente = fabricante_componente.value;
   var nomeModeloComponente = nomeModelo_componente.value;
   var tipoComponente = tipo_componente.value;
   var limiteMinComponente = limiteMin_componente.value;
   var limiteMaxComponente = limiteMax_componente.value;
-  var fkServidor = getIdByApelidoLike(apelido_servidor.value);
+  var fkServidor = localStorage.getItem('IDSERVIDOR');
 
+  await console.log(fabricanteComponente, nomeModeloComponente, tipoComponente, limiteMaxComponente, limiteMinComponente, fkServidor);
    if (fabricanteComponente == "") {
     document.getElementById("fabricante_componente").style =
       "border-color: red !important";
@@ -47,6 +49,7 @@ function cadastrarComponente() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
+          alert('Componente Cadastrado com sucesso!');
           console.log("Cadastrado com sucesso!");
         } else {
           throw alert(
@@ -58,26 +61,29 @@ function cadastrarComponente() {
         console.log(`#ERRO: ${resposta}`);
       });
   }
-}
-var fkServidorGlobal;
-function getIdByApelidoLike(apelidoServidor) {
-  var fkServidor;
-  fetch(`/servidor/getIdByApelidoLike/${apelidoServidor}`).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        var fkServidorArray = resposta[0];
-        fkServidor = fkServidorArray.idEmpresa;
-        fkServidorglobal = fkServidor;
-        console.log(fkServidorglobal);
+  var idServidor;
+  function getIdByApelidoLike(apelidoServidor) {
+    fetch(`/servidor/getIdByApelidoLike/${apelidoServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(resposta[0].idServidor)
+            
+            localStorage.IDSERVIDOR = resposta[0].idServidor;
+          })
+        } else {
+          console.error("Nenhum dado encontrado ou erro na API");
+        }
+      })
+      .catch(function (error) {
+        console.error(
+          `Erro na obtenção dos dados p/ Usuario: ${error.message}`
+        );
       });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ ultimo idEmpresa: ${error.message}`);
-    });
-  return fkServidor;
+  }
 }
-

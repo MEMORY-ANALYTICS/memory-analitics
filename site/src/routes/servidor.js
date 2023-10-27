@@ -11,9 +11,9 @@ router.get("/getAll/:fkEmpresa", function (req, res){
     servidorController.getAll(req, res);
 });
 
-router.get("/getIdByApelidoLike/:apelido", function (req,res){
+router.get("/getIdByApelidoLike/:apelidoServidor", function (req,res){
     servidorController.getIdByApelidoLike(req,res);
-})
+});
 
 router.post("/atualizar", function (req, res){
     servidorController.atualizarServidor(req, res);
