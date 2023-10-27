@@ -3,7 +3,7 @@ var numServAlertas
 var numServCriticos
 
 function getEstadoGeralServ() {
-  fetch(`/dashboardG/getEstadoGeralServ/"${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}"`).then(function (resposta) {
+  fetch(`/dashboardG/getEstadoGeralServ/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
     if (resposta.ok) {
 
       resposta.json().then(function (json) {

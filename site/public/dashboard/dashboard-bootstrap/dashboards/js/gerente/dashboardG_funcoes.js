@@ -1,6 +1,6 @@
 
 function getServInstaveis() {
-    fetch(`/dashboardG/getServInstaveis/"${sessionStorage.getItem("NOME_EMPRESA_USUARIO")}"`).then(function (resposta) {
+    fetch(`/dashboardG/getServInstaveis/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
         if (resposta.ok) {
     // console.log(resposta)
             resposta.json().then(function (json) {
@@ -21,7 +21,7 @@ function getServInstaveis() {
 }
 
 function getCompProblematico() {
-    fetch(`/dashboardG/getCompProblematico/${sessionStorage.getItem("EMPRESA_USUARIO")}`).then(function (resposta) {
+    fetch(`/dashboardG/getCompProblematico/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
         if (resposta.ok) {
     
             resposta.json().then(function (json) {
