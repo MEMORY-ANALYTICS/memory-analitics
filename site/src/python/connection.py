@@ -31,8 +31,35 @@ def executar(instrucao):
         if(primeira_frase == "SELECT"):
             retorno = comando.fetchall()
             return retorno
+        elif (primeira_frase == "CALL"):
+            variavel_ultimo_registro = instrucao.split()[3]
+            comando.execute(f"SELECT {variavel_ultimo_registro}")
+            retorno = comando.fetchall()
+            if retorno != []:
+                retorno = retorno[0][0]
+            return retorno
         else:
             conexao.commit()
+    except mysql.connector.Error as erro:
+        print("Erro ao executar comando!")
+        print(erro)
+    conexao.close()
+
+def executarProcedure(instrucao):
+    try:
+        conexao = sql.connect(
+            host=hostServer,
+            password=passwordServer,
+            user=userServer,
+            port=portServer,
+            database=databaseServer,
+        )
+    except mysql.connector.Error as error:
+        print(f"Erro ao efetuar conexão >>> {error}")
+    comando = conexao.cursor()
+    try:
+        comando.execute(instrucao)
+        conexao.commit()
     except mysql.connector.Error as erro:
         print("Erro ao executar comando!")
         print(erro)

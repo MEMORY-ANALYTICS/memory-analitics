@@ -1,7 +1,8 @@
 import platform as plat
+import datetime
 from time import sleep
 import psutil
-from connection import executar
+from connection import executar,executarProcedure
 from message import mensagem_slack
 
 nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
@@ -9,10 +10,45 @@ id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = '
 if id_server == []:
     verificacao = False
 else:
+    id_server = id_server[0][0]
     verificacao = True
+
     lista_componentes = executar(
-    f"SELECT * FROM componente WHERE fkServidor = {id_server[0][0]}") 
+    f"SELECT * FROM componente WHERE fkServidor = {id_server};")
+
+
+    horario_ultimo_registro = executar(
+        f"CALL SelectUltimoRegistro ({id_server}, @ultimoRegistro );")
     
+    if(horario_ultimo_registro != None and horario_ultimo_registro != []):
+    
+        data_atual = datetime.datetime.now()
+        horario_datetime = datetime.datetime.strptime(horario_ultimo_registro, '%Y-%m-%d %H:%M:%S')
+        horario_ultimo_registro_formatado = horario_datetime.strftime('%d-%m-%Y %H:%M:%S')
+
+        diferenca = data_atual - horario_datetime
+
+        horas = diferenca.seconds // 3600
+        minutos = (diferenca.seconds // 60) % 60
+        segundos = diferenca.seconds % 60
+        if(horas > 0 or minutos > 0 or segundos >= 10):
+            if horas  < 10:
+                horas = f"0{horas}"
+            if minutos  < 10:
+                minutos = f"0{minutos}"
+            if segundos < 10:
+                segundos = f"0{segundos}"
+
+            print(f"""
+                DOWNTIME DO SERVIDOR DETECTADO!!!
+                Data do último Registro:{horario_ultimo_registro_formatado}
+                Data Atual: {data_atual}
+                TEMPO DE DOWNTIME: {horas}:{minutos}:{segundos}""")
+            
+            executarProcedure(f"CALL downtime({id_server})")
+
+            
+        
     def verificar_recurso():
         global lista_componentes_sem_recurso
         global qtd_componentes

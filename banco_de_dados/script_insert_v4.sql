@@ -167,6 +167,7 @@ GROUP BY
     c.fabricante,
     c.nomeModelo,
     s.apelidoServidor,
-    e.nomeEmpresa;
+    e.nomeEmpresa
+ORDER BY Data_Hora_Registro;
+
     select * from testeteste;
-	
