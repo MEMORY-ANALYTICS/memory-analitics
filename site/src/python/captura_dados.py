@@ -23,6 +23,7 @@ else:
     if(horario_ultimo_registro != None and horario_ultimo_registro != []):
     
         data_atual = datetime.datetime.now()
+        data_formatada = data_atual.strftime('%Y-%m-%d %H:%M:%S')
         horario_datetime = datetime.datetime.strptime(horario_ultimo_registro, '%Y-%m-%d %H:%M:%S')
         horario_ultimo_registro_formatado = horario_datetime.strftime('%d-%m-%Y %H:%M:%S')
 
@@ -42,7 +43,7 @@ else:
             print(f"""
                 DOWNTIME DO SERVIDOR DETECTADO!!!
                 Data do último Registro:{horario_ultimo_registro_formatado}
-                Data Atual: {data_atual}
+                Data Atual: {data_formatada}
                 TEMPO DE DOWNTIME: {horas}:{minutos}:{segundos}""")
             
             executarProcedure(f"CALL downtime({id_server})")
