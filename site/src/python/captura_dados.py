@@ -42,7 +42,7 @@ else:
 
             print(f"""
                 DOWNTIME DO SERVIDOR DETECTADO!!!
-                Data do último Registro:{horario_ultimo_registro_formatado}
+                Data do último Registro: {horario_ultimo_registro_formatado}
                 Data Atual: {data_formatada}
                 TEMPO DE DOWNTIME: {horas}:{minutos}:{segundos}""")
             
