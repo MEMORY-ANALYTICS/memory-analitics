@@ -154,16 +154,4 @@ CREATE PROCEDURE `selectUltimoRegistro`(fkServidor INT, OUT ultimoRegistro DATET
     
 END $$
 
-SELECT MAX(dtHoraRegistro)
-		FROM registro 
-		WHERE fkRecurso =
-					(SELECT idRecurso
-					FROM recurso 
-					WHERE fkComponente =
-						(SELECT idComponente
-						FROM componente
-						WHERE componente.fkServidor = fkServidor 
-						LIMIT 1)
-					LIMIT 1
-		);
         

@@ -22,16 +22,31 @@ else:
     
     if(horario_ultimo_registro != None and horario_ultimo_registro != []):
     
+        # PEGANDO HORARIO E DATA ATUAL E FORMATANDO
         data_atual = datetime.datetime.now()
         data_formatada = data_atual.strftime('%Y-%m-%d %H:%M:%S')
+
+        # FORMATANDO A DATA E HORARIO RECEBIDOS DO BANCO (ULTIMO REGISTRO)
+
         horario_datetime = datetime.datetime.strptime(horario_ultimo_registro, '%Y-%m-%d %H:%M:%S')
         horario_ultimo_registro_formatado = horario_datetime.strftime('%d-%m-%Y %H:%M:%S')
 
+        #  COMPARANDO A DATA ATUAL COM A DO ULTIMO REGISTRO
+
         diferenca = data_atual - horario_datetime
+        
+        # A VARIAVEL DIFERENÇA RECEBE UM OBJETO TIPO DATETIME
+
+        # SEPARANDO A DIFERENÇA DE TEMPO EM HORAS, MINUTOS E SEGUNDOS
+
+        # TRANSFORMANDO A DIFERENCA EM SEGUNDOS E USANDO OS SEGUNDOS PARA DESCOBRIR HORAS,MINUTOS E SEGUNDOS.
 
         horas = diferenca.seconds // 3600
         minutos = (diferenca.seconds // 60) % 60
         segundos = diferenca.seconds % 60
+
+        # CRIANDO A MÉTRICA DE DOWNTIME.
+
         if(horas > 0 or minutos > 0 or segundos >= 10):
             if horas  < 10:
                 horas = f"0{horas}"
@@ -47,9 +62,8 @@ else:
                 TEMPO DE DOWNTIME: {horas}:{minutos}:{segundos}""")
             
             executarProcedure(f"CALL downtime({id_server})")
-
             
-        
+
     def verificar_recurso():
         global lista_componentes_sem_recurso
         global qtd_componentes

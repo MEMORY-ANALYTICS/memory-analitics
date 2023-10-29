@@ -171,3 +171,5 @@ GROUP BY
 ORDER BY Data_Hora_Registro;
 
     select * from testeteste;
+    
+    select * from downtimeServidor;
