@@ -37,7 +37,10 @@ public class RecursoDao {
         return con.query("SELECT * FROM recurso JOIN componente on fkComponente = idComponente JOIN servidor ON fkServidor = idServidor where fkEmpresa = 1 AND tipoComponente LIKE 'RAM%';",
                 new BeanPropertyRowMapper<>(Recurso.class));
     }
-
+    public List<Recurso> selectAllRecursosRede(){
+        return con.query("SELECT * FROM recurso JOIN componente on fkComponente = idComponente JOIN servidor ON fkServidor = idServidor where fkEmpresa = 1 AND tipoComponente LIKE 'REDE%';",
+                new BeanPropertyRowMapper<>(Recurso.class));
+    }
     //-------------------------Insert Recurso -----------------------------
    public void adicionarRecursoCpu(Integer fkComponente){
        Looca looca = new Looca();
