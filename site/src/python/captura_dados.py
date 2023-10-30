@@ -269,8 +269,8 @@ else:
 
         verificar_recurso()
 
-        bytes_enviados = (psutil.net_io_counters().bytes_sent)/1000000
-        bytes_recebidos = (psutil.net_io_counters().bytes_recv)/1000000
+        bytes_enviados = (psutil.net_io_counters().bytes_sent)/10000000
+        bytes_recebidos = (psutil.net_io_counters().bytes_recv)/10000000
         qtd_erros_entrada = psutil.net_io_counters().errin
         qtd_erros_saida = psutil.net_io_counters().errout
 
