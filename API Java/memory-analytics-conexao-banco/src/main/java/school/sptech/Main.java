@@ -20,8 +20,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        //Scanner leitor = new Scanner(System.in);
-        //Scanner leitorString = new Scanner(System.in);
+        Scanner leitor = new Scanner(System.in);
+        Scanner leitorString = new Scanner(System.in);
 
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
@@ -34,23 +34,42 @@ public class Main {
         //i1.pegarInformacoes();
 
         ServidorDao servidor1 = new ServidorDao(con);
-        servidor1.adicionarServidor("Servidor1", "ABC12");
-        System.out.println(servidor1.selectAllServidor());
+        //servidor1.adicionarServidor("Servidor1", "ABC12");
+        //System.out.println(servidor1.selectAllServidor());
 
         ComponenteDao componente1 = new ComponenteDao(con);
-        componente1.adicionarCpu("0", "70", 5);
-        System.out.println(componente1.selectAllComponente());
+        //componente1.adicionarCpu("0", "70", 5);
+        //System.out.println(componente1.selectAllComponente());
 
         RecursoDao recurso1 = new RecursoDao(con);
-        recurso1.adicionarRecursoCpu(17);
-        System.out.println(recurso1.selectAllRecursosCpu());
+        //recurso1.adicionarRecursoCpu(17);
+        //System.out.println(recurso1.selectAllRecursosCpu());
 
         RegistroDao registro1 = new RegistroDao(con);
-        System.out.println(registro1.selectAllRegistros());
+        //System.out.println(registro1.selectAllRegistros());
 
         //Looca looca = new Looca();
         //System.out.println(looca.getRede().getGrupoDeInterfaces().getInterfaces());
         //RedeInterface rede = new RedeInterface();
         //System.out.println(rede);
+
+        Menu menu = new Menu(leitor, leitorString, servidor1, recurso1, componente1, registro1);
+        Integer opcao;
+
+        do {
+            menu.exibirMenu();
+            opcao = menu.solicitarOpcao();
+
+            switch (opcao) {
+                case 1 -> menu.adicionarServidor();
+                case 2 -> menu.listarSevidores();
+
+                case 4 -> menu.menuRegistros();
+                case 9 -> menu.exibirMensagemSair();
+                default -> menu.exibirMensagemOpcaoInvalida();
+            }
+
+        } while(opcao != 9);
     }
+
 }
