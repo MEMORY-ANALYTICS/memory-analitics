@@ -47,25 +47,6 @@ public class Main {
         RegistroDao registro1 = new RegistroDao(con);
 
 
-//        while(true) {
-//            setTimeout(() -> {
-//                System.out.println("a");
-//                System.out.println("B");
-//            }, 10000);
-//
-//        }
-//
-//    }
-//    public static void setTimeout(Runnable runnable, int delay){
-//        new Thread(() -> {
-//            try {
-//                Thread.sleep(delay);
-//                runnable.run();
-//            }
-//            catch (Exception e){
-//                System.err.println(e);
-//            }
-//        }).start();
-//    }
+
     }
 }

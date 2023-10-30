@@ -1,6 +1,8 @@
 package school.sptech;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.Crud.Dao.ComponenteDao;
+import school.sptech.Crud.Dao.RecursoDao;
 import school.sptech.Crud.Dao.RegistroDao;
 import school.sptech.Crud.Dao.ServidorDao;
 
@@ -10,10 +12,18 @@ import java.util.Scanner;
 public class Menu {
     private Scanner leitor;
     private Scanner leitorString;
+    private ServidorDao servidorDao;
+    private RecursoDao recursoDao;
+    private ComponenteDao componenteDao;
+    private RegistroDao registroDao;
 
-    public Menu(Scanner leitor, Scanner leitorString) {
+    public Menu(Scanner leitor, Scanner leitorString, ServidorDao servidorDao, RecursoDao recursoDao, ComponenteDao componenteDao, RegistroDao registroDao) {
         this.leitor = leitor;
         this.leitorString = leitorString;
+        this.servidorDao = servidorDao;
+        this.recursoDao = recursoDao;
+        this.componenteDao = componenteDao;
+        this.registroDao = registroDao;
     }
 
     public void exibirMenu(){
@@ -24,8 +34,8 @@ public class Menu {
           +-----------------------------+
           | 1) Adicionar Servidor       |
           | 2) Exibir Servidores        |
-          | 3) Registros                |
-          | 4) Recursos                 |
+          | 3) Recursos                 |
+          | 4) Registros                |
           | 5) Componentes              |
           | 6) Alertas                  |
           | 7) Exibir Processos         |
@@ -75,7 +85,6 @@ public class Menu {
           +--------------------------+
                 
                 """);
-
         listarRegistros(solicitarOpcao());
     }
 

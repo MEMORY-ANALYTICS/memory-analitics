@@ -22,10 +22,10 @@ public class ServidorDao {
         return con.query("SELECT * FROM servidor WHERE fkEmpresa = 1",
                 new BeanPropertyRowMapper<>(Servidor.class));
     }
-
-    public ServidorDao() {
-    }
-
+//    public Servidor selectServidorPeloApelido(String apelidoServidor){
+//        return con.query("SELECT * FROM servidor WHERE fkEmpresa = 1 AND apelidoServidor = ?", apelidoServidor,
+//                new BeanPropertyRowMapper<>(Servidor.class));
+//    }
     public Boolean existeServidor(String ipServidor){
         List<Servidor> listaServidores = selectAllServidor();
         Boolean existe = false;
