@@ -12,6 +12,7 @@ import school.sptech.Crud.Recurso;
 import school.sptech.Crud.Servidor;
 import school.sptech.Hardware.Informacoes;
 import school.sptech.Hardware.Processos;
+import school.sptech.Hardware.RedeInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner leitor = new Scanner(System.in);
-        Scanner leitorString = new Scanner(System.in);
+        //Scanner leitor = new Scanner(System.in);
+        //Scanner leitorString = new Scanner(System.in);
 
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
@@ -45,8 +46,11 @@ public class Main {
         System.out.println(recurso1.selectAllRecursosCpu());
 
         RegistroDao registro1 = new RegistroDao(con);
+        System.out.println(registro1.selectAllRegistros());
 
-
-
+        //Looca looca = new Looca();
+        //System.out.println(looca.getRede().getGrupoDeInterfaces().getInterfaces());
+        //RedeInterface rede = new RedeInterface();
+        //System.out.println(rede);
     }
 }

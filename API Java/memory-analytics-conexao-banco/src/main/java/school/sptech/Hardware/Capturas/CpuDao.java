@@ -1,4 +1,4 @@
-package school.sptech.Hardware.Dao;
+package school.sptech.Hardware.Capturas;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -29,7 +29,7 @@ public class RegistroDao {
 
         return con.query("SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro " +
                         "JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente =" +
-                        " idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 " +
+                        " idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 1 " +
                         "AND tipoComponente = 'CPU'",
                 new BeanPropertyRowMapper<>(Registro.class)
                 );
