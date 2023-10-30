@@ -25,9 +25,8 @@ public class Main {
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
 
-
         //Processos p1 = new Processos();
-        //p1.listarTodosProcessos();
+        //System.out.println(p1.listarTotalProcessos());
 
         //Informacoes i1 = new Informacoes();
 

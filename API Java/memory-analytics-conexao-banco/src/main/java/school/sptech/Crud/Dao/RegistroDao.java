@@ -42,6 +42,7 @@ public class RegistroDao {
                         "AND tipoComponente = 'DISCO'",
                 new BeanPropertyRowMapper<>(Registro.class)
         );
+
     }
 
     public List<Registro> selectAllRegistroRam(){
@@ -52,7 +53,21 @@ public class RegistroDao {
                         "AND tipoComponente = 'RAM'",
                 new BeanPropertyRowMapper<>(Registro.class)
         );
+
     }
+
+    public List<Registro> selectAllRegistroRede(){
+        System.out.println("Registro de REDE");
+        return con.query("SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro " +
+                        "JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente =" +
+                        " idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 " +
+                        "AND tipoComponente = 'REDE'",
+                new BeanPropertyRowMapper<>(Registro.class)
+        );
+
+    }
+    //Select nos recursos da memory analytics para pegar o id e adicionar a uma lista, depois
+    //adicionar os registros de cada recurso com um for().
 
     //-------------------------------------------------------------------------------------------------
     public void adicionarRegistroCpuFrquencia(Integer fkRecurso){

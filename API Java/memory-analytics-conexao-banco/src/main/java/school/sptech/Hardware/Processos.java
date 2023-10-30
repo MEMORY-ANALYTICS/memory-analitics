@@ -11,7 +11,11 @@ public class Processos {
 
     public void listarTodosProcessos() {
         Looca looca = new Looca();
-        System.out.println(looca.getGrupoDeProcessos().getProcessos());
+
+        for (int i = 0; i < listarTotalProcessos(); i++) {
+            System.out.println(looca.getGrupoDeProcessos().getProcessos().get(i));
+        }
+
     }
 
     public Integer listarTotalProcessos(){
