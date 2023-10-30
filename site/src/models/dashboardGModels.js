@@ -1,5 +1,16 @@
 var database = require("../database/config");
 
+function getDowntime(fkEmpresa) {
+  console.log(
+    "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+  );
+  var instrucao = `
+  SELECT sum(tempoDowntime) tempoDowntime, fkEmpresa FROM downtimeServidor WHERE fkEmpresa = ${fkEmpresa};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function getServInstaveis(nomeEmpresa) {
   console.log(
     "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
@@ -61,7 +72,7 @@ function buscarMedidasEmTempoReal(nomeEmpresa) {
   // var instrucao = `
   // SELECT sum((ExcedeuLimites)) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = ${nomeEmpresa} GROUP BY MesAno;
   //   `;
-    var instrucao = `
+  var instrucao = `
     SELECT GROUP_CONCAT(picosDeUso) AS Resultado
     FROM (
       SELECT SUM(ExcedeuLimites) AS picosDeUso
@@ -72,16 +83,17 @@ function buscarMedidasEmTempoReal(nomeEmpresa) {
       LIMIT 5
     ) subquery;
     `;
-  
+
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucao
 
 module.exports = {
-    getServInstaveis,
-    getEstadoGeralServ,
-    getCompProblematico,
-    obterDadosGrafico,
-    buscarMedidasEmTempoReal
+  getDowntime,
+  getServInstaveis,
+  getEstadoGeralServ,
+  getCompProblematico,
+  obterDadosGrafico,
+  buscarMedidasEmTempoReal
 };

@@ -19028,6 +19028,7 @@ a.btn-icon-only
 .card-stats .card-body
 {
     padding: 1rem 1.5rem;
+    padding-bottom: 3rem;
 }
 
 .card-stats .card-status-bullet
