@@ -333,6 +333,8 @@ select * from recurso;
 select * from registro;
 select * from medidacomponente;
 
+select idRegistro, valorRegistro, tipoMedida, unidadeMedida, dtHoraRegistro FROM registro left join medidaComponente on fkMedidaComponente = idMedidaComponente;
+
 # SERVIDORES INSTAVEIS
 
 CREATE OR REPLACE VIEW getServInstaveis as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServInstaveis
@@ -340,7 +342,9 @@ FROM empresa e
 JOIN servidor s ON e.idEmpresa = s.fkEmpresa
 JOIN componente c ON s.idServidor = c.fkServidor
 JOIN registro r ON c.idComponente = r.fkRecurso
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+AND idMedidaComponente = 1
 GROUP BY e.nomeEmpresa;
 
 SELECT * FROM getServInstaveis;
@@ -361,7 +365,9 @@ FROM empresa e
 JOIN servidor s ON e.idEmpresa = s.fkEmpresa
 JOIN componente c ON s.idServidor = c.fkServidor
 JOIN registro r ON c.idComponente = r.fkRecurso
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE (r.valorRegistro > c.limiteMax * 0.85 AND r.valorRegistro < c.limiteMax OR r.valorRegistro < c.limiteMin * 1.15 AND r.valorRegistro > c.limiteMin)
+AND idMedidaComponente = 1
 GROUP BY e.nomeEmpresa;
 
 SELECT * FROM getServAlertas;
@@ -371,7 +377,9 @@ FROM empresa e
 JOIN servidor s ON e.idEmpresa = s.fkEmpresa
 JOIN componente c ON s.idServidor = c.fkServidor
 JOIN registro r ON c.idComponente = r.fkRecurso
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE (r.valorRegistro < c.limiteMax * 0.85 AND r.valorRegistro > c.limiteMin * 1.15)
+AND idMedidaComponente = 1
 GROUP BY e.nomeEmpresa;
 
 SELECT * FROM getServSeguros;
@@ -383,7 +391,7 @@ WHERE S.nomeEmpresa = A.nomeEmpresa
 AND S.nomeEmpresa = I.nomeEmpresa 
 AND A.nomeEmpresa = I.nomeEmpresa;
 
-SELECT * FROM getEstadoGeralServ WHERE nomeEmpresa = "Empresa C";
+SELECT * FROM getEstadoGeralServ;
 
 
 # COMPONENTE PROBLEMATICO
@@ -393,8 +401,10 @@ FROM componente c
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
 JOIN registro r ON c.idComponente = r.fkRecurso
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE e.idEmpresa = 10001 
     AND (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+    AND idMedidaComponente = 1
 GROUP BY c.tipoComponente
 ORDER BY total_registros_excedidos DESC limit 1;
 
@@ -440,8 +450,6 @@ join componente c on r.fkComponente = c.idComponente
 join servidor s on c.fkServidor = s.idServidor 
 where rg.valorRegistro > c.limiteMax or rg.valorRegistro < c.limiteMin group by tipoComponente;
 
-where rg.valorRegistro > c.limiteMax or rg.valorRegistro < c.limiteMin;
-
 select * from componente;
 
 SELECT tipoComponente
@@ -469,6 +477,8 @@ JOIN recurso rc ON r.fkRecurso = rc.idRecurso
 JOIN componente c ON rc.fkComponente = c.idComponente
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
+AND idMedidaComponente = 1
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
@@ -482,8 +492,14 @@ JOIN recurso rc ON r.fkRecurso = rc.idRecurso
 JOIN componente c ON rc.fkComponente = c.idComponente
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE e.nomeEmpresa = 'Empresa C'
+AND idMedidaComponente = 1
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
 SELECT SUM(ExcedeuLimites) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa C' GROUP BY MesAno;
+
+
+SELECT DAY(dtHOraRegistro) FROM registro WHERE dtHoraRegistro > DATE_SUB(now(), INTERVAL 1 MONTH);
+SELECT valorRegistro FROM registro WHERE MONTH(dtHoraRegistro) = 10;
