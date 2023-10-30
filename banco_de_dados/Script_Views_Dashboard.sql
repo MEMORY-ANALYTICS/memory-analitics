@@ -343,11 +343,16 @@ JOIN registro r ON c.idComponente = r.fkRecurso
 WHERE (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
 GROUP BY e.nomeEmpresa;
 
-SELECT * FROM getServInstaveis where nomeEmpresa;
+SELECT * FROM getServInstaveis;
 
 SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
 	JOIN empresa ON fkEmpresa = idEmpresa join login on idFuncionario = fkFuncionario 
   WHERE email = 'joao@email.com' AND senha = 'senha123';
+  
+# DOWNTIME
+
+SELECT * FROM downtimeServidor;
+  
 
 # GERAL SERVIDORES
 
@@ -404,8 +409,10 @@ SELECT tipoComponente AS nomeComponente, count(tipoComponente) FROM registro rg
 	JOIN recurso r ON rg.fkRecurso = r.idRecurso 
 	JOIN componente c ON r.fkComponente = c.idComponente
 	JOIN servidor s ON c.fkServidor = s.idServidor
-	JOIN medidacomponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
-WHERE fkEmpresa = 10002 
+	JOIN medidacomponente m ON rg.fkMedidaComponente = m.idMedidaComponente
+WHERE (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin) 
+	AND fkMedidaComponente = 1 
+    AND fkEmpresa = 10002 
 GROUP BY tipoComponente 
 ORDER BY count(tipoComponente);
 
@@ -452,9 +459,6 @@ WHERE idComponente = (
 
 # GRAFICO PICO DE USO
 
-Error Code: 1055. Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'bd_memoryanalytics.c.fkServidor' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by	0.015 sec
-
-
 CREATE OR REPLACE VIEW limitesExcedidos AS SELECT 
     e.nomeEmpresa AS NomeEmpresa,
     DATE_FORMAT(r.dtHoraRegistro, '%Y-%m') AS MesAno,
@@ -465,7 +469,6 @@ JOIN recurso rc ON r.fkRecurso = rc.idRecurso
 JOIN componente c ON rc.fkComponente = c.idComponente
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
-WHERE e.nomeEmpresa = 'Empresa B'
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
@@ -479,20 +482,8 @@ JOIN recurso rc ON r.fkRecurso = rc.idRecurso
 JOIN componente c ON rc.fkComponente = c.idComponente
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
-WHERE e.nomeEmpresa = 'nomeEmpresa'
+WHERE e.nomeEmpresa = 'Empresa C'
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
-SELECT SUM(ExcedeuLimites) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa B' GROUP BY MesAno ORDER BY MesAno LIMIT 5;
-
-create table testeeee 
-(id int primary key,
-valor int);
-
-insert into testeeee values
-(1, 53),
-(2, 32),
-(3, 11),
-(4, 87);
-
-select * from testeeee order by valor;
+SELECT SUM(ExcedeuLimites) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa C' GROUP BY MesAno;
