@@ -410,11 +410,27 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
 
-            <div class="col-lg-6 col-7">
+            <div class="col-lg-6 col-7" style="align-items: center; display: flex; flex-direction: row; justify-content: flex-start;">
               <!--
 
                   <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
                 -->
+      
+
+                
+
+                  <span style="padding-right: 3%; font-weight: bold; color: black;">Identificação do Servidor:</span>
+                  <select name="selecaoServidor" id="">
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+
+                  </select>
+          
+                
+
+
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <!--
 
@@ -432,6 +448,7 @@
               <a href="#" class="btn btn-sm btn-neutral">Celsius</a>
               <a href="#" class="btn btn-sm btn-neutral">fahrenheit</a>
               <a href="#" class="btn btn-sm btn-neutral">Kelvin</a>
+              
 
 
             </div>
@@ -440,7 +457,7 @@
           <!-- Card stats -->
           <div class="row">
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
@@ -470,7 +487,7 @@
               </div>
             </div>
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
@@ -488,6 +505,9 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
+                    <span class="text-nowrap">Estado :</span>
+                    <span>Aceitável</span>
+                    <br>
                     <span class="text-nowrap">Atualizado em :</span>
                     <span>12:10</span>
                   </p>
@@ -495,7 +515,7 @@
               </div>
             </div>
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
@@ -523,7 +543,7 @@
               </div>
             </div>
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
@@ -533,7 +553,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                        <i class="ni ni-money-coins"></i>
+                        <i class="fa-solid fa-temperature-low"></i>
                       </div>
                     </div>
                   </div>
@@ -583,7 +603,7 @@
                     </li>
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Ano</span>
+                        <span class="d-none d-md-block">Mês</span>
 
                       </a>
                     </li>
@@ -689,7 +709,7 @@
                     </li>
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Ano</span>
+                        <span class="d-none d-md-block">Mês</span>
 
                       </a>
                     </li>
@@ -844,6 +864,9 @@
                     <th style="width: auto; text-align: start;">Quantidade de alertas emitidos(mensal)</th>
                     <th style="width: auto; text-align: start;">Porcentual de alertas(mensal)</th>
                     <th style="width: auto; text-align: start;">Quantidade de registros(mensal)</th>
+                    <th style="width: auto; text-align: start;">Mês</th>
+
+              
 
                   </tr>
                 </thead>
@@ -860,6 +883,9 @@
                     </td>
                     <td style="text-align: center;">
                       100
+                    </td>
+                    <td style="text-align: center;">
+                      9
                     </td>
                    
                     <!--
@@ -890,6 +916,9 @@
                     <td style="width: auto; text-align: center;">
                       100
                     </td>
+                    <td style="text-align: center;">
+                      9
+                    </td>
                     
                     <!--
 
@@ -918,6 +947,9 @@
                     </td>
                     <td style="width: auto; text-align: center;">
                       100
+                    </td>
+                    <td style="text-align: center;">
+                      9
                     </td>
                     
                     <!--
