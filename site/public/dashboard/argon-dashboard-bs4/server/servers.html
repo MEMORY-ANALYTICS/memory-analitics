@@ -407,6 +407,83 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
+
+
+      <!-- <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="exampleModalCenter">
+        <div class="modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            ...
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Modal Editar-->
+      <div class="modal fade bd-example-modal-xl" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Servidor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="w-100" id="cadastro_funcionario">
+
+                <div class="w-100 row mx-1">
+                  <div class="form-group col-xl-6">
+                    <label for="sistema_operacional">SISTEMA OPERACIONAL</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="sistema_operacional"
+                      placeholder="Linux"
+                    />
+                  </div>
+                  <div class="form-group col-xl-6">
+                      <label for="apelido_servidor">APELIDO DO SERVIDOR</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apelido_servidor"
+                        placeholder="HP-1235GA"
+                        disabled
+                      />
+                    </div>
+                </div>
+                <div class="mx-1 w-100 row">
+                  <div class="form-group col-xl-8">
+                    <label for="ip_server">IP DO SERVIDOR</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ip_server"
+                      placeholder="192.168.15.1"
+                    />
+                  </div>
+                  <div class="form-group col-xl-4">
+                      <label for="num_serie">NÚMERO DE SÉRIE DO SERVIDOR</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="num_serie"
+                        placeholder="SE53695"
+                      />
+                    </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button onclick="atualizarServidor()" type="button" class="btn btn-primary">Salvar mudanças</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="row">
         <div class="col">
           <div class="card">
@@ -414,21 +491,19 @@
             <div class="card-header border-0">
               <h3 class="mb-0">Servidores</h3>
             </div>
-            <!-- Light table --> 
+            <!-- Light table -->
             <div class="table-responsive">
-              <table class="table align-items-center table-flush" id="tableServers">
+              <table class="table align-items-center table-flush" >
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" class="sort" data-sort="sisteMaOperacional">Sistema Operacional</th>
-                    <th scope="col" class="sort" data-sort="apelido">Apelido</th>
-                    <th scope="col" class="sort" data-sort="ip">IP</th>
-                    <th scope="col" class="sort" data-sort="numSerie">Número de Série</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col" class="sort" data-sort="name">Sistema Operacional</th>
+                    <th scope="col" class="sort" data-sort="budget">Apelido</th>
+                    <th scope="col" class="sort" data-sort="status">IP Servidor</th>
+                    <th scope="col" class="sort" data-sort="completion">Número de Série</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody class="list">
-                    
-                    &nbsp;
+                <tbody class="list" id="tableServers">
 
                 </tbody>
               </table>
@@ -461,9 +536,9 @@
             </div>
           </div>
         </div>
-        
+
       </div>
-      
+
       <!-- Footer -->
       <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">
