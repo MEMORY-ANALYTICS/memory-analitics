@@ -445,9 +445,9 @@
             <div class="col-lg-6 col-5 text-right">
 
 
-              <a href="#" class="btn btn-sm btn-neutral">Celsius</a>
-              <a href="#" class="btn btn-sm btn-neutral">fahrenheit</a>
-              <a href="#" class="btn btn-sm btn-neutral">Kelvin</a>
+              <a  class="btn-sm btn-neutral" id="celsiusButton" onclick="celsius()" style="color: #fff; background-color: #3350b9; cursor: pointer;" >Celsius</a>
+              <a  class="btn-sm btn-neutral" id="fahrenheitButton" onclick="fahrenheit()" style="cursor: pointer;">fahrenheit</a>
+              <a  class="btn-sm btn-neutral" id="kelvinButton" onclick="kelvin()" style="cursor: pointer;">Kelvin</a>
               
 
 
@@ -591,19 +591,19 @@
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Hora</span>
+                      <a  class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash1" onclick="horaDash1()" style="background-color:  #5e72e4; cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="horaDash1()" id="textoHora1" style="color: #fff;">Hora</span>
 
                       </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 " data-toggle="tab">
-                        <span class="d-none d-md-block">Semana</span>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" >
+                      <a  class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash1" onclick="semanaDash1()" style="cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="semanaDash1()" id="textoSemana1">Semana</span>
 
                       </a>
                     </li>
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Mês</span>
+                      <a class="nav-link py-2 px-3" data-toggle="tab"  onclick="mesDash1()" style="border-radius: 10%; cursor: pointer;" id="idMesDash1">
+                        <span class="d-none d-md-block" id="textoMes1" onclick="mesDash1()">Mês</span>
 
                       </a>
                     </li>
@@ -697,19 +697,19 @@
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Hora</span>
+                      <a  class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash2" onclick="horaDash2()" style="background-color:  #5e72e4; cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="horaDash2()" id="textoHora2" style="color: #fff;">Hora</span>
 
                       </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 " data-toggle="tab">
-                        <span class="d-none d-md-block">Semana</span>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" >
+                      <a  class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()" style="cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="semanaDash2()" id="textoSemana2">Semana</span>
 
                       </a>
                     </li>
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Mês</span>
+                      <a class="nav-link py-2 px-3" data-toggle="tab"  onclick="mesDash2()" style="border-radius: 10%; cursor: pointer;" id="idMesDash2">
+                        <span class="d-none d-md-block" id="textoMes2" onclick="mesDash2()">Mês</span>
 
                       </a>
                     </li>
@@ -1051,10 +1051,111 @@
   <!-- Chart.js-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    function menu() {
+    function horaDash1(){
+
+      idHoraDash1.style="background-color: #5E72E4; cursor: pointer;"
+      textoHora1.style="color:  #FFFF"
+
+      idSemanaDash1.style="background-color:  #FFFF; cursor: pointer;"
+      textoSemana1.style="color: #5e72e4; "
+
+      idMesDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoMes1.style="color: #5e72e4;"
+
 
     }
-  </script>
+
+    function semanaDash1() {
+
+      idHoraDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoHora1.style="color: #5e72e4; "
+
+      idSemanaDash1.style="background-color: #5E72E4; cursor: pointer;"
+      textoSemana1.style="color: #FFFF; "
+
+      idMesDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoMes1.style="color: #5e72e4; "
+
+
+      
+    }
+
+    function mesDash1() {
+
+      idHoraDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoHora1.style="color: #5e72e4"
+
+      idSemanaDash1.style="background-color: #FFFF; cursor: pointer; "
+      textoSemana1.style="color: #5e72e4 "
+
+      idMesDash1.style="background-color: #5E72E4; cursor: pointer;"
+      textoMes1.style="color: #FFFF"
+      
+    }
+
+  function horaDash2(){
+
+idHoraDash2.style="background-color: #5E72E4; cursor: pointer;"
+textoHora2.style="color:  #FFFF"
+
+idSemanaDash2.style="background-color:  #FFFF; cursor: pointer;"
+textoSemana2.style="color: #5e72e4; "
+
+idMesDash2.style="background-color: #FFFF; cursor: pointer;"
+textoMes2.style="color: #5e72e4;"
+
+
+}
+
+function semanaDash2() {
+
+idHoraDash2.style="background-color: #FFFF; cursor: pointer;"
+textoHora2.style="color: #5e72e4; "
+
+idSemanaDash2.style="background-color: #5E72E4; cursor: pointer;"
+textoSemana2.style="color: #FFFF; "
+
+idMesDash2.style="background-color: #FFFF; cursor: pointer;"
+textoMes2.style="color: #5e72e4; "
+
+
+
+}
+
+function mesDash2() {
+
+idHoraDash2.style="background-color: #FFFF; cursor: pointer;"
+textoHora2.style="color: #5e72e4"
+
+idSemanaDash2.style="background-color: #FFFF; cursor: pointer; "
+textoSemana2.style="color: #5e72e4 "
+
+idMesDash2.style="background-color: #5E72E4; cursor: pointer;"
+textoMes2.style="color: #FFFF"
+
+}
+
+function celsius() {
+
+  celsiusButton.style="color: #fff; background-color: #3350b9; cursor: pointer;"
+  fahrenheitButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  kelvinButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+
+}
+
+function fahrenheit() {
+  celsiusButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  fahrenheitButton.style="color: #fff; background-color: #3350b9; cursor: pointer;"
+  kelvinButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+}
+
+function kelvin() {
+  celsiusButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  fahrenheitButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  kelvinButton.style="color: #fff; background-color: #3350b9; cursor: pointer;"
+}
+
+</script>
   <script>
     const ctx = document.getElementById('myChart');
 
@@ -1239,7 +1340,23 @@ function dateBuilder(d) {
     return `${day}, ${date} ${month} ${year}`;
 }
 
-container_temp.addEventListener('click', changeTemp)
+fahrenheitButton.addEventListener('click', changeTemp)
+function changeTemp() {
+    temp_number_now = temp_number.innerHTML
+
+    if (temp_unit.innerHTML === "°c") {
+        let f = (temp_number_now * 1.8) + 32
+        temp_unit.innerHTML = "°f"
+        temp_number.innerHTML = Math.round(f)
+    }
+    else {
+        let c = (temp_number_now - 32) / 1.8
+        temp_unit.innerHTML = "°c"
+        temp_number.innerHTML = Math.round(c)
+    }
+}
+
+celsiusButton.addEventListener('click', changeTemp)
 function changeTemp() {
     temp_number_now = temp_number.innerHTML
 
