@@ -192,3 +192,4 @@ ORDER BY Data_Hora_Registro;
         
     
 SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10002;
+

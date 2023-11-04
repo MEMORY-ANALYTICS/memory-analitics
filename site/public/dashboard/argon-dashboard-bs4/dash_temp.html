@@ -467,7 +467,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                        <i class="ni ni-chart-bar-32"></i>
+                        <img src="../../assets/icons_geral/verificado_icons.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -497,7 +497,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                        <i class="ni ni-active-40"></i>
+                        <img src="../../assets/icons_geral/dash_icons.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -525,7 +525,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                        <i class="ni ni-chart-pie-35"></i>
+                        <img src="../../assets/icons_geral/fire_icon.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -553,7 +553,7 @@
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                        <i class="fa-solid fa-temperature-low"></i>
+                       <img src="../../assets/icons_geral/snow_icon.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -662,7 +662,7 @@
                     <span>ºC</span>
                   </div>
                   <div class="container-img">
-                    <img src="../../assets/icons/unknown.png" alt="">
+                    <img src="../../assets/icons_clima/unknown.png" alt="">
                   </div>
                   
                   <div class="weather">Nublado</div>
@@ -845,10 +845,10 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Relatório Geral</h3>
+                  <h3 class="mb-0">Relatório Completo</h3>
                 </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Download</a>
+                <div class="col text-right" onclick="download_csv()">
+                  <a href="#!" class="btn btn-sm btn-primary" onclick="download_csv()">Download</a>
                 </div>
               </div>
             </div>
@@ -1156,6 +1156,12 @@ function kelvin() {
 }
 
 </script>
+
+<script>
+  function download_csv(){
+    alert("ainda não está funcionando!")
+  }
+</script>
   <script>
     const ctx = document.getElementById('myChart');
 
@@ -1317,7 +1323,7 @@ function displayResults(weather) {
     date.innerText = dateBuilder(now);
 
     let iconName = weather.weather[0].icon;
-    container_img.innerHTML = `<img src="../../assets/icons/${iconName}.png">`;
+    container_img.innerHTML = `<img src="../../assets/icons_clima/${iconName}.png">`;
 
     let temperature = `${Math.round(weather.main.temp)}`
     temp_number.innerHTML = temperature;
