@@ -20,7 +20,7 @@ else:
     horario_ultimo_registro = executar(
         f"CALL SelectUltimoRegistro ({id_server}, @ultimoRegistro );")
     
-    if(horario_ultimo_registro != None and horario_ultimo_registro != []):
+    if horario_ultimo_registro != None and horario_ultimo_registro != []:
     
         # PEGANDO HORARIO E DATA ATUAL E FORMATANDO
         data_atual = datetime.datetime.now()
@@ -34,13 +34,16 @@ else:
         diferenca = data_atual - horario_datetime
 
         # TRANSFORMANDO A DIFERENCA EM SEGUNDOS E USANDO OS SEGUNDOS PARA DESCOBRIR HORAS, MINUTOS E SEGUNDOS.
+        dias = diferenca.days
         horas = diferenca.seconds // 3600
         minutos = (diferenca.seconds // 60) % 60
         segundos = diferenca.seconds % 60
 
         # CRIANDO A MÉTRICA DE DOWNTIME.
-        if(horas > 0 or minutos > 0 or segundos >= 10):
+        if dias > 0 or horas > 0 or minutos > 0 or segundos >= 10:
             # FORMATANDO OS VALORES E OS EXIBINDO.
+            if dias < 10:
+                dias = f"0{dias}"
             if horas  < 10:
                 horas = f"0{horas}"
             if minutos  < 10:
@@ -52,7 +55,7 @@ else:
                 DOWNTIME DO SERVIDOR DETECTADO!!!
                 Data do último Registro: {horario_ultimo_registro_formatado}
                 Data Atual: {data_formatada}
-                TEMPO DE DOWNTIME: {horas}:{minutos}:{segundos}""")
+                TEMPO DE DOWNTIME: Dias: {dias} + {horas}:{minutos}:{segundos}""")
             
             # ENVIANDO OS DADOS PARA O BANCO
             executarProcedure(f"CALL downtime({id_server})")
