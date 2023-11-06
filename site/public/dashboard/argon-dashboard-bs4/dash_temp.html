@@ -174,8 +174,10 @@
               </button>
             </form>
           -->
+          <!--
 
-          <button onclick="menu()">MENU</button>
+            <button onclick="menu()">MENU</button>
+          -->
           <!-- Navbar links -->
           <ul class="navbar-nav align-items-center  ml-md-auto ">
             <li class="nav-item d-xl-none">
@@ -216,7 +218,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Ana Fonseca</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>2 hrs ago</small>
@@ -235,7 +237,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Ana Fonseca</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>3 hrs ago</small>
@@ -254,7 +256,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Ana Fonseca</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>5 hrs ago</small>
@@ -273,7 +275,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Ana Fonseca</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>2 hrs ago</small>
@@ -292,7 +294,7 @@
                       <div class="col ml--2">
                         <div class="d-flex justify-content-between align-items-center">
                           <div>
-                            <h4 class="mb-0 text-sm">John Snow</h4>
+                            <h4 class="mb-0 text-sm">Ana Fonseca</h4>
                           </div>
                           <div class="text-right text-muted">
                             <small>3 hrs ago</small>
@@ -363,7 +365,7 @@
                     <img alt="Image placeholder" src="assets/img/theme/team-4.jpg">
                   </span>
                   <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                    <span class="mb-0 text-sm  font-weight-bold">Ana Fonseca</span>
                   </div>
                 </div>
               </a>
@@ -408,11 +410,27 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
 
-            <div class="col-lg-6 col-7">
+            <div class="col-lg-6 col-7" style="align-items: center; display: flex; flex-direction: row; justify-content: flex-start;">
               <!--
 
                   <h6 class="h2 text-white d-inline-block mb-0">Default</h6>
                 -->
+      
+
+                
+
+                  <span style="padding-right: 3%; font-weight: bold; color: black;">Identificação do Servidor:</span>
+                  <select name="selecaoServidor" id="">
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+
+                  </select>
+          
+                
+
+
               <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <!--
 
@@ -427,8 +445,11 @@
             <div class="col-lg-6 col-5 text-right">
 
 
-              <a href="#" class="btn btn-sm btn-neutral">Clima</a>
-              <a href="#" class="btn btn-sm btn-neutral">Umidade</a>
+              <a  class="btn-sm btn-neutral" id="celsiusButton" onclick="celsius()" style="color: #fff; background-color: #3350b9; cursor: pointer;" >Celsius</a>
+              <a  class="btn-sm btn-neutral" id="fahrenheitButton" onclick="fahrenheit()" style="cursor: pointer;">fahrenheit</a>
+              <a  class="btn-sm btn-neutral" id="kelvinButton" onclick="kelvin()" style="cursor: pointer;">Kelvin</a>
+              
+
 
             </div>
           </div>
@@ -436,89 +457,47 @@
           <!-- Card stats -->
           <div class="row">
             <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
+              <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Temp. atual</h5>
-                      <span class="h2 font-weight-bold mb-0">33</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                        <i class="ni ni-active-40"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-sm">
-                    <!--
-                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    -->
-                    <span class="text-nowrap">Atualizado em : </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
-                <!-- Card body -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Temp. Máxima</h5>
-                      <span class="h2 font-weight-bold mb-0">42</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                        <i class="ni ni-chart-pie-35"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-sm">
-                    <!--
-                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    -->
-                    <span class="text-nowrap">Atualizado em : </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
-                <!-- Card body -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Temp. Miníma</h5>
-                      <span class="h2 font-weight-bold mb-0">12</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                        <i class="ni ni-money-coins"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-sm">
-                    <!--
-                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    -->
-                    <span class="text-nowrap">Atualizado em : </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-md-6">
-              <div class="card card-stats">
-                <!-- Card body -->
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Temp. Ideal</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Média temp. Ideal</h5>
                       <span class="h2 font-weight-bold mb-0">28</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                        <i class="ni ni-chart-bar-32"></i>
+                        <img src="../../assets/icons_geral/verificado_icons.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    
+                    <span>Aceitável desvio padrão de : </span>
+                    <span>5</span>
+                    <!--
+                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    -->
+                    <!--
+                      <span class="text-nowrap">Atualizado em :</span>
+                      <span>12:10</span>
+                    -->
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats" style="height: 70%;">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Média Temp. Atual</h5>
+                      <span class="h2 font-weight-bold mb-0">33</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                        <img src="../../assets/icons_geral/dash_icons.png" alt="">
                       </div>
                     </div>
                   </div>
@@ -526,11 +505,72 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
-                    <span class="text-nowrap">Atualizado em : </span>
+                    <span class="text-nowrap">Estado :</span>
+                    <span>Aceitável</span>
+                    <br>
+                    <span class="text-nowrap">Atualizado em :</span>
+                    <span>12:10</span>
                   </p>
                 </div>
               </div>
             </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats" style="height: 70%;">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Máxima de hoje</h5>
+                      <span class="h2 font-weight-bold mb-0">42</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                        <img src="../../assets/icons_geral/fire_icon.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <!--
+                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    -->
+                    <span class="text-nowrap">Core:</span>
+                    <span>3</span>
+                    <br>
+                    <span class="text-nowrap">Atualizado em :</span>
+                    <span>12:09</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+              <div class="card card-stats" style="height: 70%;">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Miníma de hoje</h5>
+                      <span class="h2 font-weight-bold mb-0">12</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                       <img src="../../assets/icons_geral/snow_icon.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <!--
+                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    -->
+                    <span class="text-nowrap">Core:</span>
+                    <span>1</span>
+                    <br>
+                    <span class="text-nowrap">Atualizado em :</span>
+                    <span>12:05</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -546,33 +586,36 @@
                   <!--
                     <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
                   -->
-                  <h5 class="h3 text-white mb-0">Gráfico de temperatura</h5>
+                  <h5 class="h3 text-white mb-0">Gráfico de temperatura (Cores)</h5>
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Dia</span>
+                      <a  class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash1" onclick="horaDash1()" style="background-color:  #5e72e4; cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="horaDash1()" id="textoHora1" style="color: #fff;">Hora</span>
 
                       </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 " data-toggle="tab">
-                        <span class="d-none d-md-block">Semana</span>
-
-                      </a>
-                    </li>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Mês</span>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" >
+                      <a  class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash1" onclick="semanaDash1()" style="cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="semanaDash1()" id="textoSemana1">Semana</span>
 
                       </a>
                     </li>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3" data-toggle="tab"  onclick="mesDash1()" style="border-radius: 10%; cursor: pointer;" id="idMesDash1">
+                        <span class="d-none d-md-block" id="textoMes1" onclick="mesDash1()">Mês</span>
+
+                      </a>
+                    </li>
+                    <!--
                     <li class="nav-item" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Ano</span>
 
-                      </a>
-                    </li>
+                          <span class="d-none d-md-block">Ano</span>
+                          
+                        </a>
+                      </li>
+                      -->
                   </ul>
                 </div>
               </div>
@@ -619,7 +662,7 @@
                     <span>ºC</span>
                   </div>
                   <div class="container-img">
-                    <img src="../../assets/icons/unknown.png" alt="">
+                    <img src="../../assets/icons_clima/unknown.png" alt="">
                   </div>
                   
                   <div class="weather">Nublado</div>
@@ -649,33 +692,36 @@
                   <!--
                         <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
                       -->
-                  <h5 class="h3 text-white mb-0">Gráfico de temperatura</h5>
+                  <h5 class="h3 text-white mb-0">Comparação com dados externos</h5>
                 </div>
                 <div class="col">
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 active" data-toggle="tab">
-                        <span class="d-none d-md-block">Dia</span>
+                      <a  class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash2" onclick="horaDash2()" style="background-color:  #5e72e4; cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="horaDash2()" id="textoHora2" style="color: #fff;">Hora</span>
 
                       </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3 " data-toggle="tab">
-                        <span class="d-none d-md-block">Semana</span>
-
-                      </a>
-                    </li>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Mês</span>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" >
+                      <a  class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()" style="cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="semanaDash2()" id="textoSemana2">Semana</span>
 
                       </a>
                     </li>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3" data-toggle="tab"  onclick="mesDash2()" style="border-radius: 10%; cursor: pointer;" id="idMesDash2">
+                        <span class="d-none d-md-block" id="textoMes2" onclick="mesDash2()">Mês</span>
+
+                      </a>
+                    </li>
+                    <!--
                     <li class="nav-item" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-                        <span class="d-none d-md-block">Ano</span>
 
-                      </a>
-                    </li>
+                          <span class="d-none d-md-block">Ano</span>
+                          
+                        </a>
+                      </li>
+                    -->
                   </ul>
                 </div>
               </div>
@@ -799,118 +845,159 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Social traffic</h3>
+                  <h3 class="mb-0">Relatório Completo</h3>
                 </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                <div class="col text-right" onclick="download_csv()">
+                  <a href="#!" class="btn btn-sm btn-primary" onclick="download_csv()">Download</a>
                 </div>
               </div>
             </div>
+            <!--
+              style="overflow-x: hidden;"
+            -->
             <div class="table-responsive">
               <!-- Projects table -->
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">Referral</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col"></th>
+                    <th style="width: auto; text-align: center;">Componente</th>
+                    <th style="width: auto; text-align: start;">Quantidade de alertas emitidos(mensal)</th>
+                    <th style="width: auto; text-align: start;">Porcentual de alertas(mensal)</th>
+                    <th style="width: auto; text-align: start;">Quantidade de registros(mensal)</th>
+                    <th style="width: auto; text-align: start;">Mês</th>
+
+              
+
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">
-                      Facebook
+                    <th style="width: auto; text-align: center;">
+                      Core 1
                     </th>
-                    <td>
-                      1,480
+                    <td style="text-align: center;">
+                      38
                     </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">60%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60"
+                    <td style="text-align: center;">
+                      38
+                    </td>
+                    <td style="text-align: center;">
+                      100
+                    </td>
+                    <td style="text-align: center;">
+                      9
+                    </td>
+                   
+                    <!--
+
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">60%</span>
+                          <div>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60"
                               aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    -->
                   </tr>
                   <tr>
-                    <th scope="row">
-                      Facebook
+                    <th style="width: auto; text-align: center;">
+                      Core 2
                     </th>
-                    <td>
-                      5,480
+                    <td style="width: auto; text-align: center;">
+                      78
                     </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">70%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70"
+                    <td style="width: auto; text-align: center;">
+                      78
+                    </td>
+                    <td style="width: auto; text-align: center;">
+                      100
+                    </td>
+                    <td style="text-align: center;">
+                      9
+                    </td>
+                    
+                    <!--
+
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">70%</span>
+                          <div>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70"
                               aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    -->
                   </tr>
                   <tr>
-                    <th scope="row">
-                      Google
+                    <th style="width: auto; text-align: center;">
+                      Core 3
                     </th>
-                    <td>
-                      4,807
+                    <td style="width: auto; text-align: center;">
+                      14
                     </td>
+                    <td style="width: auto; text-align: center;">
+                      14
+                    </td>
+                    <td style="width: auto; text-align: center;">
+                      100
+                    </td>
+                    <td style="text-align: center;">
+                      9
+                    </td>
+                    
+                    <!--
                     <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">80%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80"
+
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">80%</span>
+                          <div>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80"
                               aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    -->
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      Instagram
-                    </th>
+              
+                    <!--
                     <td>
-                      3,678
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">75%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75"
+
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">75%</span>
+                          <div>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75"
                               aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    -->
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      twitter
-                    </th>
-                    <td>
-                      2,645
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">30%</span>
-                        <div>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30"
+                  
+                    <!--
+
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <span class="mr-2">30%</span>
+                          <div>
+                            <div class="progress">
+                              <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30"
                               aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
+                    -->
                   </tr>
                 </tbody>
               </table>
@@ -964,20 +1051,138 @@
   <!-- Chart.js-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    function menu() {
+    function horaDash1(){
+
+      idHoraDash1.style="background-color: #5E72E4; cursor: pointer;"
+      textoHora1.style="color:  #FFFF"
+
+      idSemanaDash1.style="background-color:  #FFFF; cursor: pointer;"
+      textoSemana1.style="color: #5e72e4; "
+
+      idMesDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoMes1.style="color: #5e72e4;"
+
 
     }
-  </script>
+
+    function semanaDash1() {
+
+      idHoraDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoHora1.style="color: #5e72e4; "
+
+      idSemanaDash1.style="background-color: #5E72E4; cursor: pointer;"
+      textoSemana1.style="color: #FFFF; "
+
+      idMesDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoMes1.style="color: #5e72e4; "
+
+
+      
+    }
+
+    function mesDash1() {
+
+      idHoraDash1.style="background-color: #FFFF; cursor: pointer;"
+      textoHora1.style="color: #5e72e4"
+
+      idSemanaDash1.style="background-color: #FFFF; cursor: pointer; "
+      textoSemana1.style="color: #5e72e4 "
+
+      idMesDash1.style="background-color: #5E72E4; cursor: pointer;"
+      textoMes1.style="color: #FFFF"
+      
+    }
+
+  function horaDash2(){
+
+idHoraDash2.style="background-color: #5E72E4; cursor: pointer;"
+textoHora2.style="color:  #FFFF"
+
+idSemanaDash2.style="background-color:  #FFFF; cursor: pointer;"
+textoSemana2.style="color: #5e72e4; "
+
+idMesDash2.style="background-color: #FFFF; cursor: pointer;"
+textoMes2.style="color: #5e72e4;"
+
+
+}
+
+function semanaDash2() {
+
+idHoraDash2.style="background-color: #FFFF; cursor: pointer;"
+textoHora2.style="color: #5e72e4; "
+
+idSemanaDash2.style="background-color: #5E72E4; cursor: pointer;"
+textoSemana2.style="color: #FFFF; "
+
+idMesDash2.style="background-color: #FFFF; cursor: pointer;"
+textoMes2.style="color: #5e72e4; "
+
+
+
+}
+
+function mesDash2() {
+
+idHoraDash2.style="background-color: #FFFF; cursor: pointer;"
+textoHora2.style="color: #5e72e4"
+
+idSemanaDash2.style="background-color: #FFFF; cursor: pointer; "
+textoSemana2.style="color: #5e72e4 "
+
+idMesDash2.style="background-color: #5E72E4; cursor: pointer;"
+textoMes2.style="color: #FFFF"
+
+}
+
+function celsius() {
+
+  celsiusButton.style="color: #fff; background-color: #3350b9; cursor: pointer;"
+  fahrenheitButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  kelvinButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+
+}
+
+function fahrenheit() {
+  celsiusButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  fahrenheitButton.style="color: #fff; background-color: #3350b9; cursor: pointer;"
+  kelvinButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+}
+
+function kelvin() {
+  celsiusButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  fahrenheitButton.style=" color: #525f7f background-color: #fff; cursor: pointer;"
+  kelvinButton.style="color: #fff; background-color: #3350b9; cursor: pointer;"
+}
+
+</script>
+
+<script>
+  function download_csv(){
+    alert("ainda não está funcionando!")
+  }
+</script>
   <script>
     const ctx = document.getElementById('myChart');
 
     new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['12:05', '12:6', '12:07', '12:08', '12:09', '12:10'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Core 1',
+          data: [12, 19, 20, 28, 39, 22],
+          borderWidth: 1
+        },
+      {
+
+          label: 'Core 2',
+          data: [20, 15, 32, 14, 22, 31],
+          borderWidth: 1
+        },
+      {
+          label: 'Core 3',
+          data: [22, 19, 13, 35, 42, 33],
           borderWidth: 1
         }]
       },
@@ -994,15 +1199,25 @@
     const ctx1 = document.getElementById('chart-bars');
 
     new Chart(ctx1, {
-      type: 'bar',
+      type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['12:05', '12:6', '12:07', '12:08', '12:09', '12:10'],
         datasets: [{
-          label: '# of Votes',
+          label: 'memory-analytics',
           data: [12, 19, 3, 5, 2, 3],
           borderWidth: 1
-        }]
-      },
+        },
+      {
+          label: 'OHM',
+          data: [20, 30, 2, 7, 1, 4],
+          borderWidth: 2
+        },
+        {
+          label: 'CSV-Clima tempo',
+          data: [10, 20, 8, 4, 6, 10],
+          borderWidth: 2
+        }
+      ]},
       options: {
         scales: {
           y: {
@@ -1094,6 +1309,7 @@ function searchResults(city) {
          
         })
         .then(response => {
+          console.log("entrei no then")
             displayResults(response)
         });
 }
@@ -1107,7 +1323,7 @@ function displayResults(weather) {
     date.innerText = dateBuilder(now);
 
     let iconName = weather.weather[0].icon;
-    container_img.innerHTML = `<img src="../../assets/icons/${iconName}.png">`;
+    container_img.innerHTML = `<img src="../../assets/icons_clima/${iconName}.png">`;
 
     let temperature = `${Math.round(weather.main.temp)}`
     temp_number.innerHTML = temperature;
@@ -1115,8 +1331,7 @@ function displayResults(weather) {
 
     weather_tempo = weather.weather[0].description;
     weather_t.innerText = capitalizeFirstLetter(weather_tempo)
-
-    low_high.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
+      // low_high.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
 }
 
 function dateBuilder(d) {
@@ -1131,7 +1346,23 @@ function dateBuilder(d) {
     return `${day}, ${date} ${month} ${year}`;
 }
 
-container_temp.addEventListener('click', changeTemp)
+fahrenheitButton.addEventListener('click', changeTemp)
+function changeTemp() {
+    temp_number_now = temp_number.innerHTML
+
+    if (temp_unit.innerHTML === "°c") {
+        let f = (temp_number_now * 1.8) + 32
+        temp_unit.innerHTML = "°f"
+        temp_number.innerHTML = Math.round(f)
+    }
+    else {
+        let c = (temp_number_now - 32) / 1.8
+        temp_unit.innerHTML = "°c"
+        temp_number.innerHTML = Math.round(c)
+    }
+}
+
+celsiusButton.addEventListener('click', changeTemp)
 function changeTemp() {
     temp_number_now = temp_number.innerHTML
 

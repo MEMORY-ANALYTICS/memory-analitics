@@ -15,6 +15,10 @@ router.get("/getIdByApelidoLike/:apelidoServidor", function (req,res){
     servidorController.getIdByApelidoLike(req,res);
 });
 
+router.get("/getInfosServidor/:idServidor", function (req,res){
+    servidorController.getInfosServidor(req,res);
+});
+
 router.post("/atualizar", function (req, res){
     servidorController.atualizarServidor(req, res);
 });

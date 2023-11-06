@@ -31,10 +31,7 @@
   <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <!-- Argon CSS -->
   <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
-  <script src="./js/visualServer.js"></script>
-  <!-- choose one -->
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <script src="./js/server.js"></script>
 </head>
 
 <body>
@@ -387,48 +384,170 @@
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">
-              <h6 class="h2 text-white d-inline-block mb-0">Tables</h6>
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Tables</li>
-                </ol>
-              </nav>
-            </div>
-            <div class="col-lg-6 col-5 text-right">
-              <a href="#" class="btn btn-sm btn-neutral">New</a>
-              <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
+
+      <!-- Modal Editar-->
+      <div class="modal fade bd-example-modal-xl" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Editar Servidor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="w-100" id="cadastro_funcionario">
+
+                <div class="w-100 row mx-1">
+                  <div class="form-group col-xl-6">
+                    <label for="sistema_operacional">SISTEMA OPERACIONAL</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="sistema_operacional"
+                      placeholder="Linux"
+                    />
+                  </div>
+                  <div class="form-group col-xl-6">
+                      <label for="apelido_servidor">APELIDO DO SERVIDOR</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apelido_servidor"
+                        placeholder="HP-1235GA"
+                        disabled
+                      />
+                    </div>
+                </div>
+                <div class="mx-1 w-100 row">
+                  <div class="form-group col-xl-8">
+                    <label for="ip_server">IP DO SERVIDOR</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ip_server"
+                      placeholder="192.168.15.1"
+                    />
+                  </div>
+                  <div class="form-group col-xl-4">
+                      <label for="num_serie">NÚMERO DE SÉRIE DO SERVIDOR</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="num_serie"
+                        placeholder="SE53695"
+                      />
+                    </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button onclick="atualizarServidor()" type="button" class="btn btn-primary">Salvar mudanças</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Adicionar-->
+      <div class="modal fade bd-example-modal-xl" id="exampleModalCenterAdicionar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Servidor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="w-100" id="cadastro_funcionario">
+
+                <div class="w-100 row mx-1">
+                  <div class="form-group col-xl-6">
+                    <label for="sistema_operacional">SISTEMA OPERACIONAL</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="sistema_operacional_adicionar"
+                      placeholder="Linux"
+                    />
+                  </div>
+                  <div class="form-group col-xl-6">
+                      <label for="apelido_servidor">APELIDO DO SERVIDOR</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apelido_servidor_adicionar"
+                        placeholder="HP-1235GA"
+                      />
+                    </div>
+                </div>
+                <div class="mx-1 w-100 row">
+                  <div class="form-group col-xl-8">
+                    <label for="ip_server">IP DO SERVIDOR</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="ip_server_adicionar"
+                      placeholder="192.168.15.1"
+                    />
+                  </div>
+                  <div class="form-group col-xl-4">
+                      <label for="num_serie">NÚMERO DE SÉRIE DO SERVIDOR</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="num_serie_adicionar"
+                        placeholder="SE53695"
+                      />
+                    </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button onclick="cadastrarServidor()" type="button" class="btn btn-primary">Salvar mudanças</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+
       <div class="row">
         <div class="col">
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0">Servidores</h3>
+              <div class="d-flex justify-content-between">
+                <h3 class="mb-0">Servidores</h3>
+                <div class="col-lg-6 col-5 text-right">
+                  <a data-toggle="modal" data-target="#exampleModalCenterAdicionar" class="btn btn-sm btn-neutral">Adicionar</a>
+                </div>
+              </div>
             </div>
-            <!-- Light table --> 
+            <!-- Light table -->
             <div class="table-responsive">
-              <table class="table align-items-center table-flush" id="tableServers">
+              <table class="table align-items-center table-flush" >
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col" class="sort" data-sort="sisteMaOperacional">Sistema Operacional</th>
-                    <th scope="col" class="sort" data-sort="apelido">Apelido</th>
-                    <th scope="col" class="sort" data-sort="ip">IP</th>
-                    <th scope="col" class="sort" data-sort="numSerie">Número de Série</th>
-                    <th scope="col">Ações</th>
+                    <th scope="col" class="sort" data-sort="name">Sistema Operacional</th>
+                    <th scope="col" class="sort" data-sort="budget">Apelido</th>
+                    <th scope="col" class="sort" data-sort="status">IP Servidor</th>
+                    <th scope="col" class="sort" data-sort="completion">Número de Série</th>
+                    <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody class="list">
-                    
-                    &nbsp;
+                <tbody class="list" id="tableServers">
 
                 </tbody>
               </table>
@@ -461,9 +580,9 @@
             </div>
           </div>
         </div>
-        
+
       </div>
-      
+
       <!-- Footer -->
       <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">

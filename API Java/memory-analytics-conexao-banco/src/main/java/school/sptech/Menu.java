@@ -60,8 +60,18 @@ public class Menu {
         System.out.println("Numero de serie do servidor:");
         String numeroSerieServidor = leitorString.nextLine();
 
-        ServidorDao servidor = new ServidorDao(con);
-        servidor.adicionarServidor(apelidoServidor, numeroSerieServidor);
+        servidorDao.adicionarServidor(apelidoServidor, numeroSerieServidor);
+    }
+
+    public void adicionarRecurso() {
+        Conexao conexao = new Conexao();
+        JdbcTemplate con = conexao.getConexaoDoBanco();
+
+        System.out.println("Digite o id do componente no qual o recurso pertence:");
+        Integer fkComponente = leitor.nextInt();
+
+        //Fazer validação com select no banco para ver se o id componente existe e se ele é da memory analytics
+        recursoDao.adicionarRecursoCpu(fkComponente);
     }
 
     public void listarSevidores() {
@@ -72,6 +82,22 @@ public class Menu {
         System.out.println(servidor.selectAllServidor());
     }
 
+    public void menuRecursos(){
+        System.out.println("""
+          +--------------------------+
+          |         Recursos         |
+          +--------------------------+
+          | 1) Adicionar Recurso     |
+          | 2) Visualizar todos      |
+          | 3) Apenas CPU            |
+          | 4) Apenas RAM            |
+          | 5) Apenas Disco          |
+          | 6) Apenas Rede           |
+          +--------------------------+
+                
+                """);
+        opcoesRecursos(solicitarOpcao());
+    }
     public void menuRegistros(){
         System.out.println("""
           +--------------------------+
@@ -91,22 +117,45 @@ public class Menu {
     public void listarRegistros(Integer opcao) {
         Conexao conexao = new Conexao();
         JdbcTemplate con = conexao.getConexaoDoBanco();
-        RegistroDao registro = new RegistroDao(con);
 
         // Adicionar uma determinada quantidade de registros atuais antes de exibir
         if (opcao.equals(1)) {
-            System.out.println(registro.selectAllRegistros());
+            System.out.println(registroDao.selectAllRegistros());
         } else if (opcao.equals(2)) {
-            System.out.println(registro.selectAllRegistrosCpu());
+            System.out.println(registroDao.selectAllRegistrosCpu());
         } else if (opcao.equals(3)) {
-            System.out.println(registro.selectAllRegistroRam());
+            System.out.println(registroDao.selectAllRegistroRam());
         } else if (opcao.equals(4)) {
-            System.out.println(registro.selectAllRegistroDisco());
+            System.out.println(registroDao.selectAllRegistroDisco());
         } else if (opcao.equals(5)) {
             System.out.println("Em processo...");
         } else {
             exibirMenu();
         }
+
+    }
+
+    public void opcoesRecursos(Integer opcao) {
+        Conexao conexao = new Conexao();
+        JdbcTemplate con = conexao.getConexaoDoBanco();
+
+        // Adicionar uma determinada quantidade de registros atuais antes de exibir
+        if (opcao.equals(1)) {
+            System.out.println("Menu para adicionar recurso");
+        } else if (opcao.equals(2)) {
+            System.out.println(recursoDao.selectAllRecursosMemoryAnalytics());
+        } else if (opcao.equals(3)) {
+            System.out.println(recursoDao.selectAllRecursosCpu());
+        } else if (opcao.equals(4)) {
+            System.out.println(recursoDao.selectAllRecursosRam());
+        } else if (opcao.equals(5)) {
+            System.out.println(recursoDao.selectAllRecursosRam());
+        } else if (opcao.equals(6)){
+            System.out.println(recursoDao.selectAllRecursosRede());
+        }else {
+            exibirMenu();
+        }
+
     }
 
     public void exibirMensagemSair() {

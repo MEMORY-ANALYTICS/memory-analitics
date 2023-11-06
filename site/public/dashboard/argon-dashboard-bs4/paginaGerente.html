@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
   <meta name="author" content="Creative Tim">
-  <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+  <title>Dashboard - Gerente</title>
   <!-- Favicon -->
   <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
   <!-- Fonts -->
@@ -147,20 +147,6 @@
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Search form -->
-          <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
-            <div class="form-group mb-0">
-              <div class="input-group input-group-alternative input-group-merge">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
-                </div>
-                <input class="form-control" placeholder="Search" type="text">
-              </div>
-            </div>
-            <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main"
-              aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </form>
           <!-- Navbar links -->
           <ul class="navbar-nav align-items-center  ml-md-auto ">
             <li class="nav-item d-xl-none">
@@ -583,7 +569,7 @@
 
 
   function getEstadoGeralServ() {
-    fetch(`/dashboardG/getEstadoGeralServ/"Empresa C"`).then(function (resposta) {
+    fetch(`/dashboardG/getEstadoGeralServ/"Empresa A"`).then(function (resposta) {
       if (resposta.ok) {
 
         resposta.json().then(function (json) {
@@ -637,14 +623,23 @@
         resposta.json().then(function (json) {
 
           vt_dadosPicoDeUso = json[0].picosDeUso
+          var meses = [];
+          var mes = 4;
 
+          if (mes == 1 || mes == 2 || mes == 3 || mes == 4) {
+              meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho"]
+          }
+
+          // for (var i = 0; i < meses.length; i++) {
+          //   chartPicosDeUso.data.label.push
+          // }
 
           const ctx = document.getElementById('chartPicosDeUso');
 
           new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: ['Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro'],
+              labels: meses,
               datasets: [{
                 label: '# of Votes',
                 data: [vt_dadosPicoDeUso],

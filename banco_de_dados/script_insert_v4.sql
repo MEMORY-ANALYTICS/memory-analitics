@@ -39,7 +39,7 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, n
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),
-('Linux', 'mined', '192.168.1.4', 'SERV789', 10003);
+('Linux', 'mined', '192.168.1.4', 'SERV789', 10002);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -171,5 +171,25 @@ GROUP BY
 ORDER BY Data_Hora_Registro;
 
     select * from testeteste;
+    SELECT * FROM downtimeServidor;
+    select sum(tempoDowntime) from downtimeServidor 
+    JOIN servidor on fkServidor = idServidor WHERE fkEmpresa = 10002;
     
-    select * from downtimeServidor;
+    SELECT sum(tempoDowntime) tempoDowntime, 
+    CASE
+		WHEN sum(tempoDowntime) <= 60 THEN sum(tempoDowntime)
+        WHEN sum(tempoDowntime) <= 6000 THEN sum(tempoDowntime) / 60
+        ELSE sum(tempoDowntime) / 3600
+	END AS tempoDowntimeTrusted, fkEmpresa
+    FROM downtimeServidor 
+    JOIN servidor on fkServidor = idServidor
+        GROUP BY fkEmpresa;
+    
+	CREATE OR REPLACE VIEW getTempoDowntime AS SELECT sum(tempoDowntime) tempoDowntime, fkEmpresa
+    FROM downtimeServidor 
+    JOIN servidor on fkServidor = idServidor
+        GROUP BY fkEmpresa;
+        
+    
+SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10002;
+
