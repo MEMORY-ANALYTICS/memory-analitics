@@ -50,9 +50,9 @@ senha_input.style ='border-color: black'
           sessionStorage.NOME_EMPRESA_USUARIO = json[0].nomeEmpresa;
 
           if(sessionStorage.CARGO_USUARIO == "Gerente"){
-            window.location = "./dashboard/dashboard-bootstrap/dashboards/paginaGerente.html";
+            window.location = "./dashboard/argon-dashboard-bs4/paginaGerente.html";
           }else{
-            window.location = "./dashboard/dashboard-bootstrap/dashboards/paginaAnalista.html";
+            window.location = "./dashboard/argon-dashboard-bs4/paginaAnalista.html";
           }
 
         });

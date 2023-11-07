@@ -11,6 +11,16 @@ function getAll(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function getInfosFuncionario(idFuncionario) {
+  console.log(
+    "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+  );
+  var instrucao = `
+  SELECT * FROM Funcionario where idFuncionario = ${idFuncionario};`;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function cadastrarFuncionario(nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor){
     var instrucao = `INSERT INTO Funcionario VALUES (null, ${nomeFunc},${emailFunc},${telefoneFunc},${permissao},${fkEmpresa},${fkCargo},${fkSupervisor});`
     return database.executar(instrucao);
@@ -19,5 +29,6 @@ function cadastrarFuncionario(nomeFunc, emailFunc, telefoneFunc, permissao, fkEm
 
 module.exports = {
     getAll,
-    cadastrarFuncionario
+    cadastrarFuncionario,
+    getInfosFuncionario
 };
