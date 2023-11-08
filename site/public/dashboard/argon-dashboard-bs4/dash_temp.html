@@ -154,7 +154,7 @@
     <!-- Topnav -->
     <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
       <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="display: flex; justify-content:space-between; position: relative;">
 
           <!--            
             <div style="display: flex; justify-content: space-around; width: 50%;">
@@ -169,32 +169,32 @@
 
 
           <!-- Navbar links -->
-          <ul class="navbar-nav align-items-center  ml-md-auto ">
-            <li class="nav-item d-xl-none">
-              <!-- Sidenav toggler -->
-              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin"
-                data-target="#sidenav-main">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </div>
-            </li>
+          
+          <ul class="navbar-nav align-items-center" style="display: flex; justify-content: space-between">
+          
             <li class="nav-item d-sm-none">
               <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
                 <i class="ni ni-zoom-split-in"></i>
               </a>
             </li>
             <li>
-              <!--Notification_icon-->
-              <a id="notification" class="nav-link" style="cursor: pointer;" onclick="notification()">
-                <i class="ni ni-bell-55"></i>
-              </a>
+              <div class="sidenav-toggler-inner sidenav-toggler-dark" style="cursor: pointer; justify-content: start;" onclick="menu()">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </li>
+          
 
-
-
-              <div id="container_notification" style="display: none;">
+              <li>
+                <!--Notification_icon-->
+                <a id="notification" class="nav-link" style="cursor: pointer;" onmouseover="notification()" onmouseleave="notification_of()" onclick="">
+                  <i class="ni ni-bell-55"></i>
+                </a>
+                
+                
+                
+                <div id="container_notification" style="display: none; ">
                 <!-- Dropdown header -->
                 <div class="px-3 py-3">
                   <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">13</strong> notifications.
@@ -354,6 +354,7 @@
           </ul>
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
             <li class="nav-item dropdown">
+            
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
                 <div class="media align-items-center">
@@ -972,7 +973,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body">
+          <div class="card-body" >
 
             <div class="card text-center shadow-lg" style="max-width: 24rem;">
               <!--
@@ -1498,10 +1499,36 @@
   </script>
   <script>
     function notification() {
-      container_notification.style = 'display: block'
+      container_notification.style = 'display: block;'
+
+    }
+
+    function notification_of() {
+      container_notification.style = 'display: none;'
 
     }
   </script>
+
+  <script>
+    var menuVisivel = true;
+
+    function menu() {
+
+      const sidenav = document.querySelector('#sidenav-main');
+
+      if(menuVisivel){
+        sidenav.style = 'display: none';  
+        menuVisivel = false;
+      } else{
+        sidenav.style = 'display: block';
+        menuVisivel = true;
+
+      }
+
+
+    }
+  </script>
+
 </body>
 
 </html>
