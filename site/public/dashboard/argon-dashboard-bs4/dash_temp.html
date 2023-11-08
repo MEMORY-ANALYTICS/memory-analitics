@@ -629,39 +629,41 @@
                 <canvas id="myChart"></canvas>
               </div>
             </div>
-            <div class="card bg-default">
-              <div class="card-header bg-transparent">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <!--
+          </div>
+
+          <div class="card bg-default">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <!--
                             <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
                           -->
-                    <h5 class="h3 text-white mb-0">Comparação com dados externos</h5>
-                  </div>
-                  <div class="col">
-                    <ul class="nav nav-pills justify-content-end">
-                      <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                        <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash2" onclick="horaDash2()"
-                          style="background-color:  #5e72e4; cursor: pointer;">
-                          <span class="d-none d-md-block" onclick="horaDash2()" id="textoHora2"
-                            style="color: #fff;">Hora</span>
-  
-                        </a>
-                      <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                        <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()"
-                          style="cursor: pointer;">
-                          <span class="d-none d-md-block" onclick="semanaDash2()" id="textoSemana2">Semana</span>
-  
-                        </a>
-                      </li>
-                      <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                        <a class="nav-link py-2 px-3" data-toggle="tab" onclick="mesDash2()"
-                          style="border-radius: 10%; cursor: pointer;" id="idMesDash2">
-                          <span class="d-none d-md-block" id="textoMes2" onclick="mesDash2()">Mês</span>
-  
-                        </a>
-                      </li>
-                      <!--
+                  <h5 class="h3 text-white mb-0">Comparação com dados externos</h5>
+                </div>
+                <div class="col">
+                  <ul class="nav nav-pills justify-content-end">
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash2" onclick="horaDash2()"
+                        style="background-color:  #5e72e4; cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="horaDash2()" id="textoHora2"
+                          style="color: #fff;">Hora</span>
+
+                      </a>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()"
+                        style="cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="semanaDash2()" id="textoSemana2">Semana</span>
+
+                      </a>
+                    </li>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3" data-toggle="tab" onclick="mesDash2()"
+                        style="border-radius: 10%; cursor: pointer;" id="idMesDash2">
+                        <span class="d-none d-md-block" id="textoMes2" onclick="mesDash2()">Mês</span>
+
+                      </a>
+                    </li>
+                    <!--
                         <li class="nav-item" data-toggle="chart">
                           <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
     
@@ -670,19 +672,19 @@
                             </a>
                           </li>
                         -->
-                    </ul>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="card-body">
-                <!-- Chart -->
-                <div class="chart">
-                  <canvas id="chart-line" class="chart-canvas"></canvas>
+                  </ul>
                 </div>
               </div>
             </div>
+
+            <div class="card-body">
+              <!-- Chart -->
+              <div class="chart">
+                <canvas id="chart-line" class="chart-canvas"></canvas>
+              </div>
+            </div>
           </div>
+
           <div class="card">
             <div class="card-header border-0">
               <div class="row align-items-center">
@@ -845,129 +847,135 @@
               </table>
             </div>
           </div>
- 
-           <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Page visits</h3>
-                </div>
-                <div class="col text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">See all</a>
+        </div>
+
+        <!--
+
+            
+            <div class="card">
+              <div class="card-header border-0">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h3 class="mb-0">Page visits</h3>
+                  </div>
+                  <div class="col text-right">
+                    <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                  </div>
                 </div>
               </div>
+              <div class="table-responsive">
+              -->
+
+        <!-- Projects table 
+                
+                
+                <table class="table align-items-center table-flush">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Page name</th>
+                      <th scope="col">Visitors</th>
+                      <th scope="col">Unique users</th>
+                      <th scope="col">Bounce rate</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        /argon/
+                      </th>
+                      <td>
+                        4,569
+                      </td>
+                      <td>
+                        340
+                      </td>
+                      <td>
+                        <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        /argon/index.html
+                      </th>
+                      <td>
+                        3,985
+                      </td>
+                      <td>
+                        319
+                      </td>
+                      <td>
+                        <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        /argon/charts.html
+                      </th>
+                      <td>
+                        3,513
+                      </td>
+                      <td>
+                        294
+                      </td>
+                      <td>
+                        <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        /argon/tables.html
+                      </th>
+                      <td>
+                        2,050
+                      </td>
+                      <td>
+                        147
+                      </td>
+                      <td>
+                        <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        /argon/profile.html
+                      </th>
+                      <td>
+                        1,795
+                      </td>
+                      <td>
+                        190
+                      </td>
+                      <td>
+                        <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="table-responsive">
-
-              <!-- Projects table -->
+          -->
 
 
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">
-                      /argon/
-                    </th>
-                    <td>
-                      4,569
-                    </td>
-                    <td>
-                      340
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/index.html
-                    </th>
-                    <td>
-                      3,985
-                    </td>
-                    <td>
-                      319
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/charts.html
-                    </th>
-                    <td>
-                      3,513
-                    </td>
-                    <td>
-                      294
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/tables.html
-                    </th>
-                    <td>
-                      2,050
-                    </td>
-                    <td>
-                      147
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      /argon/profile.html
-                    </th>
-                    <td>
-                      1,795
-                    </td>
-                    <td>
-                      190
-                    </td>
-                    <td>
-                      <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          
-        </div>
-        
-          <div class="card">
-            <div class="card-header bg-transparent">
 
-              <div class="row align-items-center">
+        <div class="card">
+          <div class="card-header bg-transparent">
 
-                <div class="col">
-                  <!--
+            <div class="row align-items-center">
+
+              <div class="col">
+                <!--
                       <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
                     -->
-                  <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Temp. Região</h5>
-                  <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Local: Carolina do Norte
-                  </h5>
-                </div>
+                <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Temp. Região</h5>
+                <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Local: Carolina do Norte
+                </h5>
               </div>
             </div>
-            <div class="card-body">
+          </div>
+          <div class="card-body">
 
-              <div class="card text-center shadow-lg" style="max-width: 24rem;">
-                <!--
+            <div class="card text-center shadow-lg" style="max-width: 24rem;">
+              <!--
                 <div class="card-header">
 
                     <div class="input-group">
@@ -979,35 +987,35 @@
                     </div>
                   </div>
                 -->
-                <div class="card-body">
-                  <div class="city">Cidade exemplo</div>
-                  <div class="date">Domingo, 30 Novembro 2020</div>
-                  <div class="container-temp"
-                    style="display: flex; justify-content: center; font-size: 50px; font-weight: 900;">
-                    <div>22</div>
-                    <span>ºC</span>
-                  </div>
-                  <div class="container-img">
-                    <img src="../../assets/icons_clima/unknown.png" alt="">
-                  </div>
-
-                  <div class="weather">Nublado</div>
+              <div class="card-body">
+                <div class="city">Cidade exemplo</div>
+                <div class="date">Domingo, 30 Novembro 2020</div>
+                <div class="container-temp"
+                  style="display: flex; justify-content: center; font-size: 50px; font-weight: 900;">
+                  <div>22</div>
+                  <span>ºC</span>
                 </div>
+                <div class="container-img">
+                  <img src="../../assets/icons_clima/unknown.png" alt="">
+                </div>
+
+
+                <div class="weather">Nublado</div>
               </div>
-              <!-- Chart -->
+            </div>
+            <!-- Chart -->
 
 
-              <div class="chart">
-                <canvas id="chart-bars" class="chart-c"></canvas>
-              </div>
+            <div class="chart">
+              <canvas id="chart-bars" class="chart-c"></canvas>
+            </div>
 
 
 
-
-              <!--
-      <div class="row">
-        <div class="col-xl-8">
-          <div class="card bg-default">
+            <!--
+            <div class="row">
+            <div class="col-xl-8">
+              <div class="card bg-default">
             <div class="card-header bg-transparent">
               <div class="row align-items-center">
                 
@@ -1028,7 +1036,7 @@
                         
                       </a>
                     -->
-              <!--
+            <!--
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
 
                         <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()"
@@ -1038,7 +1046,7 @@
                       </a>
                     </li>
                     -->
-              <!--
+            <!--
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
 
                         <a class="nav-link py-2 px-3" data-toggle="tab" onclick="mesDash2()"
@@ -1048,7 +1056,7 @@
                       </a>
                     </li>
                   -->
-              <!--
+            <!--
                     <li class="nav-item" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
 
@@ -1063,25 +1071,25 @@
               </div>
             </div>
           -->
-            </div>
           </div>
         </div>
-
-
-
-
-        
-         
-        
-
       </div>
-          
 
-          
-        </div>
-               
-        <!-- Footer -->
-        <!--
+
+
+
+
+
+
+
+    </div>
+
+
+
+  </div>
+
+  <!-- Footer -->
+  <!--
 
         <footer class="footer pt-0">
           <div class="row align-items-center justify-content-lg-between">
@@ -1108,392 +1116,392 @@
           </div>
         </div>
       -->
-        </footer>
-      </div>
-    </div>
-    <!-- Argon Scripts -->
-    <!-- Core -->
-    <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/js-cookie/js.cookie.js"></script>
-    <script src="assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-    <!-- Optional JS -->
-    <script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
-    <!-- Argon JS -->
-    <script src="assets/js/argon.js?v=1.2.0"></script>
-    <!-- Chart.js-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      function horaDash1() {
+  </footer>
+  </div>
+  </div>
+  <!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <!-- Optional JS -->
+  <script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <!-- Argon JS -->
+  <script src="assets/js/argon.js?v=1.2.0"></script>
+  <!-- Chart.js-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    function horaDash1() {
 
-        idHoraDash1.style = "background-color: #5E72E4; cursor: pointer;"
-        textoHora1.style = "color:  #FFFF"
+      idHoraDash1.style = "background-color: #5E72E4; cursor: pointer;"
+      textoHora1.style = "color:  #FFFF"
 
-        idSemanaDash1.style = "background-color:  #FFFF; cursor: pointer;"
-        textoSemana1.style = "color: #5e72e4; "
+      idSemanaDash1.style = "background-color:  #FFFF; cursor: pointer;"
+      textoSemana1.style = "color: #5e72e4; "
 
-        idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
-        textoMes1.style = "color: #5e72e4;"
-
-
-      }
-
-      function semanaDash1() {
-
-        idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
-        textoHora1.style = "color: #5e72e4; "
-
-        idSemanaDash1.style = "background-color: #5E72E4; cursor: pointer;"
-        textoSemana1.style = "color: #FFFF; "
-
-        idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
-        textoMes1.style = "color: #5e72e4; "
+      idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
+      textoMes1.style = "color: #5e72e4;"
 
 
+    }
 
-      }
+    function semanaDash1() {
 
-      function mesDash1() {
+      idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
+      textoHora1.style = "color: #5e72e4; "
 
-        idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
-        textoHora1.style = "color: #5e72e4"
+      idSemanaDash1.style = "background-color: #5E72E4; cursor: pointer;"
+      textoSemana1.style = "color: #FFFF; "
 
-        idSemanaDash1.style = "background-color: #FFFF; cursor: pointer; "
-        textoSemana1.style = "color: #5e72e4 "
-
-        idMesDash1.style = "background-color: #5E72E4; cursor: pointer;"
-        textoMes1.style = "color: #FFFF"
-
-      }
-
-      function horaDash2() {
-
-        idHoraDash2.style = "background-color: #5E72E4; cursor: pointer;"
-        textoHora2.style = "color:  #FFFF"
-
-        idSemanaDash2.style = "background-color:  #FFFF; cursor: pointer;"
-        textoSemana2.style = "color: #5e72e4; "
-
-        idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
-        textoMes2.style = "color: #5e72e4;"
-
-
-      }
-
-      function semanaDash2() {
-
-        idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
-        textoHora2.style = "color: #5e72e4; "
-
-        idSemanaDash2.style = "background-color: #5E72E4; cursor: pointer;"
-        textoSemana2.style = "color: #FFFF; "
-
-        idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
-        textoMes2.style = "color: #5e72e4; "
+      idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
+      textoMes1.style = "color: #5e72e4; "
 
 
 
-      }
+    }
 
-      function mesDash2() {
+    function mesDash1() {
 
-        idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
-        textoHora2.style = "color: #5e72e4"
+      idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
+      textoHora1.style = "color: #5e72e4"
 
-        idSemanaDash2.style = "background-color: #FFFF; cursor: pointer; "
-        textoSemana2.style = "color: #5e72e4 "
+      idSemanaDash1.style = "background-color: #FFFF; cursor: pointer; "
+      textoSemana1.style = "color: #5e72e4 "
 
-        idMesDash2.style = "background-color: #5E72E4; cursor: pointer;"
-        textoMes2.style = "color: #FFFF"
+      idMesDash1.style = "background-color: #5E72E4; cursor: pointer;"
+      textoMes1.style = "color: #FFFF"
 
-      }
+    }
 
-      function celsius() {
+    function horaDash2() {
 
-        celsiusButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-        fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-        kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+      idHoraDash2.style = "background-color: #5E72E4; cursor: pointer;"
+      textoHora2.style = "color:  #FFFF"
 
-      }
+      idSemanaDash2.style = "background-color:  #FFFF; cursor: pointer;"
+      textoSemana2.style = "color: #5e72e4; "
 
-      function fahrenheit() {
-        celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-        fahrenheitButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-        kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-      }
+      idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
+      textoMes2.style = "color: #5e72e4;"
 
-      function kelvin() {
-        celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-        fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-        kelvinButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-      }
 
-    </script>
+    }
 
-    <script>
-      function download_csv() {
-        alert("ainda não está funcionando!")
-      }
-    </script>
-    <script>
-      const ctx = document.getElementById('myChart');
+    function semanaDash2() {
 
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ['12:05', '12:6', '12:07', '12:08', '12:09', '12:10'],
-          datasets: [{
-            label: 'Core 1',
-            data: [12, 19, 20, 28, 39, 22],
-            borderWidth: 1
-          },
-          {
+      idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
+      textoHora2.style = "color: #5e72e4; "
 
-            label: 'Core 2',
-            data: [20, 15, 32, 14, 22, 31],
-            borderWidth: 1
-          },
-          {
-            label: 'Core 3',
-            data: [22, 19, 13, 35, 42, 33],
-            borderWidth: 1
-          }]
+      idSemanaDash2.style = "background-color: #5E72E4; cursor: pointer;"
+      textoSemana2.style = "color: #FFFF; "
+
+      idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
+      textoMes2.style = "color: #5e72e4; "
+
+
+
+    }
+
+    function mesDash2() {
+
+      idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
+      textoHora2.style = "color: #5e72e4"
+
+      idSemanaDash2.style = "background-color: #FFFF; cursor: pointer; "
+      textoSemana2.style = "color: #5e72e4 "
+
+      idMesDash2.style = "background-color: #5E72E4; cursor: pointer;"
+      textoMes2.style = "color: #FFFF"
+
+    }
+
+    function celsius() {
+
+      celsiusButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
+      fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+      kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+
+    }
+
+    function fahrenheit() {
+      celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+      fahrenheitButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
+      kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+    }
+
+    function kelvin() {
+      celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+      fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+      kelvinButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
+    }
+
+  </script>
+
+  <script>
+    function download_csv() {
+      alert("ainda não está funcionando!")
+    }
+  </script>
+  <script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['12:05', '12:6', '12:07', '12:08', '12:09', '12:10'],
+        datasets: [{
+          label: 'Core 1',
+          data: [12, 19, 20, 28, 39, 22],
+          borderWidth: 1
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
+        {
 
-
-      const ctx1 = document.getElementById('chart-line');
-
-      new Chart(ctx1, {
-        type: 'line',
-        data: {
-          labels: ['12:05', '12:6', '12:07', '12:08', '12:09', '12:10'],
-          datasets: [{
-            label: 'memory-analytics',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1
-          },
-          {
-            label: 'OHM',
-            data: [20, 30, 2, 7, 1, 4],
-            borderWidth: 2
-          },
-          ]
+          label: 'Core 2',
+          data: [20, 15, 32, 14, 22, 31],
+          borderWidth: 1
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
+        {
+          label: 'Core 3',
+          data: [22, 19, 13, 35, 42, 33],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
           }
         }
-      });
+      }
+    });
 
-      const ctx2 = document.getElementById('chart-bars');
 
-      new Chart(ctx2, {
-        type: 'pie',
-        data: {
-          labels: ['céu limpo', 'nublado', 'tempaste'],
-          datasets: [{
-            label: 'temperatura',
-            data: [17, 22, 30],
-            borderWidth: 1
-          }
-          ]
+    const ctx1 = document.getElementById('chart-line');
+
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['12:05', '12:6', '12:07', '12:08', '12:09', '12:10'],
+        datasets: [{
+          label: 'memory-analytics',
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
+        {
+          label: 'OHM',
+          data: [20, 30, 2, 7, 1, 4],
+          borderWidth: 2
+        },
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
           }
         }
-      });
-    </script>
-
-
-    <script>
-      const api = {
-        key: "64ed82577ced7f69cb1687f0ce536131",
-        base: "https://api.openweathermap.org/data/2.5/",
-        lang: "pt_br",
-        units: "metric"
       }
+    });
 
-      const city = document.querySelector('.city')
-      const date = document.querySelector('.date');
-      const container_img = document.querySelector('.container-img');
-      const container_temp = document.querySelector('.container-temp');
-      const temp_number = document.querySelector('.container-temp div');
-      const temp_unit = document.querySelector('.container-temp span');
-      const weather_t = document.querySelector('.weather');
-      const search_input = document.querySelector('.form-control');
-      const search_button = document.querySelector('.btn');
-      const low_high = document.querySelector('.low-high');
+    const ctx2 = document.getElementById('chart-bars');
 
-
-      /*
-      window.addEventListener('load', () => {
-        //if ("geolocation" in navigator)
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(setPosition, showError);
+    new Chart(ctx2, {
+      type: 'pie',
+      data: {
+        labels: ['céu limpo', 'nublado', 'tempaste'],
+        datasets: [{
+          label: 'temperatura',
+          data: [17, 22, 30],
+          borderWidth: 1
         }
-        else {
-          alert('navegador não suporta geolozalicação');
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
-        function setPosition(position) {
-          console.log(position)
-          let lat = position.coords.latitude;
-          let long = position.coords.longitude;
-          coordResults(lat, long);
-        }
-        function showError(error) {
-          alert('Localização indisponível!');
-        }
-      })
-  
-      function coordResults(lat, long) {
-        fetch(`${api.base}weather?lat=${lat}&lon=${long}&lang=${api.lang}&units=${api.units}&APPID=${api.key}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`http error: status ${response.status}`)
-            }
-            return response.json();
-          })
-          .catch(error => {
-            alert("Cidade inválida!")
-          })
-          .then(response => {
-            displayResults(response)
-          });
       }
-      */
+    });
+  </script>
 
 
-      searchResults("Carolina do Norte")
+  <script>
+    const api = {
+      key: "64ed82577ced7f69cb1687f0ce536131",
+      base: "https://api.openweathermap.org/data/2.5/",
+      lang: "pt_br",
+      units: "metric"
+    }
+
+    const city = document.querySelector('.city')
+    const date = document.querySelector('.date');
+    const container_img = document.querySelector('.container-img');
+    const container_temp = document.querySelector('.container-temp');
+    const temp_number = document.querySelector('.container-temp div');
+    const temp_unit = document.querySelector('.container-temp span');
+    const weather_t = document.querySelector('.weather');
+    const search_input = document.querySelector('.form-control');
+    const search_button = document.querySelector('.btn');
+    const low_high = document.querySelector('.low-high');
 
 
-      /*
-      search_button.addEventListener('click', function () {
+    /*
+    window.addEventListener('load', () => {
+      //if ("geolocation" in navigator)
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(setPosition, showError);
+      }
+      else {
+        alert('navegador não suporta geolozalicação');
+      }
+      function setPosition(position) {
+        console.log(position)
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        coordResults(lat, long);
+      }
+      function showError(error) {
+        alert('Localização indisponível!');
+      }
+    })
+ 
+    function coordResults(lat, long) {
+      fetch(`${api.base}weather?lat=${lat}&lon=${long}&lang=${api.lang}&units=${api.units}&APPID=${api.key}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`http error: status ${response.status}`)
+          }
+          return response.json();
+        })
+        .catch(error => {
+          alert("Cidade inválida!")
+        })
+        .then(response => {
+          displayResults(response)
+        });
+    }
+    */
+
+
+    searchResults("Carolina do Norte")
+
+
+    /*
+    search_button.addEventListener('click', function () {
+      searchResults(search_input.value)
+    })
+ 
+    search_input.addEventListener('keypress', enter)
+    function enter(event) {
+      key = event.keyCode
+      if (key === 13) {
         searchResults(search_input.value)
-      })
-  
-      search_input.addEventListener('keypress', enter)
-      function enter(event) {
-        key = event.keyCode
-        if (key === 13) {
-          searchResults(search_input.value)
-        }
       }
-  
-      */
+    }
+ 
+    */
 
-      function searchResults(city) {
-        fetch(`${api.base}weather?q=${city}&lang=${api.lang}&units=${api.units}&APPID=${api.key}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`http error: status ${response.status}`)
+    function searchResults(city) {
+      fetch(`${api.base}weather?q=${city}&lang=${api.lang}&units=${api.units}&APPID=${api.key}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`http error: status ${response.status}`)
 
-            }
-            return response.json();
-          })
-          .catch(error => {
-            alert("Cidade inválida!")
+          }
+          return response.json();
+        })
+        .catch(error => {
+          alert("Cidade inválida!")
 
-          })
-          .then(response => {
-            console.log("entrei no then")
-            displayResults(response)
-          });
+        })
+        .then(response => {
+          console.log("entrei no then")
+          displayResults(response)
+        });
+    }
+
+    function displayResults(weather) {
+      console.log(weather)
+
+      city.innerText = `${weather.name}, ${weather.sys.country}`;
+
+      let now = new Date();
+      date.innerText = dateBuilder(now);
+
+      let iconName = weather.weather[0].icon;
+      container_img.innerHTML = `<img src="../../assets/icons_clima/${iconName}.png">`;
+
+      let temperature = `${Math.round(weather.main.temp)}`
+      temp_number.innerHTML = temperature;
+      temp_unit.innerHTML = `°c`;
+
+      weather_tempo = weather.weather[0].description;
+      weather_t.innerText = capitalizeFirstLetter(weather_tempo)
+      // low_high.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
+    }
+
+    function dateBuilder(d) {
+      let days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+      let months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julio", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+      let day = days[d.getDay()]; //getDay: 0-6
+      let date = d.getDate();
+      let month = months[d.getMonth()];
+      let year = d.getFullYear();
+
+      return `${day}, ${date} ${month} ${year}`;
+    }
+
+    fahrenheitButton.addEventListener('click', changeTemp)
+
+    function changeTemp() {
+      temp_number_now = temp_number.innerHTML
+
+      if (temp_unit.innerHTML === "°c") {
+        let f = (temp_number_now * 1.8) + 32
+        temp_unit.innerHTML = "°f"
+        temp_number.innerHTML = Math.round(f)
       }
-
-      function displayResults(weather) {
-        console.log(weather)
-
-        city.innerText = `${weather.name}, ${weather.sys.country}`;
-
-        let now = new Date();
-        date.innerText = dateBuilder(now);
-
-        let iconName = weather.weather[0].icon;
-        container_img.innerHTML = `<img src="../../assets/icons_clima/${iconName}.png">`;
-
-        let temperature = `${Math.round(weather.main.temp)}`
-        temp_number.innerHTML = temperature;
-        temp_unit.innerHTML = `°c`;
-
-        weather_tempo = weather.weather[0].description;
-        weather_t.innerText = capitalizeFirstLetter(weather_tempo)
-        // low_high.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
+      else {
+        let c = (temp_number_now - 32) / 1.8
+        temp_unit.innerHTML = "°c"
+        temp_number.innerHTML = Math.round(c)
       }
+    }
 
-      function dateBuilder(d) {
-        let days = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-        let months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julio", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    celsiusButton.addEventListener('click', changeTemp)
 
-        let day = days[d.getDay()]; //getDay: 0-6
-        let date = d.getDate();
-        let month = months[d.getMonth()];
-        let year = d.getFullYear();
+    function changeTemp() {
+      temp_number_now = temp_number.innerHTML
 
-        return `${day}, ${date} ${month} ${year}`;
+      if (temp_unit.innerHTML === "°c") {
+        let f = (temp_number_now * 1.8) + 32
+        temp_unit.innerHTML = "°f"
+        temp_number.innerHTML = Math.round(f)
       }
-
-      fahrenheitButton.addEventListener('click', changeTemp)
-
-      function changeTemp() {
-        temp_number_now = temp_number.innerHTML
-
-        if (temp_unit.innerHTML === "°c") {
-          let f = (temp_number_now * 1.8) + 32
-          temp_unit.innerHTML = "°f"
-          temp_number.innerHTML = Math.round(f)
-        }
-        else {
-          let c = (temp_number_now - 32) / 1.8
-          temp_unit.innerHTML = "°c"
-          temp_number.innerHTML = Math.round(c)
-        }
+      else {
+        let c = (temp_number_now - 32) / 1.8
+        temp_unit.innerHTML = "°c"
+        temp_number.innerHTML = Math.round(c)
       }
+    }
 
-      celsiusButton.addEventListener('click', changeTemp)
+    function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
-      function changeTemp() {
-        temp_number_now = temp_number.innerHTML
+  </script>
+  <script>
+    function notification() {
+      container_notification.style = 'display: block'
 
-        if (temp_unit.innerHTML === "°c") {
-          let f = (temp_number_now * 1.8) + 32
-          temp_unit.innerHTML = "°f"
-          temp_number.innerHTML = Math.round(f)
-        }
-        else {
-          let c = (temp_number_now - 32) / 1.8
-          temp_unit.innerHTML = "°c"
-          temp_number.innerHTML = Math.round(c)
-        }
-      }
-
-      function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
-
-    </script>
-    <script>
-      function notification() {
-        container_notification.style = 'display: block'
-
-      }
-    </script>
+    }
+  </script>
 </body>
 
 </html>
