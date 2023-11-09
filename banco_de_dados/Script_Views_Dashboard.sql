@@ -335,7 +335,22 @@ select * from medidacomponente;
 
 select idRegistro, valorRegistro, tipoMedida, unidadeMedida, dtHoraRegistro FROM registro left join medidaComponente on fkMedidaComponente = idMedidaComponente;
 
-# SERVIDORES INSTAVEIS
+select idRegistro, valorRegistro, unidadeMedida, tipoRecurso, tipoComponente, fkServidor FROM registro 
+left join medidaComponente on fkMedidaComponente = idMedidaComponente
+left join recurso on fkRecurso = idRecurso
+left join componente on fkComponente = idComponente
+left join servidor on fkServidor = idServidor
+where idMedidaComponente = 1;
+
+SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
+	JOIN empresa ON fkEmpresa = idEmpresa join login on idFuncionario = fkFuncionario 
+  WHERE email = 'joao@email.com' AND senha = 'senha123';
+  
+# DOWNTIME
+
+SELECT * FROM downtimeServidor;
+  
+# QUANTIDADE SERVIDORES INSTAVEIS
 
 CREATE OR REPLACE VIEW getServInstaveis as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServInstaveis
 FROM empresa e
@@ -349,16 +364,20 @@ GROUP BY e.nomeEmpresa;
 
 SELECT * FROM getServInstaveis;
 
-SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
-	JOIN empresa ON fkEmpresa = idEmpresa join login on idFuncionario = fkFuncionario 
-  WHERE email = 'joao@email.com' AND senha = 'senha123';
-  
-# DOWNTIME
-
-SELECT * FROM downtimeServidor;
-  
 
 # GERAL SERVIDORES
+
+CREATE OR REPLACE VIEW getServInstaveis as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServInstaveis
+FROM empresa e
+JOIN servidor s ON e.idEmpresa = s.fkEmpresa
+JOIN componente c ON s.idServidor = c.fkServidor
+JOIN registro r ON c.idComponente = r.fkRecurso
+JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
+WHERE (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+AND idMedidaComponente = 1
+GROUP BY e.nomeEmpresa;
+
+SELECT * FROM getServInstaveis;
 
 CREATE OR REPLACE VIEW getServAlertas as SELECT e.nomeEmpresa, COUNT(DISTINCT s.idServidor) AS qtdServAlertas
 FROM empresa e
@@ -498,11 +517,32 @@ AND idMedidaComponente = 1
 GROUP BY NomeEmpresa, MesAno, TipoComponente
 ORDER BY NomeEmpresa, MesAno, TipoComponente;
 
-SELECT SUM(ExcedeuLimites) picosDeUso FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa C' GROUP BY MesAno;
+SELECT SUM(ExcedeuLimites) picosDeUso, MesAno FROM limitesExcedidos WHERE NomeEmpresa = 'Empresa C' GROUP BY MesAno;
 
 
-SELECT DAY(dtHOraRegistro) FROM registro WHERE dtHoraRegistro > DATE_SUB(now(), INTERVAL 1 MONTH);
-SELECT valorRegistro FROM registro WHERE MONTH(dtHoraRegistro) = 10;
+SELECT idRegistro, MONTH(dtHoraRegistro), fkEmpresa, idServidor FROM registro rg
+JOIN recurso rc ON fkRecurso = idRecurso
+JOIN componente c ON fkComponente = idComponente
+JOIN servidor s ON fkServidor = idServidor
+JOIN medidaComponente ON fkMedidaComponente = idMedidaComponente
+WHERE 
+	rg.valorRegistro > limiteMax || rg.valorRegistro < limiteMin
+	AND	idMedidaComponente = 1;
+    
+SELECT  idServidor FROM registro rg
+JOIN recurso rc ON fkRecurso = idRecurso
+JOIN componente c ON fkComponente = idComponente
+JOIN servidor s ON fkServidor = idServidor
+JOIN medidaComponente ON fkMedidaComponente = idMedidaComponente
+WHERE 
+	rg.valorRegistro > limiteMax || rg.valorRegistro < limiteMin
+	AND	idMedidaComponente = 1
+    GROUP BY idServidor;
+
+
+SELECT * FROM registro WHERE dtHoraRegistro >= DATE_SUB(now(), INTERVAL 1 MONTH);
+SELECT idRegistro FROM registro WHERE MONTH(dtHoraRegistro) = 10;
+
 
 
 
