@@ -52,6 +52,7 @@ function getInfosFuncionario(idServidor) {
           email_funcionario.value = resposta[0].emailFunc;
           telefone_funcionario.value = resposta[0].telefoneFunc;
           cargo_funcionario.value = resposta[0].fkCargo;
+          permissao_funcionario.value = resposta[0].permissao;
         });
       } else {
         console.error("Nenhum dado encontrado ou erro na API");
@@ -131,3 +132,5 @@ function cadastrarFuncionario() {
     alert("Houve um erro ao tentar realizar o cadastro do Funcioario! 2");
   }
 }
+
+
