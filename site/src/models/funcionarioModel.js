@@ -22,13 +22,19 @@ function getInfosFuncionario(idFuncionario) {
 }
 
 function cadastrarFuncionario(nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor){
-    var instrucao = `INSERT INTO Funcionario VALUES (null, ${nomeFunc},${emailFunc},${telefoneFunc},${permissao},${fkEmpresa},${fkCargo},${fkSupervisor});`
+    var instrucao = `INSERT INTO Funcionario VALUES (null, '${nomeFunc}','${emailFunc}',${telefoneFunc},'${permissao}','${fkEmpresa}','${fkCargo}','${fkSupervisor}');`
     return database.executar(instrucao);
 }
-// Coloque os mesmos parâmetros aqui. Vá para a var instrucao
+
+function getLastId(fkEmpresa){
+  var instrucao = `SELECT idFuncionario FROM funcionario WHERE fkEmpresa = ${fkEmpresa} ORDER BY idFuncionario DESC LIMIT 1`;
+  return database.executar(instrucao);
+}
+
 
 module.exports = {
     getAll,
     cadastrarFuncionario,
-    getInfosFuncionario
+    getInfosFuncionario,
+    getLastId
 };
