@@ -83,8 +83,8 @@ idComponente INT PRIMARY KEY AUTO_INCREMENT,
 fabricante VARCHAR(45),
 nomeModelo VARCHAR(45),
 tipoComponente VARCHAR(45),
-limiteMin VARCHAR(45),
-limiteMax VARCHAR(45),
+limiteMin DOUBLE,
+limiteMax DOUBLE,
 fkServidor INT,
 FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
 );
