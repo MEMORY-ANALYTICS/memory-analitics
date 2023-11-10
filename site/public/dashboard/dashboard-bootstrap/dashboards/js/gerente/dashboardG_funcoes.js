@@ -10,7 +10,7 @@ var servCriticos
 
 
 function getEstadoGeralServ() {
-    fetch(`/dashboardG/getEstadoGeralServ/"Empresa A"`).then(function (resposta) {
+    fetch(`/dashboardG/getEstadoGeralServ/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
         if (resposta.ok) {
 
             resposta.json().then(function (json) {
@@ -56,7 +56,7 @@ function getEstadoGeralServ() {
 var vt_dadosPicoDeUso = [];
 
 function obterDadosGrafico() {
-    fetch(`/dashboardG/obterDadosGrafico/"Empresa C"`).then(function (resposta) {
+    fetch(`/dashboardG/obterDadosGrafico/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
         if (resposta.ok) {
 
             resposta.json().then(function (json) {
@@ -112,12 +112,12 @@ function obterDadosGrafico() {
 
 
 function getDowntime() {
-    fetch(`/dashboardG/getDowntime/10002`).then(function (resposta) {
+    fetch(`/dashboardG/getDowntime/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
         if (resposta.ok) {
             // console.log(resposta)
             resposta.json().then(function (json) {
                 // console.log(resposta)
-                var segundos = 4000
+                var segundos = json[0].tempoDowntime
 
                 if (segundos <= 60) {
                     downtime.innerHTML = `${segundos}s`
@@ -146,7 +146,7 @@ function getDowntime() {
 }
 
 function getServInstaveis() {
-    fetch(`/dashboardG/getServInstaveis/"Empresa A"`).then(function (resposta) {
+    fetch(`/dashboardG/getServInstaveis/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
         if (resposta.ok) {
             // console.log(resposta)
             resposta.json().then(function (json) {
@@ -197,6 +197,6 @@ function getCompProblematico() {
 
 getEstadoGeralServ(); setInterval(getEstadoGeralServ, 2000);
 obterDadosGrafico();
-getDowntime();
+getDowntime(); setInterval(getDowntime, 2000);
 getServInstaveis();
 getCompProblematico();
