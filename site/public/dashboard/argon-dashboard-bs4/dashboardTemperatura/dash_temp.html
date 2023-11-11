@@ -596,9 +596,27 @@
                   <!--
                     <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
                   -->
-                  <h5 class="h3 text-white mb-0">Gráfico de temperatura (Cores)</h5>
+                  <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">Gráfico de temperatura</h5>
+                  <ul class="nav nav-pills justify-content" style="justify-content: start;">
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3" data-toggle="tab" id="coreBackground" onclick="core()"
+                        style="background-color:  #5e72e4; cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="core()" id="coreSpan"
+                          style="color: #fff;">CORE</span>
+
+                      </a>
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
+                      <a class="nav-link py-2 px-3 " data-toggle="tab" id="cpuBackground" onclick="cpu()"
+                        style="cursor: pointer;">
+                        <span class="d-none d-md-block" onclick="cpu()" id="cpuSpan">CPU</span>
+
+                      </a>
+                    </li>
                 </div>
                 <div class="col">
+                  <ul></ul>
+                
+
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
                       <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash1" onclick="horaDash1()"
@@ -1236,6 +1254,22 @@
       idMesDash2.style = "background-color: #5E72E4; cursor: pointer;"
       textoMes2.style = "color: #FFFF"
 
+    }
+
+    function core(){
+      coreBackground.style = "background-color:#5E72E4; cursor: pointer; "
+      coreSpan.style = "color: #FFFF"
+
+      cpuBackground.style = "background-color: #FFFF; cursor: pointer;"
+      cpuSpan.style = "color: #5e72e4"
+    }
+
+    function cpu(){
+      cpuBackground.style = "background-color:#5E72E4; cursor: pointer; "
+      cpuSpan.style = "color: #FFFF"
+
+      coreBackground.style = "background-color: #FFFF; cursor: pointer;"
+      coreSpan.style = "color: #5e72e4"
     }
 
     function celsius() {
