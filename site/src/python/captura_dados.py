@@ -5,19 +5,21 @@ import psutil
 from connection import executar,executarProcedure
 from message import mensagem_slack
 
-# nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
-nome_user = 'Servidor C'
+nome_user = psutil.users()[0][0] # Pega o nome do usuario da máquina e o utiliza para descobrir o idServidor.
+# nome_user = 'Servidor C'
 id_server = executar(f"SELECT idServidor FROM servidor WHERE apelidoServidor = '{nome_user}';")
 if id_server == []:
     verificacao = False
+    print(nome_user)
+    print(verificacao)
 else:
     
     id_server = id_server[0][0]
     verificacao = True
-    bcpu = False
-    bram = False
-    bdisco = False
-    brede = False
+    bcpu = True
+    bram = True
+    bdisco = True
+    brede = True
 
     lista_componentes = executar(
     f"SELECT * FROM componente WHERE fkServidor = {id_server};")
