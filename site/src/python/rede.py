@@ -75,3 +75,10 @@ print("\naaa = " + str(endereco_interface_card))
 
 # print(psutil.net_if_stats())
 print(psutil.net_if_stats().get('wlo2').isup)
+
+
+# def get_mac_address():
+#     return psutil.net_if_addrs()[0].address
+
+# mac_address = get_mac_address()
+# print(mac_address)
