@@ -4,20 +4,30 @@ nomeLogin.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
 
 // Pegando estado geral dos servidores
-var servSeguros
-var servAlertas
-var servCriticos
-
 
 function getEstadoGeralServ() {
-    fetch(`/dashboardG/getEstadoGeralServ/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
+    fetch(`/dashboardG/getEstadoGeralServ/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
         if (resposta.ok) {
 
             resposta.json().then(function (json) {
 
-                servSeguros = json[0].qtdServSeguros;
-                servAlertas = json[0].qtdServAlertas;
-                servCriticos = json[0].qtdServInstaveis;
+                servSeguros = 0
+                servAlertas = 0
+                servCriticos = 0
+
+
+                for (var i = 0; i < json.length; i++) {
+                    idEstado = json[i].Estado
+                    qtdServidores = json[i].qtdServers
+
+                    if(idEstado === 1) {
+                        servSeguros = qtdServidores
+                    } else if (idEstado === 2) {
+                        servAlertas = qtdServidores
+                    } else if (idEstado === 3) {
+                        servCriticos = qtdServidores
+                    }
+                }
 
                 const ctx1 = document.getElementById('chart-bars');
 
@@ -54,20 +64,21 @@ function getEstadoGeralServ() {
 
 // Pegando picos de uso
 var vt_dadosPicoDeUso = [];
+var vt_diaMesPicoDeUso = [];
 
 function obterDadosGrafico() {
-    fetch(`/dashboardG/obterDadosGrafico/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
+    fetch(`/dashboardG/obterDadosGrafico/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
         if (resposta.ok) {
 
             resposta.json().then(function (json) {
 
-                vt_dadosPicoDeUso = json[0].picosDeUso
-                var meses = [];
-                var mes = 4;
-
-                if (mes == 1 || mes == 2 || mes == 3 || mes == 4) {
-                    meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho"]
+                for (i = 0; i < json.length; i++) {
+                    var registro = json[i];
+                    vt_dadosPicoDeUso.push(registro.picosDeUso)
+                    vt_diaMesPicoDeUso.push(registro.DiaMes)
                 }
+
+                
 
                 // for (var i = 0; i < meses.length; i++) {
                 //   chartPicosDeUso.data.label.push
@@ -78,10 +89,10 @@ function obterDadosGrafico() {
                 new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: meses,
+                        labels: vt_diaMesPicoDeUso,
                         datasets: [{
                             label: '# of Votes',
-                            data: [vt_dadosPicoDeUso],
+                            data: vt_dadosPicoDeUso,
                             borderWidth: 1
                         }]
                     },
@@ -145,27 +156,27 @@ function getDowntime() {
     });
 }
 
-function getServInstaveis() {
-    fetch(`/dashboardG/getServInstaveis/"${sessionStorage.NOME_EMPRESA_USUARIO}"`).then(function (resposta) {
+function getServCriticos() {
+    fetch(`/dashboardG/getServCriticos/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
         if (resposta.ok) {
             // console.log(resposta)
             resposta.json().then(function (json) {
                 // console.log(resposta)
-                var numServInstaveis = json[0].qtdServInstaveis
+                var numServCriticos = json[0].qtdServCriticos
                 // console.log("Dados recebidos: ", JSON.stringify(json));
                 console.log = (json)
 
-                if (numServInstaveis == 0) {
+                if (numServCriticos == 0) {
                     icon_servInstaveis.classList.remove("bg-gradient-danger")
                     icon_servInstaveis.classList.add("bg-gradient-info")
                 } else {
                     icon_servInstaveis.classList.remove("bg-gradient-blue")
                     icon_servInstaveis.classList.add("bg-gradient-danger")
-                    servInstaveis.style = "color: #f5365c;"
+                    servCriticosKPI.style = "color: #f5365c;"
 
                 }
 
-                servInstaveis.innerHTML = numServInstaveis
+                servCriticosKPI.innerHTML = numServCriticos
             });
         } else {
             throw ('Houve um erro na API!');
@@ -198,5 +209,5 @@ function getCompProblematico() {
 getEstadoGeralServ(); setInterval(getEstadoGeralServ, 2000);
 obterDadosGrafico();
 getDowntime(); setInterval(getDowntime, 2000);
-getServInstaveis();
+getServCriticos();
 getCompProblematico();
