@@ -48,6 +48,7 @@ senha_input.style ='border-color: black'
           sessionStorage.CARGO_USUARIO = json[0].fkCargo == 1 ? "Gerente" : "Analista";
           sessionStorage.EMPRESA_USUARIO = json[0].fkEmpresa;
           sessionStorage.NOME_EMPRESA_USUARIO = json[0].nomeEmpresa;
+          sessionStorage.IDSUPERVISOR = json[0].idFuncionario;
 
           if(sessionStorage.CARGO_USUARIO == "Gerente"){
             window.location = "./dashboard/argon-dashboard-bs4/paginaGerente.html";

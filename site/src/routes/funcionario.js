@@ -7,8 +7,13 @@ var funcionarioController = require("../controllers/funcionarioController");
 router.get("/getAll/:fkEmpresa", function (req, res){
     funcionarioController.getAll(req, res);
 });
-
+router.post("/cadastrarFuncionario", function (req, res){
+    funcionarioController.cadastrarFuncionario(req, res);
+});
 router.get("/getInfosFuncionario/:idFuncionario", function (req, res){
     funcionarioController.getInfosFuncionario(req, res);
+});
+router.get("/getLastId/:fkEmpresa", function (req, res){
+    funcionarioController.getLastId(req, res);
 });
 module.exports = router;

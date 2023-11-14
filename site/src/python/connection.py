@@ -41,6 +41,7 @@ def executar(instrucao):
         else:
             conexao.commit()
     except mysql.connector.Error as erro:
+        print(instrucao)
         print("Erro ao executar comando!")
         print(erro)
     conexao.close()

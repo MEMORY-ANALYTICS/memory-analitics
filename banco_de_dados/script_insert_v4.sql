@@ -14,7 +14,8 @@ INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
 INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
 ('12345678', 'Rua A', 123, 'Cidade A', 'Estado A', 10000),
 ('23456789', 'Rua B', 456, 'Cidade B', 'Estado B', 10001),
-('34567890', 'Rua C', 789, 'Cidade C', 'Estado C', 10002);
+('34567890', 'Rua C', 789, 'Cidade C', 'Estado C', 10002),
+('51462073', 'Rua D', 066, 'Cidade D', 'Estado D', 10003);
 
 -- Inserir dados na tabela 'cargo'
 INSERT INTO cargo (nomeCargo) VALUES
@@ -26,39 +27,62 @@ INSERT INTO cargo (nomeCargo) VALUES
 INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor) VALUES
 ('João', 'joao@email.com', '11122233344', 'A', 10000, 1, NULL),
 ('Maria', 'maria@email.com', '22233344455', 'A', 10001, 2, 100000),
-('Pedro', 'pedro@email.com', '33344455566', 'B', 10002, 3, 100000);
+('Pedro', 'pedro@email.com', '33344455566', 'B', 10002, 3, 100000),
+('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL);
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('joao@email.com', 'senha123', 100000),
 ('maria456', 'senha456', 100001),
-('pedro789', 'senha789', 100002);
+('pedro789', 'senha789', 100002),
+('daniel@email.com', 'senhaDaniel', 100003);
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),
-('Linux', 'mined', '192.168.1.4', 'SERV789', 10002);
+('Linux', 'mined', '192.168.1.4', 'SERV789', 10002),
+('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
+('Windows', 'Servidor D', '192.168.1.7', 'SERV421', 10002),
+('Windows', 'Servidor E', '192.168.1.5', 'SERV623', 10002);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
-('Intel', 'Xeon', 'CPU', '2000','4000',1), -- CPU
-('Corsair', 'Vengeance', 'RAM', '0','16',1), -- RAM
-('WD', 'Black', 'DISCO', '0','500',1), -- DISCO
-('TPLink','NP3200','REDE','1','1000',1), -- REDE
-('Intel', 'Xeon', 'CPU', '2000','4000',2),
-('Corsair', 'Vengeance', 'RAM', '0','16',2), 
-('WD', 'Black', 'DISCO', '0','500',2),
-('TPLink','NP3200','REDE','1','1000',2), 
-('Intel', 'Xeon', 'CPU', '2000','4000',3),
-('Corsair', 'Vengeance', 'RAM', '0','16',3), 
-('WD', 'Black', 'DISCO', '0','500',3), 
-('TPLink','NP3200','REDE','1','1000',3),
-('Intel', 'Xeon', 'CPU', '2000','4000',4),
-('Corsair', 'Vengeance', 'RAM', '0','16',4), 
-('WD', 'Black', 'DISCO', '0','500',4), 
-('TPLink','NP3200','REDE','1','1000',4);
+('Intel', 'Xeon', 'CPU', 2, 10, 1), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 1), -- REDE
+
+('Intel', 'Xeon', 'CPU', 2, 10, 2), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 2), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 2), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 2), -- REDE
+
+('Intel', 'Xeon', 'CPU', 2, 10, 3), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 3), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 3), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 3), -- REDE
+
+('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 4), -- REDE
+
+('Intel', 'Xeon', 'CPU', 2, 10, 5), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 5), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 5), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 5), -- REDE
+
+('Intel', 'Xeon', 'CPU', 2, 10, 6), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 6), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 6), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 6), -- REDE
+
+('Intel', 'Xeon', 'CPU', 2, 10, 7), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 7), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 7), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 7); -- REDE
 
 select * from medidaComponente;
 INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
@@ -175,15 +199,6 @@ ORDER BY Data_Hora_Registro;
     select sum(tempoDowntime) from downtimeServidor 
     JOIN servidor on fkServidor = idServidor WHERE fkEmpresa = 10002;
     
-    SELECT sum(tempoDowntime) tempoDowntime, 
-    CASE
-		WHEN sum(tempoDowntime) <= 60 THEN sum(tempoDowntime)
-        WHEN sum(tempoDowntime) <= 6000 THEN sum(tempoDowntime) / 60
-        ELSE sum(tempoDowntime) / 3600
-	END AS tempoDowntimeTrusted, fkEmpresa
-    FROM downtimeServidor 
-    JOIN servidor on fkServidor = idServidor
-        GROUP BY fkEmpresa;
     
 	CREATE OR REPLACE VIEW getTempoDowntime AS SELECT sum(tempoDowntime) tempoDowntime, fkEmpresa
     FROM downtimeServidor 

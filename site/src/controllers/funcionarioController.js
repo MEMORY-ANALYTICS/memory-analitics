@@ -18,6 +18,24 @@ function getAll(req, res){
         res.status(500).json(erro.sqlMessage);	
     });	
 }	
+function getLastId(req, res){	
+    var fkEmpresa = req.params.fkEmpresa;	
+    console.log('Estou no Controller com o valor de:' + fkEmpresa)	
+
+    funcionarioModel.getLastId(fkEmpresa)	
+    .then(function (resultado) {	
+        if (resultado.length > 0) {	
+            res.status(200).json(resultado);	
+            console.log("Resultado da Controller:"+ resultado);	
+        } else {	
+            res.status(204).send("Nenhum resultado encontrado!")	
+        }	
+    }).catch(function (erro) {	
+        console.log(erro);	
+        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+        res.status(500).json(erro.sqlMessage);	
+    });	
+}	
 
 function getInfosFuncionario(req, res){	
     var idFuncionario = req.params.idFuncionario;	
@@ -42,7 +60,7 @@ function cadastrarFuncionario(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nomeFunc = req.body.nomeFunc;
     var emailFunc = req.body.emailFunc;
-    var telefoneFunc = req.body.telCelularFunc;
+    var telefoneFunc = req.body.telefoneFunc;
     var permissao = req.body.permissao;
     var fkEmpresa = req.body.fkEmpresa;
     var fkCargo = req.body.fkCargo;
@@ -69,7 +87,7 @@ function cadastrarFuncionario(req, res) {
     else {
 
         // Passe os valores como parâmetro e vá para o arquivo FuncModel.js
-        funcionarioModel.cadastrarFuncionario()
+        funcionarioModel.cadastrarFuncionario(nomeFunc,emailFunc,telefoneFunc,permissao,fkEmpresa,fkCargo,fkSupervisor)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -90,5 +108,6 @@ function cadastrarFuncionario(req, res) {
 module.exports = {	
     getAll,
     cadastrarFuncionario,
-    getInfosFuncionario
+    getInfosFuncionario,
+    getLastId
 };	

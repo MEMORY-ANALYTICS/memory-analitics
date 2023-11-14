@@ -8,7 +8,15 @@ router.post("/cadastrar", function (req, res){
     componenteController.cadastrarComponente(req, res);
 });
 
+router.post("/alterar", function (req, res){
+    componenteController.alterarComponente(req, res);
+});
+
 router.get("/getAll/:fkEmpresa", function(req,res){
     componenteController.getAll(req,res);
+})
+
+router.get("/getInfosComponente/:idComponente", function(req,res){
+    componenteController.getInfosComponente(req,res);
 })
 module.exports = router; 
