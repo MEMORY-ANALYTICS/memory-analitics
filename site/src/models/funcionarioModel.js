@@ -31,10 +31,18 @@ function getLastId(fkEmpresa){
   return database.executar(instrucao);
 }
 
+function cadastrarLogin(email, senha, fkFuncionario){
+  var instrucao = `INSERT INTO login VALUES(null, '${email}','${senha}',${fkFuncionario});`;
+  return database.executar(instrucao);
+}
+
+
+
 
 module.exports = {
     getAll,
     cadastrarFuncionario,
     getInfosFuncionario,
-    getLastId
+    getLastId,
+    cadastrarLogin
 };

@@ -105,9 +105,44 @@ function cadastrarFuncionario(req, res) {
     }
 }
 
+function cadastrarLogin(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var email = req.body.email;
+    var senha = req.body.senha;
+    var fkFuncionario = req.body.fkFuncionario
+    // Faça as validações dos valores
+    if (email == undefined) {
+        res.status(400).send("email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("senha está undefined!");
+    } else if (fkFuncionario == undefined) {
+        res.status(400).send("fkFuncionario está undefined!");
+    } 
+    else {
+
+        // Passe os valores como parâmetro e vá para o arquivo FuncModel.js
+        funcionarioModel.cadastrarLogin(email,senha,fkFuncionario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro de Login! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {	
     getAll,
     cadastrarFuncionario,
     getInfosFuncionario,
-    getLastId
+    getLastId,
+    cadastrarLogin
 };	

@@ -41,9 +41,9 @@ function getAllFuncionarios(fkEmpresa) {
     });
 }
 
-function getInfosFuncionario(idServidor) {
-  console.log(idServidor);
-  fetch(`/funcionario/getInfosFuncionario/${idServidor}`)
+function getInfosFuncionario(fkEmpresa) {
+  console.log(fkEmpresa);
+  fetch(`/funcionario/getInfosFuncionario/${fkEmpresa}`)
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (resposta) {
@@ -119,6 +119,7 @@ function cadastrarFuncionario() {
           console.log("Cadastrado com sucesso!");
           document.getElementById("tableFuncionarios").innerHTML = "";
           getAllFuncionarios(sessionStorage.getItem("EMPRESA_USUARIO"));
+          getLastId(fkEmpresa);
         } else {
           throw alert(
             "Houve um erro ao tentar realizar o cadastro do Funcionario! 1"
@@ -131,6 +132,78 @@ function cadastrarFuncionario() {
   } else {
     alert("Houve um erro ao tentar realizar o cadastro do Funcioario! 2");
   }
+  
+  console.log(getLastId(fkEmpresa));
 }
 
+function getLastId(fkEmpresa) {
+  console.log(fkEmpresa);
+  fetch(`/funcionario/getLastId/${fkEmpresa}`)
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          localStorage.LASTID = resposta[0].idFuncionario;
+          console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
+        });
+      } else {
+        console.error("Nenhum dado encontrado ou erro na API");
+      }
+    })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ Usuario: ${error.message}`);
+    });
+}
 
+function cadastrarLogin() {
+  var erro = false;
+  var email = email_funcionario_adicionar.value;
+  var senha = senha_funcionario_adicionar.value;
+  var fkFuncionario = localStorage.getItem("LASTID");
+
+  if (email == "") {
+    email_funcionario_adicionar.style = "border-color: red !important";
+    erro = true;
+  }
+  if (senha == "") {
+    senha_funcionario_adicionar.style = "border-color: red !important";
+    erro = true;
+  }
+  if (fkFuncionario == "" || undefined) {
+    erro = true;
+    alert("fkFuncionario não pode ser nulo!");
+  }
+  if (!erro) {
+    fetch(`/funcionario/cadastrarLogin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        senha: senha,
+        fkFuncionario: fkFuncionario,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          console.log("Login cadsatrado com sucesso!");
+        } else {
+          throw alert(
+            "Houve um erro ao tentar realizar o cadastro do Login! 1"
+          );
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  } else {
+    alert("Houve um erro ao tentar realizar o cadastro do Login! 2");
+  }
+}
+
+async function realizarCadastroCompleto() {
+  await cadastrarFuncionario();
+  cadastrarLogin();
+}
