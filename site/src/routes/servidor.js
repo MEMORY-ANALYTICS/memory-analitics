@@ -22,4 +22,8 @@ router.get("/getInfosServidor/:idServidor", function (req,res){
 router.post("/atualizar", function (req, res){
     servidorController.atualizarServidor(req, res);
 });
+
+router.post("/deleteServidor/:idServidor", function(req,res){
+    servidorController.deleteServidor(req,res);
+});
 module.exports = router; 

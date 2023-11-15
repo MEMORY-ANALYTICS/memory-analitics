@@ -32,7 +32,7 @@ function getAllServers(fkEmpresa) {
                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="getInfosServidor(${resposta[i].idServidor})">
                         Editar     
                   </a>
-                  <a class="dropdown-item" href="#">Deletar</a>
+                  <a class="dropdown-item" onclick="deleteServidor(${resposta[i].idServidor})">Deletar</a>
                 </div>
               </div>
             </td>
@@ -189,3 +189,49 @@ function cadastrarServidor() {
     alert("Houve um erro ao tentar realizar o cadastro do Servidor!")
   }
 } 
+
+function deleteServidor(idServidor) {
+  Swal.fire({
+    title: "Deseja realmente deletar este servidor?",
+    showDenyButton: false,
+    showCancelButton: true,
+    confirmButtonText: "Deletar",
+    denyButtonText: `Don't save`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      let erro = false;
+
+      if(idServidor == null || idServidor == undefined){
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/servidor/deleteServidor/${idServidor}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+              Swal.fire("Servidor Deletado com sucesso!", "", "success");
+              tableServers.innerHTML = "";
+              getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o delete do Servidor!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      }
+
+    } else if (result.isDenied) {
+      Swal.fire("Mudanças não efetuadas!", "", "info");
+    }
+  });
+}

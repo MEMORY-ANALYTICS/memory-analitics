@@ -304,10 +304,7 @@ function deleteComponente(idComponente) {
       }
 
     } else if (result.isDenied) {
-      Swal.fire("Changes are not saved", "", "info");
+      Swal.fire("Mudanças não efetuadas!", "", "info");
     }
   });
-  
- 
- 
 }
