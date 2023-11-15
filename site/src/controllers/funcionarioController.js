@@ -139,10 +139,50 @@ function cadastrarLogin(req, res) {
     }
 }
 
+function deleteFuncionario(req, res){	
+    var idFuncionario = req.params.idFuncionario;	
+    console.log('Estou no Controller com o valor de:' + idFuncionario)	
+
+    funcionarioModel.deleteFuncionario(idFuncionario)	
+    .then(function (resultado) {	
+        if (resultado.length > 0) {	
+            res.status(200).json(resultado);	
+            console.log("Resultado da Controller:"+ resultado);	
+        } else {	
+            res.status(204).send("Nenhum resultado encontrado!")	
+        }	
+    }).catch(function (erro) {	
+        console.log(erro);	
+        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+        res.status(500).json(erro.sqlMessage);	
+    });	
+}	
+
+function deleteLogin(req, res){	
+    var fkFuncionario = req.params.fkFuncionario;	
+    console.log('Estou no Controller com o valor de:' + fkFuncionario)	
+
+    funcionarioModel.deleteLogin(fkFuncionario)	
+    .then(function (resultado) {	
+        if (resultado.length > 0) {	
+            res.status(200).json(resultado);	
+            console.log("Resultado da Controller:"+ resultado);	
+        } else {	
+            res.status(204).send("Nenhum resultado encontrado!")	
+        }	
+    }).catch(function (erro) {	
+        console.log(erro);	
+        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+        res.status(500).json(erro.sqlMessage);	
+    });	
+}	
+
 module.exports = {	
     getAll,
     cadastrarFuncionario,
     getInfosFuncionario,
     getLastId,
-    cadastrarLogin
+    cadastrarLogin,
+    deleteFuncionario,
+    deleteLogin
 };	

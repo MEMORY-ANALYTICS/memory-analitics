@@ -36,13 +36,22 @@ function cadastrarLogin(email, senha, fkFuncionario){
   return database.executar(instrucao);
 }
 
+function deleteFuncionario(idFuncionario){
+  var instrucao = `DELETE FROM funcionario WHERE idFuncionario = ${idFuncionario};`;
+  return database.executar(instrucao);
+}
 
-
+function deleteLogin(fkFuncionario){
+  var instrucao = `DELETE FROM login WHERE fkFuncionario = ${fkFuncionario};`;
+  return database.executar(instrucao);
+}
 
 module.exports = {
     getAll,
     cadastrarFuncionario,
     getInfosFuncionario,
     getLastId,
-    cadastrarLogin
+    cadastrarLogin,
+    deleteFuncionario,
+    deleteLogin
 };

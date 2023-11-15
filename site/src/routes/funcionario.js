@@ -19,4 +19,11 @@ router.get("/getInfosFuncionario/:idFuncionario", function (req, res){
 router.get("/getLastId/:fkEmpresa", function (req, res){
     funcionarioController.getLastId(req, res);
 });
+router.post("/deleteFuncionario/:idFuncionario", function (req, res){
+    funcionarioController.deleteFuncionario(req, res);
+});
+
+router.post("/deleteLogin/:fkFuncionario", function (req, res){
+    funcionarioController.deleteLogin(req, res);
+});
 module.exports = router;

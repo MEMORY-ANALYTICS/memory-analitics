@@ -23,7 +23,7 @@ function getAllFuncionarios(fkEmpresa) {
                       <a class="dropdown-item" data-toggle="modal" data-target="#exampleModalCenter" onclick="getInfosFuncionario(${resposta[i].idFuncionario})">
                             Editar     
                       </a>
-                      <a class="dropdown-item" href="#">Deletar</a>
+                      <a class="dropdown-item" onclick="deleteLogin(${resposta[i].idFuncionario})">Deletar</a>
                     </div>
                   </div>
             </td>
@@ -112,14 +112,15 @@ function cadastrarFuncionario() {
         fkSupervisor: fkSupervisor,
       }),
     })
-      .then(function (resposta) {
+      .then(async function (resposta) {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
           console.log("Cadastrado com sucesso!");
           document.getElementById("tableFuncionarios").innerHTML = "";
           getAllFuncionarios(sessionStorage.getItem("EMPRESA_USUARIO"));
-          getLastId(fkEmpresa);
+          await getLastId(fkEmpresa);
+          cadastrarLogin();
         } else {
           throw alert(
             "Houve um erro ao tentar realizar o cadastro do Funcionario! 1"
@@ -133,7 +134,6 @@ function cadastrarFuncionario() {
     alert("Houve um erro ao tentar realizar o cadastro do Funcioario! 2");
   }
   
-  console.log(getLastId(fkEmpresa));
 }
 
 function getLastId(fkEmpresa) {
@@ -158,7 +158,7 @@ function cadastrarLogin() {
   var erro = false;
   var email = email_funcionario_adicionar.value;
   var senha = senha_funcionario_adicionar.value;
-  var fkFuncionario = localStorage.getItem("LASTID");
+  var fkFuncionario = Number(localStorage.getItem("LASTID")) + 1;
 
   if (email == "") {
     email_funcionario_adicionar.style = "border-color: red !important";
@@ -188,7 +188,7 @@ function cadastrarLogin() {
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          console.log("Login cadsatrado com sucesso!");
+          console.log("Login cadastrado com sucesso!");
         } else {
           throw alert(
             "Houve um erro ao tentar realizar o cadastro do Login! 1"
@@ -203,7 +203,82 @@ function cadastrarLogin() {
   }
 }
 
-async function realizarCadastroCompleto() {
-  await cadastrarFuncionario();
-  cadastrarLogin();
+function deleteLogin(fkFuncionario) {
+  Swal.fire({
+    title: "Deseja realmente deletar este funcionário?",
+    showDenyButton: false,
+    showCancelButton: true,
+    confirmButtonText: "Deletar",
+    denyButtonText: `Don't save`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      let erro = false;
+
+      if(fkFuncionario == null || fkFuncionario == undefined){
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/funcionario/deleteLogin/${fkFuncionario}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+              Swal.fire("Servidor Deletado com sucesso!", "", "success");
+              deleteFuncionario(fkFuncionario)
+              tableFuncionarios.innerHTML = "";
+              getAllFuncionarios(sessionStorage.getItem("EMPRESA_USUARIO"));
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o delete do Servidor!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      }
+
+    } else if (result.isDenied) {
+      Swal.fire("Mudanças não efetuadas!", "", "info");
+    }
+  });
 }
+
+function deleteFuncionario(idFuncionario) {
+  var erro = false;
+  if (idFuncionario == "" || idFuncionario == undefined) {
+    erro = true;
+    alert("idFuncionario não pode ser nulo!");
+  }
+  if (!erro) {
+    fetch(`/funcionario/deleteFuncionario/${idFuncionario}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          console.log("Funcionario deletado com sucesso!");
+        } else {
+          throw alert(
+            "Houve um erro ao tentar realizar o delete do funcionario! 1"
+          );
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  } else {
+    alert("Houve um erro ao tentar realizar o delete do funcionario! 2");
+  }
+}
+
