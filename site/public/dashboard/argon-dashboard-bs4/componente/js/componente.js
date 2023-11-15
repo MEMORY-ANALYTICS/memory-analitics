@@ -219,7 +219,7 @@ function getAllComponentes(fkEmpresa) {
                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalCenter" onclick="getInfosComponente(${resposta[i].idComponente})">
                         Editar     
                   </a>
-                  <a class="dropdown-item" href="#">Deletar</a>
+                  <a class="dropdown-item" onclick="deleteComponente(${resposta[i].idComponente})">Deletar</a>
                 </div>
               </div>
             </td>
@@ -260,4 +260,54 @@ function getInfosComponente(idComponente) {
     .catch(function (error) {
       console.error(`Erro na obtenção dos dados p/ Usuario: ${error.message}`);
     });
+}
+
+
+function deleteComponente(idComponente) {
+  Swal.fire({
+    title: "Deseja realmente deletar este componente?",
+    showDenyButton: false,
+    showCancelButton: true,
+    confirmButtonText: "Deletar",
+    denyButtonText: `Don't save`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      let erro = false;
+
+      if(idComponente == null || idComponente == undefined){
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/componente/deleteComponente/${idComponente}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+    
+            if (resposta.ok) {
+              Swal.fire("Componente Deletado com sucesso!", "", "success");
+              tableComponentes.innerHTML = "";
+              getAllComponentes(sessionStorage.getItem("EMPRESA_USUARIO"));
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o delete do Componente!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      }
+
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+    }
+  });
+  
+ 
+ 
 }

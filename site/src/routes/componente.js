@@ -19,4 +19,8 @@ router.get("/getAll/:fkEmpresa", function(req,res){
 router.get("/getInfosComponente/:idComponente", function(req,res){
     componenteController.getInfosComponente(req,res);
 })
-module.exports = router; 
+
+router.post("/deleteComponente/:idComponente", function(req,res){
+    componenteController.deleteComponente(req,res);
+})
+module.exports = router;
