@@ -29,11 +29,13 @@ public class RegistroDao {
 
         return con.query("SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro " +
                         "JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente =" +
-                        " idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 " +
+                        " idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 1001 " +
                         "AND tipoComponente = 'CPU'",
                 new BeanPropertyRowMapper<>(Registro.class)
                 );
     }
+
+
     public List<Registro> selectAllRegistroDisco(){
         System.out.println("Registro de DISCO");
         return con.query("SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro " +
@@ -43,6 +45,7 @@ public class RegistroDao {
                 new BeanPropertyRowMapper<>(Registro.class)
         );
     }
+
 
     public List<Registro> selectAllRegistroRam(){
         System.out.println("Registro de RAM");
@@ -54,6 +57,21 @@ public class RegistroDao {
         );
     }
 
+
+    public List<Registro> selectAllRegistroRede(){
+        System.out.println("Registro de REDE");
+        return con.query("SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro " +
+                        "JOIN recurso ON fkRecurso = idRecurso JOIN Componente on fkComponente =" +
+                        " idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 " +
+                        "AND tipoComponente = 'REDE'",
+                new BeanPropertyRowMapper<>(Registro.class)
+        );
+
+    }
+    //Select nos recursos da memory analytics para pegar o id e adicionar a uma lista, depois
+    //adicionar os registros de cada recurso com um for().
+
+
     //-------------------------------------------------------------------------------------------------
     public void adicionarRegistroCpuFrquencia(Integer fkRecurso){
         Looca looca = new Looca();
@@ -64,6 +82,7 @@ public class RegistroDao {
        con.update("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",
                valorFormatado, dataHoraAtual, fkRecurso, 2);
     }
+
     public void adicionarRegistroCpuPorcentagem(Integer fkRecurso){
         Looca looca = new Looca();
         LocalDateTime dataHoraAtual = LocalDateTime.now();
@@ -72,6 +91,7 @@ public class RegistroDao {
         con.update("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",
                 valorFormatado, dataHoraAtual, fkRecurso, 3);
     }
+
     public void adicionarRegistroDisco(Integer fkRecurso){
         Looca looca = new Looca();
         LocalDateTime dataHoraAtual = LocalDateTime.now();
@@ -93,12 +113,14 @@ public class RegistroDao {
                          valorFormatadoUsoDiscoGb, dataHoraAtual, fkRecurso, 1);
 
             //Porcentagem
-            valorUsoParticao = valorUsoParticao/ looca.getGrupoDeDiscos().getDiscos().get(0).getTamanho()*100;
+            valorUsoParticao = valorUsoParticao*100/ looca.getGrupoDeDiscos().getDiscos().get(0).getTamanho();
             valorFormatadoUsoDisco = ("%.2f".formatted(valorUsoParticao));
             con.update("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",
                     valorFormatadoUsoDisco, dataHoraAtual, fkRecurso, 3);
         //}
     }
+
+
     public void adicionarRegistroRam(Integer fkRecurso){
         Looca looca = new Looca();
         LocalDateTime dataHoraAtual = LocalDateTime.now();
@@ -110,12 +132,17 @@ public class RegistroDao {
                 valorFormatado, dataHoraAtual, fkRecurso, 1);
 
         //Em porcentagem -> em processo
-        //double valorUso = looca.getMemoria().getEmUso().byteValue();
-        //double totalRam = looca.getMemoria().getTotal();
-        //valorUso = valorUso*100;
-        //Double porcentagemUso = valorUso/totalRam;
-        //System.out.println(porcentagemUso);
+        Double valorUso = looca.getMemoria().getEmUso()/ Math.pow(10, 9);
+        double totalRam = looca.getMemoria().getTotal()/ Math.pow(10, 9);
+        valorUso = valorUso*100;
+        Double porcentagemUso = valorUso/totalRam;
+        String valorFormatadoPorcentagemRam = ("%.2f".formatted(porcentagemUso));
+        //System.out.println(valorFormatadoPorcentagemRam);
+
+        con.update("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES (?, ?, ?, ?)",
+                valorFormatadoPorcentagemRam, dataHoraAtual, fkRecurso, 3);
     }
+
 
     public void adicionarRegistroRede(Integer fkRecurso){
         Looca looca = new Looca();
@@ -137,3 +164,4 @@ public class RegistroDao {
                 valorFormatadoR, dataHoraAtual, fkRecurso, 7);
     }
 }
+

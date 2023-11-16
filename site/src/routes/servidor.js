@@ -10,4 +10,20 @@ router.post("/cadastrar", function (req, res){
 router.get("/getAll/:fkEmpresa", function (req, res){
     servidorController.getAll(req, res);
 });
+
+router.get("/getIdByApelidoLike/:apelidoServidor", function (req,res){
+    servidorController.getIdByApelidoLike(req,res);
+});
+
+router.get("/getInfosServidor/:idServidor", function (req,res){
+    servidorController.getInfosServidor(req,res);
+});
+
+router.post("/atualizar", function (req, res){
+    servidorController.atualizarServidor(req, res);
+});
+
+router.post("/deleteServidor/:idServidor", function(req,res){
+    servidorController.deleteServidor(req,res);
+});
 module.exports = router; 

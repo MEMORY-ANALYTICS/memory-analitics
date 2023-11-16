@@ -3,7 +3,6 @@ package school.sptech.Hardware;
 import com.github.britooo.looca.api.core.Looca;
 
 public class MemoriaRam {
-
     private Long uso;
     private Long disponivel;
     private Long total;

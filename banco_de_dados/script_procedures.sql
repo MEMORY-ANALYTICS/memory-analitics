@@ -1,4 +1,4 @@
-use bd_MemoryAnalytics;
+use bd_memoryanalytics;
 
 -- -=-=-=-=-=-=-=-=-=-=-= Procedures -=-=-=-=-=-=-=-=-=-=-=
 
