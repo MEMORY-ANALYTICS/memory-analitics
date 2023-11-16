@@ -229,7 +229,7 @@ function deleteLogin(fkFuncionario) {
             console.log("resposta: ", resposta);
     
             if (resposta.ok) {
-              Swal.fire("Servidor Deletado com sucesso!", "", "success");
+              Swal.fire("Funcionário Deletado com sucesso!", "", "success");
               deleteFuncionario(fkFuncionario)
               tableFuncionarios.innerHTML = "";
               getAllFuncionarios(sessionStorage.getItem("EMPRESA_USUARIO"));
