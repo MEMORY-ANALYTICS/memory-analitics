@@ -47,7 +47,7 @@ const api = {
     date.innerText = dateBuilder(now);
 
     let iconName = weather.weather[0].icon;
-    container_img.innerHTML = `<img src="../../../assets/icons_clima/${iconName}.png">`;
+    container_img.innerHTML = `<img src="../../../../assets/icons_clima/${iconName}.png">`;
 
     let temperature = `${Math.round(weather.main.temp)}`
     temp_number.innerHTML = temperature;
