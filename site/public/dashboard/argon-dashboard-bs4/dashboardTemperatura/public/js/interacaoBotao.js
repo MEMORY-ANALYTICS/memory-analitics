@@ -9,6 +9,42 @@ function horaDash1() {
     idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
     textoMes1.style = "color: #5e72e4;"
 
+    fetch(`/graficos/graficoCoreHora`, {
+      method: "GET"
+    }).then(res => {
+          res.json().then(json => {
+              for (var i = 0; i < json.length; i++) {
+                  console.log(i)
+                  console.log(json[i])
+
+                  // graficoAtividades.data.datasets[0].data.push(json[i].nAtividades)
+                  // graficoAtividades.data.labels.push(json[i].ano)
+                  // graficoAtividades.update()
+  
+                  // graficoSocios.data.datasets[0].data.push(json[i].nSocio)
+                  // graficoSocios.data.labels.push(json[i].ano)
+                  // graficoSocios.update()
+  
+                  // graficoSexos.data.datasets[0].data.push(json[i].nHomem)
+                  // graficoSexos.data.datasets[1].data.push(json[i].nMulher)
+                  // graficoSexos.data.labels.push(json[i].ano)
+                  // graficoSexos.update()
+  
+                  // if (i == json.l gth - 1) {
+                  //     graficoIdades.data.datasets[0].data.push(json[i].nJuvenil)
+                  //     graficoIdades.data.datasets[0].data.push(json[i].nJovem)
+                  //     graficoIdades.data.datasets[0].data.push(json[i].nAdulto)
+                  //     graficoIdades.update()
+                  // }
+              }
+  
+          })
+  
+      })
+      .catch(err => {
+          console.log(err);
+      })
+
 
   }
 

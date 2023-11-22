@@ -1,4 +1,4 @@
-const ctx = document.getElementById('myChart');
+const ctx = document.getElementById('graficoTemperatura');
 
     new Chart(ctx, {
       type: 'line',
@@ -31,7 +31,7 @@ const ctx = document.getElementById('myChart');
     });
 
 
-    const ctx1 = document.getElementById('chart-line');
+    const ctx1 = document.getElementById('graficoComparativo');
 
     new Chart(ctx1, {
       type: 'line',
@@ -58,7 +58,7 @@ const ctx = document.getElementById('myChart');
       }
     });
 
-    const ctx2 = document.getElementById('chart-bars');
+    const ctx2 = document.getElementById('graficoClima');
 
     new Chart(ctx2, {
       type: 'pie',

@@ -5,7 +5,7 @@ function graficoCoreHora(req,res){
     graficoModel.graficoCoreHora().then(function(resultado){
         res.status(200).json(resultado);
     }).catch(function(erro){
-        res.status(500).json(erro.sqlMessage);
+        // res.status(500).json(erro.sqlMessage);
     })
 }
 

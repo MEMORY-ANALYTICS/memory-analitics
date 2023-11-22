@@ -1,12 +1,12 @@
 var database = require("../database/config")
 
-function graficoCoreHora(){
-    var instrucao = `SELECT * from registro'`;
-
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-
+    function graficoCoreHora() {
+  
+        instrucaoSql = `select * from registro limit 5;`
+      
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+      }
     module.exports = {
         graficoCoreHora
     }
-}
