@@ -606,46 +606,15 @@
                   -->
                   <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">Latência da Rede</h5>
                   <ul class="nav nav-pills justify-content" style="justify-content: start;">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3" data-toggle="tab" id="coreBackground" onclick="core()"
-                        style="background-color:  #5e72e4; cursor: pointer;">
-                        <span class="d-none d-md-block" onclick="core()" id="coreSpan"
-                          style="color: #fff;">CORE</span>
-
-                      </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3 " data-toggle="tab" id="cpuBackground" onclick="cpu()"
-                        style="cursor: pointer;">
-                        <span class="d-none d-md-block" onclick="cpu()" id="cpuSpan">CPU</span>
-
-                      </a>
-                    </li>
+                    
                 </div>
                 <div class="col">
                   <ul></ul>
                 
 
                   <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash1" onclick="horaDash1()"
-                        style="background-color:  #5e72e4; cursor: pointer;">
-                        <span class="d-none d-md-block" onclick="horaDash1()" id="textoHora1"
-                          style="color: #fff;">Hora</span>
-
-                      </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash1" onclick="semanaDash1()"
-                        style="cursor: pointer;">
-                        <span class="d-none d-md-block" onclick="semanaDash1()" id="textoSemana1">Semana</span>
-
-                      </a>
-                    </li>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3" data-toggle="tab" onclick="mesDash1()"
-                        style="border-radius: 10%; cursor: pointer;" id="idMesDash1">
-                        <span class="d-none d-md-block" id="textoMes1" onclick="mesDash1()">Mês</span>
-                      </a>
-                    </li>
+                    
+                    
                     <!--
                     <li class="nav-item" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
@@ -755,24 +724,25 @@
           </div>
         </div>
         <div class="card-body">
-
+<!--Grafico 3------------------------------------------------------------------------------ -->
           <div class="card text-center shadow-lg" style="max-width: 24rem;">
-           
             <div class="card-body">
-              <div class="city">Cidade exemplo</div>
-              <div class="date">Domingo, 30 Novembro 2020</div>
-              <div class="container-temp"
-                style="display: flex; justify-content: center; font-size: 50px; font-weight: 900;">
-                <div>22</div>
-                <span>ºC</span>
-              </div>
-              <div class="container-img">
-                <img src="../../../assets/icons_clima/unknown.png" alt="">
-              </div>
-              <div class="weather">Nublado</div>
-            </div>
+              <script src="https://code.highcharts.com/highcharts.js"></script>
+              <script src="https://code.highcharts.com/highcharts-more.js"></script>
+              <script src="https://code.highcharts.com/modules/exporting.js"></script>
+              <script src="https://code.highcharts.com/modules/export-data.js"></script>
+              <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+              <figure class="highcharts-figure3">
+                  <div id="container3"></div>
+                  <p class="highcharts-description3">
+                      Chart showing use of plot bands with a gauge series. The chart is
+                      updated dynamically every few seconds.
+                  </p>
+              </figure>
           </div>
-          
+<!--Fim grafico 3------------------------------------------------------------------------------ -->
+
           <div class="card-body">
 
             <!-- Chart -->
@@ -949,7 +919,7 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
 Highcharts.chart('container', {
     chart: {
         backgroundColor: '#172b4d',
-        type: 'spline',
+        type: 'areaspline',
         events: {
             load: onChartLoad
         }
@@ -1035,7 +1005,116 @@ Highcharts.chart('container', {
     ]
 });
 // Final Grafico 1--------------------------------------------------------------------------------------------------
+Highcharts.chart('container3', {
 
+chart: {
+    type: 'gauge',
+    plotBackgroundColor: null,
+    plotBackgroundImage: null,
+    plotBorderWidth: 0,
+    plotShadow: false,
+    height: '80%'
+},
+
+title: {
+    text: 'Velocidade'
+},
+
+pane: {
+    startAngle: -90,
+    endAngle: 89.9,
+    background: null,
+    center: ['50%', '75%'],
+    size: '110%'
+},
+
+// the value axis
+yAxis: {
+    min: 0,
+    max: 200,
+    tickPixelInterval: 72,
+    tickPosition: 'inside',
+    tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+    tickLength: 20,
+    tickWidth: 2,
+    minorTickInterval: null,
+    labels: {
+        distance: 20,
+        style: {
+            fontSize: '14px'
+        }
+    },
+    lineWidth: 0,
+    plotBands: [{
+        from: 160,
+        to: 200,
+        color: '#55BF3B', // green
+        thickness: 20
+    }, {
+        from: 105,
+        to: 160,
+        color: '#DDDF0D', // yellow
+        thickness: 20
+    }, {
+        from: 0,
+        to: 105,
+        color: '#DF5353', // red
+        thickness: 20
+    }]
+},
+
+series: [{
+    name: 'Speed',
+    data: [80],
+    tooltip: {
+        valueSuffix: ' km/h'
+    },
+    dataLabels: {
+        format: '{y} km/h',
+        borderWidth: 0,
+        color: (
+            Highcharts.defaultOptions.title &&
+            Highcharts.defaultOptions.title.style &&
+            Highcharts.defaultOptions.title.style.color
+        ) || '#333333',
+        style: {
+            fontSize: '16px'
+        }
+    },
+    dial: {
+        radius: '80%',
+        backgroundColor: 'gray',
+        baseWidth: 12,
+        baseLength: '0%',
+        rearLength: '0%'
+    },
+    pivot: {
+        backgroundColor: 'gray',
+        radius: 6
+    }
+
+}]
+
+});
+
+// Add some life
+setInterval(() => {
+const chart = Highcharts.charts[0];
+if (chart && !chart.renderer.forExport) {
+    const point = chart.series[0].points[0],
+        inc = Math.round((Math.random() - 0.5) * 20);
+
+    let newVal = point.y + inc;
+    if (newVal < 0 || newVal > 200) {
+        newVal = point.y - inc;
+    }
+
+    point.update(newVal);
+}
+
+}, 3000);
+
+//-------------------Final Grafico 3-----------------------------------------------------------------
     function capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
