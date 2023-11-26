@@ -9,7 +9,17 @@ function graficoCoreHora(req,res){
     })
 }
 
+function graficoCoreSemana(req,res){
+    // var idServidor = req.body.idServidor;
+   graficoModel.graficoCoreSemana().then(function(resultado){
+       res.status(200).json(resultado);
+   }).catch(function(erro){
+       // res.status(500).json(erro.sqlMessage);
+   })
+}
+
 
 module.exports  = {
-    graficoCoreHora
+    graficoCoreHora,
+    graficoCoreSemana
 }

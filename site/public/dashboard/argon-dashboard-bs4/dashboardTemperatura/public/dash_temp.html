@@ -467,7 +467,6 @@
                       <a class="nav-link py-2 px-3 " data-toggle="tab" id="cpuBackground" onclick="cpu()"
                         style="cursor: pointer;">
                         <span class="d-none d-md-block" onclick="cpu()" id="cpuSpan">CPU</span>
-
                       </a>
                     </li>
                 </div>
@@ -602,8 +601,7 @@
       </div>
 
 
-      <div style="box-shadow:
-            0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+      <div style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
         <div class="card">
           <div class="card-header border-0">
             <div class="row align-items-center">
@@ -683,7 +681,6 @@
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
     </div>
@@ -705,10 +702,12 @@
   <script src="../assets/js/argon.js?v=1.2.0"></script>
   <!-- Chart.js-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Funcionalidades -->
   <script src="../public/js/interacaoBotao.js"></script>
   <script src="../public/js/gerarRelatorio..js"></script>
   <script src="../public/js/apiClimaTempo.js"></script>
   <script src="../public/js/graficos.js"></script>
+  <script src="../public/js/index.js"></script>
 
 
   <script>
@@ -728,7 +727,6 @@
     var menuVisivel = true;
 
     function menu() {
-
       const sidenav = document.querySelector('#sidenav-main');
 
       if (menuVisivel) {
@@ -737,13 +735,8 @@
       } else {
         sidenav.style = 'display: block';
         menuVisivel = true;
-
       }
-
-
     }
   </script>
-
 </body>
-
 </html>
