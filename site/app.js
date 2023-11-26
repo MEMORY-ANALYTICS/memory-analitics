@@ -18,7 +18,8 @@ var dashboardGRouter = require("./src/routes/dashboardG");
 var funcionarioRouter = require("./src/routes/funcionario");
 var servidorRouter = require("./src/routes/servidor");
 var componenteRouter = require("./src/routes/componente");
-var graficoCoreHoraRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/graficos");
+var graficoRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/grafico");
+var servidorRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/servidor")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,7 +35,8 @@ app.use("/dashboardG", dashboardGRouter);
 app.use("/funcionario", funcionarioRouter);
 app.use("/servidor", servidorRouter);
 app.use("/componente", componenteRouter);
-app.use("/graficos",graficoCoreHoraRouter);
+app.use("/grafico",graficoRouter);
+app.user("/servidor", servidorRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
