@@ -10,26 +10,17 @@ public class Empresa {
     private String nome;
     private String cnpj;
     private String email;
-    private List<Funcionario> funcionarios;
+
     private List<Servidor> servidores;
     private Database banco;
 
-    public Empresa(String nome, String cnpj, String email, List<Funcionario> funcionarios,
+    public Empresa(String nome, String cnpj, String email,
                    List<Servidor> servidores, Database banco) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.email = email;
-        this.funcionarios = funcionarios;
         this.servidores = servidores;
         this.banco = banco;
-    }
-
-    public void cadastrarFuncionario(){
-
-    }
-
-    public void cadastrarSupervisor(Funcionario funcionario, Funcionario supervisor){
-
     }
 
     public void cadastrarServidor(Servidor servidor){
@@ -64,14 +55,6 @@ public class Empresa {
         this.email = email;
     }
 
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
-
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
-
     public List<Servidor> getServidores() {
         return servidores;
     }
@@ -94,7 +77,6 @@ public class Empresa {
                 "nome='" + nome + '\'' +
                 ", cnpj='" + cnpj + '\'' +
                 ", email='" + email + '\'' +
-                ", funcionarios=" + funcionarios +
                 ", servidores=" + servidores +
                 ", banco=" + banco +
                 '}';
