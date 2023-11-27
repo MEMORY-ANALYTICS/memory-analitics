@@ -36,7 +36,7 @@ app.use("/funcionario", funcionarioRouter);
 app.use("/servidor", servidorRouter);
 app.use("/componente", componenteRouter);
 app.use("/grafico",graficoRouter);
-app.user("/servidor", servidorRouter);
+app.use("/servidor", servidorRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
