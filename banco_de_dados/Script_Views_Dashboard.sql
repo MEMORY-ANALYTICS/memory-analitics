@@ -149,8 +149,9 @@ GROUP BY estado;
 # GRAFICO PICO DE USO
 
 CREATE OR REPLACE VIEW limitesExcedidos AS SELECT 
-    e.idEmpresa,
-    DATE_FORMAT(r.dtHoraRegistro, '%d-%m') AS DiaMes,
+    e.idEmpresa, idServidor,
+    DATE_FORMAT(r.dtHoraRegistro, '%d') AS Dia,
+    DATE_FORMAT(r.dtHoraRegistro, '%m') AS Mes,
     c.tipoComponente AS TipoComponente,
     SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
 FROM registro r
@@ -162,10 +163,13 @@ JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE e.idEmpresa = 10002
 AND idMedidaComponente = 1
 AND dtHoraRegistro >= DATE_SUB(now(), INTERVAL 1 MONTH)
-GROUP BY NomeEmpresa, DiaMes, TipoComponente
-ORDER BY NomeEmpresa, DiaMes, TipoComponente;
+GROUP BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor
+ORDER BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor;
 
-SELECT SUM(ExcedeuLimites) picosDeUso, DiaMes FROM limitesExcedidos WHERE idEmpresa = 10002 GROUP BY DiaMes;
+SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = 10002 GROUP BY Dia, Mes;
+# SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = ${fkEmpresa} GROUP BY Dia, Mes;
+
+select SUM(ExcedeuLimites) picosDeUso, Dia, Mes, idServidor from limitesexcedidos group by Dia, Mes, idServidor;
 
 SELECT 
     e.idEmpresa,
