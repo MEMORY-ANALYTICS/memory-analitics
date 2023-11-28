@@ -203,21 +203,3 @@ WHERE
 	AND	idMedidaComponente = 1
     AND fkEmpresa = 10002
     GROUP BY idServidor;
-    
-    
-
--- Dash Gabriel Branco --
-select * from servidor;
-select * from registro;
-
--- kpi 1
-select * from servidor where fkEmpresa = 10002;
-
--- kpi 2 
-select round(avg(valorRegistro),2), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
-
--- kpi 3
-select max(valorRegistro), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
-
--- kpi 4
-select min(valorRegistro), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
