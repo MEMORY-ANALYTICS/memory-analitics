@@ -86,9 +86,6 @@ function dadosSputil() {
 
   idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
   textoMes2.style = "color: #5e72e4; "
-
-
-
 }
 
 

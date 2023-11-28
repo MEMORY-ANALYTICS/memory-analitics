@@ -65,9 +65,10 @@ FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 CREATE TABLE IF NOT EXISTS `chamadoServidor`(
 idChamadoServidor INT PRIMARY KEY AUTO_INCREMENT,
 codigoChamado VARCHAR(45),
+descricao varchar(45),
 dtHoraChamado DATETIME,
-fkServidor INT,
-FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
+fkIdRecurso INT,
+FOREIGN KEY (fkIdRecurso) REFERENCES recurso (idRecurso)
 );
 
 CREATE TABLE IF NOT EXISTS `downtimeServidor`(

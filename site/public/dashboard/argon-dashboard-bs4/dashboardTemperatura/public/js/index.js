@@ -1,3 +1,11 @@
+sessionStorage.setItem(
+  "emailFunc", "",
+  "servidores", []
+)
+
+console.log(sessionStorage)
+
+
 var functionKpi = ["MedTempAtual", "MedTempIdeal", "CoreTempMax", "CoreTempMIn"]
 
 
