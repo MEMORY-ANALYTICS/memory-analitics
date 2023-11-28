@@ -108,7 +108,57 @@ INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
 ('Tempo', 's'),								-- 14
 ('Temperatura', '°C');						-- 15
 
+INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
+('Core 1', 1),
+('Core 2', 1),
+('Core 3', 1),
+('Core 4', 1),
+('Core 1', 5),
+('Core 2', 5),
+('Core 3', 5),
+('Core 4', 5),
+('Core 1', 9),
+('Core 2', 9),
+('Core 3', 9),
+('Core 4', 9),
+('Leitura RAM', 2),
+('Leitura RAM', 6),
+('Leitura RAM', 10),
+('Partição DISCO 1', 3),
+('Partição DISCO 2', 3),
+('Partição DISCO 3', 3),
+('Partição DISCO 1', 7),
+('Partição DISCO 2', 7),
+('Partição DISCO 3', 7),
+('Partição DISCO 1', 11),
+('Partição DISCO 2', 11),
+('Partição DISCO 3', 11),
+('Leitura REDE', 4),
+('Leitura REDE', 8),
+('Leitura REDE', 12);
 
+INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
+(2200, '2023-10-09 10:00:00', 5, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 6, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 7, 2),  -- CPU
+(2200, '2023-10-09 10:00:00', 8, 2),  -- CPU
+(10, '2023-10-09 10:00:00', 5, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 6, 3),  -- CPU
+(10, '2023-10-09 10:00:00', 7, 3),  -- CPU
+(500, '2023-10-09 10:30:00', 26, 4),  -- REDE
+(50, '2023-10-09 10:30:00', 26, 3);  -- REDE
+
+-- -------------------------------------------------------------------------------------------------------------------------------
+SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente 
+on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor;
+
+SELECT fabricante, nomeModelo,tipoComponente,limiteMin,limiteMax,idServidor,apelidoServidor FROM componente JOIN servidor 
+ON fkServidor = idServidor WHERE fkEmpresa = 10001;
+
+SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente 
+on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor where fkEmpresa = 10001 AND tipoComponente = 'REDE';
+
+-- -------------------------------------------------------------------------------------------------------------------------------
 CREATE VIEW teste AS
 SELECT 
     r.dtHoraRegistro AS Data_Hora_Registro,
