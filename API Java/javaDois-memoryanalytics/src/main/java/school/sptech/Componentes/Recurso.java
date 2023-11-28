@@ -70,6 +70,8 @@ public abstract class Recurso {
         this.con = con;
     }
 
+    public abstract void capturarRegistro();
+
     @Override
     public String toString() {
         return "Recurso{" +

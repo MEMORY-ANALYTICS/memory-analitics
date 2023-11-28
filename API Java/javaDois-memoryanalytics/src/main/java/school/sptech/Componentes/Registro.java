@@ -13,8 +13,6 @@ public abstract class Registro {
         this.fkRecurso = fkRecurso;
     }
 
-    public abstract Double capturarDados();
-
     public Double getValor() {
         return valor;
     }
