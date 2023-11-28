@@ -1,5 +1,11 @@
 use bd_memoryanalytics;
 
+select * from funcionario;
+
+SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
+        join login on idFuncionario = fkFuncionario JOIN empresa ON fkEmpresa = idEmpresa
+  WHERE email = 'joao@email.com' AND senha = 'senha123';	
+
 -- -=-=-=-=-=-=-=-=-=-=-= Inserindo Dados -=-=-=-=-=-=-=-=-=-=-=
 
 -- Inserir dados na tabela 'empresa'
