@@ -20,6 +20,9 @@ var servidorRouter = require("./src/routes/servidor");
 var componenteRouter = require("./src/routes/componente");
 var graficoRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/grafico");
 var servidorRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/servidor")
+var kpiRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/kpi")
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -37,6 +40,7 @@ app.use("/servidor", servidorRouter);
 app.use("/componente", componenteRouter);
 app.use("/grafico",graficoRouter);
 app.use("/servidor", servidorRouter);
+app.use("/kpi",kpiRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
