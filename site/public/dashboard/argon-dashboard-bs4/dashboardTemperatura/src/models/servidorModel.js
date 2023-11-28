@@ -1,7 +1,7 @@
 var database = require("../database/config")
 
       function getServidor() {
-        instrucaoSql = `select * from servidor limit 2;`
+        instrucaoSql = `select apelidoServidor from registroEmpresa where emailFunc = "joao@email.com" group by apelidoServidor;`
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
       }  
