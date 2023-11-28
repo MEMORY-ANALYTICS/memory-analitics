@@ -5,52 +5,49 @@ import school.sptech.Componentes.Registro;
 import java.util.List;
 
 public abstract class Database {
-    private String nomeBanco;
-    private String senhaBanco;
-    private String localhost;
+    private String setDriverClassName;
+    private String setUrl;
+    private String setUsername;
+    private String setPassword;
 
-    public Database(String nomeBanco, String senhaBanco, String localhost) {
-        this.nomeBanco = nomeBanco;
-        this.senhaBanco = senhaBanco;
-        this.localhost = localhost;
+    public Database(String setDriverClassName, String setUrl, String setUsername, String setPassword) {
+        this.setDriverClassName = setDriverClassName;
+        this.setUrl = setUrl;
+        this.setUsername = setUsername;
+        this.setPassword = setPassword;
     }
-
-    protected abstract void insertBanco();
-    protected abstract void updateBanco();
-    protected abstract void deleteBanco();
 
     protected abstract List<Registro> selectBanco();
 
-    public String getNomeBanco() {
-        return nomeBanco;
+    public String getSetDriverClassName() {
+        return setDriverClassName;
     }
 
-    public void setNomeBanco(String nomeBanco) {
-        this.nomeBanco = nomeBanco;
+    public void setSetDriverClassName(String setDriverClassName) {
+        this.setDriverClassName = setDriverClassName;
     }
 
-    public String getSenhaBanco() {
-        return senhaBanco;
+    public String getSetUrl() {
+        return setUrl;
     }
 
-    public void setSenhaBanco(String senhaBanco) {
-        this.senhaBanco = senhaBanco;
+    public void setSetUrl(String setUrl) {
+        this.setUrl = setUrl;
     }
 
-    public String getLocalhost() {
-        return localhost;
+    public String getSetUsername() {
+        return setUsername;
     }
 
-    public void setLocalhost(String localhost) {
-        this.localhost = localhost;
+    public void setSetUsername(String setUsername) {
+        this.setUsername = setUsername;
     }
 
-    @Override
-    public String toString() {
-        return "Database{" +
-                "nomeBanco='" + nomeBanco + '\'' +
-                ", senhaBanco='" + senhaBanco + '\'' +
-                ", localhost='" + localhost + '\'' +
-                '}';
+    public String getSetPassword() {
+        return setPassword;
+    }
+
+    public void setSetPassword(String setPassword) {
+        this.setPassword = setPassword;
     }
 }

@@ -7,25 +7,11 @@ import java.util.List;
 public class MySql extends Database{
     private String porta;
 
-    public MySql(String nomeBanco, String senhaBanco, String localhost, String porta) {
-        super(nomeBanco, senhaBanco, localhost);
+    public MySql(String setDriverClassName, String setUrl, String setUsername, String setPassword, String porta) {
+        super(setDriverClassName, setUrl, setUsername, setPassword);
         this.porta = porta;
     }
 
-    @Override
-    protected void insertBanco() {
-
-    }
-
-    @Override
-    protected void updateBanco() {
-
-    }
-
-    @Override
-    protected void deleteBanco() {
-
-    }
 
     @Override
     protected List<Registro> selectBanco() {

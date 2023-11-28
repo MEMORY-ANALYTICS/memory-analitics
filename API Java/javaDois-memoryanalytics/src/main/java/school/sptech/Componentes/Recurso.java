@@ -1,5 +1,6 @@
 package school.sptech.Componentes;
 
+import school.sptech.BancoDados.Conexao;
 import school.sptech.BancoDados.Database;
 
 import java.util.List;
@@ -9,13 +10,15 @@ public abstract class Recurso {
     private String unidadeMedida;
     private List<Registro> registros;
     private Database banco;
+    private Conexao con;
     private int fkComponente;
 
-    public Recurso(String nome, String unidadeMedida, List<Registro> registros, Database banco, int fkComponente) {
+    public Recurso(String nome, String unidadeMedida, List<Registro> registros, Database banco, Conexao con, int fkComponente) {
         this.nome = nome;
         this.unidadeMedida = unidadeMedida;
         this.registros = registros;
         this.banco = banco;
+        this.con = con;
         this.fkComponente = fkComponente;
     }
 
@@ -57,6 +60,14 @@ public abstract class Recurso {
 
     public void setFkComponente(int fkComponente) {
         this.fkComponente = fkComponente;
+    }
+
+    public Conexao getCon() {
+        return con;
+    }
+
+    public void setCon(Conexao con) {
+        this.con = con;
     }
 
     @Override

@@ -7,24 +7,9 @@ import java.util.List;
 public class SQLServer extends Database{
     private String ip;
 
-    public SQLServer(String nomeBanco, String senhaBanco, String localhost, String ip) {
-        super(nomeBanco, senhaBanco, localhost);
+    public SQLServer(String setDriverClassName, String setUrl, String setUsername, String setPassword, String ip) {
+        super(setDriverClassName, setUrl, setUsername, setPassword);
         this.ip = ip;
-    }
-
-    @Override
-    protected void insertBanco() {
-
-    }
-
-    @Override
-    protected void updateBanco() {
-
-    }
-
-    @Override
-    protected void deleteBanco() {
-
     }
 
     @Override

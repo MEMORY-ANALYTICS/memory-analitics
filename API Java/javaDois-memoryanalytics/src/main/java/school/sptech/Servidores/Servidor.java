@@ -2,7 +2,7 @@ package school.sptech.Servidores;
 
 import school.sptech.BancoDados.Database;
 import school.sptech.Componentes.Componente;
-import school.sptech.Empresas.Funcionarios.Funcionario;
+import school.sptech.Empresas.Funcionario;
 
 import java.util.List;
 

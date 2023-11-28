@@ -1,7 +1,6 @@
 package school.sptech.Empresas;
 
 import school.sptech.BancoDados.Database;
-import school.sptech.Empresas.Funcionarios.Funcionario;
 import school.sptech.Servidores.Servidor;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package school.sptech.Componentes;
 
 import school.sptech.BancoDados.Database;
 
-public class Registro {
+public abstract class Registro {
     private Double valor;
     private Database banco;
     private int fkRecurso;
@@ -12,6 +12,8 @@ public class Registro {
         this.banco = banco;
         this.fkRecurso = fkRecurso;
     }
+
+    public abstract Double capturarDados();
 
     public Double getValor() {
         return valor;
