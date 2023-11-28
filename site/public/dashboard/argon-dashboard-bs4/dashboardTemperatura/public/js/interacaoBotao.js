@@ -1,4 +1,10 @@
 
+var graficoCpu = false;
+var graficoCore = true;
+
+
+
+
 function horaDash1() {
 
   idHoraDash1.style = "background-color: #5E72E4; cursor: pointer;"
@@ -10,7 +16,12 @@ function horaDash1() {
   idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
   textoMes1.style = "color: #5e72e4;"
 
-  exibirGrafico("graficoCoreHora")
+  if (graficoCore) {
+    exibirGrafico("graficoCoreHora")
+  } else {
+    exibirGrafico("graficoCpuHora")
+  }
+  
 }
 
 function semanaDash1() {
@@ -24,9 +35,11 @@ function semanaDash1() {
   idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
   textoMes1.style = "color: #5e72e4; "
 
-  exibirGrafico("graficoCoreSemana")
-
-
+  if (graficoCore) {
+    exibirGrafico("graficoCoreSemana")
+  } else {
+    exibirGrafico("graficoCpuSemana")
+  }
 
 }
 
@@ -41,9 +54,15 @@ function mesDash1() {
   idMesDash1.style = "background-color: #5E72E4; cursor: pointer;"
   textoMes1.style = "color: #FFFF"
 
+  if (graficoCore) {
+    exibirGrafico("graficoCoreMes")
+  } else {
+    exibirGrafico("graficoCpuMes")
+  }
+
 }
 
-function horaDash2() {
+function dadosOhm() {
 
   idHoraDash2.style = "background-color: #5E72E4; cursor: pointer;"
   textoHora2.style = "color:  #FFFF"
@@ -57,7 +76,7 @@ function horaDash2() {
 
 }
 
-function semanaDash2() {
+function dadosSputil() {
 
   idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
   textoHora2.style = "color: #5e72e4; "
@@ -72,18 +91,7 @@ function semanaDash2() {
 
 }
 
-function mesDash2() {
 
-  idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora2.style = "color: #5e72e4"
-
-  idSemanaDash2.style = "background-color: #FFFF; cursor: pointer; "
-  textoSemana2.style = "color: #5e72e4 "
-
-  idMesDash2.style = "background-color: #5E72E4; cursor: pointer;"
-  textoMes2.style = "color: #FFFF"
-
-}
 
 function core() {
   coreBackground.style = "background-color:#5E72E4; cursor: pointer; "
@@ -91,6 +99,8 @@ function core() {
 
   cpuBackground.style = "background-color: #FFFF; cursor: pointer;"
   cpuSpan.style = "color: #5e72e4"
+
+  graficoCore = true;
 }
 
 function cpu() {
@@ -99,6 +109,9 @@ function cpu() {
 
   coreBackground.style = "background-color: #FFFF; cursor: pointer;"
   coreSpan.style = "color: #5e72e4"
+
+  graficoCore = false;
+  graficoCpu = true;
 }
 
 function celsius() {
