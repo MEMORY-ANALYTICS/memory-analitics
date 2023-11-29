@@ -31,20 +31,20 @@ INSERT INTO cargo (nomeCargo) VALUES
 
 -- Inserir dados na tabela 'funcionario'
 INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor) VALUES
-('João', 'joao@email.com', '11122233344', 'A', 10000, 1, NULL),
-('Maria', 'maria@email.com', '22233344455', 'A', 10001, 2, 100000),
-('Pedro', 'pedro@email.com', '33344455566', 'B', 10002, 3, 100000),
+('Gustavo Desunte', 'gustavo@email.com', '11122233344', 'A', 10000, 1, NULL),
+('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100000),
+('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100000),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL);
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
-('joao@email.com', 'senha123', 100000),
-('maria456', 'senha456', 100001),
-('pedro789', 'senha789', 100002),
+('gustavo@email.com', 'senha123', 100000),
+('adriano@email.com', 'senha456', 100001),
+('gabriel@email.com', 'senha789', 100002),
 ('daniel@email.com', 'senhaDaniel', 100003);
 
 -- Inserir dados na tabela 'servidor'
-INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
+INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, macAdress, numeroSerieServidor, fkEmpresa) VALUES
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),

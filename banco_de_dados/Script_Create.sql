@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `servidor`(
 idServidor INT PRIMARY KEY AUTO_INCREMENT,
 SistemaOperacionalServidor VARCHAR(20),
 apelidoServidor VARCHAR(45),
-ipServidor varchar(25),
+macAdress varchar(25),
 numeroSerieServidor VARCHAR(20),
 fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
