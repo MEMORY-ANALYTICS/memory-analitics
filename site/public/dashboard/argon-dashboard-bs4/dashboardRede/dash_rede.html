@@ -520,7 +520,7 @@
                 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Latência da rede</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Latência Máx Diaria</h5>
                       <span class="h2 font-weight-bold mb-0">12</span>
                     </div>
                     <div class="col-auto">
@@ -533,8 +533,8 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
-                    <span class="text-nowrap">Média Mensal:</span>
-                    <span>1</span>
+                    <span class="text-nowrap">Horário de maior latência:</span>
+                    <span>12:05:10</span>
                     <br>
                     <span class="text-nowrap">Atualizado em :</span>
                     <span>14/11/2023 12:05</span>
@@ -551,7 +551,7 @@
     <div class="container-fluid mt--6">
       <div class="row" style="display: flex; justify-content: space-around;">
         <div class="card" style="box-shadow:
-        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 35rem;">
+        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 30rem;">
 
           <!--Grafico 3------------------------------------------------------------------------------ -->
           <div class="card text-center shadow-lg" style="max-width: 25rem;">
@@ -612,7 +612,7 @@
             </div>
             <div class="card-body" style="box-shadow:
             0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-              <!-------------------------------------- Chart --------------------------------------------->
+              <!-------------------------------------- Chart 1 --------------------------------------------->
 
               <script src="https://code.highcharts.com/highcharts.js"></script>
               <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -622,8 +622,8 @@
 
               <figure class="highcharts-figure">
                 <div id="container"></div>
-                <p class="highcharts-description">
-                  Chart showing data updating every second, with old data being removed.
+                <p class="highcharts-description" style="color: #fff;">
+                  Latência da rede em milissegundos. Fórmula: latência = (tempo de transmissão + tempo de recepção) / 2.
                 </p>
               </figure>
 
@@ -635,7 +635,7 @@
 
       </div>
 
-<!-- Fim do 2º Grafico -->   
+<!-- Fim do Grafico 3 e 1-->   
       <div class="col-xl-13">
         <div class="card bg-default" style="box-shadow:
         0.3em 0.3em 1em rgba(65, 58, 58, 0.6);" >
@@ -650,7 +650,7 @@
           </div>
       <div class="card-body" style="box-shadow:
       0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 30rem;">
-        <!-------------------------------------- Chart --------------------------------------------->
+        <!-------------------------------------- Chart 2--------------------------------------------->
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <!-- <script src="https://code.highcharts.com/modules/data.js"></script> -->
         <script src="https://code.highcharts.com/modules/series-label.js"></script>
@@ -660,11 +660,11 @@
         
         <figure class="highcharts-figure2">
             <div id="container2"></div>
-            <p class="highcharts-description">
+            <p class="highcharts-description" style="color: #fff;">
                 Descrição
             </p>
         </figure>
-        <!-- Fim do 1º Grafico -->
+        <!-- Fim do 2º Grafico -->
       </div>
     </div>
   </div>
@@ -693,7 +693,7 @@
 
     setInterval(function () {
         const x = (new Date()).getTime(), // current time
-            y = Math.random();
+            y = Math.random()*30;
 
         series.addPoint([x, y], true, true);
     }, 1000);
@@ -756,7 +756,7 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
     },
 
     title: {
-     text: ''
+    text: ''
     },
 
     accessibility: {
@@ -786,6 +786,7 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
     
 
     yAxis: {
+      max: 100,
       title: {
         text: 'Value',
         style: {
@@ -889,10 +890,10 @@ Highcharts.chart('container2', {
 
     title: {
       text: 'Grafico de Envio e Recebimento de dados',
-       align: 'left',
-       style: {
-         color: 'red'
-        }
+      align: 'left',
+      style: {
+      color: 'red'
+      }
     },
 
    // subtitle: {
@@ -909,7 +910,7 @@ Highcharts.chart('container2', {
             x: 3,
             y: -3,
             style: {
-          color: 'white'
+          color: '#ffffff'
         }
         }
     },
@@ -1002,7 +1003,7 @@ Highcharts.chart('container2', {
     },
 
     title: {
-      text: 'Velocidade'
+      text: 'Taxa de Transmissão'
     },
 
     pane: {

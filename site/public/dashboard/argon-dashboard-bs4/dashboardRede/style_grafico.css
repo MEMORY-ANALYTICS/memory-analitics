@@ -92,9 +92,9 @@
 /*---------------------------------------*/
 .highcharts-figure2,
 .highcharts-data-table table {
-    min-width: 400px;
-    max-width: 1100px;
-    margin: 1em auto;
+    width: 90%;
+    height: 80%;
+    margin: auto;
 }
 
 .highcharts-data-table table {
