@@ -1,19 +1,19 @@
 package school.sptech.Servidores;
 
-import school.sptech.BancoDados.Database;
+import school.sptech.BancoDados.Conexao;
 
 import java.time.LocalDateTime;
 
 public class Chamado {
     private String codigo;
     private LocalDateTime dtHora;
-    private Database banco;
+    private Conexao conexao;
     private int fkServidor;
 
-    public Chamado(String codigo, LocalDateTime dtHora, Database banco, int fkServidor) {
+    public Chamado(String codigo, LocalDateTime dtHora, Conexao conexao, int fkServidor) {
         this.codigo = codigo;
         this.dtHora = dtHora;
-        this.banco = banco;
+        this.conexao = conexao;
         this.fkServidor = fkServidor;
     }
 
@@ -37,12 +37,12 @@ public class Chamado {
         this.dtHora = dtHora;
     }
 
-    public Database getBanco() {
-        return banco;
+    public Conexao getBanco() {
+        return conexao;
     }
 
-    public void setBanco(Database banco) {
-        this.banco = banco;
+    public void setBanco(Conexao conexao) {
+        this.conexao = conexao;
     }
 
     public int getFkServidor() {
@@ -58,7 +58,7 @@ public class Chamado {
         return "Chamado{" +
                 "codigo='" + codigo + '\'' +
                 ", dtHora=" + dtHora +
-                ", banco=" + banco +
+                ", conexao=" + conexao +
                 ", fkServidor=" + fkServidor +
                 '}';
     }

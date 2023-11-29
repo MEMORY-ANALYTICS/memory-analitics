@@ -55,21 +55,25 @@ public class Main {
 
         Menu menu = new Menu(leitor, leitorString, servidor1, recurso1, componente1, registro1);
         Integer opcao;
+//
+//        do {
+//            menu.exibirMenu();
+//            opcao = menu.solicitarOpcao();
+//
+//            switch (opcao) {
+//                case 1 -> menu.adicionarServidor();
+//                case 2 -> menu.listarSevidores();
+//
+//                case 4 -> menu.menuRegistros();
+//                case 9 -> menu.exibirMensagemSair();
+//                default -> menu.exibirMensagemOpcaoInvalida();
+//            }
+//
+//        } while(opcao != 9);
 
-        do {
-            menu.exibirMenu();
-            opcao = menu.solicitarOpcao();
 
-            switch (opcao) {
-                case 1 -> menu.adicionarServidor();
-                case 2 -> menu.listarSevidores();
-
-                case 4 -> menu.menuRegistros();
-                case 9 -> menu.exibirMensagemSair();
-                default -> menu.exibirMensagemOpcaoInvalida();
-            }
-
-        } while(opcao != 9);
+        Processos p1 = new Processos();
+        p1.listarTodosProcessos();
     }
 
 }

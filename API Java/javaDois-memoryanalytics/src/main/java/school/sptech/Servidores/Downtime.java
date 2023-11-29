@@ -1,19 +1,19 @@
 package school.sptech.Servidores;
 
-import school.sptech.BancoDados.Database;
+import school.sptech.BancoDados.Conexao;
 
 import java.time.LocalDateTime;
 
 public class Downtime {
     private int tempoDowntime;
     private LocalDateTime dtHora;
-    private Database banco;
+    private Conexao conexao;
     private int fkServidor;
 
-    public Downtime(int tempoDowntime, LocalDateTime dtHora, Database banco, int fkServidor) {
+    public Downtime(int tempoDowntime, LocalDateTime dtHora, Conexao conexao, int fkServidor) {
         this.tempoDowntime = tempoDowntime;
         this.dtHora = dtHora;
-        this.banco = banco;
+        this.conexao = conexao;
         this.fkServidor = fkServidor;
     }
 
@@ -33,12 +33,12 @@ public class Downtime {
         this.dtHora = dtHora;
     }
 
-    public Database getBanco() {
-        return banco;
+    public Conexao getBanco() {
+        return conexao;
     }
 
-    public void setBanco(Database banco) {
-        this.banco = banco;
+    public void setBanco(Conexao conexao) {
+        this.conexao = conexao;
     }
 
     public int getFkServidor() {
@@ -54,7 +54,7 @@ public class Downtime {
         return "Downtime{" +
                 "tempoDowntime=" + tempoDowntime +
                 ", dtHora=" + dtHora +
-                ", banco=" + banco +
+                ", conexao=" + conexao +
                 ", fkServidor=" + fkServidor +
                 '}';
     }

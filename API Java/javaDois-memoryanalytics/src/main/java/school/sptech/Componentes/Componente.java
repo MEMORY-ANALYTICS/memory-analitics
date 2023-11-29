@@ -1,6 +1,7 @@
 package school.sptech.Componentes;
 
-import school.sptech.BancoDados.Database;
+import school.sptech.BancoDados.Conexao;
+import school.sptech.Recurso.Recurso;
 
 import java.util.List;
 
@@ -11,17 +12,17 @@ public abstract class Componente {
     private String limiteMin;
     private String limiteMax;
     private List<Recurso> recursos;
-    private Database banco;
+    private Conexao conexao;
 
     public Componente(String fabricante, String nomeModelo, String tipoComponente,
-                      String limiteMin, String limiteMax, List<Recurso> recursos, Database banco) {
+                      String limiteMin, String limiteMax, List<Recurso> recursos, Conexao conexao) {
         this.fabricante = fabricante;
         this.nomeModelo = nomeModelo;
         this.tipoComponente = tipoComponente;
         this.limiteMin = limiteMin;
         this.limiteMax = limiteMax;
         this.recursos = recursos;
-        this.banco = banco;
+        this.conexao = conexao;
     }
 
     public String getFabricante() {
@@ -72,12 +73,12 @@ public abstract class Componente {
         this.recursos = recursos;
     }
 
-    public Database getBanco() {
-        return banco;
+    public Conexao getBanco() {
+        return conexao;
     }
 
-    public void setBanco(Database banco) {
-        this.banco = banco;
+    public void setBanco(Conexao conexao) {
+        this.conexao = conexao;
     }
 
     @Override
@@ -89,7 +90,7 @@ public abstract class Componente {
                 ", limiteMin='" + limiteMin + '\'' +
                 ", limiteMax='" + limiteMax + '\'' +
                 ", recursos=" + recursos +
-                ", banco=" + banco +
+                ", conexao=" + conexao +
                 '}';
     }
 }

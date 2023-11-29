@@ -1,33 +1,21 @@
 package school.sptech;
 
+import com.github.britooo.looca.api.group.temperatura.Temperatura;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.*;
-import school.sptech.Componentes.Registro;
+import school.sptech.Servidores.Servidor;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        Database bancoMySql = new MySql(
-                "com.mysql.cj.jdbc.Driver",
-                "jdbc:mysql://localhost:3306/bd_memoryanalytics",
-                "urubu100","urubu100",
-                "3306");
 
-        Database bancoSqlServer = new SQLServer(
-                "com.mysql.cj.jdbc.Driver",
-                "jdbc:mysql://localhost:3306/bd_memoryanalytics",
-                "urubu100","urubu100", "240024-2");
-
-        Conexao conMysql = new Conexao(bancoMySql);
-
-        Conexao conSqlServer = new Conexao(bancoSqlServer);
-
-        Comando comandoSelectRegistro = new Comando("select * from registro");
-
-        List<Object> registros = conMysql.getConexaoBanco().query
-                (comandoSelectRegistro.getComando(), new BeanPropertyRowMapper<>());
+        ConexaoMySql mysql = new ConexaoMySql();
+    JdbcTemplate con = mysql.criarConexao();
+    List<Servidor> l1 = con.query("select * from servidor",new BeanPropertyRowMapper<>(Servidor.class));
+   System.out.println(l1);
 
 
 

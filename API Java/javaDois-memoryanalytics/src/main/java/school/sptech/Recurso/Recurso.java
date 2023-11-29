@@ -1,7 +1,7 @@
-package school.sptech.Componentes;
+package school.sptech.Recurso;
 
 import school.sptech.BancoDados.Conexao;
-import school.sptech.BancoDados.Database;
+import school.sptech.Componentes.Registro;
 
 import java.util.List;
 
@@ -9,16 +9,15 @@ public abstract class Recurso {
     private String nome;
     private String unidadeMedida;
     private List<Registro> registros;
-    private Database banco;
+    private Conexao conexao;
     private Conexao con;
     private int fkComponente;
 
-    public Recurso(String nome, String unidadeMedida, List<Registro> registros, Database banco, Conexao con, int fkComponente) {
+    public Recurso(String nome, String unidadeMedida, List<Registro> registros, Conexao conexao, int fkComponente) {
         this.nome = nome;
         this.unidadeMedida = unidadeMedida;
         this.registros = registros;
-        this.banco = banco;
-        this.con = con;
+        this.conexao = conexao;
         this.fkComponente = fkComponente;
     }
 
@@ -46,12 +45,12 @@ public abstract class Recurso {
         this.registros = registros;
     }
 
-    public Database getBanco() {
-        return banco;
+    public Conexao getBanco() {
+        return conexao;
     }
 
-    public void setBanco(Database banco) {
-        this.banco = banco;
+    public void setBanco(Conexao conexao) {
+        this.conexao = conexao;
     }
 
     public int getFkComponente() {
@@ -78,7 +77,7 @@ public abstract class Recurso {
                 "nome='" + nome + '\'' +
                 ", unidadeMedida='" + unidadeMedida + '\'' +
                 ", registros=" + registros +
-                ", banco=" + banco +
+                ", conexao=" + conexao +
                 ", fkComponente=" + fkComponente +
                 '}';
     }

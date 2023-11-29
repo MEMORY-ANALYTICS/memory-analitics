@@ -1,15 +1,15 @@
 package school.sptech.Componentes;
 
-import school.sptech.BancoDados.Database;
+import school.sptech.BancoDados.Conexao;
 
 public abstract class Registro {
     private Double valor;
-    private Database banco;
+    private Conexao conexao;
     private int fkRecurso;
 
-    public Registro(Double valor, Database banco, int fkRecurso) {
+    public Registro(Double valor, Conexao conexao, int fkRecurso) {
         this.valor = valor;
-        this.banco = banco;
+        this.conexao = conexao;
         this.fkRecurso = fkRecurso;
     }
 
@@ -21,12 +21,12 @@ public abstract class Registro {
         this.valor = valor;
     }
 
-    public Database getBanco() {
-        return banco;
+    public Conexao getBanco() {
+        return conexao;
     }
 
-    public void setBanco(Database banco) {
-        this.banco = banco;
+    public void setBanco(Conexao conexao) {
+        this.conexao = conexao;
     }
 
     public int getFkRecurso() {
@@ -41,7 +41,7 @@ public abstract class Registro {
     public String toString() {
         return "Registro{" +
                 "valor=" + valor +
-                ", banco=" + banco +
+                ", conexao=" + conexao +
                 ", fkRecurso=" + fkRecurso +
                 '}';
     }

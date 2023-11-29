@@ -1,29 +1,47 @@
 package school.sptech.BancoDados;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.jdbc.core.JdbcTemplate;
+public abstract class Conexao {
+    private String driverClassName;
+    private String url;
+    private String username;
+    private String password;
 
-public class Conexao {
-
-private JdbcTemplate conexaoBanco;
-private Database database;
-
-    public Conexao(Database database) {
-        this.database = database;
+    public Conexao(String driverClassName, String url, String username, String password) {
+        this.driverClassName = driverClassName;
+        this.url = url;
+        this.username = username;
+        this.password = password;
     }
 
-    public Conexao(){
-    BasicDataSource dataSource = new BasicDataSource();
-    dataSource.setDriverClassName(database.getSetDriverClassName());
-    dataSource.setUrl(database.getSetUrl());
-    dataSource.setUsername(dataSource.getUsername());
-    dataSource.setPassword(dataSource.getPassword());
-
-    this.conexaoBanco = new JdbcTemplate(dataSource);
-}
-
-    public JdbcTemplate getConexaoBanco() {
-        return conexaoBanco;
+    public String getDriverClassName() {
+        return driverClassName;
     }
 
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

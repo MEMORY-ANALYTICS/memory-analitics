@@ -1,8 +1,7 @@
 package school.sptech.Servidores;
 
-import school.sptech.BancoDados.Database;
+import school.sptech.BancoDados.Conexao;
 import school.sptech.Componentes.Componente;
-import school.sptech.Empresas.Funcionario;
 
 import java.util.List;
 
@@ -14,12 +13,10 @@ public class Servidor {
     private List<Chamado> chamados;
     private Downtime downtime;
     private List<Componente> componentes;
-    private List<Funcionario> responsaveis;
-    private Database banco;
-    private int fkEmpresa;
+    private Conexao conexao;
 
     public Servidor(String sistemaOperacional, String apelido, String ip, String numeroSerie, List<Chamado> chamados,
-                    Downtime downtime, List<Componente> componentes, List<Funcionario> responsaveis, Database banco, int fkEmpresa) {
+                    Downtime downtime, List<Componente> componentes, Conexao conexao) {
         this.sistemaOperacional = sistemaOperacional;
         this.apelido = apelido;
         this.ip = ip;
@@ -27,9 +24,7 @@ public class Servidor {
         this.chamados = chamados;
         this.downtime = downtime;
         this.componentes = componentes;
-        this.responsaveis = responsaveis;
-        this.banco = banco;
-        this.fkEmpresa = fkEmpresa;
+        this.conexao = conexao;
     }
 
     public String getSistemaOperacional() {
@@ -88,28 +83,13 @@ public class Servidor {
         this.componentes = componentes;
     }
 
-    public List<Funcionario> getResponsaveis() {
-        return responsaveis;
+
+    public Conexao getBanco() {
+        return conexao;
     }
 
-    public void setResponsaveis(List<Funcionario> responsaveis) {
-        this.responsaveis = responsaveis;
-    }
-
-    public Database getBanco() {
-        return banco;
-    }
-
-    public void setBanco(Database banco) {
-        this.banco = banco;
-    }
-
-    public int getFkEmpresa() {
-        return fkEmpresa;
-    }
-
-    public void setFkEmpresa(int fkEmpresa) {
-        this.fkEmpresa = fkEmpresa;
+    public void setBanco(Conexao conexao) {
+        this.conexao = conexao;
     }
 
     @Override
@@ -122,9 +102,7 @@ public class Servidor {
                 ", chamados=" + chamados +
                 ", downtime=" + downtime +
                 ", componentes=" + componentes +
-                ", responsaveis=" + responsaveis +
-                ", banco=" + banco +
-                ", fkEmpresa=" + fkEmpresa +
+                ", conexao=" + conexao +
                 '}';
     }
 }
