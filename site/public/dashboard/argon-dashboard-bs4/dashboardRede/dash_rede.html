@@ -755,9 +755,9 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
       useUTC: false
     },
 
-    //title: {
-    //  text: ''
-    //},
+    title: {
+     text: ''
+    },
 
     accessibility: {
       announceNewData: {
@@ -783,13 +783,7 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
         }
       }
     },
-    title: {
-      text: '',
-       align: 'left',
-       style: {
-         color: '#ffffff'
-        }
-    },
+    
 
     yAxis: {
       title: {
@@ -830,7 +824,7 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
 
     series: [
       {
-        name: 'Random data',
+        name: '',
         lineWidth: 2,
         color: Highcharts.getOptions().colors[1],
         data
