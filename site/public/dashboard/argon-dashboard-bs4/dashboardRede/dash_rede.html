@@ -308,53 +308,7 @@
               </div>
             </li>
             <li class="nav-item dropdown">
-              <!--
-                
-                <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <i class="ni ni-ungroup"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-dark bg-default  dropdown-menu-right ">
-                <div class="row shortcuts px-4">
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-red">
-                      <i class="ni ni-calendar-grid-58"></i>
-                    </span>
-                    <small>Calendar</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-orange">
-                      <i class="ni ni-email-83"></i>
-                    </span>
-                    <small>Email</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-info">
-                      <i class="ni ni-credit-card"></i>
-                    </span>
-                    <small>Payments</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-green">
-                      <i class="ni ni-books"></i>
-                    </span>
-                    <small>Reports</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-purple">
-                      <i class="ni ni-pin-3"></i>
-                    </span>
-                    <small>Maps</small>
-                  </a>
-                  <a href="#!" class="col-4 shortcut-item">
-                    <span class="shortcut-media avatar rounded-circle bg-gradient-yellow">
-                      <i class="ni ni-basket"></i>
-                    </span>
-                    <small>Shop</small>
-                  </a>
-                </div>
-              </div>
-            -->
+
             </li>
           </ul>
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
@@ -454,7 +408,8 @@
               <a class="btn-sm btn-neutral" id="gigabytesButton" onclick="emGigabytes()"
                 style="cursor: pointer;">Gigabytes</a>
 
-              <a class="btn-sm btn-neutral" id="kelvinButton" onclick="kelvin()" style="cursor: pointer;">Download CSV</a>
+              <a class="btn-sm btn-neutral" id="kelvinButton" onclick="kelvin()" style="cursor: pointer;">Download
+                CSV</a>
 
 
 
@@ -594,7 +549,33 @@
     </div>
     <!-- Page content -->
     <div class="container-fluid mt--6">
-      <div class="row">
+      <div class="row" style="display: flex; justify-content: space-around;">
+        <div class="card" style="box-shadow:
+        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 35rem;">
+
+          <!--Grafico 3------------------------------------------------------------------------------ -->
+          <div class="card text-center shadow-lg" style="max-width: 25rem;">
+            <div class="card-body">
+              <script src="https://code.highcharts.com/highcharts.js"></script>
+              <script src="https://code.highcharts.com/highcharts-more.js"></script>
+              <script src="https://code.highcharts.com/modules/exporting.js"></script>
+              <script src="https://code.highcharts.com/modules/export-data.js"></script>
+              <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+              <figure class="highcharts-figure3">
+                <div id="container3"></div>
+                <p class="highcharts-description3">
+                  Chart showing use of plot bands with a gauge series. The chart is
+                  updated dynamically every few seconds.
+                </p>
+              </figure>
+            </div>
+            <!--Fim grafico 3------------------------------------------------------------------------------ -->
+
+
+          </div>
+        </div>
+
         <div class="col-xl-8">
           <div class="card bg-default" style="box-shadow:
           0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
@@ -606,15 +587,15 @@
                   -->
                   <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">Latência da Rede</h5>
                   <ul class="nav nav-pills justify-content" style="justify-content: start;">
-                    
+
                 </div>
                 <div class="col">
                   <ul></ul>
-                
+
 
                   <ul class="nav nav-pills justify-content-end">
-                    
-                    
+
+
                     <!--
                     <li class="nav-item" data-toggle="chart">
                       <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
@@ -631,237 +612,82 @@
             </div>
             <div class="card-body" style="box-shadow:
             0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-<!-------------------------------------- Chart --------------------------------------------->
+              <!-------------------------------------- Chart --------------------------------------------->
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-
-<figure class="highcharts-figure" fill="">
-    <div id="container"></div>
-    <p class="highcharts-description">
-        Chart showing data updating every second, with old data being removed.
-    </p>
-</figure>
-
-<!-- Fim do 1º Grafico -->
-            </div>
-          </div>
-
-          <div class="card bg-default" style="box-shadow:
-          0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-            <div class="card-header bg-transparent">
-              <div class="row align-items-center">
-                <div class="col">
-                  <!--
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
-                          -->
-                  <h5 class="h3 text-white mb-0">Comparação com dados externos</h5>
-                </div>
-                <div class="col">
-                  <ul class="nav nav-pills justify-content-end">
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash2" onclick="horaDash2()"
-                        style="background-color:  #5e72e4; cursor: pointer;">
-                        <span class="d-none d-md-block" onclick="horaDash2()" id="textoHora2"
-                          style="color: #fff;">Hora</span>
-
-                      </a>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()"
-                        style="cursor: pointer;">
-                        <span class="d-none d-md-block" onclick="semanaDash2()" id="textoSemana2">Semana</span>
-
-                      </a>
-                    </li>
-                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                      <a class="nav-link py-2 px-3" data-toggle="tab" onclick="mesDash2()"
-                        style="border-radius: 10%; cursor: pointer;" id="idMesDash2">
-                        <span class="d-none d-md-block" id="textoMes2" onclick="mesDash2()">Mês</span>
-
-                      </a>
-                    </li>
-                    <!--
-                        <li class="nav-item" data-toggle="chart">
-                          <a href="#" class="nav-link py-2 px-3" data-toggle="tab">
-    
-                              <span class="d-none d-md-block">Ano</span>
-                              
-                            </a>
-                          </li>
-                        -->
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="card-body" style="box-shadow:
-            0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-              <!-- Chart -->
-                <div class="chart" id= "container2"><p>B</p></div>
-            </div>
-          </div>
-
-
-
-        </div>
-        <div class="card" style="box-shadow:
-        0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-        <div class="card-header bg-transparent">
-
-          <div class="row align-items-center">
-
-            <div class="col">
-              <!--
-                      <h6 class="text-uppercase text-muted ls-1 mb-1">Performance</h6>
-                    -->
-              <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Temp. Região</h5>
-              <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Local: Carolina do Norte
-              </h5>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-<!--Grafico 3------------------------------------------------------------------------------ -->
-          <div class="card text-center shadow-lg" style="max-width: 24rem;">
-            <div class="card-body">
               <script src="https://code.highcharts.com/highcharts.js"></script>
-              <script src="https://code.highcharts.com/highcharts-more.js"></script>
               <script src="https://code.highcharts.com/modules/exporting.js"></script>
               <script src="https://code.highcharts.com/modules/export-data.js"></script>
               <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-              <figure class="highcharts-figure3">
-                  <div id="container3"></div>
-                  <p class="highcharts-description3">
-                      Chart showing use of plot bands with a gauge series. The chart is
-                      updated dynamically every few seconds.
-                  </p>
+
+              <figure class="highcharts-figure">
+                <div id="container"></div>
+                <p class="highcharts-description">
+                  Chart showing data updating every second, with old data being removed.
+                </p>
               </figure>
-          </div>
-<!--Fim grafico 3------------------------------------------------------------------------------ -->
 
-          <div class="card-body">
-
-            <!-- Chart -->
-            <div class="chart">
-              <canvas id="chart-bars" class="chart-c"></canvas>
+              <!-- Fim do 1º Grafico -->
             </div>
           </div>
+
         </div>
-      </div>
+
       </div>
 
-      <div style="box-shadow:
-            0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-        <div class="card">
-          <div class="card-header border-0">
+<!-- Fim do 2º Grafico -->   
+      <div class="col-xl-13">
+        <div class="card bg-default" style="box-shadow:
+        0.3em 0.3em 1em rgba(65, 58, 58, 0.6);" >
+          <div class="card-header bg-transparent">
             <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0">Relatório Completo</h3>
-              </div>
-              <div class="col text-right" onclick="download_csv()">
-                <a href="#!" class="btn btn-sm btn-primary" onclick="download_csv()">Download</a>
-              </div>
+            
             </div>
+
+            <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end; margin-top: 15px;">Grafico de Envio e Recebimento de dados</h5>
+                  <ul class="nav nav-pills justify-content" style="justify-content: start;">
+
           </div>
-          <!--
-              style="overflow-x: hidden;"
-            -->
-          <div class="table-responsive">
-            <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th style="width: auto; text-align: center;">Componente</th>
-                  <th style="width: auto; text-align: start;">Quantidade de alertas emitidos(mensal)</th>
-                  <th style="width: auto; text-align: start;">Porcentual de alertas(mensal)</th>
-                  <th style="width: auto; text-align: start;">Quantidade de registros(mensal)</th>
-                  <th style="width: auto; text-align: start;">Mês</th>
-
-
-
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th style="width: auto; text-align: center;">
-                    Core 1
-                  </th>
-                  <td style="text-align: center;">
-                    38
-                  </td>
-                  <td style="text-align: center;">
-                    38
-                  </td>
-                  <td style="text-align: center;">
-                    100
-                  </td>
-                  <td style="text-align: center;">
-                    9
-                  </td>
-
-                </tr>
-                <tr>
-                  <th style="width: auto; text-align: center;">
-                    Core 2
-                  </th>
-                  <td style="width: auto; text-align: center;">
-                    78
-                  </td>
-                  <td style="width: auto; text-align: center;">
-                    78
-                  </td>
-                  <td style="width: auto; text-align: center;">
-                    100
-                  </td>
-                  <td style="text-align: center;">
-                    9
-                  </td>
-
-                </tr>
-                <tr>
-                  <th style="width: auto; text-align: center;">
-                    Core 3
-                  </th>
-                  <td style="width: auto; text-align: center;">
-                    14
-                  </td>
-                  <td style="width: auto; text-align: center;">
-                    14
-                  </td>
-                  <td style="width: auto; text-align: center;">
-                    100
-                  </td>
-                  <td style="text-align: center;">
-                    9
-                  </td>
-
-
-  </footer>
+      <div class="card-body" style="box-shadow:
+      0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 30rem;">
+        <!-------------------------------------- Chart --------------------------------------------->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/data.js"></script>
+        <script src="https://code.highcharts.com/modules/series-label.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        
+        <figure class="highcharts-figure2">
+            <div id="container2"></div>
+            <p class="highcharts-description">
+                Descrição
+            </p>
+        </figure>
+        <!-- Fim do 1º Grafico -->
+      </div>
+    </div>
   </div>
-  </div>
-  <!-- Argon Scripts -->
-  <!-- Core -->
-  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-  <!-- Optional JS -->
-  <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
-  <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.2.0"></script>
-  <!-- Chart.js-->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
+</body>
+<!-- type: 'areaspline', -->
+</html>
+
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+<script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+<script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+<!-- Optional JS -->
+<script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+<!-- Argon JS -->
+<script src="../assets/js/argon.js?v=1.2.0"></script>
+
 <script>
-// On chart load, start an interval that adds points to the chart and animate
-// the pulsating marker.
-const onChartLoad = function () {
+  const onChartLoad = function () {
     const chart = this,
         series = chart.series[0];
 
@@ -916,242 +742,348 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
 });
 
 
-Highcharts.chart('container', {
+  Highcharts.chart('container', {
     chart: {
-        backgroundColor: '#172b4d',
-        type: 'areaspline',
-        events: {
-            load: onChartLoad
-        }
+      backgroundColor: '#172b4d',
+      type: 'areaspline',
+      events: {
+        load: onChartLoad
+      }
     },
 
     time: {
-        useUTC: false
+      useUTC: false
     },
 
-    title: {
-        text: ''
-    },
+    //title: {
+    //  text: ''
+    //},
 
     accessibility: {
-        announceNewData: {
-            enabled: true,
-            minAnnounceInterval: 15000,
-            announcementFormatter: function (allSeries, newSeries, newPoint) {
-                if (newPoint) {
-                    return 'New point added. Value: ' + newPoint.y;
-                }
-                return false;
-            }
+      announceNewData: {
+        enabled: true,
+        minAnnounceInterval: 15000,
+        announcementFormatter: function (allSeries, newSeries, newPoint) {
+          if (newPoint) {
+            return 'New point added. Value: ' + newPoint.y;
+          }
+          return false;
         }
+      }
     },
 
     xAxis: {
-        type: 'datetime',
-        tickColor: '#ffffff',
-        tickPixelInterval: 150,
-        maxPadding: 0.1,
-        labels: {
-            style: {
-                color: 'red'
-            }
+      type: 'datetime',
+      tickColor: '#ffffff',
+      tickPixelInterval: 120,
+      maxPadding: 0.1,
+      labels: {
+        style: {
+          color: '#ffffff'
         }
+      }
     },
 
     yAxis: {
-        title: {
-            text: 'Value',
-            style: {
-                color: 'red'
-            }
-        },
-        labels: {
-            style: {
-                color: 'red'
-            }
-        },
-        plotLines: [
-            {
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }
-        ]
+      title: {
+        text: 'Value',
+        style: {
+          color: '#ffffff'
+        }
+      },
+      labels: {
+        style: {
+          color: '#ffffff'
+        }
+      },
+      plotLines: [
+        {
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }
+      ]
     },
 
     tooltip: {
-        headerFormat: '<b>{series.name}</b><br/>',
-        pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
+      headerFormat: '<b>{series.name}</b><br/>',
+      pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
     },
 
     legend: {
-        enabled: false
+      enabled: false
     },
 
     exporting: {
-        enabled: false
+      enabled: false
     },
     credits: {
-    enabled: false
-  },
+      enabled: false
+    },
 
     series: [
-        {
-            name: 'Random data',
-            lineWidth: 2,
-            color: Highcharts.getOptions().colors[2],
-            data
-        }
+      {
+        name: 'Random data',
+        lineWidth: 2,
+        color: Highcharts.getOptions().colors[1],
+        data
+      }
     ]
-});
+  });
 // Final Grafico 1--------------------------------------------------------------------------------------------------
-Highcharts.chart('container3', {
+  
+// Grafico 2--------------------------------------------------------------------------------------------------
+Highcharts.addEvent(Highcharts.Point, 'click', function () {
+    if (this.series.options.className.indexOf('popup-on-click') !== -1) {
+        const chart = this.series.chart;
+        const date = Highcharts.dateFormat('%A, %b %e, %Y', this.x);
+        const text = `<b>${date}</b><br/>${this.y} ${this.series.name}`;
 
-chart: {
-    type: 'gauge',
-    plotBackgroundColor: null,
-    plotBackgroundImage: null,
-    plotBorderWidth: 0,
-    plotShadow: false,
-    height: '80%'
-},
+        const anchorX = this.plotX + this.series.xAxis.pos;
+        const anchorY = this.plotY + this.series.yAxis.pos;
+        const align = anchorX < chart.chartWidth - 200 ? 'left' : 'right';
+        const x = align === 'left' ? anchorX + 10 : anchorX - 10;
+        const y = anchorY - 30;
+        if (!chart.sticky) {
+            chart.sticky = chart.renderer
+                .label(text, x, y, 'callout',  anchorX, anchorY)
+                .attr({
+                    align,
+                    fill: 'rgba(0, 0, 0, 0.75)',
+                    padding: 10,
+                    zIndex: 7 // Above series, below tooltip
+                })
+                .css({
+                    color: 'white'
+                })
+                .on('click', function () {
+                    chart.sticky = chart.sticky.destroy();
+                })
+                .add();
+        } else {
+            chart.sticky
+                .attr({ align, text })
+                .animate({ anchorX, anchorY, x, y }, { duration: 250 });
+        }
+    }
+});
 
-title: {
-    text: 'Velocidade'
-},
 
-pane: {
-    startAngle: -90,
-    endAngle: 89.9,
-    background: null,
-    center: ['50%', '75%'],
-    size: '110%'
-},
+Highcharts.chart('container2', {
 
-// the value axis
-yAxis: {
-    min: 0,
-    max: 200,
-    tickPixelInterval: 72,
-    tickPosition: 'inside',
-    tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
-    tickLength: 20,
-    tickWidth: 2,
-    minorTickInterval: null,
-    labels: {
-        distance: 20,
-        style: {
-            fontSize: '14px'
+    chart: {
+      backgroundColor: '#172b4d',
+        scrollablePlotArea: {
+            minWidth: 1000
         }
     },
-    lineWidth: 0,
-    plotBands: [{
+
+    data: {
+        csvURL: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/analytics.csv',
+        beforeParse: function (csv) {
+            return csv.replace(/\n\n/g, '\n');
+        }
+    },
+
+    title: {
+      text: 'Grafico de Envio e Recebimento de dados',
+       align: 'left',
+       style: {
+         color: 'red'
+        }
+    },
+
+   // subtitle: {
+   //     text: 'Source: Google Analytics',
+   //     align: 'left'
+   // },
+
+    xAxis: {
+        tickInterval: 7 * 24 * 3600 * 1000, // one week
+        tickWidth: 0,
+        gridLineWidth: 1,
+        labels: {
+            align: 'left',
+            x: 3,
+            y: -3,
+            style: {
+          color: 'white'
+        }
+        }
+    },
+
+    yAxis: [{ // left y axis
+        title: {
+            text: null
+        },
+        labels: {
+            align: 'left',
+            x: 3,
+            y: 16,
+            format: '{value:.,0f}',
+            style: {
+          color: 'white'
+        }
+        },
+        showFirstLabel: false
+    }, { // right y axis
+        linkedTo: 0,
+        gridLineWidth: 0,
+        opposite: true,
+        title: {
+            text: null
+        },
+        labels: {
+            align: 'right',
+            x: -3,
+            y: 16,
+            format: '{value:.,0f}'
+        },
+        showFirstLabel: false
+    }],
+
+    legend: {
+        align: 'left',
+        verticalAlign: 'top',
+        borderWidth: 0
+    },
+
+    tooltip: {
+        shared: true,
+        crosshairs: true
+    },
+
+    plotOptions: {
+        series: {
+            cursor: 'pointer',
+            className: 'popup-on-click',
+            marker: {
+                lineWidth: 1
+            }
+        }
+    },
+
+    series: [{
+        name: 'All sessions',
+        lineWidth: 4,
+        marker: {
+            radius: 4
+        }
+    }, {
+        name: 'New users'
+    }]
+});
+
+//-------------------Final Grafico 2-----------------------------------------------------------------
+
+  Highcharts.chart('container3', {
+
+    chart: {
+      type: 'gauge',
+      plotBackgroundColor: null,
+      plotBackgroundImage: null,
+      plotBorderWidth: 0,
+      plotShadow: false,
+      height: '80%'
+    },
+
+    title: {
+      text: 'Velocidade'
+    },
+
+    pane: {
+      startAngle: -90,
+      endAngle: 89.9,
+      background: null,
+      center: ['50%', '75%'],
+      size: '110%'
+    },
+
+    // the value axis
+    yAxis: {
+      min: 0,
+      max: 200,
+      tickPixelInterval: 72,
+      tickPosition: 'inside',
+      tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+      tickLength: 20,
+      tickWidth: 2,
+      minorTickInterval: null,
+      labels: {
+        distance: 20,
+        style: {
+          fontSize: '14px'
+        }
+      },
+      lineWidth: 0,
+      plotBands: [{
         from: 160,
         to: 200,
         color: '#55BF3B', // green
         thickness: 20
-    }, {
+      }, {
         from: 105,
         to: 160,
         color: '#DDDF0D', // yellow
         thickness: 20
-    }, {
+      }, {
         from: 0,
         to: 105,
         color: '#DF5353', // red
         thickness: 20
-    }]
-},
-
-series: [{
-    name: 'Speed',
-    data: [80],
-    tooltip: {
-        valueSuffix: ' km/h'
+      }]
     },
-    dataLabels: {
+
+    series: [{
+      name: 'Speed',
+      data: [80],
+      tooltip: {
+        valueSuffix: ' km/h'
+      },
+      dataLabels: {
         format: '{y} km/h',
         borderWidth: 0,
         color: (
-            Highcharts.defaultOptions.title &&
-            Highcharts.defaultOptions.title.style &&
-            Highcharts.defaultOptions.title.style.color
+          Highcharts.defaultOptions.title &&
+          Highcharts.defaultOptions.title.style &&
+          Highcharts.defaultOptions.title.style.color
         ) || '#333333',
         style: {
-            fontSize: '16px'
+          fontSize: '16px'
         }
-    },
-    dial: {
+      },
+      dial: {
         radius: '80%',
         backgroundColor: 'gray',
         baseWidth: 12,
         baseLength: '0%',
         rearLength: '0%'
-    },
-    pivot: {
+      },
+      pivot: {
         backgroundColor: 'gray',
         radius: 6
-    }
-
-}]
-
-});
-
-// Add some life
-setInterval(() => {
-const chart = Highcharts.charts[0];
-if (chart && !chart.renderer.forExport) {
-    const point = chart.series[0].points[0],
-        inc = Math.round((Math.random() - 0.5) * 20);
-
-    let newVal = point.y + inc;
-    if (newVal < 0 || newVal > 200) {
-        newVal = point.y - inc;
-    }
-
-    point.update(newVal);
-}
-
-}, 3000);
-
-//-------------------Final Grafico 3-----------------------------------------------------------------
-    function capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-  </script>
-  <script>
-    function notification() {
-      container_notification.style = 'display: block;'
-
-    }
-
-    function notification_of() {
-      container_notification.style = 'display: none;'
-
-    }
-  </script>
-
-  <script>
-    var menuVisivel = true;
-
-    function menu() {
-
-      const sidenav = document.querySelector('#sidenav-main');
-
-      if (menuVisivel) {
-        sidenav.style = 'display: none';
-        menuVisivel = false;
-      } else {
-        sidenav.style = 'display: block';
-        menuVisivel = true;
-
       }
 
+    }]
 
+  });
+
+  // Add some life
+  setInterval(() => {
+    const chart = Highcharts.charts[0];
+    if (chart && !chart.renderer.forExport) {
+      const point = chart.series[0].points[0],
+        inc = Math.round((Math.random() - 0.5) * 20);
+
+      let newVal = point.y + inc;
+      if (newVal < 0 || newVal > 200) {
+        newVal = point.y - inc;
+      }
+
+      point.update(newVal);
     }
-  </script>
 
-</body>
+  }, 3000);
 
-</html>
+  //-------------------Final Grafico 3-----------------------------------------------------------------
+</script>
