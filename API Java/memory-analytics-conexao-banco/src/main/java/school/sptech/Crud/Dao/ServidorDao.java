@@ -40,7 +40,8 @@ public class ServidorDao {
 
     public void adicionarServidor(String apelidoServidor, String numeroSerieServidor){
         Looca looca = new Looca();
-        String ipServidor = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoIpv4().get(0);
+        //String ipServidor = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoIpv4().get(0);
+        String ipServidor = "2398428974";
         con.update("INSERT INTO servidor(SistemaOperacionalServidor, apelidoServidor,ipServidor,numeroSerieServidor,fkEmpresa) VALUES (?, ?, ?, ?, ?)",
                 looca.getSistema().getSistemaOperacional(), apelidoServidor, ipServidor, numeroSerieServidor, 1);
     }
