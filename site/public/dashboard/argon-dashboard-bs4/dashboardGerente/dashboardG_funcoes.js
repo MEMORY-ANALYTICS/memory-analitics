@@ -308,6 +308,46 @@ function getDowntime() {
     });
 }
 
+function getCompProblematico() {
+    fetch(`/dashboardG/getCompProblematico/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
+        if (resposta.ok) {
+
+            resposta.json().then(function (json) {
+                var numcompProblematico = json[0].nomeComponente
+                // console.log("Dados recebidos: ", JSON.stringify(json));
+                console.log = (json)
+
+                compProblematico.innerHTML = numcompProblematico
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+}
+
+function getChamados() {
+    fetch(`/dashboardG/getChamados/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
+        if (resposta.ok) {
+
+            resposta.json().then(function (json) {
+                var qtdPicos = json[0].getChamados
+                // console.log("Dados recebidos: ", JSON.stringify(json));
+                console.log = (json)
+
+                qtdChamados.innerHTML = qtdPicos
+            });
+        } else {
+            throw ('Houve um erro na API!');
+        }
+    }).catch(function (resposta) {
+        console.error(resposta);
+    });
+
+}
+
 function getServCriticos() {
     fetch(`/dashboardG/getServCriticos/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
         if (resposta.ok) {
@@ -338,31 +378,12 @@ function getServCriticos() {
     });
 }
 
-function getCompProblematico() {
-    fetch(`/dashboardG/getCompProblematico/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
-        if (resposta.ok) {
-
-            resposta.json().then(function (json) {
-                var numcompProblematico = json[0].nomeComponente
-                // console.log("Dados recebidos: ", JSON.stringify(json));
-                console.log = (json)
-
-                compProblematico.innerHTML = numcompProblematico
-            });
-        } else {
-            throw ('Houve um erro na API!');
-        }
-    }).catch(function (resposta) {
-        console.error(resposta);
-    });
-
-}
-
+getDowntime(); setInterval(getDowntime, 2000);
+getCompProblematico();
+getChamados(); setInterval(getChamados, 2000);
+getServCriticos();
 getEstadoGeralServ(); setInterval(getEstadoGeralServ, 10000);
 obterDadosGrafico(); setInterval(obterDadosGrafico, 10000);
-getDowntime(); setInterval(getDowntime, 2000);
-getServCriticos();
-getCompProblematico();
 
 
 // const ctx = document.getElementById('chartPicosDeUso');
