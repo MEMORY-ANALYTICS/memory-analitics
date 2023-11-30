@@ -32,7 +32,6 @@ public class RecursoProcessos {
             listaOrdemProcessos.add(processo);
         }
 
-
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
         alerta.alertarCanal("Estou funcionando!");
@@ -51,7 +50,10 @@ public class RecursoProcessos {
         Double usoTotal = .0;
         for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoCpu();
+            if(usoTotal > 2){
+            }
         }
+        alerta.alertarCanal("A Cpu está com o uso de: %");
         return usoTotal/quantidadeProcessosOnline();
     }
 

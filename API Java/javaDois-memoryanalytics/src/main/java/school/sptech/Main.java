@@ -21,7 +21,7 @@ public class Main {
 
         RecursoProcessos recursoProcessos = new RecursoProcessos();
         System.out.println(
-            recursoProcessos.getProcessoMaiorMediaUso()
+            recursoProcessos.getUsoCpuProcessos()
         );
 
 

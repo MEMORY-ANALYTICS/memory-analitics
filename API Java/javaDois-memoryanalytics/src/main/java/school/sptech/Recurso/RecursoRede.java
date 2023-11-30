@@ -10,5 +10,8 @@ public class RecursoRede extends Recurso{
         super(nome, unidadeMedida, valorRegistro, conexoes);
     }
 
-
+    @Override
+    public Double capturarRegistro() {
+        return null;
+    }
 }
