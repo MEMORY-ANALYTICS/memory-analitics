@@ -17,7 +17,7 @@ public class RecursoProcessos {
         return qtdProcessos;
     }
 
-    public String getProcessoMaiorUsoCpu(){
+    public String getProcessoMaiorMediaUso(){
 
         Double mediaAtualComparacao = .0;
         Processo processoAtualComparacao;
