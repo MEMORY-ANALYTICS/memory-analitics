@@ -4,9 +4,7 @@
 
 -- CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
-    CREATE DATABASE bd_memoryanalytics;
-
-USE bd_memoryanalytics;
+    CREATE DATABASE [bd_memoryanalytics];
 
 -- CREATE TABLE empresa
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'empresa')

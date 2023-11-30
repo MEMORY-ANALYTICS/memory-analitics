@@ -10,7 +10,7 @@ public class ConexaoMySqlServer extends Conexao  {
     }
 
 
-    public void criarConexao(){
+    public JdbcTemplate criarConexao(){
         SQLServerDataSource dataSource = new SQLServerDataSource();
         dataSource.setURL(getUrl());
         dataSource.setUser(getUsername());
@@ -18,6 +18,7 @@ public class ConexaoMySqlServer extends Conexao  {
         dataSource.setTrustServerCertificate(true);
 
         this.conexao = new JdbcTemplate(dataSource);
+        return this.conexao;
     }
 
 

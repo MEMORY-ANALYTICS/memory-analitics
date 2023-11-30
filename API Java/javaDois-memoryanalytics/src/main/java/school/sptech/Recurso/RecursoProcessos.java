@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.OptionalDouble;
 
 public class RecursoProcessos {
-    Looca looca = new Looca();
+    private Looca looca = new Looca();
+
     public Integer quantidadeProcessosOnline(){
         Integer qtdProcessos = 0;
         for(Processo processo : looca.getGrupoDeProcessos().getProcessos()){
