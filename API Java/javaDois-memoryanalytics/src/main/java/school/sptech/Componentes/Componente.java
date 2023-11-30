@@ -6,6 +6,7 @@ import school.sptech.Recurso.Recurso;
 import java.util.List;
 
 public abstract class Componente {
+    private int idComponente;
     private String fabricante;
     private String nomeModelo;
     private String tipoComponente;
@@ -14,8 +15,8 @@ public abstract class Componente {
     private List<Recurso> recursos;
     private List<Conexao> conexoes;
 
-    public Componente(String fabricante, String nomeModelo, String tipoComponente,
-                      String limiteMin, String limiteMax, List<Recurso> recursos, List<Conexao> conexoes) {
+    public Componente(int idComponente, String fabricante, String nomeModelo, String tipoComponente, String limiteMin, String limiteMax, List<Recurso> recursos, List<Conexao> conexoes) {
+        this.idComponente = idComponente;
         this.fabricante = fabricante;
         this.nomeModelo = nomeModelo;
         this.tipoComponente = tipoComponente;
@@ -39,6 +40,14 @@ public abstract class Componente {
     }
     public void desabilitarRecurso(List<Recurso> recursos){
 
+    }
+
+    public int getIdComponente() {
+        return idComponente;
+    }
+
+    public void setIdComponente(int idComponente) {
+        this.idComponente = idComponente;
     }
 
     public String getFabricante() {
@@ -89,21 +98,12 @@ public abstract class Componente {
         this.recursos = recursos;
     }
 
-    public List<Conexao> getBanco() {
+    public List<Conexao> getConexoes() {
         return conexoes;
     }
 
-    public void adicionarBanco(Conexao conexao) {
-
-        if (conexao!=null){
-            conexoes.add(conexao);
-        }
-    }
-    public void removerBanco(int posicao) {
-
-        if (posicao > 0 & posicao > conexoes.size()){
-            conexoes.remove(posicao);
-        }
+    public void setConexoes(List<Conexao> conexoes) {
+        this.conexoes = conexoes;
     }
 
     @Override

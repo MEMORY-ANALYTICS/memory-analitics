@@ -35,7 +35,6 @@ public class ConexaoMySql extends Conexao{
     public void queryInsert() {
 
     }
-
     @Override
     public List<Object> querySelect() {
         return null;
