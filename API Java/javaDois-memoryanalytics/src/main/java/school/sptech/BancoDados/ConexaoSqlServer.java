@@ -3,9 +3,11 @@ package school.sptech.BancoDados;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class ConexaoMySqlServer extends Conexao  {
+import java.util.List;
+
+public class ConexaoSqlServer extends Conexao  {
     private JdbcTemplate conexao;
-    public ConexaoMySqlServer(String driverClassName, String url, String username, String password) {
+    public ConexaoSqlServer(String driverClassName, String url, String username, String password) {
         super("", "35.172.0.77", "sa", "urubu100");
     }
 
@@ -22,8 +24,23 @@ public class ConexaoMySqlServer extends Conexao  {
     }
 
 
+    @Override
+    public void queryInsert() {
+        
+    }
 
+    @Override
+    public List<Object> querySelect() {
+        return null;
+    }
 
+    @Override
+    public List<Object> queryProcedureSelect() {
+        return null;
+    }
 
+    @Override
+    public void queryProcedureInsert() {
 
+    }
 }

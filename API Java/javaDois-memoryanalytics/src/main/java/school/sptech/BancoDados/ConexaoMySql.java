@@ -3,6 +3,8 @@ package school.sptech.BancoDados;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 public class ConexaoMySql extends Conexao{
 
     private JdbcTemplate conexaoBanco;
@@ -29,4 +31,23 @@ public class ConexaoMySql extends Conexao{
         return conexaoBanco;
     }
 
+    @Override
+    public void queryInsert() {
+
+    }
+
+    @Override
+    public List<Object> querySelect() {
+        return null;
+    }
+
+    @Override
+    public List<Object> queryProcedureSelect() {
+        return null;
+    }
+
+    @Override
+    public void queryProcedureInsert() {
+
+    }
 }
