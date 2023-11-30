@@ -6,57 +6,78 @@ import school.sptech.Componentes.Componente;
 import java.util.List;
 
 public class Servidor {
-    private String sistemaOperacional;
-    private String apelido;
-    private String ip;
-    private String numeroSerie;
+    private Integer idServidor;
+    private String SistemaOperacionalServidor;
+    private String apelidoServidor;
+    private String macAdress;
+    private String numeroSerieServidor;
+    private Integer fkEmpresa;
     private List<Chamado> chamados;
     private Downtime downtime;
     private List<Componente> componentes;
     private Conexao conexao;
 
-    public Servidor(String sistemaOperacional, String apelido, String ip, String numeroSerie, List<Chamado> chamados,
+    public Servidor(String sistemaOperacional, String apelido, String macAdress, String numeroSerie, List<Chamado> chamados,
                     Downtime downtime, List<Componente> componentes, Conexao conexao) {
-        this.sistemaOperacional = sistemaOperacional;
-        this.apelido = apelido;
-        this.ip = ip;
-        this.numeroSerie = numeroSerie;
+        this.SistemaOperacionalServidor = sistemaOperacional;
+        this.apelidoServidor = apelido;
+        this.macAdress = macAdress;
+        this.numeroSerieServidor = numeroSerie;
         this.chamados = chamados;
         this.downtime = downtime;
         this.componentes = componentes;
         this.conexao = conexao;
     }
 
-    public String getSistemaOperacional() {
-        return sistemaOperacional;
+    public Servidor() {
     }
 
-    public void setSistemaOperacional(String sistemaOperacional) {
-        this.sistemaOperacional = sistemaOperacional;
+    public Integer getIdServidor() {
+        return idServidor;
     }
 
-    public String getApelido() {
-        return apelido;
+    public void setIdServidor(Integer idServidor) {
+        this.idServidor = idServidor;
     }
 
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
+    public String getSistemaOperacionalServidor() {
+        return SistemaOperacionalServidor;
     }
 
-    public String getIp() {
-        return ip;
+    public void setSistemaOperacionalServidor(String sistemaOperacionalServidor) {
+        SistemaOperacionalServidor = sistemaOperacionalServidor;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip;
+    public String getApelidoServidor() {
+        return apelidoServidor;
     }
 
-    public String getNumeroSerie() {
-        return numeroSerie;
+    public void setApelidoServidor(String apelidoServidor) {
+        this.apelidoServidor = apelidoServidor;
     }
 
-    public void setNumeroSerie(String numeroSerie) {
-        this.numeroSerie = numeroSerie;
+    public String getMacAdress() {
+        return macAdress;
+    }
+
+    public void setMacAdress(String macAdress) {
+        this.macAdress = macAdress;
+    }
+
+    public String getNumeroSerieServidor() {
+        return numeroSerieServidor;
+    }
+
+    public void setNumeroSerieServidor(String numeroSerieServidor) {
+        this.numeroSerieServidor = numeroSerieServidor;
+    }
+
+    public Integer getFkEmpresa() {
+        return fkEmpresa;
+    }
+
+    public void setFkEmpresa(Integer fkEmpresa) {
+        this.fkEmpresa = fkEmpresa;
     }
 
     public List<Chamado> getChamados() {
@@ -83,26 +104,27 @@ public class Servidor {
         this.componentes = componentes;
     }
 
-
-    public Conexao getBanco() {
+    public Conexao getConexao() {
         return conexao;
     }
 
-    public void setBanco(Conexao conexao) {
+    public void setConexao(Conexao conexao) {
         this.conexao = conexao;
     }
 
     @Override
     public String toString() {
         return "Servidor{" +
-                "sistemaOperacional='" + sistemaOperacional + '\'' +
-                ", apelido='" + apelido + '\'' +
-                ", ip='" + ip + '\'' +
-                ", numeroSerie='" + numeroSerie + '\'' +
+                "idServidor=" + idServidor +
+                ", SistemaOperacionalServidor='" + SistemaOperacionalServidor + '\'' +
+                ", apelidoServidor='" + apelidoServidor + '\'' +
+                ", macAdress='" + macAdress + '\'' +
+                ", numeroSerieServidor='" + numeroSerieServidor + '\'' +
+                ", fkEmpresa=" + fkEmpresa +
                 ", chamados=" + chamados +
                 ", downtime=" + downtime +
                 ", componentes=" + componentes +
                 ", conexao=" + conexao +
-                '}';
+                '}' + '\n' ;
     }
 }

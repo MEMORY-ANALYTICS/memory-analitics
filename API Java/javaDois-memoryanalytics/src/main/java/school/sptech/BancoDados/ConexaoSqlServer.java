@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ConexaoSqlServer extends Conexao  {
     private JdbcTemplate conexao;
-    public ConexaoSqlServer(String driverClassName, String url, String username, String password) {
-        super("", "35.172.0.77", "sa", "urubu100");
+    public ConexaoSqlServer() {
+        super("","jdbc:sqlserver://ec2-35-172-0-77.compute-1.amazonaws.com:1433", "sa", "urubu100");
     }
 
 
@@ -17,6 +17,7 @@ public class ConexaoSqlServer extends Conexao  {
         dataSource.setURL(getUrl());
         dataSource.setUser(getUsername());
         dataSource.setPassword(getPassword());
+        dataSource.setPortNumber(1433);
         dataSource.setTrustServerCertificate(true);
 
         this.conexao = new JdbcTemplate(dataSource);

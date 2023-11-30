@@ -33,7 +33,7 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('daniel@email.com', 'senhaDaniel', 100003);
 
 
-INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor, fkEmpresa) VALUES
+INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, macAdress, numeroSerieServidor, fkEmpresa) VALUES
 ('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
 ('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
 ('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),
@@ -94,8 +94,8 @@ INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
 ('Frequência Atual', 'MHz'),				-- 5
 ('Frequência Máxima', 'MHz'),				-- 6
 ('Frequência Mínima', 'MHz'),				-- 7
-('Transferência Enviados','bytes'),			-- 8
-('Transferência Recebidos','bytes'),		-- 9
+('Enviados','Bytes'),		                -- 8
+('Recebidos','Bytes'),		                -- 9
 ('Quantidade Virtuais','Int'),				-- 10
 ('Quantidade Físicas','Int'),				-- 11
 ('Quantidade Erros Entrada','Int'),     	-- 12
