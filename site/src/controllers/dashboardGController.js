@@ -19,6 +19,25 @@ function getDowntime(req, res) {
         });
 }
 
+function getChamados(req, res) {
+    var fkEmpresa = req.params.fkEmpresa;
+    console.log('Estou no Controller com o valor de:' + fkEmpresa)
+
+    dashboardGModel.getChamados(fkEmpresa)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+                console.log("Resultado da Controller:" + resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar a quantidade de servidores instaveis", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 function getServCriticos(req, res) {
     var fkEmpresa = req.params.fkEmpresa;
     console.log('Estou no Controller com o valor de:' + fkEmpresa)
@@ -97,6 +116,7 @@ function obterDadosGrafico(req, res) {
 
 module.exports = {
     getDowntime,
+    getChamados,
     getServCriticos,
     getEstadoGeralServ,
     getCompProblematico,

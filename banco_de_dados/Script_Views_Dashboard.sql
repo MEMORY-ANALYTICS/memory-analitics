@@ -32,7 +32,17 @@ SELECT idRegistro, idServidor, valorRegistro, fkEmpresa
     WHERE 
         (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin)
         AND idMedidaComponente = 1;
-        
+
+SELECT count(idRegistro), fkEmpresa 
+    FROM registro rg 
+        LEFT JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+        LEFT JOIN componente c ON r.fkComponente = c.idComponente
+        LEFT JOIN servidor s ON c.fkServidor = s.idServidor
+        LEFT JOIN medidaComponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
+    WHERE 
+        (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin)
+        AND idMedidaComponente = 1
+        GROUP BY fkEmpresa;
 
 select * from funcionario;
 select * from login;
@@ -66,7 +76,9 @@ insert into recurso (tipoRecurso, fkComponente) values
 #### DOWNTIME ####
 
 SELECT * FROM downtimeServidor;
-  
+select * from Empresa;
+select * from funcionario;
+select * from servidor;
 
 #### COMPONENTE PROBLEMATICO ####
     
@@ -85,6 +97,22 @@ desc limit 1;
 # SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = ${fkEmpresa};
 SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = 10002;
 
+
+#### CHAMADOS ABERTOS ####
+
+CREATE OR REPLACE VIEW qtdPicosDeUso AS SELECT count(idRegistro), fkEmpresa 
+    FROM registro rg 
+        LEFT JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+        LEFT JOIN componente c ON r.fkComponente = c.idComponente
+        LEFT JOIN servidor s ON c.fkServidor = s.idServidor
+        LEFT JOIN medidaComponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
+    WHERE 
+        (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin)
+        AND idMedidaComponente = 1
+        GROUP BY fkEmpresa;
+
+SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa = 10002;
+# SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa = ${fkServidor};
   
 #### QUANTIDADE SERVIDORES INSTAVEIS ####
 
@@ -149,8 +177,9 @@ GROUP BY estado;
 # GRAFICO PICO DE USO
 
 CREATE OR REPLACE VIEW limitesExcedidos AS SELECT 
-    e.idEmpresa,
-    DATE_FORMAT(r.dtHoraRegistro, '%d-%m') AS DiaMes,
+    e.idEmpresa, idServidor,
+    DATE_FORMAT(r.dtHoraRegistro, '%d') AS Dia,
+    DATE_FORMAT(r.dtHoraRegistro, '%m') AS Mes,
     c.tipoComponente AS TipoComponente,
     SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
 FROM registro r
@@ -162,10 +191,14 @@ JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
 WHERE e.idEmpresa = 10002
 AND idMedidaComponente = 1
 AND dtHoraRegistro >= DATE_SUB(now(), INTERVAL 1 MONTH)
-GROUP BY NomeEmpresa, DiaMes, TipoComponente
-ORDER BY NomeEmpresa, DiaMes, TipoComponente;
+GROUP BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor
+ORDER BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor;
 
-SELECT SUM(ExcedeuLimites) picosDeUso, DiaMes FROM limitesExcedidos WHERE idEmpresa = 10002 GROUP BY DiaMes;
+SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = 10002 GROUP BY Dia, Mes;
+SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa = 10002;
+# SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = ${fkEmpresa} GROUP BY Dia, Mes;
+
+select SUM(ExcedeuLimites) picosDeUso, Dia, Mes, idServidor from limitesexcedidos group by Dia, Mes, idServidor;
 
 SELECT 
     e.idEmpresa,
@@ -203,3 +236,21 @@ WHERE
 	AND	idMedidaComponente = 1
     AND fkEmpresa = 10002
     GROUP BY idServidor;
+    
+    
+
+-- Dash Gabriel Branco --
+select * from servidor;
+select * from registro;
+
+-- kpi 1
+select * from servidor where fkEmpresa = 10002;
+
+-- kpi 2 
+select round(avg(valorRegistro),2), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
+
+-- kpi 3
+select max(valorRegistro), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
+
+-- kpi 4
+select min(valorRegistro), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
