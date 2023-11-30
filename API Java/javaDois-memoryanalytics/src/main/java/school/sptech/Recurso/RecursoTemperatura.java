@@ -10,7 +10,7 @@ public class RecursoTemperatura  extends Recurso{
     }
 
     @Override
-    public Object capturarRegistro() {
+    public Double capturarRegistro() {
         Temperatura temperatura = new Temperatura();
         return temperatura.getTemperatura();
     }

@@ -25,7 +25,18 @@ public abstract class Componente {
         this.conexoes = conexoes;
     }
 
-    public Componente() {
+    public Boolean checarCadastroExiste(){
+        return false;
+    }
+    public void cadastrarRecurso(){
+    }
+    public Boolean checarRecursoAtivo(Recurso recurso){
+        return null ;
+    }
+    public void habilitarRecurso(List<Recurso>){
+        
+    }
+    public void desabilitarRecurso(List<Recurso> recursos){
 
     }
 
