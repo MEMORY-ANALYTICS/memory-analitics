@@ -2,6 +2,7 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
+import school.sptech.Slack.Alertas;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.OptionalDouble;
 
 public class RecursoProcessos {
     private Looca looca = new Looca();
+    private Alertas alerta = new Alertas();
 
     public Integer quantidadeProcessosOnline(){
         Integer qtdProcessos = 0;
@@ -33,6 +35,7 @@ public class RecursoProcessos {
 
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
+        alerta.alertarCanal("Estou funcionando!");
         return processoMaiorMedia.getNome();
     }
 

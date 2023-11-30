@@ -8,18 +8,25 @@ import school.sptech.Recurso.RecursoProcessos;
 import school.sptech.Recurso.RecursoTemperatura;
 import school.sptech.Servidores.Servidor;
 import school.sptech.Servidores.ServidorRowMapper;
+import school.sptech.Slack.Alertas;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
-        JdbcTemplate con = conexaoSqlServer.criarConexao();
-        List<Servidor> teste = con.query("SELECT * FROM servidor", new ServidorRowMapper());
-        System.out.println(teste);
+//        ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
+//        JdbcTemplate con = conexaoSqlServer.criarConexao();
+//        List<Servidor> teste = con.query("SELECT * FROM servidor", new ServidorRowMapper());
+//        System.out.println(teste);
 
-        con.execute("USE bd_memoryanalytics;");
-        con.execute("INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES('09691200', 'Rua Cásper Líbero', 662, 'São Bernardo do Campo', 'São Paulo', 10003);");
+        RecursoProcessos recursoProcessos = new RecursoProcessos();
+        System.out.println(
+            recursoProcessos.getProcessoMaiorMediaUso()
+        );
+
+
+//        con.execute("USE bd_memoryanalytics;");
+//        con.execute("INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES('09691200', 'Rua Cásper Branão', 662, 'São Bernardo do Campo', 'São Paulo', 10003);");
 //        ConexaoMySql conexaoMySql = new ConexaoMySql();
 //        JdbcTemplate con2 = conexaoMySql.criarConexao();
 //        List<Servidor> teste2 = con2.query("SELECT * FROM servidor", new BeanPropertyRowMapper<>(Servidor.class));
