@@ -12,17 +12,21 @@ public abstract class Componente {
     private String limiteMin;
     private String limiteMax;
     private List<Recurso> recursos;
-    private Conexao conexao;
+    private List<Conexao> conexoes;
 
     public Componente(String fabricante, String nomeModelo, String tipoComponente,
-                      String limiteMin, String limiteMax, List<Recurso> recursos, Conexao conexao) {
+                      String limiteMin, String limiteMax, List<Recurso> recursos, List<Conexao> conexoes) {
         this.fabricante = fabricante;
         this.nomeModelo = nomeModelo;
         this.tipoComponente = tipoComponente;
         this.limiteMin = limiteMin;
         this.limiteMax = limiteMax;
         this.recursos = recursos;
-        this.conexao = conexao;
+        this.conexoes = conexoes;
+    }
+
+    public Componente() {
+
     }
 
     public String getFabricante() {
@@ -73,12 +77,21 @@ public abstract class Componente {
         this.recursos = recursos;
     }
 
-    public Conexao getBanco() {
-        return conexao;
+    public List<Conexao> getBanco() {
+        return conexoes;
     }
 
-    public void setBanco(Conexao conexao) {
-        this.conexao = conexao;
+    public void adicionarBanco(Conexao conexao) {
+
+        if (conexao!=null){
+            conexoes.add(conexao);
+        }
+    }
+    public void removerBanco(int posicao) {
+
+        if (posicao > 0 & posicao > conexoes.size()){
+            conexoes.remove(posicao);
+        }
     }
 
     @Override
@@ -90,7 +103,7 @@ public abstract class Componente {
                 ", limiteMin='" + limiteMin + '\'' +
                 ", limiteMax='" + limiteMax + '\'' +
                 ", recursos=" + recursos +
-                ", conexao=" + conexao +
+                ", conexoes=" + conexoes +
                 '}';
     }
 }

@@ -29,4 +29,8 @@ public class ConexaoMySql extends Conexao{
         return conexaoBanco;
     }
 
+    @Override
+    public void registar() {
+
+    }
 }

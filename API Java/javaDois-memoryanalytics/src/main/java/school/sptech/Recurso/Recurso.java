@@ -1,24 +1,23 @@
 package school.sptech.Recurso;
 
 import school.sptech.BancoDados.Conexao;
-import school.sptech.Componentes.Registro;
+import school.sptech.BancoDados.Registravel;
+import school.sptech.Registro.Registro;
 
 import java.util.List;
 
-public abstract class Recurso {
+public abstract class Recurso implements Registravel {
     private String nome;
     private String unidadeMedida;
     private List<Registro> registros;
-    private Conexao conexao;
-    private Conexao con;
-    private int fkComponente;
+    private List<Conexao> conexoes;
 
-    public Recurso(String nome, String unidadeMedida, List<Registro> registros, Conexao conexao, int fkComponente) {
+    public Recurso(String nome, String unidadeMedida, List<Registro> registros,
+                   List<Conexao> conexoes) {
         this.nome = nome;
         this.unidadeMedida = unidadeMedida;
         this.registros = registros;
-        this.conexao = conexao;
-        this.fkComponente = fkComponente;
+        this.conexoes  = conexoes;
     }
 
     public String getNome() {
@@ -45,40 +44,13 @@ public abstract class Recurso {
         this.registros = registros;
     }
 
-    public Conexao getBanco() {
-        return conexao;
-    }
-
-    public void setBanco(Conexao conexao) {
-        this.conexao = conexao;
-    }
-
-    public int getFkComponente() {
-        return fkComponente;
-    }
-
-    public void setFkComponente(int fkComponente) {
-        this.fkComponente = fkComponente;
-    }
-
-    public Conexao getCon() {
-        return con;
-    }
-
-    public void setCon(Conexao con) {
-        this.con = con;
-    }
-
-    public abstract void capturarRegistro();
-
     @Override
     public String toString() {
         return "Recurso{" +
                 "nome='" + nome + '\'' +
                 ", unidadeMedida='" + unidadeMedida + '\'' +
                 ", registros=" + registros +
-                ", conexao=" + conexao +
-                ", fkComponente=" + fkComponente +
+                ", conexões=" + conexoes +
                 '}';
     }
 }

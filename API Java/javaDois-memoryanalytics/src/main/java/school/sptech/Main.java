@@ -1,13 +1,7 @@
 package school.sptech;
 
-import com.github.britooo.looca.api.group.temperatura.Temperatura;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.*;
-import school.sptech.Recurso.Processos;
-import school.sptech.Servidores.Servidor;
-
-import java.util.List;
+import school.sptech.Recurso.RecursoProcessos;
+import school.sptech.Recurso.RecursoTemperatura;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +11,7 @@ public class Main {
 //    JdbcTemplate con = mysql.criarConexao();
 //    List<Servidor> l1 = con.query("select * from servidor",new BeanPropertyRowMapper<>(Servidor.class));
 //   System.out.println(l1);
-        Processos processos = new Processos();
+        RecursoProcessos processos = new RecursoProcessos();
 //        System.out.println(
 //            processos.quantidadeProcessosOnline()
 //        );
@@ -35,6 +29,7 @@ public class Main {
 //        }
 
 //processos.listarTodosProcessos();
+
 
     }
 

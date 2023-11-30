@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
-public class Processos {
+public class RecursoProcessos {
     Looca looca = new Looca();
     public Integer quantidadeProcessosOnline(){
         Integer qtdProcessos = 0;
