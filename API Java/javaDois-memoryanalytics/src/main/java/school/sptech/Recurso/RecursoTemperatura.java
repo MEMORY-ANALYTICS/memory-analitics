@@ -1,17 +1,17 @@
 package school.sptech.Recurso;
 
+import com.github.britooo.looca.api.group.temperatura.Temperatura;
 import school.sptech.BancoDados.Conexao;
-import school.sptech.Registro.Registro;
-
 import java.util.List;
+public class RecursoTemperatura  extends Recurso{
 
-public class RecursoTemperatura {
-
-    public RecursoTemperatura(String nome, String unidadeMedida, List<Registro> registros, List<Conexao> conexoes) {
-        super();
+    public RecursoTemperatura(String nome, String unidadeMedida, Double registro, List<Conexao> conexoes) {
+        super(nome, unidadeMedida, registro, conexoes);
     }
 
-    public RecursoTemperatura() {
-
+    @Override
+    public Object capturarRegistro() {
+        Temperatura temperatura = new Temperatura();
+        return temperatura.getTemperatura();
     }
 }
