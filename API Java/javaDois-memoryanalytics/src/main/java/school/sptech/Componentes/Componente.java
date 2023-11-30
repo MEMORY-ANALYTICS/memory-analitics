@@ -29,12 +29,13 @@ public abstract class Componente {
         return false;
     }
     public void cadastrarRecurso(){
+
     }
     public Boolean checarRecursoAtivo(Recurso recurso){
         return null ;
     }
-    public void habilitarRecurso(List<Recurso>){
-        
+    public void habilitarRecurso(List<Recurso> recursos){
+
     }
     public void desabilitarRecurso(List<Recurso> recursos){
 

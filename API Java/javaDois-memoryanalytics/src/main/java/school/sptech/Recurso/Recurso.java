@@ -17,9 +17,7 @@ public abstract class Recurso{
         this.conexoes = conexoes;
     }
 
-    public Double capturarRegistro(){
-        return null;
-    }
+    public abstract Double capturarRegistro();
 
     public String getNome() {
         return nome;
