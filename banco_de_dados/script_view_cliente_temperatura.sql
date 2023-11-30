@@ -3,7 +3,7 @@ use bd_memoryanalytics;
  -- ligando servidor a empresa --
 create view servidorEmpresa as
 select 
-	idServidor, SistemaOperacionalServidor, apelidoServidor, ipServidor, numeroSerieServidor,
+	idServidor, SistemaOperacionalServidor, apelidoServidor, localServidor, macAdress,
     idEmpresa, nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa, 
     idFuncionario, nomeFunc, emailFunc, telefoneFunc, permissao, fkCargo, fkSupervisor
 	from servidor join empresa  
@@ -125,9 +125,6 @@ select max(valorRegistro), dtHoraRegistro from registro where dtHoraRegistro lik
 
 -- kpi 4
 select min(valorRegistro), dtHoraRegistro from registro where dtHoraRegistro like '2023-10-09%' group by dtHoraRegistro;
-
-
-
 
 
 select * from registroEmpresa;

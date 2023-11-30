@@ -264,3 +264,45 @@ ORDER BY Data_Hora_Registro;
     
 SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10002;
 
+
+
+
+
+select * from empresa;
+
+
+
+# -------------------------------------------------------------------------------------------------
+insert into empresa values(null, "U Contact", "10293847561184", "ucontact@gmail.com", "119480165714");
+
+select * from funcionario;
+
+insert into funcionario values (10007, "Rafael Almeida", "rafael.almeida@email.com","11092942094", 
+	"A", 10005, 1, null);
+ 
+insert into funcionario values(10008, "Ana Fonseca", "anafonseca@email.com", 
+	"12938402039", "C", 10005, 2, 100007); 
+
+
+select * from servidor;    
+insert into servidor values (12, "Windows", "Servidor A", "Carolina do Norte", "00:11:B1:RB:E1:88", 10005);
+insert into servidor values (13, "Windows", "Servidor B", "São Paulo", "09:12:C4:TN:O9:X2", 10005);
+insert into servidor values (14, "Linux", "Servidor C", "Moscou", "44:09:N3:SN:O7:99", 10005);
+
+
+select apelidoServidor, nomeEmpresa, nomeFunc from servidorEmpresa;
+select * from servidorEmpresa;
+    
+    
+
+
+
+
+
+
+select * from funcionario;
+
+
+
+
+
