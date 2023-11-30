@@ -5,18 +5,19 @@ import school.sptech.BancoDados.Registravel;
 import school.sptech.Registro.Registro;
 
 import java.util.List;
+import java.util.OptionalDouble;
 
 public abstract class Recurso implements Registravel {
     private String nome;
     private String unidadeMedida;
-    private List<Registro> registros;
+    private OptionalDouble registro;
     private List<Conexao> conexoes;
 
-    public Recurso(String nome, String unidadeMedida, List<Registro> registros,
+    public Recurso(String nome, String unidadeMedida, OptionalDouble registro,
                    List<Conexao> conexoes) {
         this.nome = nome;
         this.unidadeMedida = unidadeMedida;
-        this.registros = registros;
+        this.registro = registro;
         this.conexoes  = conexoes;
     }
 
@@ -36,12 +37,20 @@ public abstract class Recurso implements Registravel {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public List<Registro> getRegistros() {
-        return registros;
+    public OptionalDouble getRegistro() {
+        return registro;
     }
 
-    public void setRegistros(List<Registro> registros) {
-        this.registros = registros;
+    public void setRegistro(OptionalDouble registro) {
+        this.registro = registro;
+    }
+
+    public List<Conexao> getConexoes() {
+        return conexoes;
+    }
+
+    public void setConexoes(List<Conexao> conexoes) {
+        this.conexoes = conexoes;
     }
 
     @Override

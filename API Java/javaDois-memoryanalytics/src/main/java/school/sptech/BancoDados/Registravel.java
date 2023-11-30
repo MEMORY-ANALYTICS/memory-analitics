@@ -1,7 +1,8 @@
 package school.sptech.BancoDados;
 
-public interface Registravel {
+import java.util.List;
+import java.util.Objects;
 
-    public void registar();
+public interface Registravel {
 
 }
