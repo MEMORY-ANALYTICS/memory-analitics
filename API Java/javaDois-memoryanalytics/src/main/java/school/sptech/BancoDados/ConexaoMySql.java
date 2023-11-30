@@ -30,23 +30,4 @@ public class ConexaoMySql extends Conexao{
     public JdbcTemplate getConexaoBanco() {
         return conexaoBanco;
     }
-
-    @Override
-    public void queryInsert() {
-
-    }
-    @Override
-    public List<Object> querySelect() {
-        return null;
-    }
-
-    @Override
-    public List<Object> queryProcedureSelect() {
-        return null;
-    }
-
-    @Override
-    public void queryProcedureInsert() {
-
-    }
 }

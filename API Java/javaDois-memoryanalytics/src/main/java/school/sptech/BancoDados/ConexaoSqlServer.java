@@ -23,25 +23,4 @@ public class ConexaoSqlServer extends Conexao  {
         this.conexao = new JdbcTemplate(dataSource);
         return this.conexao;
     }
-
-
-    @Override
-    public void queryInsert() {
-        
-    }
-
-    @Override
-    public List<Object> querySelect() {
-        return null;
-    }
-
-    @Override
-    public List<Object> queryProcedureSelect() {
-        return null;
-    }
-
-    @Override
-    public void queryProcedureInsert() {
-
-    }
 }
