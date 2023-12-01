@@ -9,6 +9,12 @@ where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa 
 select valorRegistro, dtHoraRegistro, tipoComponente from registroEmpresa 
 where tipoComponente like 'Core %' and detalheRegistro = "Celsius" and apelidoServidor = "Servidor A" order by dtHoraRegistro;
 
+
+select valorRegistro, dtHoraRegistro, tipoComponente 
+from registro join componente on fkComponente = idComponente where tipoMedida = '°C' order by valorRegistro, dtHoraRegistro;
+
+select * from registro;
+
 -- kpi1 ---
 
 -- kpi2 ---
