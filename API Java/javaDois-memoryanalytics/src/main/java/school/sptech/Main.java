@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.ConexaoMySql;
 import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Recurso.RecursoDiscoUso;
 import school.sptech.Recurso.RecursoProcessos;
 import school.sptech.Recurso.RecursoTemperatura;
 import school.sptech.Servidores.Servidor;
@@ -23,6 +24,10 @@ public class Main {
         System.out.println(
             recursoProcessos.getUsoCpuProcessos()
         );
+
+        RecursoDiscoUso disco = new RecursoDiscoUso();
+
+        System.out.println(disco.capturarRegistro());
 
 
 //        con.execute("USE bd_memoryanalytics;");
