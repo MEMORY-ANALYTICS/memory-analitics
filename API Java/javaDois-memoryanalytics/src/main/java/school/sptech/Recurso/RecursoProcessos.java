@@ -50,10 +50,10 @@ public class RecursoProcessos {
         Double usoTotal = .0;
         for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoCpu();
-            if(usoTotal > 2){
-            }
         }
-        alerta.alertarCanal("A Cpu está com o uso de: %");
+        if(usoTotal > 2){
+            alerta.alertarCanal("Os processos estão utilizando" + (usoTotal/quantidadeProcessosOnline()));
+        }
         return usoTotal/quantidadeProcessosOnline();
     }
 

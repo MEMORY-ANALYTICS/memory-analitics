@@ -1,6 +1,6 @@
 package school.sptech.BancoDados;
 
-public abstract class Conexao implements Registravel {
+public abstract class Conexao {
     private String driverClassName;
     private String url;
     private String username;

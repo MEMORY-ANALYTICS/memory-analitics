@@ -55,4 +55,11 @@ public abstract class Recurso{
     public List<JdbcTemplate> getConexoes() {
         return conexoes;
     }
+<<<<<<< HEAD
+=======
+
+    public void setConexoes(List<JdbcTemplate> conexoes) {
+        this.conexoes = conexoes;
+    }
+>>>>>>> d0d9b29c0aa622361323a3e8209646746ae41f53
 }

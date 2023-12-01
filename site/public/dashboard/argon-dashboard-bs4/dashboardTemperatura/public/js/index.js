@@ -10,10 +10,10 @@ var functionKpi = ["MedTempAtual", "MedTempIdeal", "CoreTempMax", "CoreTempMIn"]
 
 
 horaDash1()
-//getServidor()
-for (i = 0; i < functionKpi.length; i++) {
-  getKpi(functionKpi[i])
-}
+getServidor()
+//for (i = 0; i < functionKpi.length; i++) {
+//  getKpi(functionKpi[i])
+//}
 
 function getServidor() {
 
@@ -24,6 +24,11 @@ function getServidor() {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
         console.log(json[i])
+
+        
+        option1.innerHTML = json[0].apelidoServidor
+
+      
       }
     })
   })
@@ -43,6 +48,7 @@ function getKpi(metodoKpi) {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
         console.log(json[i])
+        console.log(json[i][0])
       }
     })
   })

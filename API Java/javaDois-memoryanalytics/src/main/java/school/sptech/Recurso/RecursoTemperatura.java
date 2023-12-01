@@ -1,12 +1,13 @@
 package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.group.temperatura.Temperatura;
+import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.Conexao;
 import java.util.List;
 public class RecursoTemperatura  extends Recurso{
 
-    public RecursoTemperatura(String nome, String unidadeMedida, Double registro, List<Conexao> conexoes) {
-        super(nome, unidadeMedida, registro, conexoes);
+    public RecursoTemperatura(String nome, String unidadeMedida, Double valorRegistro) {
+        super(nome, unidadeMedida, valorRegistro);
     }
 
     @Override

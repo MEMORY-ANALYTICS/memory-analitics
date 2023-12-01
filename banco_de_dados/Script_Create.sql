@@ -2,6 +2,7 @@ DROP DATABASE IF EXISTS bd_memoryanalytics;
 CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
 USE bd_memoryanalytics;
 
+
 #CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
 #GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON bd_memoryanalytics.* TO urubu100;
 #FLUSH PRIVILEGES;
@@ -42,7 +43,7 @@ fkSupervisor INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa),
 FOREIGN KEY (fkCargo) REFERENCES cargo (idCargo),
 FOREIGN KEY (fkSupervisor) REFERENCES funcionario (idFuncionario)
-) AUTO_INCREMENT = 100000;
+) AUTO_INCREMENT = 100;
 
 CREATE TABLE IF NOT EXISTS `login`(
 idLogin INT PRIMARY KEY AUTO_INCREMENT,
@@ -56,8 +57,8 @@ CREATE TABLE IF NOT EXISTS `servidor`(
 idServidor INT PRIMARY KEY AUTO_INCREMENT,
 SistemaOperacionalServidor VARCHAR(20),
 apelidoServidor VARCHAR(45),
-macAdress varchar(25),
-numeroSerieServidor VARCHAR(20),
+localServidor varchar(25),
+macAdress VARCHAR(20),
 fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
@@ -159,6 +160,4 @@ CREATE PROCEDURE `selectUltimoRegistro`(fkServidor INT, OUT ultimoRegistro DATET
 					LIMIT 1
 		);
     
-END $$
-
-	
+END $$	
