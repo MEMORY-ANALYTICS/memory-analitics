@@ -102,8 +102,8 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (50034,'Bytes','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
-(53098,'Bytes','Recebidos Rede', '2023-10-09 10:30:00', 4);  -- REDE
+(53098,'Bytes','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
 (40, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
