@@ -85,62 +85,31 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('WD', 'Black', 'DISCO', 1, 70 , 7), -- DISCO
 ('TPLink','NP3200','REDE', NULL, NULL, 7); -- REDE
 
--- Inserir dados na tabela 'medidaComponente'
-INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
-('Porcentagem Uso', '%'),                   -- 1
-('Armazenamento Total', 'GB'),              -- 2
-('Armazenamento Disponível', 'GB'),         -- 3
-('Armazenamento Usado', 'GB'),				-- 4
-('Frequência Atual', 'MHz'),				-- 5
-('Frequência Máxima', 'MHz'),				-- 6
-('Frequência Mínima', 'MHz'),				-- 7
-('Enviados','Bytes'),		                -- 8
-('Recebidos','Bytes'),		                -- 9
-('Quantidade Virtuais','Int'),				-- 10
-('Quantidade Físicas','Int'),				-- 11
-('Quantidade Erros Entrada','Int'),     	-- 12
-('Quantidade Erros na Saída','Int'),		-- 13
-('Tempo', 's'),								-- 14
-('Temperatura', '°C');                      -- 15
-
--- Inserir dados na tabela 'recurso'
-INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
-('Core 1', 1),
-('Core 2', 1),
-('Core 3', 1),
-('Core 4', 1),
-('Core 1', 5),
-('Core 2', 5),
-('Core 3', 5),
-('Core 4', 5),
-('Core 1', 9),
-('Core 2', 9),
-('Core 3', 9),
-('Core 4', 9),
-('Leitura RAM', 2),
-('Leitura RAM', 6),
-('Leitura RAM', 10),
-('Partição DISCO 1', 3),
-('Partição DISCO 2', 3),
-('Partição DISCO 3', 3),
-('Partição DISCO 1', 7),
-('Partição DISCO 2', 7),
-('Partição DISCO 3', 7),
-('Partição DISCO 1', 11),
-('Partição DISCO 2', 11),
-('Partição DISCO 3', 11),
-('Leitura REDE', 4),
-('Leitura REDE', 8),
-('Leitura REDE', 12);
-
--- Inserir dados na tabela 'registro'
-INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
-(2200, '2023-10-09 10:00:00', 5, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 6, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 7, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 8, 2),  -- CPU
-(10, '2023-10-09 10:00:00', 5, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 6, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 7, 3),  -- CPU
-(500, '2023-10-09 10:30:00', 26, 4),  -- REDE
-(50, '2023-10-09 10:30:00', 26, 3);  -- REDE
+INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(60, 'Mhz','', '2023-10-09 10:00:00', 1),  -- CPU
+(50, '°C','Celsius', '2023-10-09 10:00:00', 1),  -- CPU
+(70, '°C','Celsius', '2023-10-09 10:01:00', 1),  -- CPU
+(70, '°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
+(75, '°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
+(50, '°C','Celsius', '2023-10-09 10:00:00', 2),  -- CPU
+(90, '°C','Celsius', '2023-11-09 10:01:00', 2),  -- CPU
+(80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
+(80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
+(50, '°C','Celsius', '2023-10-09 10:00:00', 3),  -- CPU
+(90, '°C','Celsius', '2023-11-09 10:01:00', 3),  -- CPU
+(80, '°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
+(80, '°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
+(10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
+(10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
+(50034,'Bytes','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(53098,'Bytes','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(40, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
