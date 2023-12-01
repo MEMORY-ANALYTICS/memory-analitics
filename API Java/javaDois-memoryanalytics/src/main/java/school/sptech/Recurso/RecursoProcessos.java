@@ -2,6 +2,11 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
+import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.BancoDados.ConexaoMySql;
+import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Servidores.Servidor;
+import school.sptech.Servidores.ServidorRowMapper;
 import school.sptech.Slack.Alertas;
 
 import java.util.ArrayList;
@@ -11,6 +16,17 @@ import java.util.OptionalDouble;
 public class RecursoProcessos {
     private Looca looca = new Looca();
     private Alertas alerta = new Alertas();
+    private List<JdbcTemplate> conexoes;
+
+    public RecursoProcessos() {
+        ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
+        ConexaoMySql conexaoMySql = new ConexaoMySql();
+        JdbcTemplate con1 = conexaoSqlServer.criarConexao();
+        JdbcTemplate con2 = conexaoMySql.criarConexao();
+        this.conexoes = new ArrayList<>();
+        conexoes.add(con1);
+        conexoes.add(con2);
+    }
 
     public Integer quantidadeProcessosOnline(){
         Integer qtdProcessos = 0;
@@ -74,4 +90,35 @@ public class RecursoProcessos {
             System.out.println(processo);
         }
     }
+
+    public Integer getFkServer(){
+
+        String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
+        List<Servidor> teste =
+                getConexoes().get(0).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new ServidorRowMapper());
+
+        return teste.get(0).getIdServidor();
+    }
+
+    public void capturarRegistro() {
+        getConexoes().get(0).execute("INSERT INTO Processos VALUES (%f, %f, %s, %d,%d)"
+                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
+        getConexoes().get(1).execute("INSERT INTO Processos VALUES (?,?,?,?,?)");
+    }
+
+    public List<JdbcTemplate> getConexoes() {
+        return conexoes;
+    }
+
+    public void setConexoes(List<JdbcTemplate> conexoes) {
+        this.conexoes = conexoes;
+    }
+
+    public static void main(String[] args) {
+        RecursoProcessos recursoProcessos = new RecursoProcessos();
+        System.out.println(
+            recursoProcessos.getFkServer()
+        );
+    }
+
 }

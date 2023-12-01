@@ -420,13 +420,13 @@
         <!-- Header -->
 
         <!-- Header -->
-        <div class="header bg-primary pb-6">
+        <div class="header bg-primary   ">
             <div class="container-fluid">
                 <div class="header-body">
-                    <div class="row align-items-center py-4">
+                    <div class="row align-items-center py-0">
                         <!-- Card stats -->
                         <div class="row">
-                            <div class="col-xl-3 col-md-6">
+                            <div class="col-xl-3 col-md-6 justify-items-center">
                                 <div class="card card-stats" style="height: 70%">
                                     <!-- Card body -->
                                     <div class="card-body" style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6)">
@@ -542,63 +542,32 @@
                     </div>
                 </div>
             </div>
-            <!-- Page content -->
-            <div class="container-fluid mt--6">
-                <div class="row">
-                    <div class="col-xl-6">
-                        <script src="https://code.highcharts.com/highcharts.js"></script>
-                        <script src="https://code.highcharts.com/modules/series-label.js"></script>
-                        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-                        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-                        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+        </div>
+        <!-- Page content -->
+        <div class="container-fluid mt-1">
+            <div class="row">
+                <div class="col-xl-12">
+                    <script src="https://code.highcharts.com/highcharts.js"></script>
+                    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+                    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+                    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+                    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-                        <figure class="highcharts-figure">
-                            <div id="container"></div>
-                            <p class="highcharts-description">
-                        </figure>
+                    <figure class="highcharts-figure">
+                        <div id="container"
+                            class="col-xl-12 p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
+                            style="box-shadow: 0.1em 0.2em 1em rgb(167, 166, 166);"></div>
+                        <p class="highcharts-description">
+                    </figure>
 
-                    </div>
-                    <div class="col-xl-6">
-                        <script src="https://code.highcharts.com/highcharts.js"></script>
-                        <script src="https://code.highcharts.com/modules/exporting.js"></script>
-                        <script src="https://code.highcharts.com/modules/export-data.js"></script>
-                        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-                        <figure class="highcharts-figure">
-                            <div id="container2"></div>
-                        </figure>
-                    </div>
                 </div>
-            </div>
-            <div class="container-fluid">
-                <div class="table-responsive" style="background-color: white">
-                    <!-- Projects table -->
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th style="width: auto; text-align: center">Processo</th>
-                                <th style="width: auto; text-align: center">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th style="width: auto; text-align: center">valorant.exe</th>
-                                <td style="text-align: center">38</td>
-                            </tr>
-                            <tr>
-                                <th style="width: auto; text-align: center">
-                                    leagueoflegends.exe
-                                </th>
-                                <td style="width: auto; text-align: center">78</td>
-                            </tr>
-                            <tr>
-                                <th style="width: auto; text-align: center">
-                                    counterstrike.exe
-                                </th>
-                                <td style="width: auto; text-align: center">14</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-xl-6">
+                    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+                    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+                    <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+                    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+                    
+                    <div id="container"></div>
                 </div>
             </div>
         </div>
@@ -620,157 +589,152 @@
     dataTesteCpu = [1, 2, 3];
     dataTesteRam = [2, 5, 1];
     Highcharts.chart('container', {
-
-title: {
-    text: 'Ocorrências por Dashboard',
-    align: 'center'
-},
-
-subtitle: {
-    text: '',
-    align: 'left'
-},
-
-yAxis: {
-    title: {
-        text: 'Número de Ocorrências'
-    }
-},
-
-xAxis: {
-    accessibility: {
-        rangeDescription: 'Range: 2010 to 2020'
-    }
-},
-
-legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'middle'
-},
-
-plotOptions: {
-    series: {
-        label: {
-            connectorAllowed: false
+        chart: {
+            backgroundColor: '#ffffff'
         },
-        pointStart: 2010
-    }
-},
 
-series: [{
-    name: 'Dashboard Componentes',
-    data: [43934, 48656, 65165, 81827, 112143, 142383,
-        171533, 165174, 155157, 161454, 154610]
-}, {
-    name: 'Dashboard Temperatura',
-    data: [24916, 37941, 29742, 29851, 32490, 30282,
-        38121, 36885, 33726, 34243, 31050]
-}, {
-    name: 'Dashboard Rede',
-    data: [11744, 30000, 16005, 19771, 20185, 24377,
-        32147, 30912, 29243, 29213, 25663]
-}, {
-    name: 'Dashboard Processos',
-    data: [11497, 35142, 10004, 15372, 50000, 60123, 15606,
-        12594, 11164, 11218, 10077]
-}
-],
-
-responsive: {
-    rules: [{
-        condition: {
-            maxWidth: 500
+        title: {
+            text: 'Ocorrências por Dashboard',
+            align: 'center'
         },
-        chartOptions: {
-            legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
+
+        subtitle: {
+            text: '',
+            align: 'left'
+        },
+
+        yAxis: {
+            title: {
+                text: 'Número de Ocorrências'
+            }
+        },
+
+        xAxis: {
+            accessibility: {
+                rangeDescription: 'Range: 2010 to 2020'
+            }
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 2010
+            }
+        },
+
+        series: [{
+            name: 'Dashboard Componentes',
+            data: [0, 10, 15, 0, 30, 50,
+                0, 2, 5, 2, 42]
+        }, {
+            name: 'Dashboard Temperatura',
+            data: [10, 10, 35, 0, 0, 2,
+                8, 3, 50, 42, 53]
+        }, {
+            name: 'Dashboard Rede',
+            data: [1, 6, 4, 1, 2, 3,
+                1, 3, 4, 10, 0]
+        }, {
+            name: 'Dashboard Processos',
+            data: [12, 32, 52, 10, 1, 20, 35,
+                12, 1, 12, 12]
+        }
+        ],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+    });
+
+
+    // Create the chart
+Highcharts.stockChart('container2', {
+    chart: {
+        events: {
+            load: function () {
+
+                // set up the updating of the chart each second
+                const series = this.series[0];
+                setInterval(function () {
+                    const x = (new Date()).getTime(), // current time
+                        y = Math.round(Math.random() * 100);
+                    series.addPoint([x, y], true, true);
+                }, 1000);
             }
         }
-    }]
-}
+    },
 
+    accessibility: {
+        enabled: false
+    },
+
+    time: {
+        useUTC: false
+    },
+
+    rangeSelector: {
+        buttons: [{
+            count: 1,
+            type: 'minute',
+            text: '1M'
+        }, {
+            count: 5,
+            type: 'minute',
+            text: '5M'
+        }, {
+            type: 'all',
+            text: 'All'
+        }],
+        inputEnabled: false,
+        selected: 0
+    },
+
+    title: {
+        text: 'Live random data'
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Random data',
+        data: (function () {
+            // generate an array of random data
+            const data = [1],
+                time = (new Date()).getTime();
+
+            for (let i = -999; i <= 0; i += 1) {
+                data.push([
+                    time + i * 1000,
+                    Math.round(Math.random() * 100)
+                ]);
+            }
+            return data;
+        }())
+    }]
 });
 
-
-    Highcharts.chart("container2", {
-        chart: {
-            backgroundColor: "#172b4d",
-            type: "column",
-        },
-        title: {
-            text: "Utilização total da máquina pelos processos",
-        },
-        subtitle: {
-            text: "Source: MEMORY ANALYTICS",
-        },
-        xAxis: {
-            type: "category",
-            labels: {
-                autoRotation: [-45, -90],
-                style: {
-                    fontSize: "13px",
-                    fontFamily: "Verdana, sans-serif",
-                },
-            },
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: "Porcentagem % de USO",
-            },
-        },
-        legend: {
-            enabled: false,
-        },
-        tooltip: {
-            pointFormat: "Utilização em: 2023",
-        },
-        series: [
-            {
-                name: "Population",
-                colors: ["blue"],
-                colorByPoint: true,
-                groupPadding: 0,
-                data: [
-                    ["Tokyo", 37.33],
-                    ["Delhi", 31.18],
-                    ["Shanghai", 27.79],
-                    ["Sao Paulo", 22.23],
-                    ["Mexico City", 21.91],
-                    ["Dhaka", 21.74],
-                    ["Cairo", 21.32],
-                    ["Beijing", 20.89],
-                    ["Mumbai", 20.67],
-                    ["Osaka", 19.11],
-                    ["Karachi", 16.45],
-                    ["Chongqing", 16.38],
-                    ["Istanbul", 15.41],
-                    ["Buenos Aires", 15.25],
-                    ["Kolkata", 14.974],
-                    ["Kinshasa", 14.97],
-                    ["Lagos", 14.86],
-                    ["Manila", 14.16],
-                    ["Tianjin", 13.79],
-                    ["Guangzhou", 13.64],
-                ],
-                dataLabels: {
-                    enabled: true,
-                    rotation: -90,
-                    color: "#FFFFFF",
-                    align: "right",
-                    format: "{point.y:.1f}", // one decimal
-                    y: 10, // 10 pixels down from the top
-                    style: {
-                        fontSize: "13px",
-                        fontFamily: "Verdana, sans-serif",
-                    },
-                },
-            },
-        ],
-    });
 </script>
 
 </html>

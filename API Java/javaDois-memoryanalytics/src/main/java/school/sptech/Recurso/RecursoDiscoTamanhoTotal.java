@@ -7,21 +7,23 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Componentes.Componente;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-public class RecursoDiscoUso extends Recurso {
+public class RecursoDiscoTamanhoTotal extends Recurso {
 
     private String nome;
     private String unidadeMedida;
     private Double valorRegistro;
+
     private Looca looca = new Looca();
 
-    public RecursoDiscoUso(String nome, String unidadeMedida, Double valorRegistro) {
+    public RecursoDiscoTamanhoTotal(String nome, String unidadeMedida, Double valorRegistro) {
         super(nome, unidadeMedida, valorRegistro);
     }
 
-    public RecursoDiscoUso() {
-        this("Disco Padrão", "% de Uso", 0.0);
+    public RecursoDiscoTamanhoTotal() {
+        this("Disco Padrão", "Gb", 0.0);
     }
 
     public String getNome() {
@@ -58,27 +60,23 @@ public class RecursoDiscoUso extends Recurso {
                 new BeanPropertyRowMapper<>(Componente.class));
         return teste.get(0).getIdComponente();
     }
-
     @Override
     public Double capturarRegistro() {
         Looca looca = new Looca();
         DiscoGrupo discoGrupo = looca.getGrupoDeDiscos();
         Disco disco = discoGrupo.getDiscos().get(0);
+
         setNome("Disco " + disco.getNome());
-        double usoDeDiscoPercentual = calcularUsoDeDiscoPercentual(disco);
-        setValorRegistro(usoDeDiscoPercentual);
-        return usoDeDiscoPercentual;
-    }
 
-    private double calcularUsoDeDiscoPercentual(Disco disco) {
-        double bytesEmUso = disco.getBytesDeLeitura() + disco.getBytesDeEscritas();
-        double tamanhoTotalDoDisco = disco.getTamanho();
+        double tamanhoTotalGB = disco.getTamanho() / (1024 * 1024 * 1024.0);
+        setValorRegistro(tamanhoTotalGB);
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        getConexoes().get(0).execute("INSERT INTO registro VALUES(null,?,?,?,?)".formatted
+                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", dataHoraAtual,selectFkComponente()));
+        getConexoes().get(1).execute("INSERT INTO registro INSERT INTO registro VALUES(null,?,?,?,?)".formatted
+                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", dataHoraAtual,selectFkComponente()));
 
-        if (tamanhoTotalDoDisco > 0) {
-            return (bytesEmUso / tamanhoTotalDoDisco);
-        } else {
-            return 0.0;
-        }
+        return tamanhoTotalGB;
     }
 
     @Override
@@ -91,7 +89,7 @@ public class RecursoDiscoUso extends Recurso {
         return String.format("RecursoDiscoUso{" +
                         "nome='%s', " +
                         "unidadeMedida='%s', " +
-                        "valorRegistro=%.2f%%, " +
+                        "valorRegistro=%.2f%%, ",
                 nome, unidadeMedida, valorRegistro);
     }
 }

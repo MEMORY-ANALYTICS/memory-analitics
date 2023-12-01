@@ -40,3 +40,8 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+#container2 {
+    height: 400px;
+    min-width: 310px;
+}

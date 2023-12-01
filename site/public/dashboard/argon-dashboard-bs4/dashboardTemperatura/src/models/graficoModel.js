@@ -2,7 +2,10 @@ var database = require("../database/config")
 
 function graficoCoreHora() {
 
-  instrucaoSql = `select * from registro limit 1`
+  instrucaoSql = `
+  select valorRegistro, dtHoraRegistro, tipoComponente from registroEmpresa 
+  where tipoComponente like 'Core %' and detalheRegistro = "Celsius" and apelidoServidor = "Servidor A" order by dtHoraRegistro;
+  `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

@@ -1,33 +1,14 @@
 use bd_memoryanalytics;
  
- -- ligando servidor a empresa --
-create view servidorEmpresa as
-select 
-	idServidor, SistemaOperacionalServidor, apelidoServidor, localServidor, macAdress,
-    idEmpresa, nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa, 
-    idFuncionario, nomeFunc, emailFunc, telefoneFunc, permissao, fkCargo, fkSupervisor
-	from servidor join empresa  
-	on servidor.fkEmpresa = idEmpresa
-	join funcionario on funcionario.fkEmpresa = idEmpresa;
+
+ -- pegar a lista de servidores disponiveis para um determinado funcionario  com base no email--
+select apelidoServidor,macAdress from servidor join empresa on fkEmpresa = idEmpresa 
+where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = "anafonseca@email.com");
 
 
+select valorRegistro, dtHoraRegistro, tipoComponente from registroEmpresa 
+where tipoComponente like 'Core %' and detalheRegistro = "Celsius" and apelidoServidor = "Servidor A" order by dtHoraRegistro;
 
--- ligando o registro a empresa --         
-create view registroEmpresa as 	
-    select *
-	from 
-	servidorEmpresa join componente on fkServidor = idServidor
-    join recurso on recurso.fkComponente = idComponente
-    join registro on registro.fkRecurso = idRecurso
-    join medidaComponente on registro.fkMedidaComponente = idMedidaComponente;
-
-select * from registroEmpresa;
- 
- -- pegar a lista de servidores disponiveis para um determinado funcionario --
- select apelidoServidor from registroEmpresa where emailFunc = "maria@email.com" group by apelidoServidor; 
-
-
-select email from registroEmpresa;
 -- kpi1 ---
 
 -- kpi2 ---
@@ -36,10 +17,39 @@ select avg(valorRegistro), dtHoraRegistro, apelidoServidor, emailFunc from regis
     and emailFunc = "maria@email.com"  group by dtHoraRegistro limit 2;
  
  -- kpi3 -- 
-  select valorRegistro, dtHoraRegistro, tipoRecurso from registroEmpresa 
+ 
+ #create view valorMaximoHora as
+ 
+ select * from registro;
+ 
+ insert into registro(valorRegistro,tipoMedida, detalheRegistro, dtHoraRegistro,  fkComponente) values 
+ (100, '°C', "Celsius", '2023-11-09 10:02:00', 8);
+ 
+ insert into registro(valorRegistro,tipoMedida, detalheRegistro, dtHoraRegistro,  fkComponente) values 
+ (100, '°C', "Celsius", '2023-11-09 10:01:00', 8);
+ 
+select valorRegistro, dtHoraRegistro, tipoComponente, idComponente from registroEmpresa 
 	where valorRegistro = (
     select max(valorRegistro) from registroEmpresa 
-		where unidadeMedida = "%" and tipoComponente = "CPU" and apelidoServidor= "Servidor B" order by dtHoraRegistro) limit 1;
+		where tipoMedida = "°C" and apelidoServidor = "Servidor A") order by dtHoraRegistro limit 1 ;
+
+
+select max(valorRegistro), dtHoraRegistro, tipoComponente from registro join componente on fkComponente = idComponente 
+	where tipoMedida = '°C' group by dtHoraRegistro order by dtHoraRegistro desc;
+    
+select * from registro join componente on fkComponente = idRegistro;
+
+select valorRegistro, dtHoraRegistro,tipoComponente from 
+registro join componente on fkComponente = idComponente 
+order by valorRegistro , dtHoraRegistro desc;
+
+select * from registro;
+
+drop view valorMaximoHora;
+select * from valorMaximoHora;        
+      
+select * from registro;
+
 
 -- kpi 4 --
 
@@ -89,11 +99,6 @@ select * from registro;
 select * from medidaComponente;
 
 select * from recurso join component;
-
-insert into recurso(tipoRecurso,fkComponente) values ("Core 1", 17);
-insert into recurso(tipoRecurso,fkComponente) values ("Core 2", 17);
-insert into recurso(tipoRecurso,fkComponente) values ("Core 3", 17);
-insert into recurso(tipoRecurso,fkComponente) values ("Outro Recurso", 5);
 
 
 
