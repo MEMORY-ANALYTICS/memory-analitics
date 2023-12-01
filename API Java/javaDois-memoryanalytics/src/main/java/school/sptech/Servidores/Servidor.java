@@ -3,6 +3,7 @@ package school.sptech.Servidores;
 import school.sptech.BancoDados.Conexao;
 import school.sptech.Componentes.Componente;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Servidor {
@@ -18,24 +19,22 @@ public class Servidor {
     private Conexao conexao;
 
     public Servidor(String sistemaOperacional, String apelido, String macAdress, String numeroSerie, List<Chamado> chamados,
-                    Downtime downtime, List<Componente> componentes, Conexao conexao) {
+                    Downtime downtime, Conexao conexao) {
         this.SistemaOperacionalServidor = sistemaOperacional;
         this.apelidoServidor = apelido;
         this.macAdress = macAdress;
         this.numeroSerieServidor = numeroSerie;
         this.chamados = chamados;
         this.downtime = downtime;
-        this.componentes = componentes;
+        this.componentes =new ArrayList<>();
         this.conexao = conexao;
     }
 
     public Servidor() {
     }
 
-    public void queryInsertServidor(){
-        //Desenvolver insert para inserir o servidor altomaticamente 1 vez
-        //SQL Server
-        //MySQL
+    public void querySelectComponentes(){
+        //Slect para pegar os componentes do servidor com fkServidor e inserir na lista componentes
     }
     public Integer getIdServidor() {
         return idServidor;

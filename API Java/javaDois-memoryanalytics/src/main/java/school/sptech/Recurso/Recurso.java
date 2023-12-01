@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.Conexao;
 import school.sptech.BancoDados.ConexaoMySql;
 import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Componentes.Componente;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ public abstract class Recurso{
     private Double valorRegistro;
     private List<JdbcTemplate> conexoes;
 
-    public Recurso(String nome, String unidadeMedida, Double valorRegistro) {
+    private Componente componente;
+
+    public Recurso(String nome, String unidadeMedida, Double valorRegistro, Componente componente) {
         ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
         ConexaoMySql conexaoMySql = new ConexaoMySql();
         JdbcTemplate con1 = conexaoSqlServer.criarConexao();
@@ -22,6 +25,7 @@ public abstract class Recurso{
         this.nome = nome;
         this.unidadeMedida = unidadeMedida;
         this.valorRegistro = valorRegistro;
+        this.componente = componente;
         this.conexoes = new ArrayList<>();
         conexoes.add(con1);
         conexoes.add(con2);
@@ -33,6 +37,7 @@ public abstract class Recurso{
     }
 
     public void setNome(String nome) {
+
         this.nome = nome;
     }
 
@@ -55,6 +60,7 @@ public abstract class Recurso{
     public List<JdbcTemplate> getConexoes() {
         return conexoes;
     }
+
     public void setConexoes(List<JdbcTemplate> conexoes) {
         this.conexoes = conexoes;
     }

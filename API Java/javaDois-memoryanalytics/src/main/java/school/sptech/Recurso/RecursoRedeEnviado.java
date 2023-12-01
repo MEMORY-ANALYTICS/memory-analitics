@@ -2,11 +2,15 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.Conexao;
 import school.sptech.BancoDados.ConexaoMySql;
 import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Componentes.Componente;
+import school.sptech.Servidores.ServidorRowMapper;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +18,9 @@ public class RecursoRedeEnviado extends Recurso {
 
     private Looca looca;
 
-    public RecursoRedeEnviado(String nome, String unidadeMedida, Double valorRegistro) {
-        super(nome, unidadeMedida, valorRegistro);
-        this.looca = new Looca();
+    public RecursoRedeEnviado(String nome, String unidadeMedida, Double valorRegistro, Componente componente, Looca looca) {
+        super(nome, unidadeMedida, valorRegistro, componente);
+        this.looca = looca;
     }
 
     @Override
@@ -34,26 +38,14 @@ public class RecursoRedeEnviado extends Recurso {
         return megabytesEnviados;
     }
 
-    public void querySelectIdComponente(){
-        getConexoes().get(0); //SQL Server
-        getConexoes().get(1).update("SELECT idComponente FROM componete WHERE tipoComponente = 'REDE';"); //MySQL
-    }
-
     public void queryInsertRegistroRede() {
+        LocalDateTime dateTimeAtual = LocalDateTime.now();
         getConexoes().get(0); //SQL Server
         getConexoes().get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES\n" +
-                "(?, 'Mb','Megabytes Eviados', ?, ?);"); //MySQL
+                "(?, 'Mb','Megabytes Eviados', ?, ?);", capturarRegistro(), dateTimeAtual, ); //MySQL
         setValorRegistro(capturarRegistro());
         getConexoes().get(1); //MySQL
         String macAdress = "";
-        for (int i = 0; i < looca.getRede().getGrupoDeInterfaces().getInterfaces().size(); i++) {
-            if (looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac().isBlank()){
-                macAdress = "Não encontrado";
-            }else {
-                macAdress = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
-                break;
-            }
-        }
     }
     @Override
     public List<JdbcTemplate> getConexoes() {

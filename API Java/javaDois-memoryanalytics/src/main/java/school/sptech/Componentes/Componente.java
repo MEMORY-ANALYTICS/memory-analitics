@@ -9,7 +9,7 @@ import school.sptech.Recurso.Recurso;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Componente {
+public class Componente {
     private int idComponente;
     private String fabricante;
     private String nomeModelo;
@@ -36,9 +36,6 @@ public abstract class Componente {
         conexoes.add(con1);
         conexoes.add(con2);
     }
-
-    public abstract Boolean checarCadastroExiste();
-    public abstract void cadastrarRecurso();
 
     public int getIdComponente() {
         return idComponente;
