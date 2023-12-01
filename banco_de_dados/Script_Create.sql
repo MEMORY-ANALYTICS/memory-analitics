@@ -62,7 +62,6 @@ fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `downtimeServidor`(
 idDowntimeServidor INT PRIMARY KEY AUTO_INCREMENT,
 tempoDowntime INT,
@@ -71,8 +70,6 @@ fkServidor INT,
 FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
 );
 
-=======
->>>>>>> f2eee410de6b9a888ef24de8b0cd8794c976a319
 CREATE TABLE IF NOT EXISTS `componente`(
 idComponente INT PRIMARY KEY AUTO_INCREMENT,
 fabricante VARCHAR(45),
@@ -84,27 +81,13 @@ fkServidor INT,
 FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
 );
 
-<<<<<<< HEAD
-=======
-CREATE TABLE IF NOT EXISTS `recurso`(
-  idRecurso INT PRIMARY KEY AUTO_INCREMENT,
-  tipoRecurso VARCHAR(45),
-  fkComponente INT,
-  FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
-);
-
->>>>>>> f2eee410de6b9a888ef24de8b0cd8794c976a319
 CREATE TABLE IF NOT EXISTS `chamadoServidor`(
 idChamadoServidor INT PRIMARY KEY AUTO_INCREMENT,
 codigoChamado VARCHAR(45),
 descricao varchar(45),
 dtHoraChamado DATETIME,
-<<<<<<< HEAD
 fkComponente INT,
 FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
-=======
-fkIdRecurso INT,
-FOREIGN KEY (fkIdRecurso) REFERENCES recurso (idRecurso)
 );
 
 CREATE TABLE IF NOT EXISTS `downtimeServidor`(
@@ -113,13 +96,6 @@ tempoDowntime INT,
 dtHoraDowntime DATETIME,
 fkServidor INT,
 FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
-);
-
-CREATE TABLE IF NOT EXISTS `medidaComponente`(
-  idMedidaComponente INT PRIMARY KEY auto_increment,
-  tipoMedida VARCHAR(25),
-  unidadeMedida VARCHAR(45)
->>>>>>> f2eee410de6b9a888ef24de8b0cd8794c976a319
 );
 
 CREATE TABLE IF NOT EXISTS `registro`(
