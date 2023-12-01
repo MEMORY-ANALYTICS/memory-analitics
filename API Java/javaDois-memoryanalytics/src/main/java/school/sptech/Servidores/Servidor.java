@@ -32,6 +32,11 @@ public class Servidor {
     public Servidor() {
     }
 
+    public void queryInsertServidor(){
+        //Desenvolver insert para inserir o servidor altomaticamente 1 vez
+        //SQL Server
+        //MySQL
+    }
     public Integer getIdServidor() {
         return idServidor;
     }
