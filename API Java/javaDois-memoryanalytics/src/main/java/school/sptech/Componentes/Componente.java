@@ -1,8 +1,12 @@
 package school.sptech.Componentes;
 
+import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.Conexao;
+import school.sptech.BancoDados.ConexaoMySql;
+import school.sptech.BancoDados.ConexaoSqlServer;
 import school.sptech.Recurso.Recurso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Componente {
@@ -13,9 +17,14 @@ public abstract class Componente {
     private String limiteMin;
     private String limiteMax;
     private List<Recurso> recursos;
-    private List<Conexao> conexoes;
+    private List<JdbcTemplate> conexoes;
 
-    public Componente(int idComponente, String fabricante, String nomeModelo, String tipoComponente, String limiteMin, String limiteMax, List<Recurso> recursos, List<Conexao> conexoes) {
+    public Componente(int idComponente, String fabricante, String nomeModelo, String tipoComponente, String limiteMin, String limiteMax,
+                      List<Recurso> recursos) {
+        ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
+        ConexaoMySql conexaoMySql = new ConexaoMySql();
+        JdbcTemplate con1 = conexaoSqlServer.criarConexao();
+        JdbcTemplate con2 = conexaoMySql.criarConexao();
         this.idComponente = idComponente;
         this.fabricante = fabricante;
         this.nomeModelo = nomeModelo;
@@ -23,24 +32,13 @@ public abstract class Componente {
         this.limiteMin = limiteMin;
         this.limiteMax = limiteMax;
         this.recursos = recursos;
-        this.conexoes = conexoes;
+        this.conexoes = new ArrayList<>();
+        conexoes.add(con1);
+        conexoes.add(con2);
     }
 
-    public Boolean checarCadastroExiste(){
-        return false;
-    }
-    public void cadastrarRecurso(){
-
-    }
-    public Boolean checarRecursoAtivo(Recurso recurso){
-        return null ;
-    }
-    public void habilitarRecurso(List<Recurso> recursos){
-
-    }
-    public void desabilitarRecurso(List<Recurso> recursos){
-
-    }
+    public abstract Boolean checarCadastroExiste();
+    public abstract void cadastrarRecurso();
 
     public int getIdComponente() {
         return idComponente;
@@ -98,13 +96,10 @@ public abstract class Componente {
         this.recursos = recursos;
     }
 
-    public List<Conexao> getConexoes() {
+    public List<JdbcTemplate> getConexoes() {
         return conexoes;
     }
 
-    public void setConexoes(List<Conexao> conexoes) {
-        this.conexoes = conexoes;
-    }
 
     @Override
     public String toString() {
