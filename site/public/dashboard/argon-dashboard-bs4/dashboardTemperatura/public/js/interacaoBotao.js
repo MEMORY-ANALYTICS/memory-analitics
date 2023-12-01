@@ -140,7 +140,17 @@ function exibirGrafico(tipoGrafico){
   }).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-        console.log(json[i])
+       // console.log(json[3])
+        //medTempIdeal.innerHTML = json[0].valorRegistro;
+
+        //medTempAtual.innerHTML = json[1].valorRegistro;
+       // coreTempMax.innerHTML = json[2].valorRegistro;
+       // coreTempMin.innerHTML = json[0].valorRegistro;
+       // identificaoCoreMin.innerHTML = json[0].tipoRecurso;
+       // identificaoCoreMax.innerHTML = json[0].tipoRecurso;
+
+
+
 
         // graficoAtividades.data.datasets[0].data.push(json[i].nAtividades)
         // graficoAtividades.data.labels.push(json[i].ano)
