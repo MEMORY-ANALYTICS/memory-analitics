@@ -1,6 +1,9 @@
     package school.sptech.Recurso;
     import com.github.britooo.looca.api.core.Looca;
     import com.github.britooo.looca.api.group.memoria.Memoria;
+    import org.springframework.jdbc.core.JdbcTemplate;
+
+    import java.util.List;
 
     public class RecursoMemoriaUso extends Recurso {
 
@@ -40,6 +43,11 @@
             } else {
                 return 0.0;
             }
+        }
+
+        @Override
+        public List<JdbcTemplate> getConexoes() {
+            return super.getConexoes();
         }
 
         @Override
