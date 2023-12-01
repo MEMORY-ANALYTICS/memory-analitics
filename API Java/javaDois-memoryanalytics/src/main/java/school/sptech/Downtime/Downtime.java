@@ -15,6 +15,6 @@ public class Downtime {
     }
 
     public Integer calcDowntime(LocalDateTime dataHoraBanco) {
-
+        return null;
     }
 }

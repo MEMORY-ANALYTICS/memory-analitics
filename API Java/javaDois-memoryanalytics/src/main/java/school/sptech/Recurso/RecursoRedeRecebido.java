@@ -1,6 +1,7 @@
 package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
+import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.Conexao;
 
 import java.util.List;
@@ -33,12 +34,12 @@ public class RecursoRedeRecebido extends Recurso{
         getConexoes().get(1); //MySQL
     }
     @Override
-    public List<Conexao> getConexoes() {
+    public List<JdbcTemplate> getConexoes() {
         return super.getConexoes();
     }
 
     @Override
-    public void setConexoes(List<Conexao> conexoes) {
+    public void setConexoes(List<JdbcTemplate> conexoes) {
         super.setConexoes(conexoes);
     }
 }

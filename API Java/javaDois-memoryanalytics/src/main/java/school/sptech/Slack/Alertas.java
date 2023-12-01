@@ -8,7 +8,7 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import java.io.IOException;
 
 public class Alertas {
-    private final String token = "xoxb-5803756490416-6261023221495-I8ApSTWOsh9GDtgVpgSP9Unw";
+    private final String token = "xoxb-5803756490416-6261023221495-T9bWCnU0GZlZDnP9iSrKUNxk";
     private final String channelId = "C0682SLMA74";
 
     public Alertas() {
@@ -20,7 +20,13 @@ public class Alertas {
             ChatPostMessageRequest.ChatPostMessageRequestBuilder messageRequest = ChatPostMessageRequest.builder()
                     .token(token)
                     .channel(channelId)
-                    .text(mensagem);
+                    .text("""
+            ALERTA!!!
+            ---------------------------
+            %s
+            
+            --------------------------
+            """.formatted(mensagem));
 
             ChatPostMessageResponse response = slack.methods().chatPostMessage(messageRequest.build());
 

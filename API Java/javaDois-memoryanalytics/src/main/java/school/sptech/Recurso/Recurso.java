@@ -52,11 +52,11 @@ public abstract class Recurso{
         this.valorRegistro = valorRegistro;
     }
 
-    public List<Conexao> getConexoes() {
+    public List<JdbcTemplate> getConexoes() {
         return conexoes;
     }
 
-    public void setConexoes(List<Conexao> conexoes) {
+    public void setConexoes(List<JdbcTemplate> conexoes) {
         this.conexoes = conexoes;
     }
 }
