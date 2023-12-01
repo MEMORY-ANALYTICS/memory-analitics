@@ -14,6 +14,7 @@ public class RecursoDiscoUso extends Recurso {
     private String nome;
     private String unidadeMedida;
     private Double valorRegistro;
+    private Looca looca = new Looca();
 
     public RecursoDiscoUso(String nome, String unidadeMedida, Double valorRegistro) {
         super(nome, unidadeMedida, valorRegistro);
