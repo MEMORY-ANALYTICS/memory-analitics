@@ -159,5 +159,20 @@ CREATE PROCEDURE `selectUltimoRegistro`(fkServidor INT, OUT ultimoRegistro DATET
 						LIMIT 1)
 					LIMIT 1
 		);
-    
 END $$	
+
+ -- ligando servidor a empresa --
+create view servidorEmpresa as
+select 
+	idServidor, SistemaOperacionalServidor, apelidoServidor, localServidor, macAdress,
+    idEmpresa, nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa, 
+    idFuncionario, nomeFunc, emailFunc, telefoneFunc, permissao, fkCargo, fkSupervisor
+	from servidor join empresa  
+	on servidor.fkEmpresa = idEmpresa
+	join funcionario on funcionario.fkEmpresa = idEmpresa;
+    
+-- ligando o registro a empresa --         
+create view registroEmpresa as 	
+    select * from 
+	servidorEmpresa join componente on fkServidor = idServidor
+    join registro on registro.fkComponente = idComponente;

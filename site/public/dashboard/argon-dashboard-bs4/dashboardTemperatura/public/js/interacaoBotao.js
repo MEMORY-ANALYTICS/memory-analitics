@@ -140,7 +140,8 @@ function exibirGrafico(tipoGrafico){
   }).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-       // console.log(json[3])
+      console.log(json[i])
+        
         //medTempIdeal.innerHTML = json[0].valorRegistro;
 
         //medTempAtual.innerHTML = json[1].valorRegistro;
