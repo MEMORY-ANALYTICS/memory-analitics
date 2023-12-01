@@ -4,7 +4,9 @@
 
 -- CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
-    CREATE DATABASE [bd_memoryanalytics];
+    CREATE DATABASE bd_memoryanalytics;
+
+USE bd_memoryanalytics;
 
 -- CREATE TABLE empresa
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'empresa')
@@ -101,16 +103,6 @@ BEGIN
     );
 END;
 
--- CREATE TABLE recurso
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'recurso')
-BEGIN
-    CREATE TABLE recurso(
-        idRecurso INT PRIMARY KEY IDENTITY(1,1),
-        tipoRecurso VARCHAR(45),
-        fkComponente INT,
-        FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
-    );
-END;
 
 -- CREATE TABLE chamadoServidor
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'chamadoServidor')
@@ -120,8 +112,8 @@ BEGIN
         codigoChamado VARCHAR(45),
         descricao varchar(45),
         dtHoraChamado DATETIME,
-        fkIdRecurso INT,
-        FOREIGN KEY (fkIdRecurso) REFERENCES recurso (idRecurso)
+        fkComponente INT,
+        FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
     );
 END;
 
@@ -137,15 +129,6 @@ BEGIN
     );
 END;
 
--- CREATE TABLE medidaComponente
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'medidaComponente')
-BEGIN
-    CREATE TABLE medidaComponente(
-        idMedidaComponente INT PRIMARY KEY IDENTITY(1,1),
-        tipoMedida VARCHAR(25),
-        unidadeMedida VARCHAR(45)
-    );
-END;
 
 -- CREATE TABLE registro
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'registro')
@@ -153,10 +136,12 @@ BEGIN
     CREATE TABLE registro(
         idRegistro INT PRIMARY KEY IDENTITY(1,1),
         valorRegistro FLOAT,
+		tipoMedida VARCHAR(25),
+        detalheRegistro VARCHAR(45),
         dtHoraRegistro DATETIME,
         fkRecurso INT,
         fkMedidaComponente INT,
-        FOREIGN KEY (fkRecurso) REFERENCES recurso (idRecurso),
-        FOREIGN KEY (fkMedidaComponente) REFERENCES medidaComponente (idMedidaComponente)
+        fkComponente INT,
+        FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
     );
 END;
