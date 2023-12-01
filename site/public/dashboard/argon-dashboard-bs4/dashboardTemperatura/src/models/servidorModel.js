@@ -1,10 +1,11 @@
 var database = require("../database/config")
 
       function getServidor() {
-        email = 'anafonseca@email.com'
+        email = 'gabriel@email.com'
         instrucaoSql = `
-        select apelidoServidor from registroEmpresa 
-        where emailFunc = "${email}" group by apelidoServidor;`
+        select apelidoServidor,macAdress from servidor join empresa on fkEmpresa = idEmpresa 
+        where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = "${email}");
+       `
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
       }  

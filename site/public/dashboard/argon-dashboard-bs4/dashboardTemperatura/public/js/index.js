@@ -25,8 +25,12 @@ function getServidor() {
       for (var i = 0; i < json.length; i++) {
         console.log(json[i])
 
-        
-        option1.innerHTML = json[0].apelidoServidor
+        var novaOpcao = document.createElement("option");
+        novaOpcao.text = json[i].apelidoServidor
+        novaOpcao.value = json[i].macAdress
+
+        var select = document.getElementById("selecaoApelidoServidor");
+        select.appendChild(novaOpcao);
 
       
       }
