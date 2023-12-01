@@ -34,7 +34,8 @@ public class RecursoProcessos {
 
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
-        alerta.alertarCanal("Estou funcionando!");
+
+        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
         return processoMaiorMedia.getNome();
     }
 
@@ -52,15 +53,18 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoCpu();
         }
         if(usoTotal > 2){
-            alerta.alertarCanal("Os processos estão utilizando" + (usoTotal/quantidadeProcessosOnline()));
+            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
-        return usoTotal/quantidadeProcessosOnline();
+        return Math.ceil(usoTotal/quantidadeProcessosOnline());
     }
 
     public Double getUsoRamProcessos(){
         Double usoTotal = .0;
         for(Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoMemoria();
+        }
+        if(usoTotal > 2){
+            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
         return usoTotal;
     }

@@ -21,13 +21,14 @@ public class Main {
 //        System.out.println(teste);
 
         RecursoProcessos recursoProcessos = new RecursoProcessos();
+    while (true){
         System.out.println(
             recursoProcessos.getUsoCpuProcessos()
         );
+        System.out.println(recursoProcessos.getUsoRamProcessos());
+        System.out.println(recursoProcessos.getProcessoMaiorMediaUso());
+    }
 
-        RecursoDiscoUso disco = new RecursoDiscoUso();
-
-        System.out.println(disco.capturarRegistro());
 
 
 //        con.execute("USE bd_memoryanalytics;");

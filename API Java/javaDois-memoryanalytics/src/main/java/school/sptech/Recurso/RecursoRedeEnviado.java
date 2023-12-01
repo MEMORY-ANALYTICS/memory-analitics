@@ -1,10 +1,7 @@
 package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
-<<<<<<< HEAD
 import com.github.britooo.looca.api.group.rede.RedeInterface;
-=======
->>>>>>> d0d9b29c0aa622361323a3e8209646746ae41f53
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.Conexao;
 import school.sptech.BancoDados.ConexaoMySql;
@@ -39,7 +36,6 @@ public class RecursoRedeEnviado extends Recurso {
 
     public void querySelectIdComponente(){
         getConexoes().get(0); //SQL Server
-<<<<<<< HEAD
         getConexoes().get(1).update("SELECT idComponente FROM componete WHERE tipoComponente = 'REDE';"); //MySQL
     }
 
@@ -48,7 +44,6 @@ public class RecursoRedeEnviado extends Recurso {
         getConexoes().get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES\n" +
                 "(?, 'Mb','Megabytes Eviados', ?, ?);"); //MySQL
         setValorRegistro(capturarRegistro());
-=======
         getConexoes().get(1); //MySQL
         String macAdress = "";
         for (int i = 0; i < looca.getRede().getGrupoDeInterfaces().getInterfaces().size(); i++) {
@@ -68,7 +63,6 @@ public class RecursoRedeEnviado extends Recurso {
     @Override
     public void setConexoes(List<JdbcTemplate> conexoes) {
         super.setConexoes(conexoes);
->>>>>>> d0d9b29c0aa622361323a3e8209646746ae41f53
     }
 
 }

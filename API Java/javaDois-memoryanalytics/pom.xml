@@ -61,6 +61,10 @@
             <artifactId>slack-api-client</artifactId>
             <version>1.36.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3-beta1</version>
+        </dependency>
     </dependencies>
 </project>
