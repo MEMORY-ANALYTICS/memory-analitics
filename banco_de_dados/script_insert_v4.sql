@@ -58,96 +58,55 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('Intel', 'Xeon', 'CPU', 2, 10, 1), -- CPU
 ('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM
 ('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 1), -- REDE
+('TPLink','NP3200','REDE', NULL, NULL, 1); -- REDE
 
-('Intel', 'Xeon', 'CPU', 2, 10, 2), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 2), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 2), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 2), -- REDE
+INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
+(10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
+(10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
+(50034,'Bytes','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(53098,'Bytes','Recebidos Rede', '2023-10-09 10:30:00', 4);  -- REDE
 
-('Intel', 'Xeon', 'CPU', 2, 10, 3), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 3), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 3), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 3), -- REDE
+-- select * from medidaComponente;
+-- INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
+-- ('Porcentagem Uso', '%'),  					-- 1
+-- ('Armazenamento Total', 'GB'),				-- 2
+-- ('Armazenamento Disponível', 'GB'),			-- 3
+-- ('Armazenamento Usado', 'GB'),				-- 4
+-- ('Frequência Atual', 'MHz'),				-- 5
+-- ('Frequência Máxima', 'MHz'),				-- 6
+-- ('Frequência Mínima', 'MHz'),				-- 7
+-- ('Transferência Enviados','Mbps'),			-- 8
+-- ('Transferência Recebidos','Mbps'),			-- 9
+-- ('Quantidade Virtuais','Int'),				-- 10
+-- ('Quantidade Físicas','Int'),				-- 11
+-- ('Quantidade Erros Entrada','Int'),	-- 12
+-- ('Quantidade Erros na Saída','Int'),		-- 13
+-- ('Tempo', 's'),								-- 14
+-- ('Temperatura', '°C');						-- 15
 
-('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 4), -- REDE
+-- INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
+-- ('Total CPU', 1),
+-- ('Frequência CPU', 1),
+-- ('Temperatura CPU', 1),
+-- ('Uso RAM', 2),
+-- ('Enviados Rede', 4),
+-- ('Recebidos Rede', 4);
 
-('Intel', 'Xeon', 'CPU', 2, 10, 5), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 5), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 5), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 5), -- REDE
-
-('Intel', 'Xeon', 'CPU', 2, 10, 6), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 6), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 6), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 6), -- REDE
-
-('Intel', 'Xeon', 'CPU', 2, 10, 7), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 7), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 7), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 7); -- REDE
-
-select * from medidaComponente;
-INSERT INTO medidaComponente (tipoMedida, unidadeMedida) VALUES
-('Porcentagem Uso', '%'),  					-- 1
-('Armazenamento Total', 'GB'),				-- 2
-('Armazenamento Disponível', 'GB'),			-- 3
-('Armazenamento Usado', 'GB'),				-- 4
-('Frequência Atual', 'MHz'),				-- 5
-('Frequência Máxima', 'MHz'),				-- 6
-('Frequência Mínima', 'MHz'),				-- 7
-('Transferência Enviados','Mbps'),			-- 8
-('Transferência Recebidos','Mbps'),			-- 9
-('Quantidade Virtuais','Int'),				-- 10
-('Quantidade Físicas','Int'),				-- 11
-('Quantidade Erros Entrada','Int'),	-- 12
-('Quantidade Erros na Saída','Int'),		-- 13
-('Tempo', 's'),								-- 14
-('Temperatura', '°C');						-- 15
-
-INSERT INTO recurso (tipoRecurso, fkComponente) VALUES
-('Core 1', 1),
-('Core 2', 1),
-('Core 3', 1),
-('Core 4', 1),
-('Core 1', 5),
-('Core 2', 5),
-('Core 3', 5),
-('Core 4', 5),
-('Core 1', 9),
-('Core 2', 9),
-('Core 3', 9),
-('Core 4', 9),
-('Leitura RAM', 2),
-('Leitura RAM', 6),
-('Leitura RAM', 10),
-('Partição DISCO 1', 3),
-('Partição DISCO 2', 3),
-('Partição DISCO 3', 3),
-('Partição DISCO 1', 7),
-('Partição DISCO 2', 7),
-('Partição DISCO 3', 7),
-('Partição DISCO 1', 11),
-('Partição DISCO 2', 11),
-('Partição DISCO 3', 11),
-('Leitura REDE', 4),
-('Leitura REDE', 8),
-('Leitura REDE', 12);
-
-INSERT INTO registro (valorRegistro, dtHoraRegistro, fkRecurso, fkMedidaComponente) VALUES
-(2200, '2023-10-09 10:00:00', 5, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 6, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 7, 2),  -- CPU
-(2200, '2023-10-09 10:00:00', 8, 2),  -- CPU
-(10, '2023-10-09 10:00:00', 5, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 6, 3),  -- CPU
-(10, '2023-10-09 10:00:00', 7, 3),  -- CPU
-(500, '2023-10-09 10:30:00', 26, 4),  -- REDE
-(50, '2023-10-09 10:30:00', 26, 3);  -- REDE
-
+-- INSERT INTO registro (valorRegistro, tipoMedida, dtHoraRegistro, fkRecurso) VALUES
+-- (2200, 'Mhz', '2023-10-09 10:00:00', 2),  -- CPU
+-- (2200, 'Mhz', '2023-10-09 10:00:00', 2),  -- CPU
+-- (2200, 'Mhz', '2023-10-09 10:00:00', 2),  -- CPU
+-- (2200, 'Mhz', '2023-10-09 10:00:00', 2),  -- CPU
+-- (10,'%', '2023-10-09 10:00:00', 4),  -- RAM
+-- (10,'%', '2023-10-09 10:00:00', 4),  -- RAM
+-- (10,'%', '2023-10-09 10:00:00', 4),  -- RAM
+-- (50034,'Bytes', '2023-10-09 10:30:00', 5),  -- REDE
+-- (53098,'Bytes', '2023-10-09 10:30:00', 6);  -- REDE
 -- -------------------------------------------------------------------------------------------------------------------------------
 SELECT dtHoraRegistro, valorRegistro, fkMedidaComponente, tipoRecurso FROM registro JOIN recurso ON fkRecurso = idRecurso JOIN Componente 
 on fkComponente = idComponente JOIN Servidor ON fkServidor = idServidor;
