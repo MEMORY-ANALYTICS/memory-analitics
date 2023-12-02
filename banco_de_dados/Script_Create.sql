@@ -108,6 +108,16 @@ CREATE TABLE IF NOT EXISTS `registro`(
   fkComponente INT,
   FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
 );
+
+CREATE TABLE IF NOT EXISTS `processos`(
+idProcessos INT PRIMARY KEY AUTO_INCREMENT,
+usoCpu DOUBLE,
+usoRam DOUBLE,
+processoMaiorMediaUso VARCHAR(75),
+qtdProcessosOnline INT,
+fkServidor INT,
+FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
+);
 -- CREATE TABLE IF NOT EXISTS `recurso`(
 --  idRecurso INT PRIMARY KEY AUTO_INCREMENT,
 --  tipoRecurso VARCHAR(45),
