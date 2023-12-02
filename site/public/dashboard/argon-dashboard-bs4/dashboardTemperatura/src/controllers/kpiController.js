@@ -9,27 +9,27 @@ function MedTempIdeal(req,res){
     })
 }
 
-function MedTempAtual(req,res){
+function MedTemp(req,res){
     // var idServidor = req.body.idServidor;
-   kpiModel.MedTempAtual().then(function(resultado){
+   kpiModel.MedTemp().then(function(resultado){
        res.status(200).json(resultado);
    }).catch(function(erro){
        // res.status(500).json(erro.sqlMessage);
    })
 }
 
-function CoreTempMax(req,res){
+function CpuTempMax(req,res){
     // var idServidor = req.body.idServidor;
-   kpiModel.CoreTempMax().then(function(resultado){
+   kpiModel.CpuTempMax().then(function(resultado){
     res.status(200).json(resultado);
 }).catch(function(erro){
     // res.status(500).json(erro.sqlMessage);
 })
 }
 
-function CoreTempMin(req,res){
+function CpuTempMin(req,res){
     // var idServidor = req.body.idServidor;
-   kpiModel.CoreTempMin().then(function(resultado){
+   kpiModel.CpuTempMin().then(function(resultado){
     res.status(200).json(resultado);
 }).catch(function(erro){
     // res.status(500).json(erro.sqlMessage);
@@ -40,7 +40,7 @@ function CoreTempMin(req,res){
 
 module.exports  = {
     MedTempIdeal,
-    MedTempAtual,
-    CoreTempMax,
-    CoreTempMin
+    MedTemp,
+    CpuTempMax,
+    CpuTempMin
 }

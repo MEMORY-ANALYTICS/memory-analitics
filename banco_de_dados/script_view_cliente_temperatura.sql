@@ -26,25 +26,20 @@ select avg(valorRegistro), dtHoraRegistro, apelidoServidor, emailFunc from regis
  
  #create view valorMaximoHora as
  
- select * from registro;
- 
- insert into registro(valorRegistro,tipoMedida, detalheRegistro, dtHoraRegistro,  fkComponente) values 
- (100, '°C', "Celsius", '2023-11-09 10:02:00', 8);
- 
- insert into registro(valorRegistro,tipoMedida, detalheRegistro, dtHoraRegistro,  fkComponente) values 
- (100, '°C', "Celsius", '2023-11-09 10:01:00', 8);
- 
 select valorRegistro, dtHoraRegistro, tipoComponente, idComponente from registroEmpresa 
 	where valorRegistro = (
     select max(valorRegistro) from registroEmpresa 
 		where tipoMedida = "°C" and apelidoServidor = "Servidor A") order by dtHoraRegistro limit 1 ;
 
+-- KPI 3
+select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
+	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro desc  limit 1;
 
-select max(valorRegistro), dtHoraRegistro, tipoComponente from registro join componente on fkComponente = idComponente 
-	where tipoMedida = '°C' group by dtHoraRegistro order by dtHoraRegistro desc;
+
+-- KPI 4
+select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
+	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro  limit 1;
     
-select * from registro join componente on fkComponente = idRegistro;
-
 select valorRegistro, dtHoraRegistro,tipoComponente from 
 registro join componente on fkComponente = idComponente 
 order by valorRegistro , dtHoraRegistro desc;
