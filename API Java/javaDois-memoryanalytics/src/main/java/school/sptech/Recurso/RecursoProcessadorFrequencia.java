@@ -17,7 +17,7 @@ public class RecursoProcessadorFrequencia extends Recurso {
 
 
     public RecursoProcessadorFrequencia(String nome, String unidadeMedida, Double valorRegistro) {
-        super(nome, unidadeMedida, 0.0);
+        super(nome, unidadeMedida, 0.0, null); //TODO TROCAR DE NULL
         this.processador = new Processador();
     }
 

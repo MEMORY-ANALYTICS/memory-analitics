@@ -2,6 +2,7 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.ConexaoMySql;
 import school.sptech.BancoDados.ConexaoSqlServer;
@@ -95,15 +96,16 @@ public class RecursoProcessos {
 
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
         List<Servidor> teste =
-                getConexoes().get(0).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new ServidorRowMapper());
+                getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
 
         return teste.get(0).getIdServidor();
     }
 
     public void capturarRegistro() {
-        getConexoes().get(0).execute("INSERT INTO Processos VALUES (%f, %f, %s, %d,%d)"
+        getConexoes().get(0).execute("INSERT INTO Processos VALUES (%f, %f, '%s', %d,%d)"
                 .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
-        getConexoes().get(1).execute("INSERT INTO Processos VALUES (?,?,?,?,?)");
+        getConexoes().get(1).execute("INSERT INTO Processos VALUES (%f, %f, '%s', %d,%d)"
+                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
     }
 
     public List<JdbcTemplate> getConexoes() {

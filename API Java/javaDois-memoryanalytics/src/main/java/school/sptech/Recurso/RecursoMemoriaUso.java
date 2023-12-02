@@ -10,7 +10,7 @@
         private final Memoria memoria;
 
         public RecursoMemoriaUso(String nome, String unidadeMedida, Double valorRegistro) {
-            super(nome, unidadeMedida, valorRegistro);
+            super(nome, unidadeMedida, valorRegistro, null); //TODO TROCAR DE NULL
             this.memoria = new Memoria();
         }
 

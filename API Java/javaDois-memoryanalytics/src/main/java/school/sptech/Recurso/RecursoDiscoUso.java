@@ -17,7 +17,7 @@ public class RecursoDiscoUso extends Recurso {
     private Looca looca = new Looca();
 
     public RecursoDiscoUso(String nome, String unidadeMedida, Double valorRegistro) {
-        super(nome, unidadeMedida, valorRegistro);
+        super(nome, unidadeMedida, valorRegistro, null); //TODO TROCAR DE NULL
     }
 
     public RecursoDiscoUso() {

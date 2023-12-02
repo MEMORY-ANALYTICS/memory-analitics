@@ -10,14 +10,14 @@ public class Rede extends Componente{
         super(idComponente, fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, recursos);
     }
 
-    @Override
-    public Boolean checarCadastroExiste() {
-        return null;
-    }
-
-    @Override
-    public void cadastrarRecurso() {
-
-    }
+//    @Override
+//    public Boolean checarCadastroExiste() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void cadastrarRecurso() {
+//
+//    }
 
 }
