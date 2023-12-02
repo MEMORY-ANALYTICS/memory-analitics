@@ -52,7 +52,7 @@ public class RecursoProcessos {
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
 
-        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
+//        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
         return processoMaiorMedia.getNome();
     }
 
@@ -64,26 +64,34 @@ public class RecursoProcessos {
         return listaNomes;
     }
 
-    public Double getUsoCpuProcessos(){
+    public String getUsoCpuProcessos(){
         Double usoTotal = .0;
+        String strUso = "";
         for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoCpu();
         }
         if(usoTotal > 2){
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
-        return Math.ceil(usoTotal/quantidadeProcessosOnline());
+        usoTotal = Math.ceil(usoTotal/quantidadeProcessosOnline());
+        strUso = usoTotal.toString();
+        strUso = strUso.replace(",", ".");
+        return strUso;
     }
 
-    public Double getUsoRamProcessos(){
+    public String getUsoRamProcessos(){
         Double usoTotal = .0;
+        String strUso = "";
         for(Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoMemoria();
         }
         if(usoTotal > 2){
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
-        return usoTotal;
+        usoTotal = Math.ceil(usoTotal);
+        strUso = usoTotal.toString();
+        strUso = strUso.replace(",", ".");
+        return strUso;
     }
 
     public void listarTodosProcessos(){
@@ -102,9 +110,9 @@ public class RecursoProcessos {
     }
 
     public void capturarRegistro() {
-        getConexoes().get(0).execute("INSERT INTO Processos VALUES (%f, %f, '%s', %d,%d)"
-                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
-        getConexoes().get(1).execute("INSERT INTO Processos VALUES (%f, %f, '%s', %d,%d)"
+//        getConexoes().get(0).execute("INSERT INTO processos VALUES (%f, %f, '%s', %d,%d)"
+//                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
+        getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d,%d)"
                 .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
     }
 
@@ -118,9 +126,7 @@ public class RecursoProcessos {
 
     public static void main(String[] args) {
         RecursoProcessos recursoProcessos = new RecursoProcessos();
-        System.out.println(
-            recursoProcessos.getFkServer()
-        );
+            recursoProcessos.capturarRegistro();
     }
 
 }
