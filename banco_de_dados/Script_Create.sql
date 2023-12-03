@@ -115,6 +115,7 @@ usoCpu DOUBLE,
 usoRam DOUBLE,
 processoMaiorMediaUso VARCHAR(75),
 qtdProcessosOnline INT,
+dtHora DATETIME,
 fkServidor INT,
 FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
 );

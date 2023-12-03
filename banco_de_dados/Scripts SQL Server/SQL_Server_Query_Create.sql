@@ -131,3 +131,27 @@ BEGIN
         FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
     );
 END;
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'processos')
+BEGIN
+	CREATE TABLE processos(
+		idProcessos INT PRIMARY KEY IDENTITY(1,1),
+		usoCpu FLOAT,
+		usoRam FLOAT,
+		processoMaiorMediaUso VARCHAR(75),
+		qtdProcessosOnline INT,
+        dtHora DATETIME,
+		fkServidor INT,
+		FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
+	);
+END;
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'processosBanidos')
+BEGIN
+	CREATE TABLE processosBanidos(
+		idProcesso INT PRIMARY KEY IDENTITY(1,1),
+		nomeProcesso VARCHAR(150),
+		fkServidor INT,
+		FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
+	);
+END;
