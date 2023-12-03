@@ -12,6 +12,8 @@ import school.sptech.Servidores.Servidor;
 import school.sptech.Slack.Alertas;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -131,10 +133,18 @@ public class RecursoProcessos {
     }
 
     public void capturarRegistro() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y-M-d H:m:s");
+        LocalDateTime dateTime = LocalDateTime.now();
+        dateTime.format(formatter);
 //        getConexoes().get(0).execute("INSERT INTO processos VALUES (%s, %s, '%s',%d,%d)"
 //                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
-        getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d,%d)"
-                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
+        getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d, '%s',%d)"
+                .formatted(getUsoCpuProcessos(),
+                        getUsoRamProcessos(),
+                        getProcessoMaiorMediaUso(),
+                        quantidadeProcessosOnline(),
+                        dateTime.format(formatter),
+                        getFkServer()));
         try {
             killTask();
         } catch (IOException e) {
