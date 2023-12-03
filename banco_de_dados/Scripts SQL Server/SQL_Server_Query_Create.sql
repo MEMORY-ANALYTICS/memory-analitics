@@ -81,8 +81,8 @@ BEGIN
         idServidor INT PRIMARY KEY IDENTITY(1,1),
         SistemaOperacionalServidor VARCHAR(20),
         apelidoServidor VARCHAR(45),
-        macAdress varchar(25),
-        numeroSerieServidor VARCHAR(20),
+        localServidor varchar(25),
+        macAdress VARCHAR(20),
         fkEmpresa INT,
         FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
     );

@@ -16,12 +16,12 @@ INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
 INSERT INTO cargo (nomeCargo) VALUES
 ('Gerente'),
 ('Analista'),
-('Técnico');
+('TÃ©cnico');
 
 
 INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor) VALUES
 ('Gustavo Desunte', 'gustavo@email.com', '11122233344', 'A', 10000, 1, NULL),
-('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100000),
+('Adrino MarquÃªs', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100000),
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100000),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL);
 
@@ -33,14 +33,17 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('daniel@email.com', 'senhaDaniel', 100003);
 
 
-INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, macAdress, numeroSerieServidor, fkEmpresa) VALUES
-('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
-('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
-('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),
-('Linux', 'mined', '192.168.1.4', 'SERV789', 10002),
-('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
-('Windows', 'Servidor D', '192.168.1.7', 'SERV421', 10002),
-('Windows', 'Servidor E', '192.168.1.5', 'SERV623', 10002);
+INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
+('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
+('Windows', 'ale123', 'SÃ£o Paulo', '00:45:e2:dd:d6:45', 10001),
+('Linux', 'danie', 'SÃ£o Paulo', '00:11:B2:RB:E1:88', 10002),
+('Linux', 'mined', 'SÃ£o Paulo', '11:11:B1:RB:E1:88', 10002),
+('Linux', 'Servidor C', 'Rio de Janeiro', '00:11:B1:KC:E1:88', 10002),
+('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
+('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10005),
+('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10005),
+('Windows', 'Servidor B', 'SÃ£o Paulo', '09:12:C4:TN:O9:X2', 10005),
+('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10005);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -86,30 +89,30 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('TPLink','NP3200','REDE', NULL, NULL, 7); -- REDE
 
 INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (60, 'Mhz','', '2023-10-09 10:00:00', 1),  -- CPU
-(50, '°C','Celsius', '2023-10-09 10:00:00', 1),  -- CPU
-(70, '°C','Celsius', '2023-10-09 10:01:00', 1),  -- CPU
-(70, '°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
-(75, '°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
-(50, '°C','Celsius', '2023-10-09 10:00:00', 2),  -- CPU
-(90, '°C','Celsius', '2023-11-09 10:01:00', 2),  -- CPU
-(80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
-(80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
-(50, '°C','Celsius', '2023-10-09 10:00:00', 3),  -- CPU
-(90, '°C','Celsius', '2023-11-09 10:01:00', 3),  -- CPU
-(80, '°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
-(80, '°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(50, 'Â°C','Celsius', '2023-10-09 10:00:00', 1),  -- CPU
+(70, 'Â°C','Celsius', '2023-10-09 10:01:00', 1),  -- CPU
+(70, 'Â°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
+(75, 'Â°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
+(50, 'Â°C','Celsius', '2023-10-09 10:00:00', 2),  -- CPU
+(90, 'Â°C','Celsius', '2023-11-09 10:01:00', 2),  -- CPU
+(80, 'Â°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
+(80, 'Â°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
+(50, 'Â°C','Celsius', '2023-10-09 10:00:00', 3),  -- CPU
+(90, 'Â°C','Celsius', '2023-11-09 10:01:00', 3),  -- CPU
+(80, 'Â°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
+(80, 'Â°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (50034,'Bytes','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
 (53098,'Bytes','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
-(40, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
-(2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
+(40, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1),  -- CPU
+(2200, 'Mhz','FrequÃªncia CPU', '2023-10-09 10:00:00', 1); -- CPU

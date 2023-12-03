@@ -34,8 +34,8 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100),
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL),
-("Rafael Almeida", "rafael.almeida@email.com","11092942094", "A", 10005, 1, null),
-("Ana Fonseca", "anafonseca@email.com", "12938402039", "C", 10005, 2, 105); 
+('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10005, 1, null),
+('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10005, 2, 105); 
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
@@ -52,15 +52,17 @@ select * from empresa;
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
 ('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
-('Windows', 'Servidor B', 'São Francisco', '00:11:B1:RB:E1:98', 10001),
-('Linux', 'danie', '192.168.1.3', '00:11:B2:RB:E1:88', 10002),
-('Linux', 'mined', '192.168.1.4', '11:11:B1:RB:E1:88', 10002),
-('Linux', 'Servidor C', '192.168.1.3', '00:11:B1:KC:E1:88', 10002),
-('Windows', 'Servidor D', '192.168.1.7', '00:11:B1:RB:E1:90', 10002),
+('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10001),
+('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10002),
+('Linux', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10002),
+('Linux', 'Servidor C', 'Rio de Janeiro', '00:11:B1:KC:E1:88', 10002),
+('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
 ('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10005),
-("Windows", "Servidor A", "Carolina do Norte", "00:11:B1:RB:E1:88", 10005),
-("Windows", "Servidor B", "São Paulo", "09:12:C4:TN:O9:X2", 10005),
-("Linux", "Servidor C", "Moscou", "44:09:N3:SN:O7:99", 10005);
+('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10005),
+('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10005),
+('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10005);
+
+select * from servidor;
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -110,4 +112,3 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
 
-select * from registro where fkComponente = 4;
