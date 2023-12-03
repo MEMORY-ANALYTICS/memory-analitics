@@ -54,7 +54,7 @@ public class RecursoProcessos {
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
 
-//        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
+        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
         return processoMaiorMedia.getNome();
     }
 
@@ -73,7 +73,7 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoCpu();
         }
         if (usoTotal > 2) {
-//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
+            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
         usoTotal = Math.ceil(usoTotal / quantidadeProcessosOnline());
         strUso = usoTotal.toString();
@@ -88,7 +88,7 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoMemoria();
         }
         if (usoTotal > 2) {
-//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
+            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
         usoTotal = Math.ceil(usoTotal);
         strUso = usoTotal.toString();
@@ -105,7 +105,8 @@ public class RecursoProcessos {
     public Integer getFkServer() {
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
         List<Servidor> teste =
-                getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
+                getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac),
+                        new BeanPropertyRowMapper<>(Servidor.class));
         return teste.get(0).getIdServidor();
     }
 
@@ -117,10 +118,12 @@ public class RecursoProcessos {
                 if (System.getProperty("os.name").toLowerCase().contains("windows")) {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("taskkill /PID " + processo.getPid());
+                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
                     }
                 } else {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("kill -9 " + processo.getPid());
+                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
                     }
                 }
             }
@@ -128,8 +131,8 @@ public class RecursoProcessos {
     }
 
     public void capturarRegistro() {
-        getConexoes().get(0).execute("INSERT INTO processos VALUES (%f, %f, '%s', %d,%d)"
-                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
+//        getConexoes().get(0).execute("INSERT INTO processos VALUES (%s, %s, '%s',%d,%d)"
+//                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
         getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d,%d)"
                 .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
         try {
@@ -145,16 +148,6 @@ public class RecursoProcessos {
 
     public void setConexoes(List<JdbcTemplate> conexoes) {
         this.conexoes = conexoes;
-    }
-
-    public static void main(String[] args) {
-        RecursoProcessos recursoProcessos = new RecursoProcessos();
-        try {
-            recursoProcessos.killTask();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
