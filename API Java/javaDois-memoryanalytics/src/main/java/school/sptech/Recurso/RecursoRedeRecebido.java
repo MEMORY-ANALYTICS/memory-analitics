@@ -2,7 +2,6 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.Conexao;
 
 import java.util.List;
 

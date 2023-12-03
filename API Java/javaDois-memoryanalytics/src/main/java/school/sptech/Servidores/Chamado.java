@@ -1,6 +1,6 @@
 package school.sptech.Servidores;
 
-import school.sptech.BancoDados.Conexao;
+import school.sptech.Servicos.BancoDados.Conexao;
 
 import java.time.LocalDateTime;
 

@@ -1,9 +1,7 @@
-package school.sptech.BancoDados;
+package school.sptech.Servicos.BancoDados;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 public class ConexaoMySql extends Conexao{
 
