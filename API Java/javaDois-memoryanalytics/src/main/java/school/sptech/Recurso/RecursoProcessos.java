@@ -10,6 +10,7 @@ import school.sptech.Servidores.Servidor;
 import school.sptech.Servidores.ServidorRowMapper;
 import school.sptech.Slack.Alertas;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -109,6 +110,25 @@ public class RecursoProcessos {
         return teste.get(0).getIdServidor();
     }
 
+    public void killTask() throws IOException {
+        List<String> processosBanidos = new ArrayList<>();
+        Runtime rt = Runtime.getRuntime();
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
+            System.out.println(processo.getPid());
+                for(String nome: processosBanidos){
+                    if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                        if(processo.getNome().contains(nome)){
+                            rt.exec("taskkill /PID " + processo.getPid());
+                        }
+                    }else{
+                        if(processo.getNome().contains(nome)){
+                            rt.exec("kill -9 " + processo.getPid());
+                        }
+                    }
+                }
+        }
+    }
+
     public void capturarRegistro() {
 //        getConexoes().get(0).execute("INSERT INTO processos VALUES (%f, %f, '%s', %d,%d)"
 //                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
@@ -126,7 +146,12 @@ public class RecursoProcessos {
 
     public static void main(String[] args) {
         RecursoProcessos recursoProcessos = new RecursoProcessos();
-            recursoProcessos.capturarRegistro();
+        try {
+            recursoProcessos.killTask();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
