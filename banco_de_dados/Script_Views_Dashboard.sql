@@ -50,7 +50,6 @@ select * from Empresa;
 select * from servidor;
 select * from downtimeServidor;
 select * from componente;
-select * from recurso;
 select * from registro;
 select * from medidacomponente;
 
@@ -61,57 +60,44 @@ select * from medidacomponente;
 #(null, 5, '2023-11-10 11:25:25', 25, 1);
 
 
-insert into recurso (tipoRecurso, fkComponente) values
-('CPU', 21),
-('Core 1', 21),
-('Core 2', 21),
-('Core 3', 21),
-('Core 4', 21),
-('Leitura Ram 1', 22),
-('Disco', 23),
-('Leitura Rede', 24);
-
-
   
 #### DOWNTIME ####
 
-SELECT * FROM downtimeServidor;
-select * from Empresa;
-select * from funcionario;
-select * from servidor;
+CREATE OR REPLACE VIEW getTempoDowntime AS SELECT sum(tempoDowntime) tempoDowntime, fkEmpresa
+FROM downtimeServidor 
+JOIN servidor on fkServidor = idServidor
+GROUP BY fkEmpresa;
+
+SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10002;
 
 #### COMPONENTE PROBLEMATICO ####
     
-create or replace view getCompProblematico as select tipoComponente as nomeComponente, count(idRegistro), fkEmpresa from registro rg 
-	left join recurso r on rg.fkRecurso = r.idRecurso 
+create or replace view getCompProblematico as select tipoComponente as nomeComponente, count(idRegistro), fkEmpresa from registro r 
 	left join componente c on r.fkComponente = c.idComponente
 	left join servidor s on c.fkServidor = s.idServidor
-	left join medidaComponente on fkMedidaComponente = idMedidaComponente 
 where 
-	(rg.valorRegistro > c.limiteMax or rg.valorRegistro < c.limiteMin)
-	and idMedidaComponente = 1
+	(r.valorRegistro > c.limiteMax or r.valorRegistro < c.limiteMin)
+	and tipoMedida = '%'
 group by tipoComponente, fkEmpresa
 order by count(idRegistro)
 desc limit 1;
 
 # SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = ${fkEmpresa};
-SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = 10002;
+SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = 10000;
 
 
 #### CHAMADOS ABERTOS ####
 
 CREATE OR REPLACE VIEW qtdPicosDeUso AS SELECT count(idRegistro), fkEmpresa 
-    FROM registro rg 
-        LEFT JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+    FROM registro r
         LEFT JOIN componente c ON r.fkComponente = c.idComponente
         LEFT JOIN servidor s ON c.fkServidor = s.idServidor
-        LEFT JOIN medidaComponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
     WHERE 
-        (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin)
-        AND idMedidaComponente = 1
+        (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+        AND tipoMedida = '%'
         GROUP BY fkEmpresa;
 
-SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa = 10002;
+SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa = 10000;
 # SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa = ${fkServidor};
   
 #### QUANTIDADE SERVIDORES INSTAVEIS ####
@@ -150,16 +136,14 @@ SELECT qtdServCriticos FROM getServCriticos WHERE fkEmpresa = 10002;
         
         create or replace view qtdRegistrosEstado as SELECT idServidor, 
 		CASE
-			WHEN rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin THEN 3
-			WHEN (rg.valorRegistro > c.limiteMax * 0.85 AND rg.valorRegistro < c.limiteMax) OR (rg.valorRegistro < c.limiteMin * 1.15 AND rg.valorRegistro > c.limiteMin) THEN 2
-			WHEN  rg.valorRegistro < c.limiteMax * 0.85 OR rg.valorRegistro > c.limiteMin * 1.15 THEN 1
+			WHEN r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin THEN 3
+			WHEN (r.valorRegistro > c.limiteMax * 0.85 AND r.valorRegistro < c.limiteMax) OR (r.valorRegistro < c.limiteMin * 1.15 AND r.valorRegistro > c.limiteMin) THEN 2
+			WHEN  r.valorRegistro < c.limiteMax * 0.85 OR r.valorRegistro > c.limiteMin * 1.15 THEN 1
         END AS Estado, fkEmpresa
-    FROM registro rg 
-        LEFT JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+    FROM registro r
         LEFT JOIN componente c ON r.fkComponente = c.idComponente
         LEFT JOIN servidor s ON c.fkServidor = s.idServidor
-        LEFT JOIN medidaComponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
-        WHERE idMedidaComponente = 1
+        WHERE tipoMedida = '%'
         GROUP BY Estado, idServidor;
 
 
@@ -183,13 +167,10 @@ CREATE OR REPLACE VIEW limitesExcedidos AS SELECT
     c.tipoComponente AS TipoComponente,
     SUM(CASE WHEN r.valorRegistro < c.limiteMin OR r.valorRegistro > c.limiteMax THEN 1 ELSE 0 END) AS ExcedeuLimites
 FROM registro r
-JOIN recurso rc ON r.fkRecurso = rc.idRecurso
-JOIN componente c ON rc.fkComponente = c.idComponente
+JOIN componente c ON r.fkComponente = c.idComponente
 JOIN servidor s ON c.fkServidor = s.idServidor
 JOIN empresa e ON s.fkEmpresa = e.idEmpresa
-JOIN medidaComponente on idMedidaComponente = fkMedidaComponente
-WHERE e.idEmpresa = 10002
-AND idMedidaComponente = 1
+WHERE tipoMedida = '%'
 AND dtHoraRegistro >= DATE_SUB(now(), INTERVAL 1 MONTH)
 GROUP BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor
 ORDER BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor;
@@ -379,21 +360,3 @@ GROUP BY
 ORDER BY Data_Hora_Registro;
 
     select * from testeteste;
-    SELECT * FROM downtimeServidor;
-    select sum(tempoDowntime) from downtimeServidor 
-    JOIN servidor on fkServidor = idServidor WHERE fkEmpresa = 10002;
-    
-    
-	CREATE OR REPLACE VIEW getTempoDowntime AS SELECT sum(tempoDowntime) tempoDowntime, fkEmpresa
-    FROM downtimeServidor 
-    JOIN servidor on fkServidor = idServidor
-        GROUP BY fkEmpresa;
-        
-    
-SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10002;
-select * from empresa;
-select * from funcionario;
-select * from servidor;    
-select apelidoServidor, nomeEmpresa, nomeFunc from servidorEmpresa;
-select * from servidorEmpresa;
-select * from funcionario;

@@ -106,14 +106,14 @@ public class RecursoProcessos {
 
     public Integer getFkServer() {
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
-        List<Servidor> teste =
-                getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac),
-                        new BeanPropertyRowMapper<>(Servidor.class));
+
+        List<Servidor> teste = getConexoes().get(0).query("SELECT idServidor FROM servidor WHERE macAdress = '%s';"
+                .formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
         return teste.get(0).getIdServidor();
     }
 
     public void killTask() throws IOException {
-        List<ProcessosBanidos> listaProcessosBanidos = getConexoes().get(1).query("SELECT * FROM processosbanidos where fkServidor = %d".formatted(getFkServer()), new BeanPropertyRowMapper<>(ProcessosBanidos.class));
+        List<ProcessosBanidos> listaProcessosBanidos = getConexoes().get(0).query("SELECT * FROM processosbanidos where fkServidor = %d".formatted(getFkServer()), new BeanPropertyRowMapper<>(ProcessosBanidos.class));
         Runtime rt = Runtime.getRuntime();
         for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             for (ProcessosBanidos processosBanidos1 : listaProcessosBanidos) {
@@ -136,8 +136,13 @@ public class RecursoProcessos {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y-M-d H:m:s");
         LocalDateTime dateTime = LocalDateTime.now();
         dateTime.format(formatter);
-//        getConexoes().get(0).execute("INSERT INTO processos VALUES (%s, %s, '%s',%d,%d)"
-//                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
+        getConexoes().get(0).execute("INSERT INTO processos VALUES (%s, %s,'%s', %d, '%s',%d)"
+                .formatted(getUsoCpuProcessos(),
+                        getUsoRamProcessos(),
+                        getProcessoMaiorMediaUso(),
+                        quantidadeProcessosOnline(),
+                        dateTime.format(formatter),
+                        getFkServer()));
         getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d, '%s',%d)"
                 .formatted(getUsoCpuProcessos(),
                         getUsoRamProcessos(),
@@ -159,5 +164,4 @@ public class RecursoProcessos {
     public void setConexoes(List<JdbcTemplate> conexoes) {
         this.conexoes = conexoes;
     }
-
 }
