@@ -2,10 +2,12 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.ConexaoMySql;
 import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Recurso.Processos.ProcessosBanidos;
 import school.sptech.Servidores.Servidor;
 import school.sptech.Servidores.ServidorRowMapper;
 import school.sptech.Slack.Alertas;
@@ -30,22 +32,22 @@ public class RecursoProcessos {
         conexoes.add(con2);
     }
 
-    public Integer quantidadeProcessosOnline(){
+    public Integer quantidadeProcessosOnline() {
         Integer qtdProcessos = 0;
-        for(Processo processo : looca.getGrupoDeProcessos().getProcessos()){
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             qtdProcessos++;
         }
         return qtdProcessos;
     }
 
-    public String getProcessoMaiorMediaUso(){
+    public String getProcessoMaiorMediaUso() {
 
         Double mediaAtualComparacao = .0;
         Processo processoAtualComparacao;
         List<Double> listaMediaProcessos = new ArrayList<>();
         List<Processo> listaOrdemProcessos = new ArrayList<>();
-        for (Processo processo: looca.getGrupoDeProcessos().getProcessos()){
-            double mediaAtual = (processo.getUsoCpu() + processo.getUsoMemoria())/2;
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
+            double mediaAtual = (processo.getUsoCpu() + processo.getUsoMemoria()) / 2;
             listaMediaProcessos.add(mediaAtual);
             listaOrdemProcessos.add(processo);
         }
@@ -57,36 +59,36 @@ public class RecursoProcessos {
         return processoMaiorMedia.getNome();
     }
 
-    public List<String> getAllNomesProcessos(){
+    public List<String> getAllNomesProcessos() {
         List<String> listaNomes = new ArrayList<>();
-        for (Processo processo: looca.getGrupoDeProcessos().getProcessos()){
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             listaNomes.add(processo.getNome());
         }
         return listaNomes;
     }
 
-    public String getUsoCpuProcessos(){
+    public String getUsoCpuProcessos() {
         Double usoTotal = .0;
         String strUso = "";
-        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             usoTotal += processo.getUsoCpu();
         }
-        if(usoTotal > 2){
+        if (usoTotal > 2) {
 //            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
-        usoTotal = Math.ceil(usoTotal/quantidadeProcessosOnline());
+        usoTotal = Math.ceil(usoTotal / quantidadeProcessosOnline());
         strUso = usoTotal.toString();
         strUso = strUso.replace(",", ".");
         return strUso;
     }
 
-    public String getUsoRamProcessos(){
+    public String getUsoRamProcessos() {
         Double usoTotal = .0;
         String strUso = "";
-        for(Processo processo : looca.getGrupoDeProcessos().getProcessos()){
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             usoTotal += processo.getUsoMemoria();
         }
-        if(usoTotal > 2){
+        if (usoTotal > 2) {
 //            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
         usoTotal = Math.ceil(usoTotal);
@@ -95,45 +97,47 @@ public class RecursoProcessos {
         return strUso;
     }
 
-    public void listarTodosProcessos(){
-        for (Processo processo: looca.getGrupoDeProcessos().getProcessos()){
+    public void listarTodosProcessos() {
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             System.out.println(processo);
         }
     }
 
-    public Integer getFkServer(){
-
+    public Integer getFkServer() {
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
         List<Servidor> teste =
                 getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
-
         return teste.get(0).getIdServidor();
     }
 
     public void killTask() throws IOException {
-        List<String> processosBanidos = new ArrayList<>();
+        List<ProcessosBanidos> listaProcessosBanidos = getConexoes().get(1).query("SELECT * FROM processosbanidos where fkServidor = %d".formatted(getFkServer()), new BeanPropertyRowMapper<>(ProcessosBanidos.class));
         Runtime rt = Runtime.getRuntime();
-        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
-            System.out.println(processo.getPid());
-                for(String nome: processosBanidos){
-                    if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-                        if(processo.getNome().contains(nome)){
-                            rt.exec("taskkill /PID " + processo.getPid());
-                        }
-                    }else{
-                        if(processo.getNome().contains(nome)){
-                            rt.exec("kill -9 " + processo.getPid());
-                        }
+        for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
+            for (ProcessosBanidos processosBanidos1 : listaProcessosBanidos) {
+                if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                    if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
+                        rt.exec("taskkill /PID " + processo.getPid());
+                    }
+                } else {
+                    if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
+                        rt.exec("kill -9 " + processo.getPid());
                     }
                 }
+            }
         }
     }
 
     public void capturarRegistro() {
-//        getConexoes().get(0).execute("INSERT INTO processos VALUES (%f, %f, '%s', %d,%d)"
-//                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
+        getConexoes().get(0).execute("INSERT INTO processos VALUES (%f, %f, '%s', %d,%d)"
+                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
         getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d,%d)"
-                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
+                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
+        try {
+            killTask();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<JdbcTemplate> getConexoes() {

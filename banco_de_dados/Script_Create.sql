@@ -118,6 +118,13 @@ qtdProcessosOnline INT,
 fkServidor INT,
 FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
 );
+
+CREATE TABLE IF NOT EXISTS `processosBanidos`(
+idProcesso INT PRIMARY KEY AUTO_INCREMENT,
+nomeProcesso VARCHAR(150),
+fkServidor INT,
+FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor));
+
 -- CREATE TABLE IF NOT EXISTS `recurso`(
 --  idRecurso INT PRIMARY KEY AUTO_INCREMENT,
 --  tipoRecurso VARCHAR(45),
