@@ -31,6 +31,15 @@ select valorRegistro, dtHoraRegistro, tipoComponente, idComponente from registro
     select max(valorRegistro) from registroEmpresa 
 		where tipoMedida = "°C" and apelidoServidor = "Servidor A") order by dtHoraRegistro limit 1 ;
 
+
+
+
+-- KPI 2
+select round(avg(valorRegistro),2) as mediaTemperatura from registro join componente on fkComponente = idComponente 
+	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro desc  limit 1;
+
+
+
 -- KPI 3
 select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
 	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro desc  limit 1;
