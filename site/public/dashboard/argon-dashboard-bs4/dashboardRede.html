@@ -658,7 +658,7 @@
 
     setInterval(function () {
         const x = (new Date()).getTime(), // current time
-            y = Math.random()*30;
+            y = Math.random()*100;
 
         series.addPoint([x, y], true, true);
     }, 1000);
@@ -751,7 +751,7 @@ Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
     
 
     yAxis: {
-      max: 100,
+      max: 300,
       title: {
         text: 'Value',
         style: {
