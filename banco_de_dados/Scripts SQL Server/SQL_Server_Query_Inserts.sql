@@ -25,13 +25,11 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100000),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL);
 
-
 INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('gustavo@email.com', 'senha123', 100000),
 ('adriano@email.com', 'senha456', 100001),
 ('gabriel@email.com', 'senha789', 100002),
 ('daniel@email.com', 'senhaDaniel', 100003);
-
 
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
 ('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
@@ -40,10 +38,10 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor
 ('Linux', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10002),
 ('Linux', 'Servidor C', 'Rio de Janeiro', '00:11:B1:KC:E1:88', 10002),
 ('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
-('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10005),
-('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10005),
-('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10005),
-('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10005);
+('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10003),
+('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10003),
+('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10003),
+('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10003);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
