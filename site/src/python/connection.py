@@ -5,11 +5,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-hostServer = os.environ.get('DB_HOST')
-passwordServer = os.environ.get('DB_PASSWORD')
-userServer = os.environ.get('DB_USER')
-portServer =  int(os.environ.get("DB_PORT"))
-databaseServer = os.environ.get('DB_NAME')
+hostServer = os.environ.get('localhost')
+passwordServer = os.environ.get('urubu100')
+userServer = os.environ.get('urubu100')
+portServer =  int(os.environ.get(3306))
+databaseServer = os.environ.get('bd_memoryanalytics')
 
 def executar(instrucao):
     try:

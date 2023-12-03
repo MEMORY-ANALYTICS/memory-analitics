@@ -22,6 +22,17 @@ function getCompProblematico(fkEmpresa) {
   return database.executar(instrucao);
 }
 
+function getChamados(fkEmpresa) {
+  console.log(
+    "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+  );
+  var instrucao = `
+  SELECT SUM(ExcedeuLimites) getChamados FROM limitesExcedidos WHERE idEmpresa = ${fkEmpresa};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
 function getServCriticos(fkEmpresa) {
   console.log(
     "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
@@ -38,7 +49,7 @@ function obterDadosGrafico(fkEmpresa) {
     "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
   );
   var instrucao = `
-  SELECT SUM(ExcedeuLimites) picosDeUso, DiaMes FROM limitesExcedidos WHERE idEmpresa = ${fkEmpresa} GROUP BY DiaMes;
+  SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = ${fkEmpresa} GROUP BY Dia, Mes;
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
@@ -61,8 +72,9 @@ function getEstadoGeralServ(fkEmpresa) {
 
 module.exports = {
   getDowntime,
-  getServCriticos,
-  getEstadoGeralServ,
+  getChamados,
   getCompProblematico,
-  obterDadosGrafico
+  getServCriticos,
+  obterDadosGrafico,
+  getEstadoGeralServ
 };
