@@ -22,11 +22,6 @@ console.log(sessionStorage.emailFunc)
 var functionKpi = ["MedTempAtual", "MedTemp", "CpuTempMax", "CpuTempMin"]
 
 
-horaDash1()
-getServidor()
-for (i = 0; i < functionKpi.length; i++) {
-  getKpi(functionKpi[i])
-}
 
 function getServidor() {
 
@@ -67,13 +62,20 @@ function getKpi(metodoKpi) {
         var dataMysql;
         var dataTratado;
         var diaTratado;
-
+        var valorRegistro;
 
 
         if (metodoKpi == "CpuTempMax") {
+          if(tempCelsius){
+            valorRegistro = converterParaCelsius(json[i].valorRegistro) 
+          } else if (tempFahrenheit){
+            valorRegistro = converterParaFahrenheit(json[i].valorRegistro)   
+          } else{
+            valorRegistro = json[i].valorRegistro
+          }
           
 
-          cpuTempMax.innerHTML = json[i].valorRegistro;
+          cpuTempMax.innerHTML = valorRegistro;
 
            dataMysql = json[i].dtHoraRegistro
            dataTratado = new Date(dataMysql);

@@ -1,10 +1,4 @@
 
-var graficoCpu = false;
-var graficoCore = true;
-
-
-
-
 function horaDash1() {
 
   idHoraDash1.style = "background-color: #5E72E4; cursor: pointer;"
@@ -16,12 +10,7 @@ function horaDash1() {
   idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
   textoMes1.style = "color: #5e72e4;"
 
-  if (graficoCore) {
-    exibirGrafico("graficoCoreHora")
-  } else {
     exibirGrafico("graficoCpuHora")
-  }
-  
 }
 
 function semanaDash1() {
@@ -35,12 +24,8 @@ function semanaDash1() {
   idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
   textoMes1.style = "color: #5e72e4; "
 
-  if (graficoCore) {
-    exibirGrafico("graficoCoreSemana")
-  } else {
+  
     exibirGrafico("graficoCpuSemana")
-  }
-
 }
 
 function mesDash1() {
@@ -54,81 +39,29 @@ function mesDash1() {
   idMesDash1.style = "background-color: #5E72E4; cursor: pointer;"
   textoMes1.style = "color: #FFFF"
 
-  if (graficoCore) {
-    exibirGrafico("graficoCoreMes")
-  } else {
+  
     exibirGrafico("graficoCpuMes")
-  }
-
 }
 
-function dadosOhm() {
-
-  idHoraDash2.style = "background-color: #5E72E4; cursor: pointer;"
-  textoHora2.style = "color:  #FFFF"
-
-  idSemanaDash2.style = "background-color:  #FFFF; cursor: pointer;"
-  textoSemana2.style = "color: #5e72e4; "
-
-  idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes2.style = "color: #5e72e4;"
-
-
-}
-
-function dadosSputil() {
-
-  idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora2.style = "color: #5e72e4; "
-
-  idSemanaDash2.style = "background-color: #5E72E4; cursor: pointer;"
-  textoSemana2.style = "color: #FFFF; "
-
-  idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes2.style = "color: #5e72e4; "
-}
-
-
-
-function core() {
-  coreBackground.style = "background-color:#5E72E4; cursor: pointer; "
-  coreSpan.style = "color: #FFFF"
-
-  cpuBackground.style = "background-color: #FFFF; cursor: pointer;"
-  cpuSpan.style = "color: #5e72e4"
-
-  graficoCore = true;
-}
-
-function cpu() {
-  cpuBackground.style = "background-color:#5E72E4; cursor: pointer; "
-  cpuSpan.style = "color: #FFFF"
-
-  coreBackground.style = "background-color: #FFFF; cursor: pointer;"
-  coreSpan.style = "color: #5e72e4"
-
-  graficoCore = false;
-  graficoCpu = true;
-}
 
 function celsius() {
 
   celsiusButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
   fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
+  
+  tempCelsius = true;
+  tempFahrenheit = false;
+  iniciar()
 
 }
 
 function fahrenheit() {
   celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
   fahrenheitButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-  kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-}
+ 
+  tempCelsius = false;
+  tempFahrenheit = true;
 
-function kelvin() {
-  celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  kelvinButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
 }
 
 function exibirGrafico(tipoGrafico){
@@ -139,22 +72,49 @@ function exibirGrafico(tipoGrafico){
     method: "GET"
   }).then(res => {
     res.json().then(json => {
-      for (var i = 0; i < json.length; i++) {
-      
+      for (var i = (json.length - 1); i >= 0; i--) {
+        
+        const diaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+        var valorRegistro;
+        if(tipoGrafico == "graficoCpuHora"){
 
+          if(tempCelsius){
+            valorRegistro = converterParaCelsius(json[i].valorRegistro) 
+          } else if (tempFahrenheit){
+            valorRegistro = converterParaFahrenheit(json[i].valorRegistro)   
+          } else{
+            valorRegistro = json[i].valorRegistro
+          }
 
+        } else if(tipoGrafico=="graficoCpuSemana"){
 
-      
-      //medTempIdeal.innerHTML = json[0].valorRegistro;
+          if(tempCelsius){
+            valorRegistro = converterParaCelsius(json[i].valorMedia) 
+          } else if (tempFahrenheit){
+            valorRegistro = converterParaFahrenheit(json[i].valorMedia)   
+          } else{
+            valorRegistro = json[i].valorRegistro
+          }
 
-        //medTempAtual.innerHTML = json[1].valorRegistro;
-       // coreTempMax.innerHTML = json[2].valorRegistro;
-       // coreTempMin.innerHTML = json[0].valorRegistro;
-       // identificaoCoreMin.innerHTML = json[0].tipoRecurso;
-       // identificaoCoreMax.innerHTML = json[0].tipoRecurso;
+          var data = new Date(json[i].dia)
+          var nomeDiaSemana = diaSemana[data.getDay()]
+          console.log(nomeDiaSemana);
+        } else if(tipoGrafico == "graficoCpuMes"){
+          if(tempCelsius){
+            valorRegistro = converterParaCelsius(json[i].valorMedia) 
+          } else if (tempFahrenheit){
+            valorRegistro = converterParaFahrenheit(json[i].valorMedia)   
+          } else{
+            valorRegistro = json[i].valorMedia
+          }
+          var data = new Date(json[i].dia)
+          console.log(`${data.getDate()}/${data.getMonth()+1}`);
+        }
 
-
-
+        //ctx.data.datasets.data.push(json[i].valorRegistro)
+        //ctx.data.labels.push(json[i].dtHoraRegistro)
+        //ctx.update()
+        //ctx.data.labels.push(json[i].dtHoraRegistro)
 
         // graficoAtividades.data.datasets[0].data.push(json[i].nAtividades)
         // graficoAtividades.data.labels.push(json[i].ano)
@@ -183,5 +143,9 @@ function exibirGrafico(tipoGrafico){
     .catch(err => {
       console.log(err);
     })
+
+
+
+    
 
 }
