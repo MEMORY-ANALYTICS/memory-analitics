@@ -96,9 +96,18 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
-(50034,'Bytes','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
-(53098,'Bytes','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(329.415816,'Mb','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(1998.433296,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(1328.632464,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 4),  -- REDE
+(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(1332.9576005,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 4),  -- REDE
+(330.586587,'Mb','Enviados Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(2004.9851039999999,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 4),  -- REDE
+(1333.079139,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 4),  -- REDE
 (40, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
+
+select * from registro where fkComponente = 4;
