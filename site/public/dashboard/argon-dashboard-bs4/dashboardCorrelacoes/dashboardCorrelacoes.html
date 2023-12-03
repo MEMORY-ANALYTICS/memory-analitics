@@ -1017,20 +1017,56 @@
 
     });
 
-    function selectGraficoOcorrencia(){
-        fetch(/graficoPresilli/exibirInfoTotens/${fkEmpresaVar}).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(function (resposta) {
+    function  selectServidores() {
+        fetch("/dashCorrelacao/selectServidores", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
                 
-                });
-            } else {
-                throw ('Houve um erro na API!');
-            }
-        }).catch(function (resposta) {
-            console.error(resposta);
-        }); 
-    }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+    return false;
+}
 
+    function selectGraficoOcorrencia() {
+        fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: servidorVisualizado
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+    return false;
+}
 </script>
 
 </html>
