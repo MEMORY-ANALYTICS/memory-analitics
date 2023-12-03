@@ -13,6 +13,7 @@ public class ConexaoSqlServer extends Conexao  {
     public JdbcTemplate criarConexao(){
         SQLServerDataSource dataSource = new SQLServerDataSource();
         dataSource.setURL(getUrl());
+        dataSource.setDatabaseName("bd_memoryanalytics");
         dataSource.setUser(getUsername());
         dataSource.setPassword(getPassword());
         dataSource.setPortNumber(1433);

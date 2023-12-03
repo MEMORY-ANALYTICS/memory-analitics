@@ -56,7 +56,7 @@ public class RecursoProcessos {
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
 
-        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
+//        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
         return processoMaiorMedia.getNome();
     }
 
@@ -75,7 +75,7 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoCpu();
         }
         if (usoTotal > 2) {
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
         usoTotal = Math.ceil(usoTotal / quantidadeProcessosOnline());
         strUso = usoTotal.toString();
@@ -90,7 +90,7 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoMemoria();
         }
         if (usoTotal > 2) {
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
         usoTotal = Math.ceil(usoTotal);
         strUso = usoTotal.toString();
@@ -106,26 +106,26 @@ public class RecursoProcessos {
 
     public Integer getFkServer() {
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
-        List<Servidor> teste =
-                getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac),
-                        new BeanPropertyRowMapper<>(Servidor.class));
+
+        List<Servidor> teste = getConexoes().get(0).query("SELECT idServidor FROM servidor WHERE macAdress = '%s';"
+                .formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
         return teste.get(0).getIdServidor();
     }
 
     public void killTask() throws IOException {
-        List<ProcessosBanidos> listaProcessosBanidos = getConexoes().get(1).query("SELECT * FROM processosbanidos where fkServidor = %d".formatted(getFkServer()), new BeanPropertyRowMapper<>(ProcessosBanidos.class));
+        List<ProcessosBanidos> listaProcessosBanidos = getConexoes().get(0).query("SELECT * FROM processosbanidos where fkServidor = %d".formatted(getFkServer()), new BeanPropertyRowMapper<>(ProcessosBanidos.class));
         Runtime rt = Runtime.getRuntime();
         for (Processo processo : looca.getGrupoDeProcessos().getProcessos()) {
             for (ProcessosBanidos processosBanidos1 : listaProcessosBanidos) {
                 if (System.getProperty("os.name").toLowerCase().contains("windows")) {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("taskkill /PID " + processo.getPid());
-                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
+//                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
                     }
                 } else {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("kill -9 " + processo.getPid());
-                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
+//                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
                     }
                 }
             }
@@ -136,8 +136,13 @@ public class RecursoProcessos {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y-M-d H:m:s");
         LocalDateTime dateTime = LocalDateTime.now();
         dateTime.format(formatter);
-//        getConexoes().get(0).execute("INSERT INTO processos VALUES (%s, %s, '%s',%d,%d)"
-//                .formatted(getUsoCpuProcessos(), getUsoRamProcessos(), getProcessoMaiorMediaUso(), quantidadeProcessosOnline(), getFkServer()));
+        getConexoes().get(0).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d, '%s',%d)"
+                .formatted(getUsoCpuProcessos(),
+                        getUsoRamProcessos(),
+                        getProcessoMaiorMediaUso(),
+                        quantidadeProcessosOnline(),
+                        dateTime.format(formatter),
+                        getFkServer()));
         getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d, '%s',%d)"
                 .formatted(getUsoCpuProcessos(),
                         getUsoRamProcessos(),
@@ -159,5 +164,4 @@ public class RecursoProcessos {
     public void setConexoes(List<JdbcTemplate> conexoes) {
         this.conexoes = conexoes;
     }
-
 }
