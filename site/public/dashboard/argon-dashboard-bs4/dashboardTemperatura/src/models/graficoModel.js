@@ -2,9 +2,11 @@ var database = require("../database/config")
 
 function graficoCoreHora() {
 
+  dataHora = '2023-10-09'
+
   instrucaoSql = `
-  select valorRegistro, dtHoraRegistro, tipoComponente from registroEmpresa 
-  where tipoComponente like 'Core %' and detalheRegistro = "Celsius" and apelidoServidor = "Servidor A" order by dtHoraRegistro;
+  select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
+	where tipoMedida = '°C' and dtHoraRegistro like '${dataHora}%' and fkServidor = 8 order by valorRegistro desc limit 1;
   `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

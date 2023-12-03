@@ -7,7 +7,7 @@ import java.util.List;
 public class RecursoTemperatura  extends Recurso{
 
     public RecursoTemperatura(String nome, String unidadeMedida, Double valorRegistro) {
-        super(nome, unidadeMedida, valorRegistro);
+        super(nome, unidadeMedida, valorRegistro, null); //TODO TROCAR DE NULL
     }
 
     @Override

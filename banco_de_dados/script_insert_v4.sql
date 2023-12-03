@@ -51,29 +51,22 @@ select * from empresa;
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
-('Linux', 'rapha', '192.168.1.1', 'SERV123', 10000),
-('Windows', 'Servidor B', '192.168.1.2', 'SERV456', 10001),
-('Linux', 'danie', '192.168.1.3', 'SERV789', 10002),
-('Linux', 'mined', '192.168.1.4', 'SERV789', 10002),
-('Linux', 'Servidor C', '192.168.1.3', 'SERV789', 10002),
-('Windows', 'Servidor D', '192.168.1.7', 'SERV421', 10002),
+('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
+('Windows', 'Servidor B', 'São Francisco', '00:11:B1:RB:E1:98', 10001),
+('Linux', 'danie', '192.168.1.3', '00:11:B2:RB:E1:88', 10002),
+('Linux', 'mined', '192.168.1.4', '11:11:B1:RB:E1:88', 10002),
+('Linux', 'Servidor C', '192.168.1.3', '00:11:B1:KC:E1:88', 10002),
+('Windows', 'Servidor D', '192.168.1.7', '00:11:B1:RB:E1:90', 10002),
 ('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10005),
 ("Windows", "Servidor A", "Carolina do Norte", "00:11:B1:RB:E1:88", 10005),
 ("Windows", "Servidor B", "São Paulo", "09:12:C4:TN:O9:X2", 10005),
 ("Linux", "Servidor C", "Moscou", "44:09:N3:SN:O7:99", 10005);
 
-
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
-('Intel', 'Xeon', 'Core 1 - CPU', 2, 10, 8), -- CPU
-('Intel', 'Xeon', 'Core 2 - CPU', 2, 10, 8), -- CPU
-('Intel', 'Xeon', 'Core 3 - CPU', 2, 10, 8), -- CPU
-('Intel', 'Xeon', 'Core 1 - CPU', 2, 10, 9), -- CPU
-('Intel', 'Xeon', 'Core 2 - CPU', 2, 10, 9), -- CPU
-('Intel', 'Xeon', 'Core 3 - CPU', 2, 10, 9), -- CPU
-('Intel', 'Xeon', 'Core 1 - CPU', 2, 10, 10), -- CPU
-('Intel', 'Xeon', 'Core 2 - CPU', 2, 10, 10), -- CPU
-('Intel', 'Xeon', 'Core 3 - CPU', 2, 10, 10), -- CPU
+('Intel', 'Xeon', 'CPU', 2, 10, 8), -- CPU
+('Intel', 'Xeon', 'CPU', 2, 10, 9), -- CPU
+('Intel', 'Xeon', 'CPU', 2, 10, 10), -- CPU
 ('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM
 ('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO
 ('TPLink','NP3200','REDE', NULL, NULL, 1); -- REDE
@@ -88,15 +81,17 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (50, '°C','Celsius', '2023-10-09 10:00:00', 1),  -- CPU
 (70, '°C','Celsius', '2023-10-09 10:01:00', 1),  -- CPU
 (70, '°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
-(75, '°C','Celsius', '2023-10-09 10:02:00', 1),  -- CPU
+(75, '°C','Celsius', '2023-10-09 10:04:00', 1),  -- CPU
+(98, '°C','Celsius', '2023-10-09 10:03:00', 1),  -- CPU
+(100, '°C','Celsius', '2023-10-09 10:06:00', 1),  -- CPU
 (50, '°C','Celsius', '2023-10-09 10:00:00', 2),  -- CPU
 (90, '°C','Celsius', '2023-11-09 10:01:00', 2),  -- CPU
 (80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
-(80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
+(80, '°C','Celsius', '2023-12-09 10:04:00', 2),  -- CPU
 (50, '°C','Celsius', '2023-10-09 10:00:00', 3),  -- CPU
 (90, '°C','Celsius', '2023-11-09 10:01:00', 3),  -- CPU
 (80, '°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
-(80, '°C','Celsius', '2023-12-09 10:02:00', 3),  -- CPU
+(80, '°C','Celsius', '2023-12-09 10:03:00', 3),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM

@@ -10,20 +10,20 @@ public class Servidor {
     private Integer idServidor;
     private String SistemaOperacionalServidor;
     private String apelidoServidor;
+    private String localServidor;
     private String macAdress;
-    private String numeroSerieServidor;
     private Integer fkEmpresa;
     private List<Chamado> chamados;
     private Downtime downtime;
     private List<Componente> componentes;
     private Conexao conexao;
 
-    public Servidor(String sistemaOperacional, String apelido, String macAdress, String numeroSerie, List<Chamado> chamados,
+    public Servidor(String sistemaOperacional, String apelido, String macAdress, String localServidor, List<Chamado> chamados,
                     Downtime downtime, Conexao conexao) {
         this.SistemaOperacionalServidor = sistemaOperacional;
         this.apelidoServidor = apelido;
         this.macAdress = macAdress;
-        this.numeroSerieServidor = numeroSerie;
+        this.localServidor = localServidor;
         this.chamados = chamados;
         this.downtime = downtime;
         this.componentes =new ArrayList<>();
@@ -68,12 +68,12 @@ public class Servidor {
         this.macAdress = macAdress;
     }
 
-    public String getNumeroSerieServidor() {
-        return numeroSerieServidor;
+    public String getLocalServidor() {
+        return localServidor;
     }
 
-    public void setNumeroSerieServidor(String numeroSerieServidor) {
-        this.numeroSerieServidor = numeroSerieServidor;
+    public void setLocalServidor(String localServidor) {
+        this.localServidor = localServidor;
     }
 
     public Integer getFkEmpresa() {
@@ -123,7 +123,7 @@ public class Servidor {
                 ", SistemaOperacionalServidor='" + SistemaOperacionalServidor + '\'' +
                 ", apelidoServidor='" + apelidoServidor + '\'' +
                 ", macAdress='" + macAdress + '\'' +
-                ", numeroSerieServidor='" + numeroSerieServidor + '\'' +
+                ", localServidor='" + localServidor + '\'' +
                 ", fkEmpresa=" + fkEmpresa +
                 ", chamados=" + chamados +
                 ", downtime=" + downtime +

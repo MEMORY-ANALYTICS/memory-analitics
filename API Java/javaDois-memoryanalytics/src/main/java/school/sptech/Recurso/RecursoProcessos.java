@@ -2,6 +2,7 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.BancoDados.ConexaoMySql;
 import school.sptech.BancoDados.ConexaoSqlServer;
@@ -51,7 +52,7 @@ public class RecursoProcessos {
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
 
-        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
+//        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
         return processoMaiorMedia.getNome();
     }
 
@@ -63,26 +64,34 @@ public class RecursoProcessos {
         return listaNomes;
     }
 
-    public Double getUsoCpuProcessos(){
+    public String getUsoCpuProcessos(){
         Double usoTotal = .0;
+        String strUso = "";
         for (Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoCpu();
         }
         if(usoTotal > 2){
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
-        return Math.ceil(usoTotal/quantidadeProcessosOnline());
+        usoTotal = Math.ceil(usoTotal/quantidadeProcessosOnline());
+        strUso = usoTotal.toString();
+        strUso = strUso.replace(",", ".");
+        return strUso;
     }
 
-    public Double getUsoRamProcessos(){
+    public String getUsoRamProcessos(){
         Double usoTotal = .0;
+        String strUso = "";
         for(Processo processo : looca.getGrupoDeProcessos().getProcessos()){
             usoTotal += processo.getUsoMemoria();
         }
         if(usoTotal > 2){
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
-        return usoTotal;
+        usoTotal = Math.ceil(usoTotal);
+        strUso = usoTotal.toString();
+        strUso = strUso.replace(",", ".");
+        return strUso;
     }
 
     public void listarTodosProcessos(){
@@ -95,15 +104,16 @@ public class RecursoProcessos {
 
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
         List<Servidor> teste =
-                getConexoes().get(0).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new ServidorRowMapper());
+                getConexoes().get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
 
         return teste.get(0).getIdServidor();
     }
 
     public void capturarRegistro() {
-        getConexoes().get(0).execute("INSERT INTO Processos VALUES (%f, %f, %s, %d,%d)"
+//        getConexoes().get(0).execute("INSERT INTO processos VALUES (%f, %f, '%s', %d,%d)"
+//                .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
+        getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d,%d)"
                 .formatted(getUsoCpuProcessos(),getUsoRamProcessos(),getProcessoMaiorMediaUso(),quantidadeProcessosOnline(),getFkServer()));
-        getConexoes().get(1).execute("INSERT INTO Processos VALUES (?,?,?,?,?)");
     }
 
     public List<JdbcTemplate> getConexoes() {
@@ -116,9 +126,7 @@ public class RecursoProcessos {
 
     public static void main(String[] args) {
         RecursoProcessos recursoProcessos = new RecursoProcessos();
-        System.out.println(
-            recursoProcessos.getFkServer()
-        );
+            recursoProcessos.capturarRegistro();
     }
 
 }

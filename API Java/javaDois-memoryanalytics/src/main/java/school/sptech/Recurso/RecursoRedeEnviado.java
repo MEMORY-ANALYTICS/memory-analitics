@@ -42,7 +42,7 @@ public class RecursoRedeEnviado extends Recurso {
         LocalDateTime dateTimeAtual = LocalDateTime.now();
         getConexoes().get(0); //SQL Server
         getConexoes().get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES\n" +
-                "(?, 'Mb','Megabytes Eviados', ?, ?);", capturarRegistro(), dateTimeAtual, ); //MySQL
+                "(?, 'Mb','Megabytes Eviados', ?, ?);", capturarRegistro(), dateTimeAtual); //MySQL
         setValorRegistro(capturarRegistro());
         getConexoes().get(1); //MySQL
         String macAdress = "";
