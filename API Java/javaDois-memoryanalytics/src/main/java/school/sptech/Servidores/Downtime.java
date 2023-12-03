@@ -1,11 +1,9 @@
 package school.sptech.Servidores;
 
 import com.github.britooo.looca.api.core.Looca;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.Conexao;
-import school.sptech.BancoDados.ConexaoMySql;
-import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Servicos.BancoDados.ConexaoMySql;
+import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

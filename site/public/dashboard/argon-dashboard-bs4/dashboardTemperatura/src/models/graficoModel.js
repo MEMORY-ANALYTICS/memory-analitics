@@ -1,54 +1,43 @@
 var database = require("../database/config")
 
-function graficoCoreHora() {
-
-  dataHora = '2023-10-09'
-
-  instrucaoSql = `
-  select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
-	where tipoMedida = '°C' and dtHoraRegistro like '${dataHora}%' and fkServidor = 8 order by valorRegistro desc limit 1;
-  `
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
-}
-
-function graficoCoreSemana() {
-
-  instrucaoSql = `select * from registro limit 2;`
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
-}
-
-function graficoCoreMes() {
-  
-  instrucaoSql = `select * from registro limit 2;`
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
-}  
-
-
 function graficoCpuHora() {
 
-  instrucaoSql = `select * from registro limit 1;`
+  fkServidor = 8
 
+  instrucaoSql = `
+  select valorRegistro, dtHoraRegistro,tipoComponente from 
+  registro join componente on fkComponente = idComponente 
+  where tipoMedida = '°C' and  ${fkServidor} order by dtHoraRegistro desc ;
+  `
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 function graficoCpuSemana() {
 
-  instrucaoSql = `select * from registro limit 2;`
+  anoMes = '2023-10'
+  fkServidor = 8;
+
+  instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
+	where tipoMedida = "°C" and date(dtHoraRegistro) like '${anoMes}%' 
+  and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
+    group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc limit 7;
+`
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
 
 function graficoCpuMes() {
+
+  anoMes = '2023-10'
+  fkServidor = 8;
   
-  instrucaoSql = `select * from registro limit 2;`
+  instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
+	where tipoMedida = "°C" and date(dtHoraRegistro) like '${anoMes}%'
+   and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
+    group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc;
+`
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -56,9 +45,6 @@ function graficoCpuMes() {
 
 
 module.exports = {
-  graficoCoreHora,
-  graficoCoreSemana,
-  graficoCoreMes,
   graficoCpuHora,
   graficoCpuSemana,
   graficoCpuMes

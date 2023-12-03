@@ -2,16 +2,10 @@ package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.rede.RedeInterface;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.Conexao;
-import school.sptech.BancoDados.ConexaoMySql;
-import school.sptech.BancoDados.ConexaoSqlServer;
 import school.sptech.Componentes.Componente;
-import school.sptech.Servidores.ServidorRowMapper;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecursoRedeEnviado extends Recurso {

@@ -5,11 +5,10 @@ import com.github.britooo.looca.api.group.processos.Processo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.ConexaoMySql;
-import school.sptech.BancoDados.ConexaoSqlServer;
 import school.sptech.Recurso.Processos.ProcessosBanidos;
+import school.sptech.Servicos.BancoDados.ConexaoMySql;
+import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
 import school.sptech.Servidores.Servidor;
-import school.sptech.Servidores.ServidorRowMapper;
 import school.sptech.Slack.Alertas;
 
 import java.io.IOException;

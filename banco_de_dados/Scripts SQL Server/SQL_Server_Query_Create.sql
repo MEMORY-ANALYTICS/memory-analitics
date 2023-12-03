@@ -1,15 +1,12 @@
--- DROP DATABASE IF EXISTS bd_memoryanalytics;
---IF EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
---DROP DATABASE bd_memoryanalytics;
+IF EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
+    DROP DATABASE bd_memoryanalytics;
 
--- CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
     CREATE DATABASE bd_memoryanalytics;
 
 USE bd_memoryanalytics;
 
--- CREATE TABLE empresa
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'empresa')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'empresa')
 BEGIN
     CREATE TABLE empresa(
         idEmpresa INT PRIMARY KEY IDENTITY(10000,1),
@@ -20,8 +17,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE endereco
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'endereco')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'endereco')
 BEGIN
     CREATE TABLE endereco(
         idEndereco INT PRIMARY KEY IDENTITY(1,1),
@@ -35,8 +31,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE cargo
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'cargo')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'cargo')
 BEGIN
     CREATE TABLE cargo(
         idCargo INT PRIMARY KEY IDENTITY(1,1),
@@ -44,8 +39,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE funcionario
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'funcionario')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'funcionario')
 BEGIN
     CREATE TABLE funcionario(
         idFuncionario INT PRIMARY KEY IDENTITY(100000,1),
@@ -62,8 +56,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE login
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'login')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'login')
 BEGIN
     CREATE TABLE login(
         idLogin INT PRIMARY KEY IDENTITY(1,1),
@@ -74,8 +67,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE servidor
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'servidor')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'servidor')
 BEGIN
     CREATE TABLE servidor(
         idServidor INT PRIMARY KEY IDENTITY(1,1),
@@ -88,8 +80,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE componente
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'componente')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'componente')
 BEGIN
     CREATE TABLE componente(
         idComponente INT PRIMARY KEY IDENTITY(1,1),
@@ -103,9 +94,7 @@ BEGIN
     );
 END;
 
-
--- CREATE TABLE chamadoServidor
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'chamadoServidor')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'chamadoServidor')
 BEGIN
     CREATE TABLE chamadoServidor(
         idChamadoServidor INT PRIMARY KEY IDENTITY(1,1),
@@ -117,8 +106,7 @@ BEGIN
     );
 END;
 
--- CREATE TABLE downtimeServidor
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'downtimeServidor')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'downtimeServidor')
 BEGIN
     CREATE TABLE downtimeServidor(
         idDowntimeServidor INT PRIMARY KEY IDENTITY(1,1),
@@ -129,14 +117,12 @@ BEGIN
     );
 END;
 
-
--- CREATE TABLE registro
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'registro')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'registro')
 BEGIN
     CREATE TABLE registro(
         idRegistro INT PRIMARY KEY IDENTITY(1,1),
         valorRegistro FLOAT,
-		tipoMedida VARCHAR(25),
+        tipoMedida VARCHAR(25),
         detalheRegistro VARCHAR(45),
         dtHoraRegistro DATETIME,
         fkRecurso INT,

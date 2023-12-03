@@ -1,9 +1,8 @@
 package school.sptech.Recurso;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.Conexao;
-import school.sptech.BancoDados.ConexaoMySql;
-import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Servicos.BancoDados.ConexaoMySql;
+import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
 import school.sptech.Componentes.Componente;
 
 import java.util.ArrayList;

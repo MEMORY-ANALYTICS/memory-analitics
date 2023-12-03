@@ -45,16 +45,16 @@ senha_input.style ='border-color: black'
           sessionStorage.NOME_USUARIO = json[0].nomeFunc;
           sessionStorage.EMAIL_USUARIO = json[0].emailFunc;
           sessionStorage.TELEFONE_USUARIO = json[0].telefoneFunc;
-          sessionStorage.CARGO_USUARIO = json[0].fkCargo == 1 ? "Gerente" : "Analista";
+          // sessionStorage.CARGO_USUARIO = json[0].fkCargo == 1 ? "Gerente" : "Analista";
           sessionStorage.EMPRESA_USUARIO = json[0].fkEmpresa;
           sessionStorage.NOME_EMPRESA_USUARIO = json[0].nomeEmpresa;
           sessionStorage.IDSUPERVISOR = json[0].idFuncionario;
 
-          if(sessionStorage.CARGO_USUARIO == "Gerente"){
+          // if(sessionStorage.CARGO_USUARIO == "Gerente"){
             window.location = "./dashboard/argon-dashboard-bs4/paginaGerente.html";
-          }else{
-            window.location = "./dashboard/argon-dashboard-bs4/paginaAnalista.html";
-          }
+          // }else{
+          //   window.location = "./dashboard/argon-dashboard-bs4/paginaAnalista.html";
+          // }
 
         });
       } else {

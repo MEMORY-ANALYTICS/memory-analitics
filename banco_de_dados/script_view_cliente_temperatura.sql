@@ -36,7 +36,7 @@ select valorRegistro, dtHoraRegistro, tipoComponente, idComponente from registro
 
 -- KPI 2
 select round(avg(valorRegistro),2) as mediaTemperatura from registro join componente on fkComponente = idComponente 
-	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro desc  limit 1;
+	where tipoMedida = '°C' and fkServidor = 8 order by valorRegistro desc, dtHoraRegistro  limit 1;
 
 
 
@@ -44,24 +44,48 @@ select round(avg(valorRegistro),2) as mediaTemperatura from registro join compon
 select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
 	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro desc  limit 1;
 
+select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
+	where tipoMedida = '°C' and fkServidor = 8 order by valorRegistro desc, dtHoraRegistro  limit 1;
+
+
+select * from chamadoServidor;
+
+select * from componente;
+
+
+-- grafico Semana
+select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
+	where tipoMedida = "°C" and date(dtHoraRegistro) like '2023-10%' and fkComponente = (select idComponente from componente where fkServidor = 8)
+    group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc limit 7;
+
+-- grafico Ano
+select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
+	where tipoMedida = "°C" and date(dtHoraRegistro) like '2023-10%' and fkComponente = (select idComponente from componente where fkServidor = 8)
+    group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc;
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- KPI 4
 select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
-	where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09%' and fkServidor = 8 order by valorRegistro  limit 1;
+	where tipoMedida = '°C'  and fkServidor = 8 order by valorRegistro, dtHoraRegistro  limit 1;
+    
+-- Gráfico Hora    
     
 select valorRegistro, dtHoraRegistro,tipoComponente from 
 registro join componente on fkComponente = idComponente 
-order by valorRegistro , dtHoraRegistro desc;
-
-select * from registro;
-
-drop view valorMaximoHora;
-select * from valorMaximoHora;        
-      
-select * from registro;
+where tipoMedida = '°C' and  fkServidor = 8 order by dtHoraRegistro desc ;
 
 
--- kpi 4 --
 
   select valorRegistro, dtHoraRegistro, tipoRecurso from registroEmpresa 
 	where valorRegistro = (

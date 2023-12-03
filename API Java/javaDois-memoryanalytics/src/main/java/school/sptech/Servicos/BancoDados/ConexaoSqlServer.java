@@ -1,9 +1,7 @@
-package school.sptech.BancoDados;
+package school.sptech.Servicos.BancoDados;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import java.util.List;
 
 public class ConexaoSqlServer extends Conexao  {
     private JdbcTemplate conexao;

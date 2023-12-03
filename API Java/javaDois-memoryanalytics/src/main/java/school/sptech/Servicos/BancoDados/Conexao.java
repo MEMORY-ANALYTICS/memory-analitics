@@ -1,4 +1,4 @@
-package school.sptech.BancoDados;
+package school.sptech.Servicos.BancoDados;
 
 public abstract class Conexao {
     private String driverClassName;
