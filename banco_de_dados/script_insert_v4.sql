@@ -47,8 +47,6 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('ana.fonseca@email.com','ana123',105);
 
 
-select * from empresa;
-
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
 ('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
@@ -62,7 +60,6 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor
 ('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10005),
 ('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10005);
 
-select * from servidor;
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
@@ -86,6 +83,18 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (75, '°C','Celsius', '2023-10-09 10:04:00', 1),  -- CPU
 (98, '°C','Celsius', '2023-10-09 10:03:00', 1),  -- CPU
 (100, '°C','Celsius', '2023-10-09 10:06:00', 1),  -- CPU
+(100, '°C','Celsius', '2023-11-09 10:06:00', 1),  -- CPU
+(100, '°C','Celsius', '2023-10-10 10:08:00', 1),  -- CPU
+(101, '°C','Celsius', '2023-10-11 10:08:00', 1),  -- CPU
+(134, '°C','Celsius', '2023-10-13 10:08:00', 1),  -- CPU
+(197, '°C','Celsius', '2023-10-14 10:08:00', 1),  -- CPU
+(20, '°C','Celsius', '2023-10-15 10:08:00', 1),  -- CPU
+(60, '°C','Celsius', '2023-10-16 10:08:00', 1),  -- CPU
+(56, '°C','Celsius', '2023-10-17 10:08:00', 1),  -- CPU
+(46, '°C','Celsius', '2023-10-18 10:08:00', 1),  -- CPU
+(48, '°C','Celsius', '2023-10-19 10:08:00', 1),  -- CPU
+(87, '°C','Celsius', '2023-10-20 10:08:00', 1),  -- CPU
+(100, '°C','Celsius', '2023-10-12 10:08:00', 1),  -- CPU
 (50, '°C','Celsius', '2023-10-09 10:00:00', 2),  -- CPU
 (90, '°C','Celsius', '2023-11-09 10:01:00', 2),  -- CPU
 (80, '°C','Celsius', '2023-12-09 10:02:00', 2),  -- CPU
@@ -112,3 +121,14 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
 
+insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values 
+("CPU","2023-03-12 10:00:00", 1 ),
+("CPU","2023-03-12 10:00:00", 2 ),
+("CPU","2023-03-12 10:00:00", 3 ),
+("CPU","2023-03-12 11:00:00", 1 ),
+("CPU","2023-03-12 11:00:00", 2 ),
+("CPU","2023-03-12 11:00:00", 3 ),
+("CPU","2023-04-12 11:00:00", 3 );
+
+
+INSERT INTO processosBanidos VALUES (null, 'chrome.exe', 12);

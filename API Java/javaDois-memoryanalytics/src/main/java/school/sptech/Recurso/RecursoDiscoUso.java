@@ -6,7 +6,9 @@ import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Componentes.Componente;
+import school.sptech.Servicos.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RecursoDiscoUso extends Recurso {
@@ -48,15 +50,21 @@ public class RecursoDiscoUso extends Recurso {
         this.valorRegistro = valorRegistro;
     }
 
-    public Integer selectFkComponente(){
+    public Integer selectFkComponente() {
         List<Componente> teste = getConexoes().get(1).query("""
-                        SELECT idComponente JOIN servidor on fkServidor = idServidor where modelo = '%s' and macAdress = '%s'
+                        SELECT idComponente FROM componente JOIN servidor ON fkServidor = idServidor WHERE tipoComponente = 'DISCO' AND macAdress = '%s';
                         """.formatted(
-                        looca.getGrupoDeDiscos().getDiscos().get(0).getNome(),
                         looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac()
                 ),
                 new BeanPropertyRowMapper<>(Componente.class));
-        return teste.get(0).getIdComponente();
+
+        // Verificar se a lista não está vazia antes de acessar o primeiro elemento
+        if (!teste.isEmpty()) {
+            return teste.get(0).getIdComponente();
+        } else {
+            // Tratar o caso em que a lista está vazia, por exemplo, retornar null ou lançar uma exceção
+            return null; // ou lançar uma exceção adequada
+        }
     }
 
     @Override
@@ -64,9 +72,24 @@ public class RecursoDiscoUso extends Recurso {
         Looca looca = new Looca();
         DiscoGrupo discoGrupo = looca.getGrupoDeDiscos();
         Disco disco = discoGrupo.getDiscos().get(0);
+
         setNome("Disco " + disco.getNome());
+        setUnidadeMedida("% de Uso");
+
         double usoDeDiscoPercentual = calcularUsoDeDiscoPercentual(disco);
         setValorRegistro(usoDeDiscoPercentual);
+
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+//        getConexoes().get(0).execute("INSERT INTO registro VALUES(null,?,?,?,?)".formatted
+//                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", Data.formatarParaSQLServer(dataHoraAtual),selectFkComponente()));
+        getConexoes().get(1).execute(
+                "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
+                        + getValorRegistro() + ", '"
+                        + getUnidadeMedida() + "', '"
+                        + "RecursoDiscoTamanhoTotal', '"
+                        + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                        + selectFkComponente() + ")"
+        );
         return usoDeDiscoPercentual;
     }
 
@@ -93,5 +116,9 @@ public class RecursoDiscoUso extends Recurso {
                         "unidadeMedida='%s', " +
                         "valorRegistro=%.2f%%, " +
                 nome, unidadeMedida, valorRegistro);
+    }
+
+    public static void main(String[] args) {
+
     }
 }
