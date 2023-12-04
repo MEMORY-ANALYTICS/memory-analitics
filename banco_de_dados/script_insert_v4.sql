@@ -17,8 +17,7 @@ INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
 ('23456789', 'Rua B', 456, 'Cidade B', 'Estado B', 10001),
 ('34567890', 'Rua C', 789, 'Cidade C', 'Estado C', 10002),
 ('51462073', 'Rua D', 066, 'Cidade D', 'Estado D', 10003),
-('51462073', 'Rua D', 066, 'Cidade D', 'Estado SP', 10004),
-('51462063', 'Rua D', 066, 'São Paulo', 'Estado SP', 10005);
+('51462063', 'Rua D', 066, 'São Paulo', 'Estado SP', 10004);
 
 -- Inserir dados na tabela 'cargo'
 INSERT INTO cargo (nomeCargo) VALUES
