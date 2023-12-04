@@ -68,7 +68,7 @@ FROM downtimeServidor
 JOIN servidor on fkServidor = idServidor
 GROUP BY fkEmpresa;
 
-SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10002;
+SELECT tempoDowntime FROM getTempoDowntime WHERE fkEmpresa = 10005;
 
 #### COMPONENTE PROBLEMATICO ####
     
@@ -146,7 +146,7 @@ SELECT qtdServCriticos FROM getServCriticos WHERE fkEmpresa = 10002;
 
 
 SELECT count(estado) AS qtdServers, Estado FROM 
-(SELECT max(Estado) AS estado FROM qtdRegistrosEstado WHERE fkEmpresa = 10002 GROUP BY idServidor) 
+(SELECT max(Estado) AS estado FROM qtdRegistrosEstado WHERE fkEmpresa = 10005 GROUP BY idServidor) 
 AS selectQtdEstadoServers 
 GROUP BY estado ORDER BY Estado;
 /*
