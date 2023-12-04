@@ -31,6 +31,10 @@ select valorRegistro, dtHoraRegistro, tipoComponente, idComponente from registro
     select max(valorRegistro) from registroEmpresa 
 		where tipoMedida = "°C" and apelidoServidor = "Servidor A") order by dtHoraRegistro limit 1 ;
 
+-- KPI 1
+-- Quantidade de chamados especifico de um determinado servidor --
+select count(idChamadoServidor) from chamadoServidor join componente on fkComponente = idComponente
+join servidor on fkServidor = idServidor where descricao like "CPU" and apelidoServidor = "Servidor B";
 
 
 
@@ -64,10 +68,11 @@ select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia fr
     group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc;
 
 
-
-
-
-
+SELECT DATE(dtHoraRegistro) AS dia, AVG(valorRegistro) AS valor
+FROM registro
+WHERE dtHoraRegistro BETWEEN '2023-01-01' AND '2023-12-31' and tipoMedida = "°C" 
+and fkComponente = (select idComponente from componente where fkServidor = 8)
+GROUP BY DATE(dtHoraRegistro);
 
 
 
@@ -104,9 +109,6 @@ select valorRegistro, dtHoraRegistro, tipoRecurso, apelidoServidor, nomeFunc fro
 	
 select * from chamadoServidor;
 
--- Quantidade de chamados especifico de um determinado servidor --
-select count(idChamadoServidor) from chamadoServidor join registroEmpresa on fkRecurso = idRecurso 
-	where descricao like "%Core 1%" and apelidoServidor = "Servidor B";
 
 -- Quantidade total de chamados
 select count(idChamadoServidor) from chamadoServidor;

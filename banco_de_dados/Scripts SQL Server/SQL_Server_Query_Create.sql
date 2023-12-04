@@ -42,7 +42,7 @@ END;
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'funcionario')
 BEGIN
     CREATE TABLE funcionario(
-        idFuncionario INT PRIMARY KEY IDENTITY(100000,1),
+        idFuncionario INT PRIMARY KEY IDENTITY(100,1),
         nomeFunc VARCHAR(80),
         emailFunc VARCHAR(45),
         telefoneFunc CHAR(11),
@@ -125,8 +125,6 @@ BEGIN
         tipoMedida VARCHAR(25),
         detalheRegistro VARCHAR(45),
         dtHoraRegistro DATETIME,
-        fkRecurso INT,
-        fkMedidaComponente INT,
         fkComponente INT,
         FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
     );

@@ -12,6 +12,7 @@ var app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
+var processosRouter = require("./src/routes/processos");
 var emailRouter = require("./src/routes/email");
 var empresaRouter = require("./src/routes/empresa");
 var dashboardGRouter = require("./src/routes/dashboardG");
@@ -43,6 +44,7 @@ app.use("/grafico",graficoRouter);
 app.use("/servidor", servidorRouter);
 app.use("/kpi",kpiRouter);
 app.use("/dashCorrelacao",dashCorrelacao);
+app.use("/processos",processosRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);

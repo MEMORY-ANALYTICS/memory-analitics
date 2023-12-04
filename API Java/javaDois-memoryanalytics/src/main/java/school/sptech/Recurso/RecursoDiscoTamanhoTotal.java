@@ -9,6 +9,7 @@ import school.sptech.Componentes.Componente;
 import school.sptech.Servicos.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RecursoDiscoTamanhoTotal extends Recurso {
@@ -81,8 +82,12 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
         setValorRegistro(Double.parseDouble(tamanhoFormatado));
 
         LocalDateTime dataHoraAtual = LocalDateTime.now();
-//        getConexoes().get(0).execute("INSERT INTO registro VALUES(null,?,?,?,?)".formatted
-//                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", Data.formatarParaSQLServer(dataHoraAtual),selectFkComponente()));
+        getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
+                .formatted(getValorRegistro().toString().replace(",","."),
+                        getUnidadeMedida(),
+                        "RecursoDiscoTamanhoTotal",
+                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        selectFkComponente()));
         getConexoes().get(1).execute(
                 "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
                         + getValorRegistro() + ", '"
