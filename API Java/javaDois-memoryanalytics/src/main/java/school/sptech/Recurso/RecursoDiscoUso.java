@@ -9,6 +9,7 @@ import school.sptech.Componentes.Componente;
 import school.sptech.Servicos.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RecursoDiscoUso extends Recurso {
@@ -77,16 +78,20 @@ public class RecursoDiscoUso extends Recurso {
         setUnidadeMedida("% de Uso");
 
         double usoDeDiscoPercentual = calcularUsoDeDiscoPercentual(disco);
-        setValorRegistro(usoDeDiscoPercentual);
+        setValorRegistro(Math.ceil(usoDeDiscoPercentual));
 
         LocalDateTime dataHoraAtual = LocalDateTime.now();
-//        getConexoes().get(0).execute("INSERT INTO registro VALUES(null,?,?,?,?)".formatted
-//                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", Data.formatarParaSQLServer(dataHoraAtual),selectFkComponente()));
+        getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
+                .formatted(getValorRegistro().toString().replace(",","."),
+                        getUnidadeMedida(),
+                        "RecursoDiscoUso",
+                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        selectFkComponente()));
         getConexoes().get(1).execute(
                 "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
                         + getValorRegistro() + ", '"
                         + getUnidadeMedida() + "', '"
-                        + "RecursoDiscoTamanhoTotal', '"
+                        + "RecursoDiscoUso', '"
                         + Data.formatarParaMySQL(dataHoraAtual) + "', "
                         + selectFkComponente() + ")"
         );
@@ -119,6 +124,8 @@ public class RecursoDiscoUso extends Recurso {
     }
 
     public static void main(String[] args) {
+        RecursoDiscoUso discoUso = new RecursoDiscoUso();
 
+        discoUso.capturarRegistro();
     }
 }
