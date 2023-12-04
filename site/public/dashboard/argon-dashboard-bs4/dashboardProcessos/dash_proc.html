@@ -676,7 +676,8 @@
         </div>
         <!-- Page content -->
         <div class="container-fluid mt--6">
-          <div class="row">
+          <div></div>
+          <div class="row mb-4" style="background-color: white">
             <div class="col-xl-6">
               <script src="https://code.highcharts.com/highcharts.js"></script>
               <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -708,24 +709,7 @@
                   <th style="width: auto; text-align: center">Ações</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th style="width: auto; text-align: center">valorant.exe</th>
-                  <td style="text-align: center">38</td>
-                </tr>
-                <tr>
-                  <th style="width: auto; text-align: center">
-                    leagueoflegends.exe
-                  </th>
-                  <td style="width: auto; text-align: center">78</td>
-                </tr>
-                <tr>
-                  <th style="width: auto; text-align: center">
-                    counterstrike.exe
-                  </th>
-                  <td style="width: auto; text-align: center">14</td>
-                </tr>
-              </tbody>
+              <tbody id="tableProcessos"></tbody>
             </table>
           </div>
         </div>
@@ -749,7 +733,7 @@
     dataTesteRam = [2, 5, 1];
     Highcharts.chart("container", {
       chart: {
-        backgroundColor: "#172b4d",
+        backgroundColor: "white",
         type: "area",
       },
       accessibility: {
@@ -759,7 +743,7 @@
       title: {
         text: "Uso de RAM e CPU pelos PROCESSOS",
         style: {
-          color: "white",
+          color: "black",
         },
       },
       subtitle: {
@@ -785,12 +769,12 @@
         title: {
           text: "% de USO",
           style: {
-            color: "white",
+            color: "black",
           },
         },
         labels: {
           style: {
-            color: "white",
+            color: "black",
           },
         },
       },
@@ -826,7 +810,7 @@
 
     Highcharts.chart("container2", {
       chart: {
-        backgroundColor: "#172b4d",
+        backgroundColor: "white",
         type: "column",
       },
       title: {
@@ -900,5 +884,65 @@
         },
       ],
     });
+
+    function obterDadosGrafico(idAquario) {
+      if (proximaAtualizacao != undefined) {
+        clearTimeout(proximaAtualizacao);
+      }
+
+      fetch(`/processos/buscarMedidas`, { cache: "no-store" })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+              resposta.reverse();
+
+              plotarGrafico(resposta, idAquario);
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+          );
+        });
+    }
+    getAllProcessosBanidos(12)
+    function getAllProcessosBanidos(fkServer) {
+      fetch(`/processos/getAllProcessosBanidos/${fkServer}`, {
+        cache: "no-store",
+      })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              for (i = 0; i < resposta.length; i++) {
+                tableProcessos.innerHTML += `
+                    <tr>
+                      <td style="width: auto; text-align: center">
+                        ${resposta[i].nomeProcesso}
+                      </td>
+                      <td style="width: auto; text-align: center;cursor:pointer;">
+                        <p onclick="deleteProcesso(${resposta[i].idProcesso})">X</p>
+                     </td>
+                  </tr>
+                  `;
+              }
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ tabela: ${error.message}`
+          );
+        });
+    }
+
+    function deleteProcesso(idProcesso){
+
+    }
   </script>
 </html>
