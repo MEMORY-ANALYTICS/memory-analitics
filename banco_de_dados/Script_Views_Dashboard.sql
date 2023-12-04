@@ -105,14 +105,12 @@ SELECT SUM(ExcedeuLimites) qtdPicosDeUso FROM limitesExcedidos WHERE idEmpresa =
 CREATE OR REPLACE VIEW getServCriticos AS SELECT COUNT(*) AS qtdServCriticos, fkEmpresa
 FROM (
     SELECT idServidor, fkEmpresa 
-    FROM registro rg 
-        LEFT JOIN recurso r ON rg.fkRecurso = r.idRecurso 
+    FROM registro r
         LEFT JOIN componente c ON r.fkComponente = c.idComponente
         LEFT JOIN servidor s ON c.fkServidor = s.idServidor
-        LEFT JOIN medidaComponente m ON rg.fkMedidaComponente = m.idMedidaComponente 
     WHERE 
-        (rg.valorRegistro > c.limiteMax OR rg.valorRegistro < c.limiteMin)
-        AND idMedidaComponente = 1
+        (r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin)
+        AND tipoMedida = '%'
     GROUP BY idServidor
 ) AS subqueryAlias
 GROUP BY fkEmpresa;
@@ -134,7 +132,7 @@ SELECT qtdServCriticos FROM getServCriticos WHERE fkEmpresa = 10002;
 
 #### GERAL SERVIDORES ####
         
-        create or replace view qtdRegistrosEstado as SELECT idServidor, 
+        CREATE OR REPLACE VIEW qtdRegistrosEstado as SELECT idServidor, 
 		CASE
 			WHEN r.valorRegistro > c.limiteMax OR r.valorRegistro < c.limiteMin THEN 3
 			WHEN (r.valorRegistro > c.limiteMax * 0.85 AND r.valorRegistro < c.limiteMax) OR (r.valorRegistro < c.limiteMin * 1.15 AND r.valorRegistro > c.limiteMin) THEN 2
