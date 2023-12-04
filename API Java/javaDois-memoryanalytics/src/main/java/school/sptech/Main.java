@@ -1,6 +1,7 @@
 package school.sptech;
 
 import school.sptech.Recurso.RecursoProcessos;
+import school.sptech.Recurso.RecursoRede;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -17,6 +18,17 @@ public class Main {
         };
         Timer timerProcessos = new Timer();
         timerProcessos.schedule(taskProcessos, 0, 2000);
+
+        //TimerTask taskRede = new TimerTask() {
+          //RecursoRede recursoRede = new RecursoRede;
+           // @Override
+            //public void run() {
+               // recursoRede.capturarRegistro();
+           // }
+       // };
+        //Timer timerRede = new Timer();
+        //timerRede.schedule(taskRede, 0, 1000);
+
 
     }
 }

@@ -109,16 +109,16 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (329.415816,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
 (1998.433296,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1328.632464,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 6),  -- REDE
+(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
 (85.42277900366695, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
 (330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
 (2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1332.9576005,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 6),  -- REDE
+(1332.9576005,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
 (85.42994977827041, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
 (330.586587,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
 (2004.9851039999999,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1333.079139,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 6),  -- REDE
-(1328.632464,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 6),  -- REDE
+(1333.079139,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
+(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
 (85.43925798563782, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
 (330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
 (2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
@@ -141,3 +141,4 @@ insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values
 
 INSERT INTO processosBanidos VALUES (null, 'chrome.exe', 12);
 
+select * from registro;

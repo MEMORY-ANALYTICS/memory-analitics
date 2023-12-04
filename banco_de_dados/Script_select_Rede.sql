@@ -24,4 +24,5 @@ SELECT valorRegistro FROM registro WHERE fkComponente = 4 AND tipoMedida = 'ms' 
 SELECT max(valorRegistro) FROM registro where fkComponente = 4 AND tipoMedida = 'ms' AND dtHoraRegistro = '2023-10-09 10:30:00' ;
 
 
+
 SELECT idServidor FROM servidor where macAdress = '00:45:e2:dd:d6:45';
