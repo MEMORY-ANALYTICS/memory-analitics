@@ -1017,56 +1017,86 @@
 
     });
 
-    function  selectServidores() {
+    // Variáveis de controle
+    var apelidosServidores = [];
+
+
+    function selectServidores() {
         fetch("/dashCorrelacao/selectServidores", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fkEmpresa: sessionStorage.EMPRESA_USUARIO
-        })
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
-                
-            });
-        } else {
-            resposta.text().then(textoErro => {
-                console.error(textoErro);
-            });
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
-    return false;
-}
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkEmpresa: sessionStorage.EMPRESA_USUARIO
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(json => {
+                    for (var i = 0; i < json.length; i++) {
+                        apelidosServidores.push(json[0].apelidoServidor);
+                    }
+                });
+            } else {
+                resposta.text().then(textoErro => {
+                    console.error(textoErro);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        });
+    }
 
     function selectGraficoOcorrencia() {
-        fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-            fkServidor: servidorVisualizado
-        })
-    }).then(function (resposta) {
-        if (resposta.ok) {
-            resposta.json().then(json => {
+        for (var i = 0; i <= 3; i++) {
+            if (i == 0) {
+                var tipoComponenteDaVez = 'Componente'
+            } else if (i == 1) {
+                var tipoComponenteDaVez = 'Rede'
+            } else if (i == 2) {
+                var tipoComponenteDaVez = 'Processos'
+            } else if (i == 3) {
+                var tipoComponenteDaVez = 'Temperatura'
+            }
+            fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+                    fkServidor: 1,
+                    tipoComponente: tipoComponenteDaVez
 
-            });
-        } else {
-            resposta.text().then(textoErro => {
-                console.error(textoErro);
+                })
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(json => {
+                        alert(json)
+                        alert(json[0])
+                        alert(json[0].count)
+                        if (i == 0) {
+                            sessionStorage.COMPONENTE_QTD_CHAMADOS = json[0]
+                        } else if (i == 1) {
+                            sessionStorage.REDE_QTD_CHAMADOS = json[0]
+                        } else if (i == 2) {
+                            sessionStorage.PROCESSOS_QTD_CHAMADOS = json[0]
+                        } else if (i == 3) {
+                            sessionStorage.TEMPERATURA_QTD_CHAMADOS = json[0]
+                        }
+                    });
+                } else {
+                    resposta.text().then(textoErro => {
+                        console.error(textoErro);
+                    });
+                }
+            }).catch(function (erro) {
+                console.log(erro);
             });
         }
-    }).catch(function (erro) {
-        console.log(erro);
-    });
-    return false;
-}
+    }
+    selectServidores()
+    selectGraficoOcorrencia()
 </script>
 
 </html>

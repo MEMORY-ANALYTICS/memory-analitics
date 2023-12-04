@@ -17,7 +17,7 @@ const search_button = document.querySelector('.btn');
 const low_high = document.querySelector('.low-high');
 
 
-searchResults("Carolina do Norte")
+searchResults(getLocal())
 
 function searchResults(city) {
   fetch(`${api.base}weather?q=${city}&lang=${api.lang}&units=${api.units}&APPID=${api.key}`)
@@ -106,4 +106,10 @@ function changeTemp() {
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getLocal(){
+
+  localServidor.innerHTML = "Brasilia"
+  return "Brasilia"
 }

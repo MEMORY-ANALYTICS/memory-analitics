@@ -1,11 +1,11 @@
-var servidorModel = require("../models/servidorModel");
+var dashCorrelacaoModel = require("../models/dashCorrelacaoModel");
 
 function selectServidores(req, res){	
     var fkEmpresa = req.body.fkEmpresa
 
     console.log('Estou no Controller com o valor de:' + fkEmpresa)	
 
-    servidorModel.selectServidores(fkEmpresa)	
+    dashCorrelacaoModel.selectServidores(fkEmpresa)	
     .then(function (resultado) {	
         if (resultado.length > 0) {	
             res.status(200).json(resultado);	
@@ -22,10 +22,10 @@ function selectServidores(req, res){
 
 function selectGraficoOcorrencia(req, res){	
     var fkEmpresa = req.body.fkEmpresa
-    
+
     console.log('Estou no Controller com o valor de:' + fkEmpresa)	
 
-    servidorModel.selectGraficoOcorrencia(fkEmpresa)	
+    dashCorrelacaoModel.selectGraficoOcorrencia(fkEmpresa)	
     .then(function (resultado) {	
         if (resultado.length > 0) {	
             res.status(200).json(resultado);	
@@ -41,5 +41,6 @@ function selectGraficoOcorrencia(req, res){
 }
 
 module.exports = {
-
+    selectServidores,
+    selectGraficoOcorrencia
 } 

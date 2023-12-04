@@ -73,19 +73,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../funcionario/funcionarios.html">
+              <a class="nav-link" href="funcionario/funcionarios.html">
                 <i class="ni ni-badge text-blue"></i>
                 <span class="nav-link-text" style="padding-left: 5%;">Funcionários</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../server/servers.html">
+              <a class="nav-link" href="server/servers.html">
                 <i class="ni ni-building   text-primary"></i>
                 <span class="nav-link-text">Servidores</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../componente/componentes.html">
+              <a class="nav-link" href="componente/componentes.html">
                 <i class="ni ni-laptop text-blue"></i>
                 <span class="nav-link-text">Componentes</span>
               </a>
@@ -534,12 +534,6 @@
 
               <figure class="highcharts-figure3">
                 <div id="container3"></div>
-                <p class="highcharts-description3">
-                 Chamados abertos: <b style="color: red;">8</b>
-                </p>
-                <p class="highcharts-description3">
-                  Código do último chamado aberto: <b style="color: red;"> 28137981278798</b>
-                 </p>
                  <p class="highcharts-description3">
                   Descrição: <b style="color: red;"> Taxa de Transmissão abaixo do esperado</b>
                  </p>
@@ -580,7 +574,6 @@
               <script src="https://code.highcharts.com/modules/exporting.js"></script>
               <script src="https://code.highcharts.com/modules/export-data.js"></script>
               <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
 
               <figure class="highcharts-figure">
                 <div id="container"></div>
@@ -929,6 +922,9 @@ Highcharts.chart('container2', {
             }
         }
     },
+    credits: {
+      enabled: false
+    },
 
     series: [{
         name: 'Pacotes enviados',
@@ -1003,6 +999,9 @@ Highcharts.chart('container2', {
         thickness: 20
       }]
     },
+    credits: {
+      enabled: false
+    },
 
     series: [{
       name: 'Speed',
@@ -1033,6 +1032,7 @@ Highcharts.chart('container2', {
         backgroundColor: 'gray',
         radius: 6
       }
+      
 
     }]
 

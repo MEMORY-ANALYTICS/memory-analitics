@@ -344,28 +344,22 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
 
-            <div class="col-lg-6 col-7" style="align-items: center; display: flex; flex-direction: row; 
-              justify-content: flex-start; padding-left: 0%;">
+            <div class="col-xl-12">
+              <div class="row">
+                <div class="form-group col-xl-3 py-2 bg bg-white rounded mr-2"
+                  style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+                  <div class="col">
+                    <select class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
+                                  box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);" id="selecaoApelidoServidor">
+                    </select>
+                  </div>
 
-              <span style="padding-right: 3%; font-weight: bold; color: black;"></span>
-              <select id="selecaoApelidoServidor"
-                style="border-radius: 7px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                <option value="" disabled="true">Identificação do Servidor:</option>
-              </select>
 
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                </div>
+              </div>
             </div>
 
             <div class="col-lg-6 col-5 text-right">
-
-
-              <a class="btn-sm btn-neutral" id="celsiusButton" onclick="celsius()"
-                style="color: #fff; background-color: #3350b9; cursor: pointer;">Celsius</a>
-              <a class="btn-sm btn-neutral" id="fahrenheitButton" onclick="fahrenheit()"
-                style="cursor: pointer;">fahrenheit</a>
-              <!--
-                <a class="btn-sm btn-neutral" id="kelvinButton" onclick="kelvin()" style="cursor: pointer;">Kelvin</a>
-              -->
 
 
 
@@ -381,7 +375,7 @@
                 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Média temp. Ideal</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Quantidade de incidentes</h5>
                       <span class="h2 font-weight-bold mb-0" id="medTempIdeal"></span>
                     </div>
                     <div class="col-auto">
@@ -493,43 +487,22 @@
               <div class="row align-items-center">
                 <div class="col">
                   <ul class="nav nav-pills justify-content-start">
-
                     <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">GRÁFICO
                       DE TEMPERATURA</h5>
                   </ul>
-                  <!--
-
-                      <ul class="nav nav-pills justify-content" style="justify-content: start;">
-                        <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                          <a class="nav-link py-2 px-3" data-toggle="tab" id="coreBackground" onclick="core()"
-                          style="background-color:  #5e72e4; cursor: pointer;">
-                          <span class="d-none d-md-block" onclick="core()" id="coreSpan" style="color: #fff;">CORE</span>
-                        </a>
-                        <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                          <a class="nav-link py-2 px-3 " data-toggle="tab" id="cpuBackground" onclick="cpu()"
-                          style="cursor: pointer;">
-                          <span class="d-none d-md-block" onclick="cpu()" id="cpuSpan">CPU</span>
-                        </a>
-                      </li>
-                    -->
                 </div>
                 <div class="col">
-
-
-
                   <ul class="nav nav-pills justify-content-end">
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
                       <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash1" onclick="horaDash1()"
                         style="background-color:  #5e72e4; cursor: pointer;">
                         <span class="d-none d-md-block" onclick="horaDash1()" id="textoHora1"
                           style="color: #fff;">Hora</span>
-
                       </a>
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
                       <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash1" onclick="semanaDash1()"
                         style="cursor: pointer;">
                         <span class="d-none d-md-block" onclick="semanaDash1()" id="textoSemana1">Semana</span>
-
                       </a>
                     </li>
                     <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
@@ -565,32 +538,28 @@
             <div class="card bg-default" style="box-shadow:
             0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
               <div class="card-header bg-transparent">
-
                 <div class="row align-items-center">
                   <div class="col">
-                    <h5 class="h3 text-white mb-0">COMPARAÇÃO COM DADOS EXTERNOS</h5>
-                  </div>
-                  <div class="col">
-                    <ul class="nav nav-pills justify-content-end">
-                      <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                        <a class="nav-link py-2 px-3" data-toggle="tab" id="idHoraDash2" onclick="horaDash2()"
-                          style="background-color:  #5e72e4; cursor: pointer;">
-                          <span class="d-none d-md-block" onclick="horaDash2()" id="textoHora2"
-                            style="color: #fff;">PSUTIL</span>
+                    <ul class="nav nav-pills" style="justify-content: space-around;">
+                      <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">
+                        FILTRAR POR DATA:
+                      </h5>
+                      <li class="">
+                        <input type="date" style="width: auto;">
+                      </li>
+                      <li class="">
+                        <input type="date" style="width: auto;">
+                      </li>
 
-                        </a>
-                      <li class="nav-item mr-2 mr-md-0" data-toggle="chart">
-                        <a class="nav-link py-2 px-3 " data-toggle="tab" id="idSemanaDash2" onclick="semanaDash2()"
-                          style="cursor: pointer;">
-                          <span class="d-none d-md-block" onclick="semanaDash2()" id="textoSemana2">OHM</span>
-
-                        </a>
+                      <li class="">
+                        <button>Pesquisar</button>
                       </li>
                     </ul>
                   </div>
+
+
                 </div>
               </div>
-
               <div class="card-body" style="box-shadow:
             0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
 
@@ -606,51 +575,53 @@
           </div>
 
 
-          </div>
-          <div class="card" style="box-shadow:
+        </div>
+        <div class="card" style="box-shadow:
         0.3em 0.3em 1em rgba(65, 58, 58, 0.6); width: 30%;">
-            <div class="card-header bg-transparent">
+          <div class="card-header bg-transparent">
 
-              <div class="row align-items-center">
+            <div class="row align-items-center">
 
-                <div class="col">
-                  <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Temp. Região</h5>
-                  <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Local: Carolina do Norte
-                  </h5>
-                </div>
+              <div class="col">
+                <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Temperatura da Região</h5>
+                <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">
+                  <span>Local:</span>
+                  <span id="localServidor"></span>
+                </h5>
               </div>
             </div>
+          </div>
+          <div class="card-body" style="padding-bottom: 0%;">
+
+            <div class="card text-center shadow-lg" style="max-width: 24rem;">
+
+              <div class="card-body">
+                <div class="city">Cidade exemplo</div>
+                <div class="date">Domingo, 30 Novembro 2020</div>
+                <div class="container-temp"
+                  style="display: flex; justify-content: center; font-size: 50px; font-weight: 900;">
+                  <div>22</div>
+                  <span>ºC</span>
+                </div>
+                <div class="container-img">
+                  <img src="../../../assets/icons_clima/unknown.png" alt="">
+                </div>
+                <div class="weather">Nublado</div>
+              </div>
+            </div>
+
             <div class="card-body" style="padding-bottom: 0%;">
 
-              <div class="card text-center shadow-lg" style="max-width: 24rem;">
-
-                <div class="card-body">
-                  <div class="city">Cidade exemplo</div>
-                  <div class="date">Domingo, 30 Novembro 2020</div>
-                  <div class="container-temp"
-                    style="display: flex; justify-content: center; font-size: 50px; font-weight: 900;">
-                    <div>22</div>
-                    <span>ºC</span>
-                  </div>
-                  <div class="container-img">
-                    <img src="../../../assets/icons_clima/unknown.png" alt="">
-                  </div>
-                  <div class="weather">Nublado</div>
-                </div>
-              </div>
-
-              <div class="card-body" style="padding-bottom: 0%;">
-
-                <!-- Chart -->
-                <div class="chart">
-                  <canvas id="graficoClima" class="chart-c"></canvas>
-                </div>
+              <!-- Chart -->
+              <div class="chart">
+                <canvas id="graficoClima" class="chart-c"></canvas>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
   </div>
   </footer>
@@ -678,23 +649,6 @@
   <script src="../public/js/index.js"></script>
 
   <script>
-
-    tempCelsius = false;
-    tempFahrenheit = false;
-
-    iniciar()
-
-
-  function iniciar(){
-    horaDash1()
-    getServidor()
-
-    for (i = 0; i < functionKpi.length; i++) {
-      getKpi(functionKpi[i])
-    }
-  }
-
-
     const ctx = document.getElementById('graficoTemperatura');
 
     new Chart(ctx, {
@@ -766,17 +720,7 @@
         }
       }
     });
-
-    function converterParaCelsius(valor){
-      return (valor-32/1.8)
-    }
-
-    function converterParaFahrenheit(valor){
-      return ((valor*1.8)+32)
-    }
   </script>
-
-
 
 </body>
 
