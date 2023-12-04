@@ -1,5 +1,5 @@
-IF EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
-    DROP DATABASE bd_memoryanalytics;
+-- IF EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
+   -- DROP DATABASE bd_memoryanalytics;
 
 IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'bd_memoryanalytics')
     CREATE DATABASE bd_memoryanalytics;
