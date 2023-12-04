@@ -3,6 +3,7 @@ package school.sptech.Servidores;
 import com.github.britooo.looca.api.core.Looca;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import school.sptech.Recurso.*;
 import school.sptech.Servicos.BancoDados.Conexao;
 import school.sptech.Servicos.BancoDados.ConexaoMySql;
 import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
@@ -38,9 +39,9 @@ public class Downtime {
     public int pegarId(){
         String mac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
 
-        List<Servidor> servidors = conexoes.get(1).query("SELECT * FROM Servidor WHERE macAdress = ?",
+        List<Servidor> servidors = conexoes.get(0).query("SELECT * FROM Servidor WHERE macAdress = ?",
                 new ServidorRowMapper(),
-                "09:12:C4:TN:O9:X2");
+                mac);
         return servidors.get(0).getIdServidor();
     };
     public void calcDowntime() {
@@ -53,13 +54,13 @@ public class Downtime {
 
         dtHoraAgora = LocalDateTime.parse(stringDataFormatada, formatter);
 
-        List<Registro> ultimoRegistro = conexoes.get(1).query("""
-            SELECT TOP 1 *
-            FROM dbo.Registro
-            JOIN dbo.Componente ON fkComponente = idComponente
-            JOIN dbo.Servidor ON fkServidor = idServidor
-            WHERE idServidor = ?
-            ORDER BY dtHoraRegistro DESC;""",
+        List<Registro> ultimoRegistro = conexoes.get(0).query("""
+                SELECT TOP 1 *
+                FROM dbo.Registro
+                JOIN dbo.Componente ON fkComponente = idComponente
+                JOIN dbo.Servidor ON fkServidor = idServidor
+                WHERE idServidor = ?
+                ORDER BY dtHoraRegistro DESC;""",
                 new RegistroRowMapper(),
                 idServidor);
 
@@ -77,10 +78,10 @@ public class Downtime {
                     INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
                     (?, ?, ?);             
                     """, diferencaDatas, dtHoraAgora, idServidor);
-            conexoes.get(1).update("""
-                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
-                    (?, ?, ?);             
-                    """, diferencaDatas, dtHoraAgora, idServidor);
+//            conexoes.get(1).update("""
+//                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
+//                    (?, ?, ?);
+//                    """, diferencaDatas, dtHoraAgora, idServidor);
         }
 
     }
@@ -107,5 +108,24 @@ public class Downtime {
                 "tempoDowntime=" + tempoDowntime +
                 ", dtHora=" + dtHora +
                 '}';
+    }
+
+    public static void main(String[] args) {
+        RecursoDiscoTamanhoTotal discoTamanho = new RecursoDiscoTamanhoTotal();
+        RecursoDiscoUso discoUso = new RecursoDiscoUso();
+        RecursoMemoriaUso memoriaUso = new RecursoMemoriaUso();
+        RecursoProcessadorFrequencia processadorFrequencia = new RecursoProcessadorFrequencia();
+        RecursoProcessadorUso processadorUso = new RecursoProcessadorUso();
+
+        LocalDateTime dataHora = LocalDateTime.now();
+        school.sptech.Servidores.Downtime downtime = new school.sptech.Servidores.Downtime(0, dataHora, 4);
+
+        discoTamanho.capturarRegistro();
+        discoUso.capturarRegistro();
+        memoriaUso.capturarRegistro();
+        processadorFrequencia.capturarRegistro();
+        processadorUso.capturarRegistro();
+        downtime.calcDowntime();
+
     }
 }

@@ -77,6 +77,11 @@ GROUP BY DATE(dtHoraRegistro);
 
 
 
+-- pegar o local
+select localServidor from servidor where apelidoServidor = "Servidor B";
+
+
+
 
 
 

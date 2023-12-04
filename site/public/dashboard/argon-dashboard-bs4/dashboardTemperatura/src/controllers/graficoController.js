@@ -28,9 +28,19 @@ function graficoCpuMes(req,res){
    })
 }
 
+function filtroData(req,res){
+    // var idServidor = req.body.idServidor;
+   graficoModel.filtroData().then(function(resultado){
+       res.status(200).json(resultado);
+   }).catch(function(erro){
+       // res.status(500).json(erro.sqlMessage);
+   })
+}
+
 
 module.exports  = {
     graficoCpuHora,
     graficoCpuSemana,
-    graficoCpuMes
+    graficoCpuMes,
+    filtroData
 }

@@ -10,6 +10,17 @@ var database = require("../database/config")
         return database.executar(instrucaoSql);
       }  
 
+      function getLocal() {
+        apelidoServidor = 'Servidor B'
+        instrucaoSql = `
+        select localServidor as local from servidor where apelidoServidor = "${apelidoServidor}";
+
+        `
+        console.log("Executando a instrução SQL: \n" + instrucaoSql);
+        return database.executar(instrucaoSql);
+      }  
+
     module.exports = {
-        getServidor
+        getServidor,
+        getLocal
     }

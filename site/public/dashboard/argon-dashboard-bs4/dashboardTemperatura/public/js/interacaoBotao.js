@@ -46,6 +46,35 @@ function mesDash1() {
 }
 
 
+function pesquisarIntevaloData(){
+
+  var dataInicio = document.getElementById("dataInicio").value;
+  var dataFim = document.getElementById("dataFim").value;
+
+  console.log(dataInicio,dataFim)
+
+  if (dataFim < dataInicio) {
+    alert("Data inválida!")
+  } else {
+    
+    fetch('/grafico/filtroData').then(res=>{
+      res.json().then(json => {
+        for (let i=0; i < json.length; i++){
+          console.log(json[i].valor)
+
+          var data = new Date(json[i].dia)
+          console.log(`${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`);
+        }
+      })
+    })
+
+  }
+
+
+}
+
+
+
 function exibirGrafico(tipoGrafico){
 
   console.log(tipoGrafico)
