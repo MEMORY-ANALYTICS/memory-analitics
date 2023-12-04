@@ -7,6 +7,15 @@ function getServidor(req,res) {
         // res.status(500).json(erro.sqlMessage);
     })
 }
+
+function getLocal(req,res) {
+    servidorModel.getLocal().then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        // res.status(500).json(erro.sqlMessage);
+    })
+}
 module.exports = {
-    getServidor
+    getServidor,
+    getLocal
 }
