@@ -1,14 +1,20 @@
-const express = require('express');
-const router = express.Router();
+var express = require("express");
+var router = express.Router();
 
-const controllerProcessos = require('../controllers/controllerProcessos');
+var processoController = require("../controllers/controllerProcessos");
 
-router.get("/buscarMedidas", (req, res) => {
-    controllerProcessos.buscarMedidasEmTempoReal(req, res);
+router.get("/ultimas/:fkServer", function (req, res) {
+    processoController.buscarUltimasMedidas(req, res);
 });
 
-router.get("/getAllProcessosBanidos/:fkServer", (req, res) => {
-    controllerProcessos.getAllProcessosBanidos(req, res);
+router.get("/tempo-real/:fkServer", function (req, res) {
+    processoController.buscarMedidasEmTempoReal(req, res);
+});
+router.get("/getAllProcessosBanidos/:fkServer", function (req, res) {
+    processoController.getAllProcessosBanidos(req, res);
+});
+router.get("/getQtdProcessosBanidos/:fkServer", function (req, res) {
+    processoController.getQtdProcessosBanidos(req, res);
 });
 
 module.exports = router;

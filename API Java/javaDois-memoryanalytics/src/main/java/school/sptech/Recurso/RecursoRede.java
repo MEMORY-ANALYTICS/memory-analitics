@@ -88,7 +88,8 @@ public class RecursoRede {
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbEnviados = capturarRegistroEnviados();
-        conexoes.get(1).execute("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);".formatted(mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente()));
+        conexoes.get(1).execute("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);"
+                .formatted(mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente()));
     }
     public void InsertMbRecebidos(){
         LocalDateTime dataHoraAtual = LocalDateTime.now();
