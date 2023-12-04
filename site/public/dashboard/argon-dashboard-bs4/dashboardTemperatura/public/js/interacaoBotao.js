@@ -41,32 +41,14 @@ function mesDash1() {
 
   
     exibirGrafico("graficoCpuMes")
-}
 
-
-function celsius() {
-
-  celsiusButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-  fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  
-  tempCelsius = true;
-  tempFahrenheit = false;
-  iniciar()
 
 }
 
-function fahrenheit() {
-  celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  fahrenheitButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
- 
-  tempCelsius = false;
-  tempFahrenheit = true;
-  
-  iniciar()
-
-}
 
 function exibirGrafico(tipoGrafico){
+
+  console.log(tipoGrafico)
 
   fetch(`/grafico/${tipoGrafico}`, {
     method: "GET"
@@ -75,38 +57,20 @@ function exibirGrafico(tipoGrafico){
       for (var i = (json.length - 1); i >= 0; i--) {
         
         const diaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-        var valorRegistro;
+
         if(tipoGrafico == "graficoCpuHora"){
+            console.log(json[i].valorRegistro)
 
-          if(tempCelsius){
-            valorRegistro = converterParaCelsius(json[i].valorRegistro) 
-          } else if (tempFahrenheit){
-            valorRegistro = converterParaFahrenheit(json[i].valorRegistro)   
-          } else{
-            valorRegistro = json[i].valorRegistro
-          }
-
-        } else if(tipoGrafico=="graficoCpuSemana"){
-
-          if(tempCelsius){
-            valorRegistro = converterParaCelsius(json[i].valorMedia) 
-          } else if (tempFahrenheit){
-            valorRegistro = converterParaFahrenheit(json[i].valorMedia)   
-          } else{
-            valorRegistro = json[i].valorRegistro
-          }
-
+        }  else if(tipoGrafico=="graficoCpuSemana"){
+          json[i].valorRegistro          
           var data = new Date(json[i].dia)
           var nomeDiaSemana = diaSemana[data.getDay()]
           console.log(nomeDiaSemana);
+
         } else if(tipoGrafico == "graficoCpuMes"){
-          if(tempCelsius){
-            valorRegistro = converterParaCelsius(json[i].valorMedia) 
-          } else if (tempFahrenheit){
-            valorRegistro = converterParaFahrenheit(json[i].valorMedia)   
-          } else{
-            valorRegistro = json[i].valorMedia
-          }
+          
+          console.log(json[i].valorMedia)
+          
           var data = new Date(json[i].dia)
           console.log(`${data.getDate()}/${data.getMonth()+1}`);
         }

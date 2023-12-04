@@ -1,8 +1,8 @@
 var kpiModel = require("../models/kpiModel")
 
-function MedTempIdeal(req,res){
+function qtdIncidentes(req,res){
      // var idServidor = req.body.idServidor;
-    kpiModel.MedTempIdeal().then(function(resultado){
+    kpiModel.qtdIncidentes().then(function(resultado){
         res.status(200).json(resultado);
     }).catch(function(erro){
         // res.status(500).json(erro.sqlMessage);
@@ -39,7 +39,7 @@ function CpuTempMin(req,res){
 
 
 module.exports  = {
-    MedTempIdeal,
+    qtdIncidentes,
     MedTemp,
     CpuTempMax,
     CpuTempMin
