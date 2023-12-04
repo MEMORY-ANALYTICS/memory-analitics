@@ -71,6 +71,7 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('TPLink','NP3200','REDE', NULL, NULL, 2), -- REDE
 ('TPLink','NP3200','REDE', NULL, NULL, 5); -- REDE
 
+
 INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU

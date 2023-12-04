@@ -43,7 +43,7 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor
 ('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10001),
 ('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10002),
 ('Linux', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10002),
-('Linux', 'Servidor C', 'Rio de Janeiro', '00:11:B1:KC:E1:88', 10002),
+('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10002),
 ('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
 ('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10005),
 ('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10005),
@@ -58,6 +58,7 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM
 ('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO
 ('TPLink','NP3200','REDE', NULL, NULL, 2); -- REDE
+('TPLink','NP3200','REDE', NULL, NULL, 5); -- REDE
 
 
 INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
