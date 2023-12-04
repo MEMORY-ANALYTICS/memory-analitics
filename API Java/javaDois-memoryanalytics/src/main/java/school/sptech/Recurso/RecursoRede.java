@@ -58,7 +58,7 @@ public class RecursoRede {
         Double mbEnviados = 0.0;
         List<RedeInterface> interfacesRede= looca.getRede().getGrupoDeInterfaces().getInterfaces();
         for (int i = 0; i < interfacesRede.size(); i++) {
-            if (interfacesRede.get(i).getBytesEnviados() != 0){
+            if (interfacesRede.get(i).getBytesEnviados() != 0 || interfacesRede.get(i).getBytesRecebidos() != null){
                 mbEnviados = interfacesRede.get(i).getBytesEnviados() * Math.pow(10,-6);
                 // System.out.println(mbEnviados);
                 break;
@@ -73,7 +73,7 @@ public class RecursoRede {
         Double mbRecebidos = 0.0;
         List<RedeInterface> interfacesRede= looca.getRede().getGrupoDeInterfaces().getInterfaces();
         for (int i = 0; i < interfacesRede.size(); i++) {
-            if (interfacesRede.get(i).getBytesRecebidos() != 0 || interfacesRede.get(i).getBytesRecebidos() != 0){
+            if (interfacesRede.get(i).getBytesRecebidos() != 0 || interfacesRede.get(i).getBytesRecebidos() != null){
                 mbRecebidos = interfacesRede.get(i).getBytesRecebidos() * Math.pow(10,-6);
                 // System.out.println(mbRecebidos);
                 break;

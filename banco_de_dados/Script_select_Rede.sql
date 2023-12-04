@@ -3,11 +3,19 @@ select * from registro where fkComponente = 4;
 -- GRAFICO 3 ------ TAXA de TRANSMISSÃO e RECEPÇÃO
 
 -- Pegar o maior valor que a rede já chegou;
-select min(valorRegistro) from registro where fkComponente = 4 AND tipoMedida = 'Mbps';
+select min(valorRegistro) from registro where fkComponente = 6 AND tipoMedida = 'Mbps';
+-- SQL SERVER
+SELECT min(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps';
+
 -- Pegar o maior valor que a rede já chegou;
-select max(valorRegistro) from registro where fkComponente = 4 AND tipoMedida = 'Mbps';
+select max(valorRegistro) from registro where fkComponente = 6 AND tipoMedida = 'Mbps';
+-- SQL SERVER
+SELECT max(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps';
+
 -- Pegar o Último registro inserido
-SELECT valorRegistro FROM registro where fkComponente = 4 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro where fkComponente = 6 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC LIMIT 1;
+-- SQL SERVER
+-- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC;
 
 
 -- GRAFICO 1 ------ Latêcia
@@ -19,10 +27,19 @@ SELECT valorRegistro FROM registro where fkComponente = 4 AND tipoMedida = 'Mbps
 -- >300 milissegundos: resposta muito lenta, geralmente inaceitável para a maioria das aplicações.
 
 -- Pegar o último registro de latência
-SELECT valorRegistro FROM registro WHERE fkComponente = 4 AND tipoMedida = 'ms' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' ORDER BY idRegistro DESC LIMIT 1;
+-- SQL Server
+-- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' ORDER BY idRegistro DESC;
+
 -- Pegar o pico da latência do dia;
-SELECT max(valorRegistro) FROM registro where fkComponente = 4 AND tipoMedida = 'ms' AND dtHoraRegistro = '2023-10-09 10:30:00' ;
+-- Como pegar a data atual no javascript
+SELECT max(valorRegistro) FROM registro where fkComponente = 6 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-10-09';
+-- SQL Server
+-- SELECT MAX(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' AND CONVERT(DATE, dtHoraRegistro) = '2023-10-09';
 
-
-
-SELECT idServidor FROM servidor where macAdress = '00:45:e2:dd:d6:45';
+-- Pegar ultimo registro Pacotes Enviados e Pacotes Recebidos
+SELECT valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC LIMIT 1;
+-- SQL Server
+-- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC;
+-- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC;
