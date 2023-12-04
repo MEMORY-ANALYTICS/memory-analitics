@@ -1,4 +1,5 @@
 getServidor()
+horaDash1()
 
 dataTemp = new Date();
 
@@ -16,7 +17,7 @@ var dataHoje = `${mes}-${dia}-${ano}`
 console.log(sessionStorage.emailFunc)
 
 
-var listKpi = ["MedTempAtual", "MedTemp", "CpuTempMax", "CpuTempMin"]
+var listKpi = ["qtdIncidentes", "MedTemp", "CpuTempMax", "CpuTempMin"]
 
   for (i = 0; i < listKpi.length; i++) {
     getKpi(listKpi[i])
@@ -26,9 +27,7 @@ var listKpi = ["MedTempAtual", "MedTemp", "CpuTempMax", "CpuTempMin"]
 function getServidor() {
 
 
-  fetch(`/servidor/servidor`, {
-    method: "GET"
-  }).then(res => {
+  fetch(`/servidor/servidor`).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
         console.log(json[i])
@@ -60,14 +59,13 @@ function getKpi(metodoKpi) {
         var diaTratado;
         var valorRegistro;
 
+        if (metodoKpi == "qtdIncidentes"){
 
-        if (metodoKpi == "CpuTempMax") {
+          qtdIncidentes.innerHTML = json[[i]].quantidade
           
-            valorRegistro = json[i].valorRegistro
-          
-          
+        } else if (metodoKpi == "CpuTempMax"){
 
-          cpuTempMax.innerHTML = valorRegistro;
+          cpuTempMax.innerHTML = json[i].valorRegistro;
 
            dataMysql = json[i].dtHoraRegistro
            dataTratado = new Date(dataMysql);

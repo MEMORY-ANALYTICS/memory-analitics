@@ -1,7 +1,7 @@
 
 function entrar() {
   email_input.style ='border-color: black'
-senha_input.style ='border-color: black'
+  senha_input.style ='border-color: black'
   var email = document.getElementById("email_input").value;
   var senha = document.getElementById("senha_input").value;
 
