@@ -61,8 +61,10 @@ function getKpi(metodoKpi) {
 
         if (metodoKpi == "qtdIncidentes"){
 
+          console.log(json[i])
+
           qtdIncidentes.innerHTML = json[[i]].quantidade
-          
+
         } else if (metodoKpi == "CpuTempMax"){
 
           cpuTempMax.innerHTML = json[i].valorRegistro;
