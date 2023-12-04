@@ -1,7 +1,4 @@
-sessionStorage.setItem(
-  "emailFunc", "",
-)  
-
+getServidor()
 
 dataTemp = new Date();
 
@@ -19,9 +16,12 @@ var dataHoje = `${mes}-${dia}-${ano}`
 console.log(sessionStorage.emailFunc)
 
 
-var functionKpi = ["MedTempAtual", "MedTemp", "CpuTempMax", "CpuTempMin"]
+var listKpi = ["MedTempAtual", "MedTemp", "CpuTempMax", "CpuTempMin"]
 
-
+  for (i = 0; i < listKpi.length; i++) {
+    getKpi(listKpi[i])
+  }    
+  
 
 function getServidor() {
 
@@ -39,8 +39,6 @@ function getServidor() {
 
         var select = document.getElementById("selecaoApelidoServidor");
         select.appendChild(novaOpcao);
-
-      
       }
     })
   })
@@ -48,8 +46,6 @@ function getServidor() {
       console.log(err);
     })
 }
-
-
 
 
 function getKpi(metodoKpi) {
@@ -66,13 +62,9 @@ function getKpi(metodoKpi) {
 
 
         if (metodoKpi == "CpuTempMax") {
-          if(tempCelsius){
-            valorRegistro = converterParaCelsius(json[i].valorRegistro) 
-          } else if (tempFahrenheit){
-            valorRegistro = converterParaFahrenheit(json[i].valorRegistro)   
-          } else{
+          
             valorRegistro = json[i].valorRegistro
-          }
+          
           
 
           cpuTempMax.innerHTML = valorRegistro;
@@ -110,9 +102,7 @@ function getKpi(metodoKpi) {
           }
           medTemp.innerHTML = json[i].mediaTemperatura;
 
-          dataMedTemp.innerHTML = dataHojeFront;
-
-          
+          dataMedTemp.innerHTML = dataHojeFront;          
         }
       }
     })
