@@ -19,15 +19,16 @@ public class Main {
         Timer timerProcessos = new Timer();
         timerProcessos.schedule(taskProcessos, 0, 2000);
 
-        //TimerTask taskRede = new TimerTask() {
-          //RecursoRede recursoRede = new RecursoRede;
-           // @Override
-            //public void run() {
-               // recursoRede.capturarRegistro();
-           // }
-       // };
-        //Timer timerRede = new Timer();
-        //timerRede.schedule(taskRede, 0, 1000);
+        TimerTask taskRede = new TimerTask() {
+          RecursoRede recursoRede = new RecursoRede();
+            @Override
+            public void run() {
+                recursoRede.capturarRegistro();
+            }
+
+        };
+        Timer timerRede = new Timer();
+        timerRede.schedule(taskRede, 0, 1000);
 
 
     }
