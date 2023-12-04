@@ -125,8 +125,6 @@ BEGIN
         tipoMedida VARCHAR(25),
         detalheRegistro VARCHAR(45),
         dtHoraRegistro DATETIME,
-        fkRecurso INT,
-        fkMedidaComponente INT,
         fkComponente INT,
         FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
     );
