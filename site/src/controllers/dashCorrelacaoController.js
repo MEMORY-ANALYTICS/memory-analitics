@@ -22,7 +22,7 @@ function selectServidores(req, res){
 
 function selectGraficoOcorrencia(req, res){	
     var fkEmpresa = req.body.fkEmpresa
-    
+
     console.log('Estou no Controller com o valor de:' + fkEmpresa)	
 
     servidorModel.selectGraficoOcorrencia(fkEmpresa)	
@@ -41,5 +41,6 @@ function selectGraficoOcorrencia(req, res){
 }
 
 module.exports = {
-
+    selectServidores,
+    selectGraficoOcorrencia
 } 
