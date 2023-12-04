@@ -1,6 +1,6 @@
 select * from registro where fkComponente = 4;
 
--- GRAFICO 3 ------ TAXA de TRANSMISSÃO
+-- GRAFICO 3 ------ TAXA de TRANSMISSÃO e RECEPÇÃO
 
 -- Pegar o maior valor que a rede já chegou;
 select min(valorRegistro) from registro where fkComponente = 4 AND tipoMedida = 'Mbps';
