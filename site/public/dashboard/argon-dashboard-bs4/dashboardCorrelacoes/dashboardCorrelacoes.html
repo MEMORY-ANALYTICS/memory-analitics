@@ -1065,7 +1065,7 @@
                 },
                 body: JSON.stringify({
                     fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-                    fkServidor: fkServidorVisualizado,
+                    fkServidor: 1,
                     tipoComponente: tipoComponenteDaVez
 
                 })
@@ -1095,6 +1095,8 @@
             });
         }
     }
+    selectServidores()
+    selectGraficoOcorrencia()
 </script>
 
 </html>

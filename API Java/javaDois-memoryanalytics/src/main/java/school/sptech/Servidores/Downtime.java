@@ -54,13 +54,12 @@ public class Downtime {
         dtHoraAgora = LocalDateTime.parse(stringDataFormatada, formatter);
 
         List<Registro> ultimoRegistro = conexoes.get(1).query("""
-            SELECT *
-            FROM Registro\s
-            JOIN Componente ON fkComponente = idComponente\s
-            JOIN Servidor ON fkServidor = idServidor
+            SELECT TOP 1 *
+            FROM dbo.Registro
+            JOIN dbo.Componente ON fkComponente = idComponente
+            JOIN dbo.Servidor ON fkServidor = idServidor
             WHERE idServidor = ?
-            ORDER BY dtHoraRegistro
-            DESC LIMIT 1;""",
+            ORDER BY dtHoraRegistro DESC;""",
                 new RegistroRowMapper(),
                 idServidor);
 
@@ -74,6 +73,10 @@ public class Downtime {
         System.out.println("Segundo de Downtime: " + diferencaDatas);
 
         if (diferencaDatas > 10) {
+            conexoes.get(0).update("""
+                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
+                    (?, ?, ?);             
+                    """, diferencaDatas, dtHoraAgora, idServidor);
             conexoes.get(1).update("""
                     INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
                     (?, ?, ?);             
