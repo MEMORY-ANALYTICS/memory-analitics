@@ -43,7 +43,7 @@ select sum(idChamadoServidor) as quantidade, Month(dtHoraChamado) as mes from
         select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
 	      where tipoMedida = '°C' and dtHoraRegistro like '2023-10-09' and fkServidor = 8 order by valorRegistro;
           
-          
+-- apelidoServidor          
   select apelidoServidor,macAdress from servidor join empresa on fkEmpresa = idEmpresa 
         where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = 'ana.fonseca@email.com');        
   
