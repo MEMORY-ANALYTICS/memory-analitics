@@ -151,6 +151,7 @@ public class RecursoProcessos {
                         quantidadeProcessosOnline(),
                         dateTime.format(formatter),
                         getFkServer()));
+        getConexoes().get(0).execute("INSERT INTO chamadoServidor(requisitante) VALUES ('Processo')");
         try {
             killTask();
         } catch (IOException e) {
@@ -168,6 +169,7 @@ public class RecursoProcessos {
 
     public static void main(String[] args) {
         Looca looca1 = new Looca();
+        RecursoProcessos recursoProcessos = new RecursoProcessos();
         System.out.println(looca1.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac());
     }
 }
