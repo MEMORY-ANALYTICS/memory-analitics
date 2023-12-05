@@ -57,6 +57,7 @@
       type="text/css"
     />
     <link rel="stylesheet" href="style_dashProc.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
@@ -483,9 +484,10 @@
                       />
                     </span>
                     <div class="media-body ml-2 d-none d-lg-block">
-                      <span class="mb-0 text-sm font-weight-bold"
-                        id="nomeProto"></span
-                      >
+                      <span
+                        class="mb-0 text-sm font-weight-bold"
+                        id="nomeProto"
+                      ></span>
                     </div>
                   </div>
                 </a>
@@ -572,7 +574,11 @@
               >
                 Fechar
               </button>
-              <button onclick="cadastrarProcesso()" type="button" class="btn btn-primary">
+              <button
+                onclick="cadastrarProcesso()"
+                type="button"
+                class="btn btn-primary"
+              >
                 Salvar mudanças
               </button>
             </div>
@@ -784,14 +790,19 @@
         </div>
         <div class="container-fluid">
           <div class="table-responsive" style="background-color: white">
-            
             <div class="d-flex justify-content-between m-4">
               <div>
                 <p>Processos Banidos:</p>
               </div>
-              <a class="btn" style="box-shadow: 1px 1px 15px gray;" data-toggle="modal" data-target="#exampleModalCenterAdicionar" >+</a>
+              <a
+                class="btn"
+                style="box-shadow: 1px 1px 15px gray"
+                data-toggle="modal"
+                data-target="#exampleModalCenterAdicionar"
+                >+</a
+              >
             </div>
-            
+
             <!-- Projects table -->
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -820,7 +831,7 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
-    nomeProto.innerHTML = sessionStorage.getItem('NOME_USUARIO');
+    nomeProto.innerHTML = sessionStorage.getItem("NOME_USUARIO");
     let proximaAtualizacao;
     obterDadosGrafico(4);
     const ctx = document.getElementById("myChart");
@@ -992,6 +1003,7 @@
 
     getAllProcessosBanidos(4);
     function getAllProcessosBanidos(fkServer) {
+      tableProcessos.innerHTML = '';
       fetch(`/processos/getAllProcessosBanidos/${fkServer}`, {
         cache: "no-store",
       })
@@ -1111,6 +1123,47 @@
       }
     }
 
-    function deleteProcesso(idProcesso) {}
+    function deleteProcesso(idProcesso) {
+      Swal.fire({
+        title: "Deseja realmente deletar este processo?",
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: "Deletar",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          let erro = false;
+
+          if (idProcesso == null || idProcesso == undefined) {
+            erro = true;
+          }
+          if (!erro) {
+            fetch(`/processos/deleteProcesso/${idProcesso}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                  Swal.fire("Funcionário Deletado com sucesso!", "", "success");
+                  deleteFuncionario(idProcesso);
+                  tableFuncionarios.innerHTML = "";
+                  getAllProcessosBanidos(4);
+                } else {
+                }
+              })
+              .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+              });
+          }
+        } else if (result.isDenied) {
+          Swal.fire("Mudanças não efetuadas!", "", "info");
+        }
+      });
+    }
   </script>
 </html>

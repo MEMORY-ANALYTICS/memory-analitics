@@ -19,5 +19,8 @@ router.get("/getQtdProcessosBanidos/:fkServer", function (req, res) {
 router.post("/adicionarProcesso", function (req, res) {
     processoController.adicionarProcesso(req, res);
 });
+router.post("/deleteProcesso/:idProcesso", function(req,res){
+    processoController.deleteProcesso(req,res);
+});
 
 module.exports = router;
