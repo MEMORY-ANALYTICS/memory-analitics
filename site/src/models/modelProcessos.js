@@ -5,13 +5,15 @@ function buscarUltimasMedidas(fkServer, limite_linhas) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `select top ${limite_linhas}
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,  
-                        momento,
-                        FORMAT(momento, 'HH:mm:ss') as momento_grafico
-                    from medida
-                    where fk_aquario = ${fkServer}
-                    order by id desc`;
+        usoCpu as cpu, 
+        usoRam as ram,
+        processoMaiorMediaUso as pmmu,
+        qtdProcessosOnline,
+        dtHora,
+        FORMAT(dtHora,'%H:%m:%s') as momento_grafico
+        from processos
+        where fkServidor = ${fkServer}
+        order by idProcessos desc`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `select 
         usoCpu as cpu, 
@@ -39,12 +41,12 @@ function buscarMedidasEmTempoReal(fkServer) {
 
   if (process.env.AMBIENTE_PROCESSO == "producao") {
     instrucaoSql = `select top 1
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,  
-                        CONVERT(varchar, momento, 108) as momento_grafico, 
-                        fk_aquario 
-                        from medida where fk_aquario = ${fkServer} 
-                    order by id desc`;
+        usoCpu as cpu, 
+        usoRam as ram,  
+        CONVERT(varchar, dtHora, 108) as momento_grafico, 
+        fkServidor 
+        from processos where fkServidor = ${fkServer} 
+        order by idProcessos desc`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `select 
         usoCpu as cpu, 
@@ -72,13 +74,13 @@ function getAllProcessosBanidos(fkServer) {
   return database.executar(instrucaoSql);
 }
 
-function getQtdProcessosBanidos(fkServer){
-  instrucaoSql = `select count(idProcesso) as qtdProcessos from processosBanidos where fkServidor = ${fkServer}`
+function getQtdProcessosBanidos(fkServer) {
+  instrucaoSql = `select count(idProcesso) as qtdProcessos from processosBanidos where fkServidor = ${fkServer}`;
   return database.executar(instrucaoSql);
 }
 module.exports = {
   buscarUltimasMedidas,
   buscarMedidasEmTempoReal,
   getAllProcessosBanidos,
-  getQtdProcessosBanidos
+  getQtdProcessosBanidos,
 };
