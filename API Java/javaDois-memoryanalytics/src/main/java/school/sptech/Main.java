@@ -13,12 +13,12 @@ public class Main {
 
         TimerTask timerTask = new TimerTask() {
             RecursoRede recursoRede = new RecursoRede();
-//            RecursoProcessos recursoProcessos = new RecursoProcessos();
-//            RecursoDiscoTamanhoTotal recursoDiscoTamanhoTotal = new RecursoDiscoTamanhoTotal();
+            RecursoProcessos recursoProcessos = new RecursoProcessos();
+            RecursoDiscoTamanhoTotal recursoDiscoTamanhoTotal = new RecursoDiscoTamanhoTotal();
             @Override
             public void run() {
-//                recursoDiscoTamanhoTotal.capturarRegistro();
-//                recursoProcessos.capturarRegistro();
+                recursoDiscoTamanhoTotal.capturarRegistro();
+                recursoProcessos.capturarRegistro();
                 recursoRede.capturarRegistro();
             }
         };
