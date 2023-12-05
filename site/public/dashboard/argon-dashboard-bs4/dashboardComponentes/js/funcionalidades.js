@@ -4,6 +4,42 @@ mudarServidor()
   // Alterando nome do Login
   nomeLogin.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
+let picoCPU = 80;  // Substitua pelos valores reais
+let picoRAM = 80;  // Substitua pelos valores reais
+let picoDISCO = 80;  // Substitua pelos valores reais
+
+  
+function downloadPDF() {
+  const contentCopy = document.getElementById('containers').cloneNode(true);
+  const spanElement = contentCopy.querySelector('span');
+  const filterElement = contentCopy.querySelector('.filter');
+
+  if (filterElement) {
+    filterElement.parentNode.removeChild(filterElement);
+  }
+
+  // Adicione os valores de pico de uso ao conteúdo do PDF
+  const contentHTML = `
+    <p>Pico de Uso de CPU: ${picoCPU}%</p>
+    <p>Pico de Uso de RAM: ${picoRAM}%</p>
+    <p>Pico de Uso de DISCO: ${picoDISCO}%</p>
+  `;
+
+  // Adicione o conteúdo HTML ao clone do elemento
+  contentCopy.innerHTML += contentHTML;
+
+  const options = {
+    margin: 10,
+    filename: 'relatorio.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    font: { size: 30 } // Tamanho da fonte maior
+  };
+
+  html2pdf(contentCopy, options);
+}
+
 
 function preencherDropdownServidores(servidores) {
   const selectServidor = document.getElementById('selectServidor');
@@ -13,6 +49,7 @@ function preencherDropdownServidores(servidores) {
     option.value = servidor.idServidor; // Aqui, assumo que o servidor tem um atributo idServidor, ajuste conforme sua estrutura
     option.text = servidor.nomeServidor; // Substitua pelo atributo que contém o nome do servidor
     selectServidor.appendChild(option);
+    getCpu(servidor.idServidor);
   });
 }
 
@@ -22,7 +59,9 @@ function mudarServidor() {
   const selectServidor = document.getElementById('selectServidor');
   // Chame a função para buscar e renderizar os dados com base no servidor selecionado
   
-  fetch("/dashboardHardware/servidor").then(res=>{
+  fetch("/dashboardHardware/servidor",{
+    cache: 'no-store'
+  }).then(res=>{
     res.json().then(json=>{
       for (var i = 0; i < json.length; i++){
         console.log(json[i])
@@ -37,39 +76,6 @@ function mudarServidor() {
   })
   }
 
-  function getCpu(fkServidor){
-    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-          fkServidor: selectServidor.value,
-      })
-  }).then(function (resposta) {
-      if (resposta.ok) {
-        
-          resposta.json().then(json => {
-              var valorRegistro = json[0].usoCpu
-              var dataRegistro = json[0].dtHoraRegistro
-              var fkServidor = json[0].fkServidor
-          });
-      } else {
-          resposta.text().then(textoErro => {
-              console.error(textoErro);
-          });
-      }
-  }).catch(function (erro) {
-      console.log(erro);
-  });
-}
-
-async function buscarEAtualizarDados(fkServidor) {
-  // Adapte conforme necessário para buscar os dados do servidor selecionado
-  const cpuData = await buscarDadosCPU(fkServidor);
-  renderizarGraficoCPU(cpuData);
-}
-
   function mudarGrafico(tipo) {
     // Oculta todos os gráficos
     document.getElementById('containerCPU').style.display = 'none';
@@ -78,9 +84,6 @@ async function buscarEAtualizarDados(fkServidor) {
     // Exibe o gráfico relevante
     if (tipo === 'CPU') {
       document.getElementById('containerCPU').style.display = 'block';
-      const selectServidor = document.getElementById('selectServidor');
-      const fkServidor = selectServidor.value;
-      buscarEAtualizarDados(fkServidor);
     } else if (tipo === 'RAM') {
       document.getElementById('containerRAM').style.display = 'block';
       renderizarGraficoRAM(); // Chame a função específica para renderizar o gráfico de RAM
@@ -90,47 +93,175 @@ async function buscarEAtualizarDados(fkServidor) {
     }
   }
 
-const ctxCPU = document.getElementById('containerCPU').getContext('2d');
-const chartProcessador = new Chart(ctxCPU, {
-  type: 'line',
-  data: {
-    labels: [],  // Adicione rótulos dinamicamente conforme necessário
-    datasets: [{
-      label: 'Uso da CPU',
-      borderColor: 'rgba(75, 192, 192, 1)',
-      data: [],
-    }]
-  },
-  options: {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom'
+  function criarGrafico(containerId, title, seriesName, yAxisTitle) {
+    return Highcharts.chart(containerId, {
+      chart: {
+        type: "spline",
+        backgroundColor: "#172b4d",
+        animation: Highcharts.svg,
+        marginRight: 10,
+        // events: {
+        //   load: function () {
+        //     setInterval(function () {
+        //       updateChart(this.series);
+        //     }, 1000);
+        //   },
+        // },
       },
-      y: {
+      title: {
+        text: title,
+        style: {
+          color: "white",
+        },
+      },
+      xAxis: {
+        type: "datetime",
+        tickPixelInterval: 150,
+        gridLineWidth: 0,
+        labels: {
+          style: {
+            color: "white",
+          },
+        },
+      },
+      yAxis: {
+        title: {
+          text: yAxisTitle,
+          style: {
+            color: "white",
+          },
+        },
         min: 0,
-        max: 100
-      }
-    }
+        max: 100,
+        plotLines: [
+          {
+            value: 0,
+            width: 1,
+            color: "#808080",
+          },
+        ],
+        gridLineWidth: 0,
+        labels: {
+          style: {
+            color: "white",
+          },
+          formatter: function () {
+            if (this.value === 100) {
+              return "100%";
+            }
+            return this.value;
+          },
+        },
+      },
+      tooltip: {
+        formatter: function () {
+          return (
+            "<b>" +
+            this.series.name +
+            "</b><br/>" +
+            Highcharts.dateFormat("%Y-%m-%d %H:%M:%S", this.x) +
+            "<br/>" +
+            Highcharts.numberFormat(this.y, 2) +
+            " %"
+          );
+        },
+      },
+      legend: {
+        enabled: false,
+      },
+      exporting: {
+        enabled: false,
+      },
+      series: [
+        {
+          name: seriesName,
+          data: (function () {
+            let data = [];
+            let time = new Date().getTime();
+  
+            // Generate data based on the scenario
+            for (let i = -19; i <= 0; i++) {
+              let usage = 0;
+  
+              // Simulate different scenarios for CPU, RAM, and Disk usage
+              if (seriesName === "Uso da CPU") {
+                // Simulate CPU usage between 10% and 90%
+                usage = 10 + Math.random() * 60;
+              } else if (seriesName === "Uso da RAM") {
+                // Simulate RAM usage between 30% and 80%
+                usage = 30 + Math.random() * 50;
+              } else if (seriesName === "Uso do Disco") {
+                // Simulate Disk usage between 20% and 70%
+                usage = 20 + Math.random() * 50;
+              }
+  
+              data.push({
+                x: time + i * 1000,
+                y: usage,
+              });
+            }
+            return data;
+          })(),
+        },
+      ],
+    });
   }
-});
 
-function updateChart(chart, cpuUsage) {
-  // Adicione os dados ao gráfico
-  const currentTime = new Date().getTime();
-  chart.data.labels.push(currentTime);
-  chart.data.datasets[0].data.push(cpuUsage);
+  var chartCPU = criarGrafico("containerCPU", "Uso da CPU em Tempo Real", "Uso da CPU", "");
+  var chartRAM = criarGrafico("containerRAM", "Uso da RAM em Tempo Real", "Uso da RAM", "");
+  var chartDISCO = criarGrafico("containerDISCO", "Uso do Disco em Tempo Real", "Uso do Disco", "");
 
-  // Limite o número de pontos no gráfico (opcional)
-  const maxPoints = 20;
-  if (chart.data.labels.length > maxPoints) {
-    chart.data.labels.shift();
-    chart.data.datasets[0].data.shift();
+function construirGraficos() {
+  if (chartCPU != undefined) {
+    chartCPU.destroy();
+    chartRAM.destroy();
+    chartDISCO.destroy();
   }
+  
+  chartCPU = criarGrafico("containerCPU", "Uso da CPU em Tempo Real", "Uso da CPU", "");
+  chartRAM = criarGrafico("containerRAM", "Uso da RAM em Tempo Real", "Uso da RAM", "");
+  chartDISCO = criarGrafico("containerDISCO", "Uso do Disco em Tempo Real", "Uso do Disco", "");
 
-  // Atualize o gráfico
-  chart.update();
 }
 
-  // Crie o gráfico da CPU
-const chartCPU = Highcharts.chart("containerCPU")
+
+var cpuMax = 0;
+var ramMax = 0;
+var discoMax = 0;
+
+function updateChart(series, resourceType) {
+  let resourceUsage;
+
+  if (resourceType === "CPU") {
+    resourceUsage = 60 + Math.random() * 25;
+    if (resourceUsage > cpuMax) {
+      cpuMax = resourceUsage;
+      span_cpuMax.innerHTML = Math.round(cpuMax,2) + "%"; 
+    }
+  } else if (resourceType === "RAM") {
+    resourceUsage = 60 + Math.random() * 20;
+    if (resourceUsage > ramMax) {
+      ramMax = resourceUsage;
+      span_ramMax.innerHTML = Math.round(ramMax,2) + "%"; 
+    }
+  } else if (resourceType === "DISCO") {
+    resourceUsage = 40 + Math.random() * 30;
+    if (resourceUsage > discoMax) {
+      discoMax = resourceUsage;
+      span_discoMax.innerHTML = Math.round(discoMax,2) + "%"; 
+  }
+}
+
+  const currentTime = new Date().getTime();
+  series.addPoint([currentTime, resourceUsage], true, true);
+}
+
+const historicoCPU = [];
+const historicoRAM = [];
+const historicoDISCO = [];
+
+setInterval(function () {
+  updateChart(chartCPU.series[0], "CPU");
+  updateChart(chartRAM.series[0], "RAM");
+  updateChart(chartDISCO.series[0], "DISCO");
+}, 1000);

@@ -41,7 +41,7 @@ public class Downtime {
 
         List<Servidor> servidors = conexoes.get(0).query("SELECT * FROM Servidor WHERE macAdress = ?",
                 new ServidorRowMapper(),
-                "e2:2e:0b:67:0e:12");
+                mac);
 
         return servidors.get(0).getIdServidor();
     };

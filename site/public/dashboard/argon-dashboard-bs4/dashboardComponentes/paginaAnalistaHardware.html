@@ -536,8 +536,8 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Pico de Uso: CPU
                           </h5>
-                          <span class="h2 font-weight-bold mb-0" id="downtime"
-                            >60</span
+                          <span class="h2 font-weight-bold mb-0" id="span_cpuMax"
+                            >0%</span
                           >
                         </div>
                         <div class="col-auto">
@@ -560,6 +560,9 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Pico de Uso: RAM
                           </h5>
+                          <span class="h2 font-weight-bold mb-0" id="span_ramMax"
+                            >0%</span
+                          >
                           <span
                             class="h2 font-weight-bold mb-0"
                             id="compProblematico"
@@ -599,6 +602,9 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Pico de Uso: Disco
                           </h5>
+                          <span class="h2 font-weight-bold mb-0" id="span_discoMax"
+                            >0%</span
+                          >
                           <span
                             class="h2 font-weight-bold mb-0"
                             id="servInstaveis"
@@ -635,7 +641,7 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Mês com maiores picos
                           </h5>
-                          <span class="h2 font-weight-bold mb-0">31</span>
+                          <span class="h2 font-weight-bold mb-0">Julho(7)</span>
                         </div>
                         <div class="col-auto">
                           <div
@@ -666,7 +672,7 @@
                           style="color: white; font-weight: 600"
                           >Selecionar Servidor:</label
                         >
-                        <select class="form-control" style="color: black;" id="selectServidor">
+                        <select class="form-control" style="color: black;" id="selectServidor"  onchange="construirGraficos();">
                           <!-- Os options serão preenchidos dinamicamente com os servidores do banco de dados -->
                         </select>
                       </div>
@@ -710,7 +716,7 @@
                   </div>
                 </div>
                 <div class="d-flex">
-                  <div class="card-body">
+                  <div class="card-body" id="containers">
                     <!-- Chart -->
                     <div class="chart" id="containerCPU">
                       <!-- Chart wrapper for CPU -->
@@ -720,11 +726,7 @@
                       <!-- Chart wrapper for RAM (hidden by default) -->
                     </div>
 
-                    <div
-                      class="chart"
-                      id="containerDISCO"
-                      style="display: none"
-                    >
+                    <div class="chart" id="containerDISCO" style="display: none">
                       <!-- Chart wrapper for DISCO (hidden by default) -->
                     </div>
                     <!-- Chart wrapper -->
@@ -733,14 +735,19 @@
               </div>
               
             </div>
+            <div class="col-xl-4">
+              <button class="btn btn-lg btn-success w-100" id="criarRegistro" onclick="downloadPDF()">Criar registro</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="../dashboard-bootstrap/dashboards/js/gerente/dashboardG_funcoes.js"></script>
     <script src="./js/funcionalidades.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
   </body>
 </html>
