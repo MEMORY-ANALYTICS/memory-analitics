@@ -7,7 +7,7 @@ function graficoCpuHora(fkServidor) {
   instrucaoSql = `
   select valorRegistro, dtHoraRegistro,tipoComponente from 
   registro join componente on fkComponente = idComponente 
-  where tipoMedida = '°C' and  ${fkServidor} order by dtHoraRegistro desc ;
+  where tipoMedida = '°C' and  fkServidor = ${fkServidor} order by dtHoraRegistro desc ;
   `
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -19,7 +19,7 @@ function graficoCpuSemana() {
   fkServidor = 8;
 
   instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
-	where tipoMedida = "°C" and date(dtHoraRegistro) like '${anoMes}%' 
+	where tipoMedida = '°C' and date(dtHoraRegistro) like '${anoMes}%' 
   and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
     group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc limit 7;
 `
@@ -52,7 +52,7 @@ function filtroData() {
   
   instrucaoSql = `
   SELECT DATE(dtHoraRegistro) AS dia, round(AVG(valorRegistro),2) AS valor FROM registro
-  WHERE dtHoraRegistro BETWEEN '${dataInicio}' AND '${dataFim}' and tipoMedida = "°C" 
+  WHERE dtHoraRegistro BETWEEN '${dataInicio}' AND '${dataFim}' and tipoMedida = '°C' 
   and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
   GROUP BY DATE(dtHoraRegistro) order by dia;
 `
@@ -68,7 +68,7 @@ function graficoIncidentes(apelidoServidor) {
   instrucaoSql = `
   select sum(idChamadoServidor) as quantidade, Month(dtHoraChamado) as mes from 
   chamadoServidor join componente on fkComponente = idComponente
-  join servidor on fkServidor = idServidor where descricao like "CPU" and apelidoServidor = "${apelidoServidor}"
+  join servidor on fkServidor = idServidor where descricao like 'CPU' and apelidoServidor = '${apelidoServidor}'
   group by Month(dtHoraChamado) order by mes desc;
 `
 
