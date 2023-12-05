@@ -21,11 +21,13 @@ function selectServidores(req, res){
 }
 
 function selectGraficoOcorrencia(req, res){	
-    var fkEmpresa = req.body.fkEmpresa
+    var fkServidor = req.body.fkServidor;
+    var requisitante = req.body.requisitante;
+    var fkEmpresa = req.body.fkEmpresa;
 
-    console.log('Estou no Controller com o valor de:' + fkEmpresa)	
+    console.log('Estou no Controller com o valor de: fkServidor, tipoComponente -> ' + fkServidor,requisitante)	
 
-    dashCorrelacaoModel.selectGraficoOcorrencia(fkEmpresa)	
+    dashCorrelacaoModel.selectGraficoOcorrencia(fkServidor,requisitante,fkEmpresa)	
     .then(function (resultado) {	
         if (resultado.length > 0) {	
             res.status(200).json(resultado);	
