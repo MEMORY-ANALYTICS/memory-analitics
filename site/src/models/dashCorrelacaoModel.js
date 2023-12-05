@@ -11,29 +11,43 @@ function selectServidores(fkEmpresa) {
   return database.executar(instrucao);
 }
 
-function selectGraficoOcorrencia(fkServidor, requisitante, fkEmpresa) {
+function selectGraficoOcorrencia(fkServidor, requisitante, fkEmpresa, metodo) {
   console.log(
     "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectGraficoOcorrencia(): "
   );
   if (fkServidor != 0) {
-    var instrucao = `SELECT count(idChamadoServidor) as totalChamados FROM chamadoServidor WHERE fkServidor = ${fkServidor} AND requisitante = '${requisitante}';`;
+      var instrucao = `SELECT count(idChamadoServidor) as TotalChamados
+    FROM chamadoServidor
+    WHERE requisitante = '${requisitante}'
+      AND fkServidor = ${fkServidor}
+    `;
+      console.log("Executando a instrução SQL: \n" + instrucao);
+      return database.executar(instrucao);
 
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
-  } else {
-    var instrucao = `SELECT COUNT(cs.idChamadoServidor) AS TotalChamados
-    FROM chamadoServidor cs
-    JOIN servidor s ON cs.fkServidor = s.idServidor
-    JOIN empresa e ON s.fkEmpresa = e.idEmpresa
-    WHERE e.idEmpresa = ${fkEmpresa}
-    AND cs.requisitante = '${requisitante}';`
+    }else {
+      var instrucao = `SELECT count(idChamadoServidor) as TotalChamados
+    FROM chamadoServidor
+    WHERE requisitante = '${requisitante}'
+    `;
+      console.log("Executando a instrução SQL: \n" + instrucao);
+      return database.executar(instrucao);
 
-    console.log("Executando a instrução SQL: \n" + instrucao);
-    return database.executar(instrucao);
+    } 
   }
-}
+
+  function selectTemperatura(fkServidor) {
+  
+    instrucaoSql = `
+    select valorRegistro, dtHoraRegistro,tipoComponente from 
+    registro join componente on fkComponente = idComponente 
+    where tipoMedida = '°C' and  ${fkServidor} order by dtHoraRegistro desc ;
+    `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+  }
 
 module.exports = {
   selectServidores,
-  selectGraficoOcorrencia
+  selectGraficoOcorrencia,
+  selectTemperatura,
 };

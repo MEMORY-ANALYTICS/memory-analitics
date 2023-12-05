@@ -20,6 +20,27 @@ function selectServidores(req, res){
     });	
 }
 
+function selectTemperatura(req, res){	
+    var fkServidor = req.body.fkServidor;
+
+    console.log('Estou no Controller com o valor de: fkServidor, tipoComponente -> ' + fkServidor)	
+
+    dashCorrelacaoModel.selectTemperatura(fkServidor)	
+    .then(function (resultado) {	
+        if (resultado.length > 0) {	
+            res.status(200).json(resultado);	
+            console.log("Resultado da Controller:"+ resultado);	
+        } else {	
+            res.status(204).send("Nenhum resultado encontrado!")	
+        }	
+    }).catch(function (erro) {	
+        console.log(erro);	
+        console.log("Houve um erro ao buscar a temperatura", erro.sqlMessage);	
+        res.status(500).json(erro.sqlMessage);	
+    });	
+}
+
+
 function selectGraficoOcorrencia(req, res){	
     var fkServidor = req.body.fkServidor;
     var requisitante = req.body.requisitante;
@@ -44,5 +65,6 @@ function selectGraficoOcorrencia(req, res){
 
 module.exports = {
     selectServidores,
-    selectGraficoOcorrencia
+    selectGraficoOcorrencia,
+    selectTemperatura
 } 
