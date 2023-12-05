@@ -259,7 +259,7 @@ function getDowntime() {
             // console.log(resposta)
             resposta.json().then(function (json) {
                 // console.log(resposta)
-                segundos = 1000
+                segundos = json[0].tempoDowntime
 
                 if (segundos <= 60) {
                     downtime.innerHTML = `${segundos}s`

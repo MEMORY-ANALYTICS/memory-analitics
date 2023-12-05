@@ -81,12 +81,32 @@ GROUP BY DATE(dtHoraRegistro);
 select localServidor from servidor where apelidoServidor = "Servidor B";
 
 
+select count(idChamadoServidor) as quantidade from chamadoServidor join componente on fkComponente = idComponente
+join servidor on fkServidor = idServidor where descricao like "CPU" and apelidoServidor = "Servidor B";
+
+-- graficoIncidentes
+SELECT DATE(dtHoraRegistro) AS dia, round(AVG(valorRegistro),2) AS valor FROM registro
+  WHERE dtHoraRegistro BETWEEN '2023-01-01' AND '2023-12-31' and tipoMedida = "°C" 
+  and fkComponente = (select idComponente from componente where fkServidor = 8)
+  GROUP BY DATE(dtHoraRegistro) order by dia;
 
 
 
 
 
--- KPI 4
+-- qtd Chamado e o mes
+select sum(idChamadoServidor) as quantidade, Month(dtHoraChamado) as mes from chamadoServidor 
+join componente on fkComponente = idComponente
+join servidor on fkServidor = idServidor where descricao like "CPU" and apelidoServidor = "Servidor B"
+group by Month(dtHoraChamado) order by mes;	
+
+
+
+select * from servidor;
+select * from componente;
+
+select * from chamadoServidor;
+-- KPI 4Document.getElementById("dataFim").value
 select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
 	where tipoMedida = '°C'  and fkServidor = 8 order by valorRegistro, dtHoraRegistro  limit 1;
     
@@ -180,5 +200,41 @@ select * from registroEmpresa;
 
 select * from login;
 select * from funcionario;
+
+("CPU","2023-11-12 10:00:00", 2),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-11-12 10:00:00", 2 ),
+("CPU","2023-10-12 11:00:00", 2 ),
+("CPU","2023-10-12 11:00:00", 2 ),
+("CPU","2023-10-12 11:00:00", 2 ),
+("CPU","2023-10-12 11:00:00", 2 ),
+("CPU","2023-10-12 11:00:00", 2 ),
+
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+("CPU","2023-09-12 11:00:00", 2 ),
+
+("CPU","2023-08-12 11:00:00", 2 ),
+("CPU","2023-08-12 11:00:00", 2 );
 
 

@@ -346,15 +346,21 @@
 
             <div class="col-xl-12">
               <div class="row">
-                <div class="form-group col-xl-3 py-2 bg bg-white rounded mr-2"
+                <div class="form-group col-xl-5 py-2 bg bg-white rounded"
                   style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-                  <div class="col">
-                    <select class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
-                                  box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);" id="selecaoApelidoServidor">
-                    </select>
+                  <div class="col-xl-12">
+                    <div class="row">
+                      <div class="col-xl-6 d-flex justify-content-center align-middle">
+                        <p class="h2 text-center ">Servidor Visualizado:</h1>
+                      </div>
+                      <div class="col-xl-6 py-2">
+                        <select class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
+                                                box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);"
+                          id="selecaoApelidoServidor">
+                        </select>
+                      </div>
+                    </div>
                   </div>
-
-
                 </div>
               </div>
             </div>
@@ -548,54 +554,36 @@
 
 
         <div class="card" style="box-shadow:
-        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); width: 30%;">
+        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); width: 30%; height: 20%; display: none;">
           <div class="card-header bg-transparent">
+        </div>  
+        
+          <div class="card-body" style="height: 10%; display: none;">
 
-            <div class="row align-items-center">
+              <div class="card-body" style="padding: 0%;">
 
-              <div class="col">
-                <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">Temperatura da Região</h5>
-                <h5 class="h3 mb-0" style="padding: 0; margin-bottom: 0; text-align: center;">
-                  <span>Local:</span>
-                  <span id="localServidor"></span>
-                </h5>
-              </div>
-            </div>
-          </div>
-          <div class="card-body" style="padding-bottom: 0%;">
 
-            <div class="card text-center shadow-lg" style="max-width: 24rem;">
-
-              <div class="card-body">
-                <div class="city">Cidade exemplo</div>
-                <div class="date">Domingo, 30 Novembro 2020</div>
-                <div class="container-temp"
-                  style="display: flex; justify-content: center; font-size: 50px; font-weight: 900;">
-                  <div>22</div>
-                  <span>ºC</span>
-                </div>
                 <div class="container-img">
                   <img src="../../../assets/icons_clima/unknown.png" alt="">
                 </div>
-                <div class="weather">Nublado</div>
+
               </div>
             </div>
 
-            <div class="card-body" style="padding-bottom: 0%;">
-            </div>
+
           </div>
         </div>
-      
-        <div class="row col-xl-12"  style="justify-content: space-between;">
 
-          <div class=" col-xl-6" >
+        <div class="row col-xl-12" style="justify-content: space-between;">
+
+          <div class=" col-xl-7">
             <div class="card bg-default" style="box-shadow:
               0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
               <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                   <div class="col">
                     <ul class="nav nav-pills" style="display: flex; justify-content: space-around;">
-                      
+
                       <li class="">
                         <input type="date" style="width: auto; border-radius: 1%;" id="dataInicio">
                       </li>
@@ -627,18 +615,18 @@
             </div>
           </div>
 
-        
-            <div class="col-xl-6" style="justify-content: space-around;">
-              <div class="card bg-default" style="box-shadow:
+
+          <div class="col-xl-5" style="justify-content: space-around;">
+            <div class="card bg-default" style="box-shadow:
               0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
               <div class="card-header bg-transparent">
                 <div class="row align-items-center">
                   <div class="col">
                     <ul class="nav nav-pills" style="justify-content: space-around;">
                       <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">
-                        Média de incidentes por mês
+                        Quantidade de incidentes por mês
                       </h5>
-                    
+
                     </ul>
                   </div>
 
@@ -646,12 +634,12 @@
                 </div>
               </div>
               <div class="card-body" style="box-shadow:
-            0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+            0.3em 0.3em 1em rgba(65, 58, 58, 0.6); justify-content: center;">
 
                 <!-- Chart -->
 
 
-                <div class="chart">
+                <div class="chart" style="display: flex; justify-content: center;">
                   <canvas id="graficoIncidentesMes" class="chart-canvas"></canvas>
                 </div>
 
@@ -659,22 +647,15 @@
             </div>
           </div>
 
-
-        </div>
-
-
-        </div>
-        
-        
-        
-        
+          
       </div>
     </div>
   </div>
-</div>
-</div>
-</footer>
-</div>
+  </div>
+  </div>
+  </div>
+  </footer>
+  </div>
   </div>
   <!-- Argon Scripts -->
   <!-- Core -->
@@ -697,74 +678,7 @@
   <script src="../public/js/graficos.js"></script>
   <script src="../public/js/index.js"></script>
 
-  <script>
-    const ctx = document.getElementById('graficoTemperatura');
 
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Processador',
-          data: [],
-          borderWidth: 1
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-
-    const ctx1 = document.getElementById('graficoComparativo');
-
-    new Chart(ctx1, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'temperatura',
-          data: [],
-          borderWidth: 1
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-    const ctx2 = document.getElementById('graficoIncidentesMes');
-
-    new Chart(ctx2, {
-      type: 'pie',
-      data: {
-        labels: ['céu limpo', 'nublado', 'tempaste'],
-        datasets: [{
-          label: 'temperatura',
-          data: [17, 22, 30],
-          borderWidth: 1
-        }
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  </script>
 
 </body>
 

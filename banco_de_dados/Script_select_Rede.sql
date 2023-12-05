@@ -47,7 +47,7 @@ SELECT valorRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'Paco
 
 
 -- 1º Select para pegar os servidores da empresa
-SELECT * FROM servidor JOIN componente ON fkServidor=idServidor WHERE fkEmpresa = 10005 AND tipoComponente = 'REDE';
+SELECT * FROM servidor JOIN componente ON fkServidor=idServidor WHERE fkEmpresa = 10004 AND tipoComponente = 'REDE';
 
 -- Select para pegar o idComponente REDE do servidor -> premissa 1 componente rede por servidor
 SELECT idComponente FROM componente WHERE fkServidor = 4 AND tipoComponente = 'REDE';

@@ -1,44 +1,44 @@
-selectServidorVetor();
 
-function selectServidorVetor() { //ATUALIZAR DATALIST DOS PONTOS
-        // alert(sessionStorage.EMPRESA_USUARIO)
-        var fkEmpresa = sessionStorage.EMPRESA_USUARIO;
+var apelidosServidores = [];
 
-        fetch(`/dashboardRede3/listar/${fkEmpresa}`,{
-                cache: "no-store",
-              }).then(function (resposta) {
-                if (resposta.ok) {
-                        if (resposta.status == 204) {
-                                var feed = document.getElementById("selecionarServidor");
-                                var mensagem = document.createElement("option");
-                                feed.appendChild(mensagem);
-                                throw "Nenhum resultado encontrado!!";
-                        }
+function selectServidores() {
 
-                        resposta.json().then(function (resposta) {
-                                console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-                                var feed = document.getElementById("selecionarServidor");
-                                feed.innerHTML = "";
-                                for (var i = 0; i < resposta.length; i++) {
-                                        var publicacao = resposta[i];
-
-                                        var novaOpcao = document.createElement("option");
-                                        novaOpcao.text = json[i].apelidoServidor
-                                        novaOpcao.value = json[i].idServidor
-
-                                        var select = document.getElementById("selecionarServidor");
-                                        select.appendChild(novaOpcao);
-                                }
-                        });
-                } else {
-                        throw ("Houve um erro na API")
-                }
-        }).catch(function (resposta) {
-                console.error(resposta);
-        });
+  fetch("/dashCorrelacao/selectServidores", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          fkEmpresa: sessionStorage.EMPRESA_USUARIO
+      })
+  }).then(function (resposta) {
+      if (resposta.ok) {
+          resposta.json().then(json => {
+              console.log("json comprimento")
+              console.log(json.length)
+              console.log("json colchetes")
+              console.log(json[0])
+              for (var i = 0; i < json.length; i++) {
+                  apelidosServidores.push([json[i].apelidoServidor, json[i].idServidor]);
+              }
+              for (var i = 0; i < apelidosServidores.length - 1; i++) {
+                  console.log(apelidosServidores[i][1], apelidosServidores[i][0])
+                  var option = document.createElement('option');
+                  option.value = apelidosServidores[i][1];
+                  option.text = apelidosServidores[i][0];
+                  listaServidores.appendChild(option);
+              }
+          });
+      } else {
+          resposta.text().then(textoErro => {
+              console.error(textoErro);
+          });
+      }
+  }).catch(function (erro) {
+      console.log(erro);
+  });
 }
-
+selectServidores();
 selectIdComponente(4);
 function selectIdComponente(fkServidor) {
         var fkServidor = fkServidor;
