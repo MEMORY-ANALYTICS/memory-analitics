@@ -153,5 +153,88 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
 
+INSERT INTO chamadoServidor (codigoChamado, descricao, dtHoraChamado, requisitante, fkServidor)
+VALUES ('COD1', 'Chamado relacionado a Processo', '2023-11-01 12:00:00', 'Processo', 1),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 1),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 1),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 1),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 1);
+
+
+-- Para o requisitante 'Rede'
+INSERT INTO chamadoServidor (codigoChamado, descricao, dtHoraChamado, requisitante, fkServidor)
+VALUES('COD1', 'Chamado relacionado a Processo', '2023-11-01 12:00:00', 'Processo',2),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 2),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 2),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 2),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 2);
+
+-- Para o requisitante 'Temperatura'
+INSERT INTO chamadoServidor (codigoChamado, descricao, dtHoraChamado, requisitante, fkServidor)
+VALUES ('COD3', 'Chamado relacionado a Temperatura', '2023-12-01 10:45:00', 'Temperatura', 3),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 3),
+	   ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 3),
+	   ('COD1', 'Chamado relacionado a Processo', '2023-11-01 12:00:00', 'Processo',3),
+	   ('COD1', 'Chamado relacionado a Processo', '2023-11-01 12:00:00', 'Processo',3),
+	   ('COD1', 'Chamado relacionado a Processo', '2023-11-01 12:00:00', 'Processo',3),
+	   ('COD2', 'Chamado relacionado a Rede', '2023-11-15 14:30:00', 'Rede', 3);
+
+
+-- Para o requisitante 'Componente'
+INSERT INTO chamadoServidor (codigoChamado, descricao, dtHoraChamado, requisitante, fkServidor)
+VALUES ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4),
+('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4);
 
 INSERT INTO processosBanidos (nomeProcesso, fkServidor) VALUES ('chrome.exe', 12);
