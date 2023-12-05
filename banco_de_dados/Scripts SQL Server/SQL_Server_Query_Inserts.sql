@@ -26,39 +26,71 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Gustavo Desunte', 'gustavo@email.com', '11122233344', 'A', 10000, 1, NULL),
 ('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10000, 2, 100),
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10000, 3, 100),
-('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 1, NULL),
-('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10004, 1, null),
-('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10004, 2, 104); 
+('Daniel', 'daniel@email.com', '44455566677', 'C', 10000, 3, NULL),
+('Raphael Klein', 'raphael@email.com', '55566677788', 'A', 10000,1,NULL),		
+('Alexandra Harumi', 'alexandra@email.com', '66677788899', 'A', 10000,1,NULL);
+
+select * from funcionario;
 
 INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('gustavo@email.com', 'senha123', 100),
 ('adriano@email.com', 'senha456', 101),
 ('gabriel@email.com', 'senha789', 102),
 ('daniel@email.com', 'senhaDaniel', 103),
-('rafael.almeida@email.com', 'rafa123', 104),
-('ana.fonseca@email.com','ana123',105);
+('raphael@email.com','senha101', 104),
+('alexandra@email.com','senha110', 105);
 
-INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
-('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
-('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10001),
-('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10002),
-('Linux', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10002),
-('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10002),
-('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
-('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10004),
-('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10004),
-('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10004),
-('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10004);
+INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, macAdress, fkEmpresa) VALUES
+('Windows', 'rapha', 'd0-94-66-c6-bf-02', 10000),
+('Windows', 'adriano', '30:24:a9:fb:e1:1b', 10000),
+('Windows', 'danie', '192.168.1.3', 10000),
+('Windows', 'mined', '192.168.1.4', 10000),
+('Linux', 'ale123', '00:45:e2:dd:d6:45', 10000),
+('Windows', 'gabbranco', '192.168.1.7', 10000),
+('Linux', 'ale321', '98:2c:bc:a3:63:12', 10000);
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
-('Intel', 'Xeon', 'CPU', 2, 10, 8), -- CPU
-('Intel', 'Xeon', 'CPU', 2, 10, 9), -- CPU
-('Intel', 'Xeon', 'CPU', 2, 10, 10), -- CPU
+('Intel', 'Xeon', 'CPU', 2, 10, 1), -- CPU
 ('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM
 ('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 2), -- REDE
+('TPLink','NP3200','REDE', NULL, NULL, 1); -- REDE
+
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', 2, 10, 2), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 2), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 2), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 2); -- REDE
+
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', 2, 10, 3), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 3), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 3), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 3); -- REDE
+
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 4); -- REDE
+
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', 2, 10, 5), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 5), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 5), -- DISCO
 ('TPLink','NP3200','REDE', NULL, NULL, 5); -- REDE
+
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', 2, 10, 6), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 6), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 6), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 6); -- REDE
+
+INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
+('Intel', 'Xeon', 'CPU', 2, 10, 7), -- CPU
+('Corsair', 'Vengeance', 'RAM', 15, 85, 7), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 7), -- DISCO
+('TPLink','NP3200','REDE', NULL, NULL, 7); -- REDE
 
 -- Select * from servidor;
 
