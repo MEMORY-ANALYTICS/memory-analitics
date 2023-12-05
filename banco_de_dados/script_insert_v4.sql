@@ -33,8 +33,8 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100),
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL),
-('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10005, 1, null),
-('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10005, 2, 105); 
+('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10004, 1, null),
+('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10004, 2, 105); 
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
@@ -48,27 +48,27 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
-('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10000),
-('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10001),
-('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10002),
-('Linux', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10002),
-('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10002),
+('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10004),
+('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10004),
+('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10004),
+('Windows', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10004),
+('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10004),
 ('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
-('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10005),
-('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10005),
-('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10005),
-('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10005);
+('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10004),
+('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10004),
+('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10004),
+('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10004);
 
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
-('Intel', 'Xeon', 'CPU', 2, 10, 8), -- CPU
+('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU
 ('Intel', 'Xeon', 'CPU', 2, 10, 9), -- CPU
 ('Intel', 'Xeon', 'CPU', 2, 10, 10), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO
-('TPLink','NP3200','REDE', NULL, NULL, 2), -- REDE
-('TPLink','NP3200','REDE', NULL, NULL, 5); -- REDE
+('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM
+('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO
+('TPLink','NP3200','REDE', 10, 85, 4), -- REDE
+('TPLink','NP3200','REDE', 10, 85, 5); -- REDE
 
 
 INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
@@ -107,23 +107,23 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
-(329.415816,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1998.433296,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
-(85.42277900366695, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
-(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1332.9576005,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
-(85.42994977827041, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
-(330.586587,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(2004.9851039999999,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1333.079139,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
-(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 6),  -- REDE
-(85.43925798563782, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
-(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 6),  -- REDE
-(1332.9576005,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 6),  -- REDE
-(85.25846318978412, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 6), -- REDE
+(329.415816,'Mb','Enviados Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(1998.433296,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 5),  -- REDE
+(85.42277900366695, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 5), -- REDE
+(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(1332.9576005,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 5),  -- REDE
+(85.42994977827041, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 5), -- REDE
+(330.586587,'Mb','Enviados Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(2004.9851039999999,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(1333.079139,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 5),  -- REDE
+(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 5),  -- REDE
+(85.43925798563782, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 5), -- REDE
+(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 5),  -- REDE
+(1332.9576005,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 5),  -- REDE
+(85.25846318978412, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 5), -- REDE
 (40, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
@@ -143,3 +143,5 @@ insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values
 
 -- select * from registro where idRegistro > 156;
 
+-- Para exibir os dados no dash da Ana Fonseca e do Renan Almeida
+SELECT * FROM servidor join empresa on fkEmpresa = idEmpresa join componente on fkServidor = idServidor WHERE fkEmpresa = 10004;
