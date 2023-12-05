@@ -57,142 +57,96 @@
       type="text/css"
     />
     <link rel="stylesheet" href="style_dashProc.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
     <!-- Sidenav -->
 
-    <nav
-      class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white"
-      id="sidenav-main"
-    >
-      <div class="scrollbar-inner">
-        <!-- Brand -->
-        <div class="sidenav-header align-items-center">
-          <a class="navbar-brand" href="javascript:void(0)">
-            <img
-              src="../assets/img/brand/blue.png"
-              class="navbar-brand-img"
-              alt="..."
-            />
-          </a>
+   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+        <div class="scrollbar-inner">
+            <!-- Brand -->
+            <div class="sidenav-header  align-items-center">
+                <a class="navbar-brand" href="" style="padding-left: 2%;">
+                    <img src="../../../../assets/img/logos/logo.png" alt="">
+                    <b style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Memory Analytics</b>
+                </a>
+            </div>
+            <div class="navbar-inner">
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                    <!-- Nav items -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="../../paginaGerente.html">
+                                <i class="ni ni-tv-2 text-primary"></i>
+                                <span class="nav-link-text" style="padding-left: 5%;">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../funcionario/funcionarios.html">
+                                <i class="ni ni-badge text-blue"></i>
+                                <span class="nav-link-text" style="padding-left: 5%;">Funcionários</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../server/servers.html">
+                                <i class="ni ni-building   text-primary"></i>
+                                <span class="nav-link-text">Servidores</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../componente/componentes.html">
+                                <i class="ni ni-laptop text-blue"></i>
+                                <span class="nav-link-text">Componentes</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Divider -->
+                    <hr class="my-3">
+                    <!-- Heading -->
+                    <h6 class="navbar-heading p-0 text-muted">
+                        <span class="docs-normal">Dashboards Personalizadas</span>
+                    </h6>
+                    <!-- Navigation -->
+                    <ul class="navbar-nav mb-md-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href=".././dashboardComponentes/paginaAnalistaHardware.html"
+                                target="_blank">
+                                <img src="../../../../assets/icons_geral/hardware_icons.png">
+                                <span class="nav-link-text" style="padding-left: 5%;">Hardware</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./dash_proc.html" target="_blank">
+                                <img src="../../../../assets/icons_geral/processo_icons.png">
+                                <span class="nav-link-text" style="padding-left: 5%;">Processos</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href=".././dashboardRede/dash_rede.html" target="_blank">
+                                <img src="../../../../assets/icons_geral/rede_icons.png">
+                                <span class="nav-link-text" style="padding-left: 5%;">Rede</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href=".././dashboardTemperatura/public/dash_temp.html" target="_blank">
+                                <img src="../../../../assets/icons_geral/temp_icons.png">
+                                <span class="nav-link-text" style="padding-left: 5%;">Temperatura</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href=".././dashboardCorrelacoes/dashboardCorrelacoes.html"
+                                target="_blank">
+                                <img src="../../../../assets/icons_geral/correlacao_icons.png">
+                                <span class="nav-link-text" style="padding-left: 5%;">Correlação</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="navbar-inner">
-          <!-- Collapse -->
-          <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-            <!-- Nav items -->
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="examples/dashboard.html">
-                  <i class="ni ni-tv-2 text-primary"></i>
-                  <span class="nav-link-text">Dashboard</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/icons.html">
-                  <i class="ni ni-planet text-orange"></i>
-                  <span class="nav-link-text">Icons</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/map.html">
-                  <i class="ni ni-pin-3 text-primary"></i>
-                  <span class="nav-link-text">Google</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/profile.html">
-                  <i class="ni ni-single-02 text-yellow"></i>
-                  <span class="nav-link-text">Profile</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/tables.html">
-                  <i class="ni ni-bullet-list-67 text-default"></i>
-                  <span class="nav-link-text">Tables</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/login.html">
-                  <i class="ni ni-key-25 text-info"></i>
-                  <span class="nav-link-text">Login</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/register.html">
-                  <i class="ni ni-circle-08 text-pink"></i>
-                  <span class="nav-link-text">Register</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/upgrade.html">
-                  <i class="ni ni-send text-dark"></i>
-                  <span class="nav-link-text">Upgrade</span>
-                </a>
-              </li>
-            </ul>
-            <!-- Divider -->
-            <hr class="my-3" />
-            <!-- Heading -->
-
-            <h6 class="navbar-heading p-0 text-muted">
-              <span class="docs-normal">Documentation</span>
-            </h6>
-            <!-- Navigation -->
-            <ul class="navbar-nav mb-md-3">
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
-                  target="_blank"
-                >
-                  <i class="ni ni-spaceship"></i>
-                  <span class="nav-link-text">Getting started</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"
-                  target="_blank"
-                >
-                  <i class="ni ni-palette"></i>
-                  <span class="nav-link-text">Foundation</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"
-                  target="_blank"
-                >
-                  <i class="ni ni-ui-04"></i>
-                  <span class="nav-link-text">Components</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html"
-                  target="_blank"
-                >
-                  <i class="ni ni-chart-pie-35"></i>
-                  <span class="nav-link-text">Plugins</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link active active-pro"
-                  href="examples/upgrade.html"
-                >
-                  <i class="ni ni-send text-dark"></i>
-                  <span class="nav-link-text">Upgrade to PRO</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </nav>
     <!-- Main content -->
     <div class="main-content" id="panel">
@@ -286,7 +240,7 @@
                             class="d-flex justify-content-between align-items-center"
                           >
                             <div>
-                              <h4 class="mb-0 text-sm">Ana Fonseca</h4>
+                              <h4 class="mb-0 text-sm"></h4>
                             </div>
                             <div class="text-right text-muted">
                               <small>2 hrs ago</small>
@@ -483,9 +437,10 @@
                       />
                     </span>
                     <div class="media-body ml-2 d-none d-lg-block">
-                      <span class="mb-0 text-sm font-weight-bold"
-                        >Ana Fonseca</span
-                      >
+                      <span
+                        class="mb-0 text-sm font-weight-bold"
+                        id="nomeProto"
+                      ></span>
                     </div>
                   </div>
                 </a>
@@ -523,6 +478,67 @@
       <!-- Header -->
 
       <!-- Header -->
+      <div
+        class="modal fade bd-example-modal-xl"
+        id="exampleModalCenterAdicionar"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-xl"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Adicionar Processo
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="w-100" id="cadastro_processo">
+                <div class="w-100 row mx-1">
+                  <div class="form-group col-xl-12">
+                    <label for="nome_processo">NOME DO PROCESSO</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nome_processo"
+                      placeholder="discord"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Fechar
+              </button>
+              <button
+                onclick="cadastrarProcesso()"
+                type="button"
+                class="btn btn-primary"
+              >
+                Salvar mudanças
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="header bg-primary pb-6">
         <div class="container-fluid">
           <div class="header-body">
@@ -727,6 +743,19 @@
         </div>
         <div class="container-fluid">
           <div class="table-responsive" style="background-color: white">
+            <div class="d-flex justify-content-between m-4">
+              <div>
+                <p>Processos Banidos:</p>
+              </div>
+              <a
+                class="btn"
+                style="box-shadow: 1px 1px 15px gray"
+                data-toggle="modal"
+                data-target="#exampleModalCenterAdicionar"
+                >+</a
+              >
+            </div>
+
             <!-- Projects table -->
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -755,6 +784,7 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
+    nomeProto.innerHTML = sessionStorage.getItem("NOME_USUARIO");
     let proximaAtualizacao;
     obterDadosGrafico(4);
     const ctx = document.getElementById("myChart");
@@ -926,6 +956,7 @@
 
     getAllProcessosBanidos(4);
     function getAllProcessosBanidos(fkServer) {
+      tableProcessos.innerHTML = '';
       fetch(`/processos/getAllProcessosBanidos/${fkServer}`, {
         cache: "no-store",
       })
@@ -979,7 +1010,8 @@
         });
     }
 
-    getAllServers(sessionStorage.getItem('EMPRESA_USUARIO'));
+    getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
+
     function getAllServers(fkEmpresa) {
       console.log(fkEmpresa);
       fetch(`/servidor/getAll/${fkEmpresa}`)
@@ -989,10 +1021,7 @@
               console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
               for (i = 0; i < resposta.length; i++) {
                 select = document.getElementById("selectServer");
-                var opt = document.createElement("option");
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
+                select.innerHTML += `<option>${resposta[0]} </option>`;
               }
             });
           } else {
@@ -1005,6 +1034,89 @@
           );
         });
     }
-    function deleteProcesso(idProcesso) {}
+
+    function cadastrarProcesso(fkServidor) {
+      var erro = false;
+      var nomeProcessoVar = nome_processo.value;
+      fkServidor = 4;
+
+      if (nomeProcesso == "") {
+        nome_processo.style = "border-color: red !important";
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/processos/adicionarProcesso`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nomeProcesso: nomeProcessoVar,
+            fkServidor: fkServidor,
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+              alert("Cadastrado com sucesso!");
+              tableProcessos.innerHTML = "";
+              getAllProcessosBanidos(fkServidor);
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o cadastro do processo!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      } else {
+        alert("Houve um erro ao tentar realizar o cadastro do Processo!");
+      }
+    }
+
+    function deleteProcesso(idProcesso) {
+      Swal.fire({
+        title: "Deseja realmente deletar este processo?",
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: "Deletar",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          let erro = false;
+
+          if (idProcesso == null || idProcesso == undefined) {
+            erro = true;
+          }
+          if (!erro) {
+            fetch(`/processos/deleteProcesso/${idProcesso}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                  Swal.fire("Funcionário Deletado com sucesso!", "", "success");
+                  deleteFuncionario(idProcesso);
+                  tableFuncionarios.innerHTML = "";
+                  getAllProcessosBanidos(4);
+                } else {
+                }
+              })
+              .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+              });
+          }
+        } else if (result.isDenied) {
+          Swal.fire("Mudanças não efetuadas!", "", "info");
+        }
+      });
+    }
   </script>
 </html>

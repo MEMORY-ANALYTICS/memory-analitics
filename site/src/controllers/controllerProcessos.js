@@ -75,14 +75,66 @@ function getQtdProcessosBanidos(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os processos banidos.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
+
+function adicionarProcesso(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var nomeProcesso = req.body.nomeProcesso;
+    var fkServidor = req.body.fkServidor;
+    // Faça as validações dos valores
+    if (nomeProcesso == undefined) {
+        res.status(400).send("nomeProcesso está undefined!");
+    }
+    else if (fkServidor == undefined) {
+        res.status(400).send("fkServidor está undefined!");
+    }
+    else {
+
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        processosModel.adicionarProcesso(nomeProcesso,fkServidor)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro de processo! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function deleteProcesso(req, res){	
+    var idProcesso = req.params.idProcesso;	
+    console.log('Estou no Controller com o valor de:' + idProcesso)	
+
+    processosModel.deleteProcesso(idProcesso)	
+    .then(function (resultado) {	
+        if (resultado.length > 0) {	
+            res.status(200).json(resultado);	
+            console.log("Resultado da Controller:"+ resultado);	
+        } else {	
+            res.status(204).send("Nenhum resultado encontrado!")	
+        }	
+    }).catch(function (erro) {	
+        console.log(erro);	
+        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+        res.status(500).json(erro.sqlMessage);	
+    });	
+}	
 
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     getAllProcessosBanidos,
-    getQtdProcessosBanidos
+    getQtdProcessosBanidos,
+    adicionarProcesso,
+    deleteProcesso
 }

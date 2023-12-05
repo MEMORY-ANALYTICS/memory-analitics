@@ -259,7 +259,7 @@ function getDowntime() {
             // console.log(resposta)
             resposta.json().then(function (json) {
                 // console.log(resposta)
-                segundos = json[0].tempoDowntime
+                segundos = 1000
 
                 if (segundos <= 60) {
                     downtime.innerHTML = `${segundos}s`
@@ -285,6 +285,7 @@ function getDowntime() {
                     downtimePorcen.innerHTML = `+${porcentagem.toFixed(2)}%`
                     downtime.style = "color: #f5365c;"
                     downtimePorcen.style = "color: #f5365c;"
+                    downtimeBack.style = "background-color: #fff2f5; border: 1px solid #f5365c;"
                     icon_downtime.classList.remove("bg-gradient-info")
                     icon_downtime.classList.add("bg-gradient-danger")
                 } else {
@@ -365,6 +366,7 @@ function getServCriticos() {
                     icon_servInstaveis.classList.remove("bg-gradient-blue")
                     icon_servInstaveis.classList.add("bg-gradient-danger")
                     servCriticosKPI.style = "color: #f5365c;"
+                    servCriticosBack.style = "background-color: #fff2f5; border: 1px solid #f5365c;"
 
                 }
 
