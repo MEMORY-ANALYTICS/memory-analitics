@@ -38,7 +38,7 @@ public class RecursoRede {
                 macAddres = "Mac Address não encontrado";
             } else {
                 macAddres = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
-                System.out.println(macAddres);
+                //System.out.println(macAddres);
                 break;
             }
         }
@@ -57,7 +57,7 @@ public class RecursoRede {
                 macAddres = "Mac Address não encontrado";
             } else {
                 macAddres = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
-                System.out.println(macAddres);
+                //System.out.println(macAddres);
                 break;
             }
         }

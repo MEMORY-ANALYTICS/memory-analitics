@@ -3,17 +3,17 @@ select * from registro where fkComponente = 4;
 -- GRAFICO 3 ------ TAXA de TRANSMISSÃO e RECEPÇÃO
 
 -- Pegar o maior valor que a rede já chegou;
-select min(valorRegistro) from registro where fkComponente = 6 AND tipoMedida = 'Mbps';
+select min(valorRegistro) from registro where fkComponente = 5 AND tipoMedida = 'Mbps';
 -- SQL SERVER
-SELECT min(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps';
+SELECT min(valorRegistro) FROM registro WHERE fkComponente = 5 AND tipoMedida = 'Mbps';
 
 -- Pegar o maior valor que a rede já chegou;
-select max(valorRegistro) from registro where fkComponente = 6 AND tipoMedida = 'Mbps';
+select max(valorRegistro) from registro where fkComponente = 5 AND tipoMedida = 'Mbps';
 -- SQL SERVER
-SELECT max(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps';
+SELECT max(valorRegistro), dtHoraRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-10-09' GROUP BY dtHoraRegistro;
 
 -- Pegar o Último registro inserido
-SELECT valorRegistro FROM registro where fkComponente = 6 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro where fkComponente = 5 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC LIMIT 1;
 -- SQL SERVER
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC;
 
@@ -33,7 +33,7 @@ SELECT valorRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'ms' 
 
 -- Pegar o pico da latência do dia;
 -- Como pegar a data atual no javascript
-SELECT max(valorRegistro) FROM registro where fkComponente = 5 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-10-09';
+SELECT max(valorRegistro), dtHoraRegistro FROM registro where fkComponente = 5 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-10-09' GROUP BY dtHoraRegistro;
 -- SQL Server
 -- SELECT MAX(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' AND CONVERT(DATE, dtHoraRegistro) = '2023-10-09';
 
@@ -43,3 +43,11 @@ SELECT valorRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'Paco
 -- SQL Server
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC;
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC;
+-- -------------------------------------------------------------------------------------------
+
+
+-- 1º Select para pegar os servidores da empresa
+SELECT * FROM servidor JOIN componente ON fkServidor=idServidor WHERE fkEmpresa = 10005 AND tipoComponente = 'REDE';
+
+-- Select para pegar o idComponente REDE do servidor -> premissa 1 componente rede por servidor
+SELECT idComponente FROM componente WHERE fkServidor = 4 AND tipoComponente = 'REDE';

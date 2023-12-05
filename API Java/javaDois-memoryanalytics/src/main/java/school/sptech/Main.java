@@ -20,12 +20,12 @@ public class Main {
             RecursoRede recursoRede =new RecursoRede();
             @Override
             public void run() {
-                recursoDiscoTamanhoTotal.capturarRegistro();
-                recursoDiscoUso.capturarRegistro();
-                recursoMemoriaUso.capturarRegistro();
-                recursoProcessadorFrequencia.capturarRegistro();
-                recursoProcessadorUso.capturarRegistro();
-                recursoProcessos.capturarRegistro();
+                //recursoDiscoTamanhoTotal.capturarRegistro();
+                //recursoDiscoUso.capturarRegistro();
+                //recursoMemoriaUso.capturarRegistro();
+                //recursoProcessadorFrequencia.capturarRegistro();
+                //recursoProcessadorUso.capturarRegistro();
+                //recursoProcessos.capturarRegistro();
                 recursoRede.capturarRegistro();
             }
         };

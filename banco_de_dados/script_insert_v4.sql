@@ -33,8 +33,8 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100),
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL),
-('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10005, 1, null),
-('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10005, 2, 105); 
+('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10004, 1, null),
+('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10004, 2, 105); 
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
@@ -145,5 +145,3 @@ insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values
 
 -- Para exibir os dados no dash da Ana Fonseca e do Renan Almeida
 SELECT * FROM servidor join empresa on fkEmpresa = idEmpresa join componente on fkServidor = idServidor WHERE fkEmpresa = 10005;
-
-SELECT * FROM servidor where fkEmpresa = 10005;

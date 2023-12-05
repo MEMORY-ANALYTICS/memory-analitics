@@ -1,7 +1,7 @@
 selectServidorVetor();
 
 function selectServidorVetor() { //ATUALIZAR DATALIST DOS PONTOS
-        alert(sessionStorage.EMPRESA_USUARIO)
+        // alert(sessionStorage.EMPRESA_USUARIO)
         var fkEmpresa = sessionStorage.EMPRESA_USUARIO;
 
         fetch(`/dashboardRede3/listar/${fkEmpresa}`,{
@@ -56,8 +56,6 @@ function selectIdComponente(fkServidor) {
                 console.log(JSON.stringify(json));
     
                 const idComponete = json.idComponete;
-                alert(idComponete)
-                return idComponete;
             });
           } else {
             console.log("Houve um erro ao tentar realizar o SELECT idComponente!");
@@ -70,5 +68,26 @@ function selectIdComponente(fkServidor) {
           .catch(function (erro) {
             console.log(erro);
           });
-        
+          alert(idComponete)
+}
+
+function formatarData(){
+  dataTemp = new Date();
+
+var dia = dataTemp.getDate();
+var mes = dataTemp.getMonth()+1;
+var ano = dataTemp.getFullYear();
+
+if(dia<10){
+  dia = `0${dia}`
+}
+  var selectBanco = `${ano}-${mes}-${dia}`;
+
+  return selectBanco;
+}
+
+pegarKpiLatencia();
+
+function pegarKpiLatencia() {
+alert(formatarData())
 }
