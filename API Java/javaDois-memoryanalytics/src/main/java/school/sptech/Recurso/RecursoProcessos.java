@@ -56,7 +56,7 @@ public class RecursoProcessos {
         OptionalDouble maiorMediaDaLista = listaMediaProcessos.stream().mapToDouble(v -> v).max();
         Processo processoMaiorMedia = listaOrdemProcessos.get(listaMediaProcessos.indexOf(maiorMediaDaLista.getAsDouble()));
 
-        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
+//        alerta.alertarCanal("O processo: "+ processoMaiorMedia.getNome() +" está utilizando mais recursos do servidor!");
         return processoMaiorMedia.getNome();
     }
 
@@ -75,7 +75,7 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoCpu();
         }
         if (usoTotal > 2) {
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
         }
         usoTotal = Math.ceil(usoTotal / quantidadeProcessosOnline());
         strUso = usoTotal.toString();
@@ -90,7 +90,7 @@ public class RecursoProcessos {
             usoTotal += processo.getUsoMemoria();
         }
         if (usoTotal > 2) {
-            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
+//            alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
         }
         usoTotal = Math.ceil(usoTotal);
         strUso = usoTotal.toString();
@@ -121,12 +121,12 @@ public class RecursoProcessos {
                 if (System.getProperty("os.name").toLowerCase().contains("windows")) {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("taskkill /PID " + processo.getPid());
-                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
+//                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
                     }
                 } else {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("kill -9 " + processo.getPid());
-                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
+//                        alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
                     }
                 }
             }

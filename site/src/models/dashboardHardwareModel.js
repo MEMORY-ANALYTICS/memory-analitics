@@ -5,12 +5,12 @@ function getServidor() {
     var email = 'anafonseca@email.com'
     instrucaoSql =
     `select apelidoServidor,macAdress,idEmpresa from servidor join empresa on fkEmpresa = idEmpresa 
-    where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = '${email}');`
+    where idEmpresa IN (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = '${email}');`
     return database.executar(instrucaoSql);
 }
 
 function getCpu(fkServidor) {
-    var intrucaoSql =
+    var instrucaoSql =
     `SELECT c.fkServidor, 
     r.valorRegistro AS usoCpu,
     r.tipoMedida,
