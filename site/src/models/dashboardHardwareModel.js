@@ -1,23 +1,27 @@
-const db = require('../config/db');
+// const db = require('../config/db');
+var database = require('../database/config')
 
-const DashboardHardwareModel = {
-getCpuUsage: async (fkServidor) => {
-    const query = 'SELECT r.valorRegistro, r.dtHoraRegistro FROM registro r INNER JOIN componente c ON r.fkComponente = c.idComponente WHERE c.tipoComponente = "CPU" AND c.fkServidor = ?';
-    const [rows] = await db.query(query, [fkServidor]);
-    return rows;
-},
+function getServidor() {
+    var email = 'anafonseca@email.com'
+    instrucaoSql =
+    `select apelidoServidor,macAdress,idEmpresa from servidor join empresa on fkEmpresa = idEmpresa 
+    where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = "${email}");`
+    return database.executar(instrucaoSql);
+}
 
-getRamUsage: async (fkServidor) => {
-    const query = 'SELECT r.valorRegistro, r.dtHoraRegistro FROM registro r INNER JOIN componente c ON r.fkComponente = c.idComponente WHERE c.tipoComponente = "RAM" AND c.fkServidor = ?';
-    const [rows] = await db.query(query, [fkServidor]);
-    return rows;
-},
+function getCpu(fkServidor) {
+    var intrucaoSql =
+    `SELECT c.fkServidor, 
+    r.valorRegistro AS usoCpu,
+    r.tipoMedida,
+    r.dtHoraRegistro
+    FROM registro r
+    JOIN componente c ON r.fkComponente = c.idComponente
+    WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso';`
+    return database.executar(instrucaoSql);
+}
 
-getDiskUsage: async (fkServidor) => {
-    const query = 'SELECT r.valorRegistro, r.dtHoraRegistro FROM registro r INNER JOIN componente c ON r.fkComponente = c.idComponente WHERE c.tipoComponente = "DISCO" AND c.fkServidor = ?';
-    const [rows] = await db.query(query, [fkServidor]);
-    return rows;
-},
-};
-
-module.exports = DashboardHardwareModel;
+module.exports = {
+    getServidor,
+    getCpu
+}

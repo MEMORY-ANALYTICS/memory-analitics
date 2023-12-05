@@ -1,24 +1,45 @@
 // controllers/dashboardHardwareController.js
 
-const DashboardHardwareModel = require('../models/dashboardHardwareModel');
+var DashboardHardwareModel = require('../models/dashboardHardwareModel');
 
-const DashboardHardwareController = {
-getHardwareData: async (req, res) => {
-    try {
-    const ramData = await DashboardHardwareModel.getRamUsage();
-    const cpuData = await DashboardHardwareModel.getCpuUsage();
-    const diskData = await DashboardHardwareModel.getDiskUsage();
 
-    res.json({
-        ramUsage: ramData,
-        cpuUsage: cpuData,
-        diskUsage: diskData,
-    });
-    } catch (error) {
-    console.error(error);
-    res.status(500).send('Erro ao obter dados de hardware.');
-    }
-},
-};
 
-module.exports = DashboardHardwareController;
+function getServidor(req,res){
+    DashboardHardwareModel.getServidor().then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function getCpu(req,res){
+    var fkServidor = req.body.fkServidor;
+    DashboardHardwareModel.getCpu(fkServidor).then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function getRam(req,res){
+    DashboardHardwareModel.getRam().then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+function getDisco(req,res){
+    DashboardHardwareModel.getDisco().then(function(resultado){
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+module.exports = {
+    getServidor,
+    getCpu,
+    getRam,
+    getDisco
+
+}

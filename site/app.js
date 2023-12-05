@@ -23,7 +23,7 @@ var graficoRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTem
 var servidorRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/servidor");
 var kpiRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/kpi");
 var dashCorrelacao = require("./src/routes/dashCorrelacao");
-const dashboardHardwareRouter = require('./src/routes/dashboardHardwareRouter');
+const dashboardHardwareRouter = require('./src/routes/dashboardHardware');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

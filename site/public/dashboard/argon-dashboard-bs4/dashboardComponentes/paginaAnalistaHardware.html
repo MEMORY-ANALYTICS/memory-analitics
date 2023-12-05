@@ -528,13 +528,13 @@
               <!-- Card stats -->
               <div class="row">
                 <div class="col-xl-3 col-md-6">
-                  <div class="card card-stats">
+                  <div class="card card-stats" style="height: 70%">
                     <!-- Card body -->
-                    <div class="card-body">
+                    <div class="card-body" style="height: 70%">
                       <div class="row">
                         <div class="col">
                           <h5 class="card-title text-uppercase text-muted mb-0">
-                            Downtime
+                            Pico de Uso: CPU
                           </h5>
                           <span class="h2 font-weight-bold mb-0" id="downtime"
                             >60</span
@@ -552,13 +552,13 @@
                   </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                  <div class="card card-stats">
+                  <div class="card card-stats" style="height: 70%">
                     <!-- Card body -->
                     <div class="card-body">
                       <div class="row">
                         <div class="col">
                           <h5 class="card-title text-uppercase text-muted mb-0">
-                            Comp. Problemático
+                            Pico de Uso: RAM
                           </h5>
                           <span
                             class="h2 font-weight-bold mb-0"
@@ -591,13 +591,13 @@
                   </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                  <div class="card card-stats">
+                  <div class="card card-stats" style="height: 70%">
                     <!-- Card body -->
                     <div class="card-body">
                       <div class="row">
                         <div class="col">
                           <h5 class="card-title text-uppercase text-muted mb-0">
-                            Servidores Instaveis
+                            Pico de Uso: Disco
                           </h5>
                           <span
                             class="h2 font-weight-bold mb-0"
@@ -627,13 +627,13 @@
                   </div>
                 </div>
                 <div class="col-xl-3 col-md-6">
-                  <div class="card card-stats">
+                  <div class="card card-stats" style="height: 70%">
                     <!-- Card body -->
                     <div class="card-body">
                       <div class="row">
                         <div class="col">
                           <h5 class="card-title text-uppercase text-muted mb-0">
-                            Chamados abertos
+                            Mês com maiores picos
                           </h5>
                           <span class="h2 font-weight-bold mb-0">31</span>
                         </div>
@@ -659,14 +659,14 @@
               <div class="card bg-default">
                 <div class="card-header bg-transparent">
                   <div class="row align-items-center">
-                    <div class="col">
+                    <div class="col" style="width: 20%">
                       <div class="form-group">
-                        <label for="selectServidor" style="color: white; font-weight: 600;">Selecionar Servidor:</label>
-                        <select
-                          class="form-control"
-                          id="selectServidor"
-                          onchange="mudarServidor()"
+                        <label
+                          for="selectServidor"
+                          style="color: white; font-weight: 600"
+                          >Selecionar Servidor:</label
                         >
+                        <select class="form-control" id="selectServidor">
                           <!-- Os options serão preenchidos dinamicamente com os servidores do banco de dados -->
                         </select>
                       </div>
@@ -709,48 +709,38 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
-                  <!-- Chart -->
-                  <div class="chart" id="containerCPU">
-                    <!-- Chart wrapper for CPU -->
-                  </div>
+                <div class="d-flex">
+                  <div class="card-body">
+                    <!-- Chart -->
+                    <div class="chart" id="containerCPU">
+                      <!-- Chart wrapper for CPU -->
+                    </div>
 
-                  <div class="chart" id="containerRAM" style="display: none">
-                    <!-- Chart wrapper for RAM (hidden by default) -->
-                  </div>
+                    <div class="chart" id="containerRAM" style="display: none">
+                      <!-- Chart wrapper for RAM (hidden by default) -->
+                    </div>
 
-                  <div class="chart" id="containerDISCO" style="display: none">
-                    <!-- Chart wrapper for DISCO (hidden by default) -->
-                  </div>
-                  <!-- Chart wrapper -->
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4">
-            <div class="card">
-              <div class="card-header bg-transparent">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h5 class="h3 mb-0">Estado Servidores</h5>
+                    <div
+                      class="chart"
+                      id="containerDISCO"
+                      style="display: none"
+                    >
+                      <!-- Chart wrapper for DISCO (hidden by default) -->
+                    </div>
+                    <!-- Chart wrapper -->
                   </div>
                 </div>
               </div>
-              <div class="card-body">
-                <!-- Chart -->
-                <div class="chart">
-                  <canvas id="chart-bars" class="chart-canvas"></canvas>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/data.js"></script>
+
     <script src="../dashboard-bootstrap/dashboards/js/gerente/dashboardG_funcoes.js"></script>
     <script src="./js/funcionalidades.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>
