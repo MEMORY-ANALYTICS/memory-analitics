@@ -53,7 +53,7 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
     }
 
     public Integer selectFkComponente() {
-        List<Componente> teste = getConexoes().get(1).query("""
+        List<Componente> teste = getConexoes().get(0).query("""
                         SELECT idComponente FROM componente JOIN servidor ON fkServidor = idServidor WHERE tipoComponente = 'DISCO' AND macAdress = '%s';
                         """.formatted(
                         looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac()
