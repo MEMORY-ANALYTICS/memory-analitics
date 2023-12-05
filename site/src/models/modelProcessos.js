@@ -17,6 +17,7 @@ function buscarUltimasMedidas(fkServer, limite_linhas) {
         usoCpu as cpu, 
         usoRam as ram,
         processoMaiorMediaUso as pmmu,
+        qtdProcessosOnline,
         dtHora,
         DATE_FORMAT(dtHora,'%H:%i:%s') as momento_grafico
         from processos
@@ -48,6 +49,7 @@ function buscarMedidasEmTempoReal(fkServer) {
     instrucaoSql = `select 
         usoCpu as cpu, 
         usoRam as ram,
+        qtdProcessosOnline,
         processoMaiorMediaUso as pmmu,
                         DATE_FORMAT(dtHora,'%H:%i:%s') as momento_grafico, 
                         fkServidor 

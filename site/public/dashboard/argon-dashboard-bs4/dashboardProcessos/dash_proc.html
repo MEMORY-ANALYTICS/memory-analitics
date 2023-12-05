@@ -541,7 +541,7 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Utilizacao de ram pelos processos
                           </h5>
-                          <span class="h2 font-weight-bold mb-0">54%</span>
+                          <span id="usoRam" class="h2 font-weight-bold mb-0">54%</span>
                         </div>
                         <div class="col-auto">
                           <div
@@ -573,7 +573,7 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Utilização de CPU pelos processos
                           </h5>
-                          <span class="h2 font-weight-bold mb-0">53%</span>
+                          <span id="usoCpu" class="h2 font-weight-bold mb-0">53%</span>
                         </div>
                         <div class="col-auto">
                           <div
@@ -606,7 +606,7 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Processo que mais gasta recursos
                           </h5>
-                          <span id="qtdProcessosBloqueados" class="h2 font-weight-bold mb-0"
+                          <span id="processoMaisGasta" class="h2 font-weight-bold mb-0"
                             >chrome.exe</span
                           >
                         </div>
@@ -641,7 +641,7 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Quantidade de processos bloqueados:
                           </h5>
-                          <span  class="h2 font-weight-bold mb-0">5</span>
+                          <span id="qtdProcessosBloqueados" class="h2 font-weight-bold mb-0">5</span>
                         </div>
                         <div class="col-auto">
                           <div
@@ -670,14 +670,15 @@
         <div class="container-fluid mt--6">
           <div class="row mb-4" style="background-color: white">
             <div class="col-xl-12">
-              <div style="height: 50vh;">
+              <p>Quantidade de Processos Online: <span id="qtdProcessosOnline">3</span></p>
+              <div style="height: 50vh;" class="">
                 <canvas id="myChart"></canvas>
               </div>
               <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             </div>
           </div>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid">   
           <div class="table-responsive" style="background-color: white">
             <!-- Projects table -->
             <table class="table align-items-center table-flush">
@@ -726,7 +727,10 @@
             response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
               resposta.reverse();
-              qtdProcessosBloqueados.innerHTML = resposta[resposta.length -1].pmmu
+              processoMaisGasta.innerHTML = resposta[resposta.length -1].pmmu
+              usoCpu.innerHTML = resposta[resposta.length -1].cpu + "%"
+              usoRam.innerHTML =  resposta[resposta.length -1].ram + "%"
+              qtdProcessosOnline.innerHTML = resposta[resposta.length -1].qtdProcessosOnline;
               plotarGrafico(resposta, fkServidor);
             });
           } else {
@@ -817,7 +821,9 @@
               console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
               console.log(`Dados atuais do gráfico:`);
               console.log(dados);
-
+              usoCpu.innerHTML = novoRegistro[0].cpu + "%"
+              usoRam.innerHTML = novoRegistro[0].ram + "%"
+              qtdProcessosOnline.innerHTML = novoRegistro[0].qtdProcessosOnline;
               let avisoCaptura = document.getElementById(
                 `avisoCaptura${fkServer}`
               );
@@ -846,10 +852,11 @@
                 dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
                 dados.datasets[0].data.shift(); // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].umidade); // incluir uma nova medida de umidade
+                dados.datasets[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
+
 
                 dados.datasets[1].data.shift(); // apagar o primeiro de temperatura
-                dados.datasets[1].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+                dados.datasets[1].data.push(novoRegistro[0].ram); // incluir uma nova medida de temperatura
 
                 myChart.update();
               }
@@ -910,6 +917,10 @@
         });
     }
 
+    getQtdProcessosBanidos(4)
+    setInterval(() =>{
+      getQtdProcessosBanidos(4)
+    }, 10000);
     function getQtdProcessosBanidos(fkServer){
       fetch(`/processos/getQtdProcessosBanidos/${fkServer}`, {
         cache: "no-store",
@@ -917,7 +928,7 @@
         .then(function (response) {
           if (response.ok) {
             response.json().then(function (resposta) {
-
+              qtdProcessosBloqueados.innerHTML = resposta[0].qtdProcessos;
             });
           } else {
             console.error("Nenhum dado encontrado ou erro na API");

@@ -151,11 +151,11 @@ public class RecursoProcessos {
                         quantidadeProcessosOnline(),
                         dateTime.format(formatter),
                         getFkServer()));
-//        try {
-//            killTask();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            killTask();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<JdbcTemplate> getConexoes() {

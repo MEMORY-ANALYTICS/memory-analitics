@@ -1,8 +1,6 @@
 package school.sptech;
 
-import school.sptech.Recurso.RecursoDiscoTamanhoTotal;
-import school.sptech.Recurso.RecursoProcessos;
-import school.sptech.Recurso.RecursoRede;
+import school.sptech.Recurso.*;
 
 import java.time.LocalDateTime;
 import java.util.Timer;
@@ -12,14 +10,22 @@ public class Main {
     public static void main(String[] args) {
 
         TimerTask timerTask = new TimerTask() {
-            RecursoRede recursoRede = new RecursoRede();
-            RecursoProcessos recursoProcessos = new RecursoProcessos();
+
+            RecursoDiscoUso recursoDiscoUso = new RecursoDiscoUso();
             RecursoDiscoTamanhoTotal recursoDiscoTamanhoTotal = new RecursoDiscoTamanhoTotal();
+            RecursoMemoriaUso recursoMemoriaUso = new RecursoMemoriaUso();
+            RecursoProcessadorFrequencia recursoProcessadorFrequencia = new RecursoProcessadorFrequencia();
+            RecursoProcessadorUso recursoProcessadorUso = new RecursoProcessadorUso();
+            RecursoProcessos recursoProcessos = new RecursoProcessos();
             @Override
             public void run() {
                 recursoDiscoTamanhoTotal.capturarRegistro();
+                recursoDiscoUso.capturarRegistro();
+                recursoMemoriaUso.capturarRegistro();
+                recursoProcessadorFrequencia.capturarRegistro();
+                recursoProcessadorUso.capturarRegistro();
                 recursoProcessos.capturarRegistro();
-                recursoRede.capturarRegistro();
+                //recursoRede.capturarRegistro();
             }
         };
 
