@@ -286,7 +286,7 @@
                             class="d-flex justify-content-between align-items-center"
                           >
                             <div>
-                              <h4 class="mb-0 text-sm">Ana Fonseca</h4>
+                              <h4 class="mb-0 text-sm"></h4>
                             </div>
                             <div class="text-right text-muted">
                               <small>2 hrs ago</small>
@@ -484,7 +484,7 @@
                     </span>
                     <div class="media-body ml-2 d-none d-lg-block">
                       <span class="mb-0 text-sm font-weight-bold"
-                        >Ana Fonseca</span
+                        id="nomeProto"></span
                       >
                     </div>
                   </div>
@@ -523,6 +523,63 @@
       <!-- Header -->
 
       <!-- Header -->
+      <div
+        class="modal fade bd-example-modal-xl"
+        id="exampleModalCenterAdicionar"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-xl"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Adicionar Processo
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="w-100" id="cadastro_processo">
+                <div class="w-100 row mx-1">
+                  <div class="form-group col-xl-12">
+                    <label for="nome_processo">NOME DO PROCESSO</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nome_processo"
+                      placeholder="discord"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Fechar
+              </button>
+              <button onclick="cadastrarProcesso()" type="button" class="btn btn-primary">
+                Salvar mudanças
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="header bg-primary pb-6">
         <div class="container-fluid">
           <div class="header-body">
@@ -727,6 +784,14 @@
         </div>
         <div class="container-fluid">
           <div class="table-responsive" style="background-color: white">
+            
+            <div class="d-flex justify-content-between m-4">
+              <div>
+                <p>Processos Banidos:</p>
+              </div>
+              <a class="btn" style="box-shadow: 1px 1px 15px gray;" data-toggle="modal" data-target="#exampleModalCenterAdicionar" >+</a>
+            </div>
+            
             <!-- Projects table -->
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -755,6 +820,7 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
+    nomeProto.innerHTML = sessionStorage.getItem('NOME_USUARIO');
     let proximaAtualizacao;
     obterDadosGrafico(4);
     const ctx = document.getElementById("myChart");
@@ -979,7 +1045,8 @@
         });
     }
 
-    getAllServers(sessionStorage.getItem('EMPRESA_USUARIO'));
+    getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
+
     function getAllServers(fkEmpresa) {
       console.log(fkEmpresa);
       fetch(`/servidor/getAll/${fkEmpresa}`)
@@ -989,10 +1056,7 @@
               console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
               for (i = 0; i < resposta.length; i++) {
                 select = document.getElementById("selectServer");
-                var opt = document.createElement("option");
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
+                select.innerHTML += `<option>${resposta[0]} </option>`;
               }
             });
           } else {
@@ -1005,6 +1069,48 @@
           );
         });
     }
+
+    function cadastrarProcesso(fkServidor) {
+      var erro = false;
+      var nomeProcessoVar = nome_processo.value;
+      fkServidor = 4;
+
+      if (nomeProcesso == "") {
+        nome_processo.style = "border-color: red !important";
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/processos/adicionarProcesso`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nomeProcesso: nomeProcessoVar,
+            fkServidor: fkServidor,
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+              alert("Cadastrado com sucesso!");
+              tableProcessos.innerHTML = "";
+              getAllProcessosBanidos(fkServidor);
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o cadastro do processo!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      } else {
+        alert("Houve um erro ao tentar realizar o cadastro do Processo!");
+      }
+    }
+
     function deleteProcesso(idProcesso) {}
   </script>
 </html>

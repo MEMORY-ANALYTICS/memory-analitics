@@ -78,9 +78,15 @@ function getQtdProcessosBanidos(fkServer) {
   instrucaoSql = `select count(idProcesso) as qtdProcessos from processosBanidos where fkServidor = ${fkServer}`;
   return database.executar(instrucaoSql);
 }
+
+function adicionarProcesso(nomeProcesso,fkServidor){
+  instrucaoSql = `INSERT INTO processosBanidos(nomeProcesso, fkServidor) VALUES ('${nomeProcesso}', ${fkServidor});`;
+  return database.executar(instrucaoSql);
+}
 module.exports = {
   buscarUltimasMedidas,
   buscarMedidasEmTempoReal,
   getAllProcessosBanidos,
   getQtdProcessosBanidos,
+  adicionarProcesso
 };
