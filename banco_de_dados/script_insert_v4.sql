@@ -33,8 +33,8 @@ INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa
 ('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100),
 ('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100),
 ('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL),
-('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10004, 1, null),
-('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10004, 2, 105); 
+('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10005, 1, null),
+('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10005, 2, 105); 
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
@@ -48,11 +48,11 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
-('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10004),
-('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10004),
-('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10004),
-('Windows', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10004),
-('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10004),
+('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10005),
+('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10005),
+('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10005),
+('Windows', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10005),
+('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10005),
 ('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
 ('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10004),
 ('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10004),
@@ -144,4 +144,6 @@ insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values
 -- select * from registro where idRegistro > 156;
 
 -- Para exibir os dados no dash da Ana Fonseca e do Renan Almeida
-SELECT * FROM servidor join empresa on fkEmpresa = idEmpresa join componente on fkServidor = idServidor WHERE fkEmpresa = 10004;
+SELECT * FROM servidor join empresa on fkEmpresa = idEmpresa join componente on fkServidor = idServidor WHERE fkEmpresa = 10005;
+
+SELECT * FROM servidor where fkEmpresa = 10005;

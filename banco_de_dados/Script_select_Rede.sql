@@ -27,19 +27,19 @@ SELECT valorRegistro FROM registro where fkComponente = 6 AND tipoMedida = 'Mbps
 -- >300 milissegundos: resposta muito lenta, geralmente inaceitável para a maioria das aplicações.
 
 -- Pegar o último registro de latência
-SELECT valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'ms' ORDER BY idRegistro DESC LIMIT 1;
 -- SQL Server
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' ORDER BY idRegistro DESC;
 
 -- Pegar o pico da latência do dia;
 -- Como pegar a data atual no javascript
-SELECT max(valorRegistro) FROM registro where fkComponente = 6 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-10-09';
+SELECT max(valorRegistro) FROM registro where fkComponente = 5 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-10-09';
 -- SQL Server
 -- SELECT MAX(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' AND CONVERT(DATE, dtHoraRegistro) = '2023-10-09';
 
 -- Pegar ultimo registro Pacotes Enviados e Pacotes Recebidos
-SELECT valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC LIMIT 1;
-SELECT valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC LIMIT 1;
+SELECT valorRegistro FROM registro WHERE fkComponente = 5 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC LIMIT 1;
 -- SQL Server
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC;
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC;

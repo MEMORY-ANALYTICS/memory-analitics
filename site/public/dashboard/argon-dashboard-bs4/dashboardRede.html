@@ -323,8 +323,8 @@
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
             <li class="nav-item dropdown">
                 <div class="media align-items-center">
-                  <a class="btn-sm btn-neutral" id="kelvinButton" onclick="dowloadCsv()" style="cursor: pointer;">Download
-                    CSV Registros Rede</a>
+                  <!-- <a class="btn-sm btn-neutral" id="kelvinButton" onclick="dowloadCsv()" style="cursor: pointer;">Download
+                    CSV Registros Rede</a> -->
                   <span class="avatar avatar-sm rounded-circle">
                     <img alt="Image placeholder" src="assets/img/theme/user.png">
                   </span>
@@ -382,11 +382,9 @@
                                   <p class="h2 text-center ">Servidor Visualizado:</h1>
                               </div>
                               <div class="col-xl-6 py-2">
-                                  <select class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
-                                  box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);"
-                                      id="exampleFormControlSelect1">
-                                      <option value="">Todos</option>
-                                  </select>
+                                <select class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
+                                box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);" id="selecionarServidor">
+                                </select>
                               </div>
                           </div>
                       </div>
@@ -398,41 +396,9 @@
 
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-3 col-md-2">
-              <div class="card card-stats" style="height: 70%;">
-
-                <!-- Card body -->
-                <div class="card-body" style="box-shadow:
-                0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">MAC adress</h5>
-                      <span class="h2 font-weight-bold mb-0">10.18.35.187</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                        <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-sm">
-
-                    <span>Estável</span>
-                    <!--
-                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span>Condição : </span>
-                    -->
-                    <!--
-                      <span class="text-nowrap">Atualizado em :</span>
-                      <span>12:10</span>
-                    -->
-                  </p>
-                </div>
-              </div>
-            </div>
 
 
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
               <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body" style="box-shadow:
@@ -441,7 +407,7 @@
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Taxa de Transmissão</h5>
                       <span style="color: grey; font-size: 14px;">Menor valor diário:</span>
-                      <span class="h2 font-weight-bold mb-0">90523</span>
+                      <span class="h2 font-weight-bold mb-0" id="menorValorTxTransmissao">90523</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
@@ -460,7 +426,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
               <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body" style="box-shadow:
@@ -486,15 +452,17 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-4 col-md-6">
               <div class="card card-stats" style="height: 70%;">
                 <!-- Card body -->
                 <div class="card-body" style="box-shadow:
                 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Proporção de Pacotes Enviados e Recebidos</h5>
-                      <span class="h2 font-weight-bold mb-0">2</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Média de Pacotes Enviados e Recebidos</h5>
+                      <span class="h2 font-weight-bold mb-0" id="media">2</span>
+
+                      <span class="text-wrap" style="color: red;">A</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -629,10 +597,11 @@
   </div>
   
 </body>
-<!-- type: 'areaspline', -->
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_velocidade_rede.js"></script>
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_latecia_rede.js"></script>
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_mb_Rec_Env_rede.js"></script>
 </html>
 
-<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_velocidade_rede.js"></script>
 <!-- Argon Scripts -->
 <!-- Core -->
 <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

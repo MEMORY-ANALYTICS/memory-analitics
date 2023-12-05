@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Componentes.Componente;
 import school.sptech.Servicos.BancoDados.ConexaoMySql;
 import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
+import school.sptech.Servicos.Data;
 import school.sptech.Servidores.Servidor;
 
 import java.time.LocalDateTime;
@@ -46,11 +47,39 @@ public class RecursoRede {
         return teste.get(0).getIdServidor();
     }
 
+    public Integer getFkServerSqlServer() {
+        String macAddres = "";
+        for (int i = 0; i < looca.getRede().getGrupoDeInterfaces().getInterfaces().size(); i++) {
+
+            String macAddresAtual = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+
+            if (macAddresAtual.isBlank() || macAddresAtual == null || macAddresAtual.isEmpty()) {
+                macAddres = "Mac Address não encontrado";
+            } else {
+                macAddres = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+                System.out.println(macAddres);
+                break;
+            }
+        }
+        List<Servidor> teste = conexoes.get(0).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(macAddres),
+                new BeanPropertyRowMapper<>(Servidor.class));
+        return teste.get(0).getIdServidor();
+    }
+
     public Integer getFkComponente(){
         String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
         List<Componente> teste = conexoes.get(1).query("""
                         SELECT idComponente FROM componente JOIN servidor ON fkServidor = idServidor WHERE tipoComponente = 'REDE' AND fkServidor = %d;
                         """.formatted(getFkServer()),
+                new BeanPropertyRowMapper<>(Componente.class));
+        return teste.get(0).getIdComponente();
+    }
+
+    public Integer getFkComponenteSqlServer(){
+        String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
+        List<Componente> teste = conexoes.get(0).query("""
+                        SELECT idComponente FROM componente JOIN servidor ON fkServidor = idServidor WHERE tipoComponente = 'REDE' AND fkServidor = %d;
+                        """.formatted(getFkServerSqlServer()),
                 new BeanPropertyRowMapper<>(Componente.class));
         return teste.get(0).getIdComponente();
     }
@@ -86,12 +115,14 @@ public class RecursoRede {
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbEnviados = capturarRegistroEnviados();
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
     public void InsertMbRecebidos(){
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbRecebidos = capturarRegistroRecebidos();
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "Mb", "Recebidos Rede", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "Mb", "Recebidos Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
 
@@ -102,6 +133,8 @@ public class RecursoRede {
         Double taxaDeTrasmissao = capturarRegistroEnviados() + capturarRegistroRecebidos()/2;
         //System.out.println(taxaDeTrasmissao);
 
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",taxaDeTrasmissao.toString().replace(",","."),
+                "Mbps", "Taxa de Transmissão", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",taxaDeTrasmissao.toString().replace(",","."),
                 "Mbps", "Taxa de Transmissão", dataHoraAtual.format(formatter), getFkComponente());
     }
@@ -118,6 +151,11 @@ public class RecursoRede {
         Double totalBytes = receivedBytes + sentBytes;
         Double totalTime = totalBytes / taxaDeTrasmissao;
         Double tempoLatencia = (totalTime / 2) * Math.pow(10,-4);
+
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
+                        "fkComponente) VALUES (?, ?, ?, ?, ?);",
+                tempoLatencia.toString().replace(",","."),
+                "ms", "Latência da Rede",Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
 
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
                         "fkComponente) VALUES (?, ?, ?, ?, ?);",
@@ -137,6 +175,9 @@ public class RecursoRede {
                 break;
             }
         }
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
+                pacotesEnviados.toString().replace(",","."), "Pacotes", "Enviados Rede",
+                Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
                 pacotesEnviados.toString().replace(",","."), "Pacotes", "Enviados Rede",
                 dataHoraAtual.format(formatter), getFkComponente());
@@ -155,6 +196,9 @@ public class RecursoRede {
                 break;
             }
         }
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
+                pacotesRecebidos.toString().replace(",","."), "Pacotes", "Recebidos Rede",
+                Data.formatarParaSQLServer(dataHoraAtual), getFkComponente());
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
                 pacotesRecebidos.toString().replace(",","."), "Pacotes", "Recebidos Rede",
                 dataHoraAtual.format(formatter), getFkComponente());
