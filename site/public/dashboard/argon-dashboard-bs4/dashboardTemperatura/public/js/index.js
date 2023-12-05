@@ -1,3 +1,6 @@
+nomeLogin.innerHTML = sessionStorage.NOME_USUARIO
+
+
 var ctx = document.getElementById('graficoTemperatura');
 createTemp(ctx)
 
