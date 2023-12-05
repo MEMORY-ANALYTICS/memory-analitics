@@ -446,8 +446,11 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
+                    <span class="text-nowrap">Horário de maior latência:</span>
+                    <span>12:05:10</span>
+                    <br>
                     <span class="text-nowrap">Atualizado em :</span>
-                    <span>14/11/2023 12:10</span>
+                    <span id="dataKpiLatencia">data e hora sql</span>
                   </p>
                 </div>
               </div>
@@ -460,7 +463,7 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Média de Pacotes Enviados e Recebidos</h5>
-                      <span class="h2 font-weight-bold mb-0" id="media">2</span>
+                      <span class="h2 font-weight-bold mb-0" id="media">744533</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -472,11 +475,8 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
-                    <span class="text-nowrap">Horário de maior latência:</span>
-                    <span>12:05:10</span>
-                    <br>
                     <span class="text-nowrap">Atualizado em :</span>
-                    <span id="dataKpiLatencia">data e hora sql</span>
+                    <span>14/11/2023 12:10</span>
                   </p>
                 </div>
               </div>
@@ -507,7 +507,8 @@
                   Descrição: <b>Visualização da velocidade da sua rede</b>
                  </p>
                  <p class="highcharts-description3">
-                  Data e Hora: <b style="color: red;">Nivél Critíco</b>
+                  Data e Hora: <b style="color: red; font-weight: 30px; box-shadow:
+                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8)">Nivél Critíco</b>
                  </p>
               </figure>
             </div>
@@ -617,9 +618,9 @@
 
 <script>
 funcionarioLogado();
-
+atualizarDatasKpis()
 function atualizarDatasKpis(){
-
+  dataKpiLatencia.innerHTML = formatarData(2);
 }
 function formatarData(opcao){
 dataTemp = new Date();
@@ -962,7 +963,7 @@ chart: {
 },
 
 title: {
-  text: 'Taxa de Transmissão'
+  text:'Velocidade da Rede'
 },
 
 pane: {
@@ -1013,7 +1014,7 @@ credits: {
 
 series: [{
   name: 'Speed',
-  data: [150], // taxa de tranmissão atual
+  data: [55], // taxa de tranmissão atual
   tooltip: {
     valueSuffix: ' Mb/s'
   },
