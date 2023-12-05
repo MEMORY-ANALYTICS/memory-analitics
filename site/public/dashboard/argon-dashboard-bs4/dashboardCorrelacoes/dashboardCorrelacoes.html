@@ -800,6 +800,17 @@
     setInterval(chamarOcorrencias, 2000);
     setInterval(atualizarDadosOcorrencias, 3000);
     
+    function chamarTemperaturaCpu(){
+        selectCpu()
+        selectTemperatura()
+    }
+    function atualizarDadosTemperaturaCpu(){
+        graficoLiveTempCPU.data.datasets[0].data.push(temperatura) 
+        graficoLiveTempCPU.data.datasets[1].data.push(cpuUso)
+    }
+    setInterval(chamarTemperaturaCpu, 2000);
+    setInterval(atualizarDadosTemperaturaCpu, 3000);
+
     var ctx = document.getElementById('graficoOcorrencias');
     createOcorrencias(ctx)
 
@@ -835,36 +846,6 @@
                     }
                 }
             }
-        });
-    }
-
-
-    function selectTemperatura() {
-        fetch("/dashCorrelacao/selectTemperatura", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                fkServidor: listaServidores.value
-            })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                resposta.json().then(json => {
-                    console.log("json comprimento")
-                    console.log(json.length)
-                    console.log("json colchetes")
-                    console.log(json[0])
-
-                    temperatura = json[0].valorRegistro
-                });
-            } else {
-                resposta.text().then(textoErro => {
-                    console.error(textoErro);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
         });
     }
 
@@ -916,7 +897,6 @@
                     console.log(json[0])
 
                     cpu = json[0].valorRegistro
-                    horario = new Date(json[i].dtHoraRegistro)
                 });
             } else {
                 resposta.text().then(textoErro => {
@@ -960,9 +940,9 @@
     
 
     var ctx2 = document.getElementById('graficoLiveTempCPU');
-    createOcorrencias(ctx2)
+    createlive(ctx2)
 
-    function createOcorrencias(ctx) {
+    function createlive(ctx) {
 
         graficoLiveTempCPU = new Chart(ctx, {
             type: 'line',
@@ -974,10 +954,6 @@
                     borderWidth: 1
                 },{
                      label: 'CpuUso',
-                     data: [],
-                     borderWidth: 1
-                 }, {
-                     label: 'RamUso',
                      data: [],
                      borderWidth: 1
                  }

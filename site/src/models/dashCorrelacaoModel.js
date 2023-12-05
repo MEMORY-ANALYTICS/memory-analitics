@@ -62,4 +62,5 @@ module.exports = {
   selectServidores,
   selectGraficoOcorrencia,
   selectTemperatura,
+  selectCpu
 };
