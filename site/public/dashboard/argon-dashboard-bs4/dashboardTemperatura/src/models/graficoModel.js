@@ -15,13 +15,14 @@ function graficoCpuHora(fkServidor) {
 
 function graficoCpuSemana() {
 
-  anoMes = '2023-10'
+  anoMes = '2023-12'
   fkServidor = 8;
 
-  instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
-	where tipoMedida = '°C' and date(dtHoraRegistro) like '${anoMes}%' 
+  instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia 
+  from registro 
+	where tipoMedida = '°C' and MONTH(dtHoraRegistro) like '${anoMes}%' 
   and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
-    group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc limit 7;
+  group by MONTH(dtHoraRegistro) order by MONTH(dtHoraRegistro) desc OFFSET 0 ROWS FETCH FIRST 7 ROW ONLY;
 `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -30,13 +31,13 @@ function graficoCpuSemana() {
 
 function graficoCpuMes() {
 
-  anoMes = '2023-10'
+  anoMes = '2023-12'
   fkServidor = 8;
   
-  instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia from registro 
-	where tipoMedida = "°C" and date(dtHoraRegistro) like '${anoMes}%'
+  instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, MONTH(dtHoraRegistro) as dia from registro 
+	where tipoMedida = '°C' and MONTH(dtHoraRegistro) like '${anoMes}%'
    and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
-    group by date(dtHoraRegistro) order by date(dtHoraRegistro) desc;
+    group by MONTH(dtHoraRegistro) order by MONTH(dtHoraRegistro) desc;
 `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -51,10 +52,10 @@ function filtroData() {
 
   
   instrucaoSql = `
-  SELECT DATE(dtHoraRegistro) AS dia, round(AVG(valorRegistro),2) AS valor FROM registro
+  SELECT MONTH(dtHoraRegistro) AS dia, round(AVG(valorRegistro),2) AS valor FROM registro
   WHERE dtHoraRegistro BETWEEN '${dataInicio}' AND '${dataFim}' and tipoMedida = '°C' 
   and fkComponente = (select idComponente from componente where fkServidor = ${fkServidor})
-  GROUP BY DATE(dtHoraRegistro) order by dia;
+  GROUP BY MONTH(dtHoraRegistro) order by dia;
 `
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
