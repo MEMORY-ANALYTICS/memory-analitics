@@ -15,7 +15,7 @@ function selectGraficoOcorrencia(servidorVisualizado) {
     console.log(
       "ACESSEI O FUNC MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectServidores(): "
     );
-    var instrucao = `SELECT count(idChamadosServidor) FROM chamadoServidor where fkEmpresa = ${servidorVisualizado};`;
+    var instrucao = `SELECT count(idChamadoServidor) FROM chamadoServidor where fkServidor = ${servidorVisualizado};`;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
   }
