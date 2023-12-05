@@ -9,7 +9,7 @@ router.get('/servidor', function(req, res){
     DashboardHardwareController.getServidor(req,res);
 });
 
-router.post('/cpu', function(req, res){
+router.get('/cpu/:fkServidor', function(req, res){
     DashboardHardwareController.getCpu(req,res);
 })
 

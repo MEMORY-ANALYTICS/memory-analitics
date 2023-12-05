@@ -13,7 +13,8 @@ function getServidor(req,res){
 }
 
 function getCpu(req,res){
-    var fkServidor = req.body.fkServidor;
+    var fkServidor = req.params.fkServidor;
+    console.log(fkServidor);
     DashboardHardwareModel.getCpu(fkServidor).then(function(resultado){
         res.status(200).json(resultado);
     }).catch(function(erro){
