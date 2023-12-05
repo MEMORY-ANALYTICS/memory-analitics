@@ -67,7 +67,7 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('Intel', 'Xeon', 'CPU', 2, 10, 10), -- CPU
 ('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM
 ('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO
-('TPLink','NP3200','REDE', 10, 85, 4), -- REDE
+('TPLink','NP3200','REDE', 10, 85, 2), -- REDE
 ('TPLink','NP3200','REDE', 10, 85, 5); -- REDE
 
 
