@@ -41,7 +41,8 @@ public class Downtime {
 
         List<Servidor> servidors = conexoes.get(0).query("SELECT * FROM Servidor WHERE macAdress = ?",
                 new ServidorRowMapper(),
-                mac);
+                "e2:2e:0b:67:0e:12");
+
         return servidors.get(0).getIdServidor();
     };
     public void calcDowntime() {
@@ -64,24 +65,37 @@ public class Downtime {
                 new RegistroRowMapper(),
                 idServidor);
 
-        LocalDateTime ultimo = ultimoRegistro.get(0).getDtHoraRegistro();
+        List<Registro> ultimoRegistroMySql = conexoes.get(1).query("""
+			    SELECT *
+                FROM Registro
+                JOIN Componente ON fkComponente = idComponente
+                JOIN Servidor ON fkServidor = idServidor
+                WHERE idServidor = ?
+                ORDER BY dtHoraRegistro
+                DESC LIMIT 1;""",
+                new RegistroRowMapper(),
+                idServidor);
+
+        System.out.println(idServidor);
+
+        LocalDateTime ultimo = ultimoRegistroMySql.get(0).getDtHoraRegistro();
 
         System.out.println(ultimo);
         System.out.println(dtHoraAgora);
 
-        long diferencaDatas = ChronoUnit.SECONDS.between(dtHoraAgora, ultimo);
+        long diferencaDatas = ChronoUnit.SECONDS.between(ultimo, dtHoraAgora);
 
         System.out.println("Segundo de Downtime: " + diferencaDatas);
 
         if (diferencaDatas > 10) {
             conexoes.get(0).update("""
                     INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
-                    (?, ?, ?);             
+                    (?, ?, ?);
                     """, diferencaDatas, dtHoraAgora, idServidor);
-//            conexoes.get(1).update("""
-//                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
-//                    (?, ?, ?);
-//                    """, diferencaDatas, dtHoraAgora, idServidor);
+            conexoes.get(1).update("""
+                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
+                    (?, ?, ?);
+                    """, diferencaDatas, dtHoraAgora, idServidor);
         }
 
     }
@@ -120,12 +134,12 @@ public class Downtime {
         LocalDateTime dataHora = LocalDateTime.now();
         school.sptech.Servidores.Downtime downtime = new school.sptech.Servidores.Downtime(0, dataHora, 4);
 
+        downtime.calcDowntime();
         discoTamanho.capturarRegistro();
         discoUso.capturarRegistro();
         memoriaUso.capturarRegistro();
         processadorFrequencia.capturarRegistro();
         processadorUso.capturarRegistro();
-        downtime.calcDowntime();
 
     }
 }
