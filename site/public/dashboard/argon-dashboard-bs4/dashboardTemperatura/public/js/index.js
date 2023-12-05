@@ -57,12 +57,26 @@ function getKpi(metodoKpi) {
         var dataMysql;
         var dataTratado;
         var diaTratado;
+        var listMes = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto', 'Setembro','Outubro','Novembro','Dezembro']
         var valorRegistro;
-
         if (metodoKpi == "qtdIncidentes"){
 
-          qtdIncidentes.innerHTML = json[[i]].quantidade
+          valorRegistro = json[i].quantidade
           
+
+          qtdIncidentes.innerHTML = valorRegistro
+
+          if (valorRegistro > 5) {
+            estadoIncidentes.innerHTML = 'Crítico'
+          } else if (valorRegistro == 0){
+            estadoIncidentes.innerHTML = 'Excelente'
+          } else {
+            estadoIncidentes.innerHTML = 'Aceitável'
+          }
+
+          mesIncidentes.innerHTML = listMes[mes-1]
+
+
         } else if (metodoKpi == "CpuTempMax"){
 
           cpuTempMax.innerHTML = json[i].valorRegistro;

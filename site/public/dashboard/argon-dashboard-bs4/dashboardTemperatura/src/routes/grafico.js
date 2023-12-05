@@ -14,4 +14,9 @@ router.get("/graficoCpuMes", function(req,res){
     graficoController.graficoCpuMes(req,res);
 });
 
+router.get("/filtroData", function(req,res){
+    graficoController.filtroData(req,res);
+});
+
+
 module.exports = router;

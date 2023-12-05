@@ -1,5 +1,6 @@
 use bd_memoryanalytics;
  
+ select * from login;
 
  -- pegar a lista de servidores disponiveis para um determinado funcionario  com base no email--
 select apelidoServidor,macAdress from servidor join empresa on fkEmpresa = idEmpresa 
@@ -33,7 +34,7 @@ select valorRegistro, dtHoraRegistro, tipoComponente, idComponente from registro
 
 -- KPI 1
 -- Quantidade de chamados especifico de um determinado servidor --
-select count(idChamadoServidor) from chamadoServidor join componente on fkComponente = idComponente
+select count(idChamadoServidor) as quantidade from chamadoServidor join componente on fkComponente = idComponente
 join servidor on fkServidor = idServidor where descricao like "CPU" and apelidoServidor = "Servidor B";
 
 
@@ -73,6 +74,11 @@ FROM registro
 WHERE dtHoraRegistro BETWEEN '2023-01-01' AND '2023-12-31' and tipoMedida = "°C" 
 and fkComponente = (select idComponente from componente where fkServidor = 8)
 GROUP BY DATE(dtHoraRegistro);
+
+
+
+-- pegar o local
+select localServidor from servidor where apelidoServidor = "Servidor B";
 
 
 

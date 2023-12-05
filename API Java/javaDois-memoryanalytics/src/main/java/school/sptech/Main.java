@@ -1,33 +1,43 @@
 package school.sptech;
 
-import school.sptech.Recurso.RecursoProcessos;
-import school.sptech.Recurso.RecursoRede;
+import school.sptech.Recurso.*;
 
+import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main {
     public static void main(String[] args) {
 
-        TimerTask taskProcessos = new TimerTask() {
-        RecursoProcessos recursoProcessos = new RecursoProcessos();
+        TimerTask timerTask = new TimerTask() {
+
+            RecursoDiscoUso recursoDiscoUso = new RecursoDiscoUso();
+            RecursoDiscoTamanhoTotal recursoDiscoTamanhoTotal = new RecursoDiscoTamanhoTotal();
+            RecursoMemoriaUso recursoMemoriaUso = new RecursoMemoriaUso();
+            RecursoProcessadorFrequencia recursoProcessadorFrequencia = new RecursoProcessadorFrequencia();
+            RecursoProcessadorUso recursoProcessadorUso = new RecursoProcessadorUso();
+            RecursoProcessos recursoProcessos = new RecursoProcessos();
+            RecursoRede recursoRede =new RecursoRede();
             @Override
             public void run() {
+                recursoDiscoTamanhoTotal.capturarRegistro();
+                recursoDiscoUso.capturarRegistro();
+                recursoMemoriaUso.capturarRegistro();
+                recursoProcessadorFrequencia.capturarRegistro();
+                recursoProcessadorUso.capturarRegistro();
                 recursoProcessos.capturarRegistro();
+                recursoRede.capturarRegistro();
             }
         };
-        Timer timerProcessos = new Timer();
-        timerProcessos.schedule(taskProcessos, 0, 2000);
 
-        //TimerTask taskRede = new TimerTask() {
-          //RecursoRede recursoRede = new RecursoRede;
-           // @Override
-            //public void run() {
-               // recursoRede.capturarRegistro();
-           // }
-       // };
-        //Timer timerRede = new Timer();
-        //timerRede.schedule(taskRede, 0, 1000);
+        TimerTask timerTaskRede = new TimerTask() {
+            @Override
+            public void run() {
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(timerTask, 0, 1000);
 
 
     }

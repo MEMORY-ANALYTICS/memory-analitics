@@ -322,9 +322,9 @@
           </ul>
           <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
             <li class="nav-item dropdown">
-              <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
                 <div class="media align-items-center">
+                  <a class="btn-sm btn-neutral" id="kelvinButton" onclick="dowloadCsv()" style="cursor: pointer;">Download
+                    CSV Registros Rede</a>
                   <span class="avatar avatar-sm rounded-circle">
                     <img alt="Image placeholder" src="assets/img/theme/user.png">
                   </span>
@@ -371,26 +371,29 @@
         <div class="header-body">
           <div class="row align-items-center py-4">
 
-            <div class="col-lg-6 col-7" style="align-items: center; display: flex; flex-direction: row; 
-            justify-content: flex-start; padding-left: 0%;">
-
-                <span style="padding-right: 3%; font-weight: bold; color: black;"></span>
-                <select id="selecaoApelidoServidor"
-                  style="border-radius: 7px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                  <option value="" disabled="true">Escolha um  Servidor:</option>
-                </select>
-
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4"></nav>
-            </div>
-
-            <div class="col-lg-6 col-5 text-right">
-
-              <a class="btn-sm btn-neutral" id="kelvinButton" onclick="dowloadCsv()" style="cursor: pointer;">Download
-                CSV Registros Rede</a>
-
-
-
-            </div>
+            <!-- CSS DOS CARDS DE MONITORAMENTO E SELECT -->
+            <div class="col-xl-12">
+              <div class="row">
+                  <div class="form-group col-xl-3 py-2 bg bg-white rounded mr-2"
+                      style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+                      <div class="col-xl-12">
+                          <div class="row">
+                              <div class="col-xl-6 d-flex justify-content-center align-middle">
+                                  <p class="h2 text-center ">Servidor Visualizado:</h1>
+                              </div>
+                              <div class="col-xl-6 py-2">
+                                  <select class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
+                                  box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);"
+                                      id="exampleFormControlSelect1">
+                                      <option value="">Todos</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- FIM DO CSS DOS CARDS DE MONITORAMENTO E SELECT -->
           </div>
 
           <!-- Card stats -->
@@ -624,11 +627,12 @@
       </div>
     </div>
   </div>
-
+  
 </body>
 <!-- type: 'areaspline', -->
 </html>
 
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_velocidade_rede.js"></script>
 <!-- Argon Scripts -->
 <!-- Core -->
 <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

@@ -1,5 +1,5 @@
-process.env.AMBIENTE_PROCESSO = "desenvolvimento";
-// process.env.AMBIENTE_PROCESSO = "producao";
+// process.env.AMBIENTE_PROCESSO = "desenvolvimento";
+process.env.AMBIENTE_PROCESSO = "producao";
 
 var express = require("express");
 var cors = require("cors");
@@ -23,6 +23,9 @@ var graficoRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTem
 var servidorRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/servidor");
 var kpiRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/kpi");
 var dashCorrelacao = require("./src/routes/dashCorrelacao");
+var dashRede3 = require("./src/routes/dashboardRede3");
+var dashRede2 = require("./src/routes/dashboardRede2");
+var dashRede1 = require("./src/routes/dashboardRede1");
 const dashboardHardwareRouter = require('./src/routes/dashboardHardware');
 
 app.use(express.json());
@@ -43,7 +46,6 @@ app.use("/grafico",graficoRouter);
 app.use("/servidor", servidorRouter);
 app.use("/kpi",kpiRouter);
 app.use("/dashCorrelacao",dashCorrelacao);
-app.use('/dashboardHardware', dashboardHardwareRouter);
 app.use("/processos",processosRouter);
 
 app.listen(PORTA, function () {

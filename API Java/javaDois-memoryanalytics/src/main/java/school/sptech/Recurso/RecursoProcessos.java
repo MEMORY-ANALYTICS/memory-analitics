@@ -112,6 +112,7 @@ public class RecursoProcessos {
         return teste.get(0).getIdServidor();
     }
 
+
     public void killTask() throws IOException {
         List<ProcessosBanidos> listaProcessosBanidos = getConexoes().get(0).query("SELECT * FROM processosbanidos where fkServidor = %d".formatted(getFkServer()), new BeanPropertyRowMapper<>(ProcessosBanidos.class));
         Runtime rt = Runtime.getRuntime();
@@ -163,5 +164,10 @@ public class RecursoProcessos {
 
     public void setConexoes(List<JdbcTemplate> conexoes) {
         this.conexoes = conexoes;
+    }
+
+    public static void main(String[] args) {
+        Looca looca1 = new Looca();
+        System.out.println(looca1.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac());
     }
 }

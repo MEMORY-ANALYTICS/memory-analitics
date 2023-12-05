@@ -2,8 +2,8 @@ var express = require("express");
 var router = express.Router();
 var kpiController = require("../controllers/kpiController")
 
-router.get("/MedTempIdeal", function(req,res ){
-    kpiController.MedTempIdeal(req,res);
+router.get("/qtdIncidentes", function(req,res ){
+    kpiController.qtdIncidentes(req,res);
 });
 
 router.get("/MedTemp", function(req,res ){

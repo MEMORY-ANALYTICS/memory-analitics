@@ -1,11 +1,13 @@
 var database = require("../database/config")
 
-      function MedTempIdeal() {
-        dataHora = '2023-10-09'
+      function qtdIncidentes() {
+        apelidoServidor = 'Servidor B'
 
         instrucaoSql = `
-        select valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registro join componente on fkComponente = idComponente 
-	      where tipoMedida = '°C' and dtHoraRegistro like '${dataHora}%' and fkServidor = 8 order by valorRegistro desc limit 1;
+        select count(idChamadoServidor) as quantidade from chamadoServidor join componente on 
+        fkComponente = idComponente join servidor on fkServidor = idServidor 
+        where descricao like "CPU" and apelidoServidor = "${apelidoServidor}";
+
         `
         console.log("Executando a instrução SQL: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
@@ -43,8 +45,8 @@ var database = require("../database/config")
         return database.executar(instrucaoSql);
       }  
     module.exports = {
+        qtdIncidentes,
         MedTemp,
-        MedTempIdeal,
         CpuTempMax,
         CpuTempMin
     }

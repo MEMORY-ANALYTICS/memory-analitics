@@ -1,6 +1,28 @@
 var processosModel = require("../models/modelProcessos");
 
 
+function buscarUltimasMedidas(req, res) {
+
+    const limite_linhas = 7;
+
+    var fkServer = req.params.fkServer;
+
+    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
+
+    processosModel.buscarUltimasMedidas(fkServer, limite_linhas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+
 function buscarMedidasEmTempoReal(req, res) {
 
     var fkServer = req.params.fkServer;
@@ -15,10 +37,11 @@ function buscarMedidasEmTempoReal(req, res) {
         }
     }).catch(function (erro) {
         console.log(erro);
-        console.log("Houve um erro ao buscar os ultimos resgistros.", erro.sqlMessage);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
 }
+
 function getAllProcessosBanidos(req, res) {
 
     var fkServer = req.params.fkServer;
@@ -38,7 +61,28 @@ function getAllProcessosBanidos(req, res) {
     });
 }
 
+function getQtdProcessosBanidos(req, res) {
+
+    var fkServer = req.params.fkServer;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    processosModel.getQtdProcessosBanidos(fkServer).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar os processos banidos.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
+    buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    getAllProcessosBanidos
+    getAllProcessosBanidos,
+    getQtdProcessosBanidos
 }
