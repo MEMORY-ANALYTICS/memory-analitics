@@ -141,4 +141,5 @@ insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values
 
 -- INSERT INTO processosBanidos VALUES (null, 'chrome.exe', 12);
 
-select * from registro;
+-- select * from registro where idRegistro > 156;
+
