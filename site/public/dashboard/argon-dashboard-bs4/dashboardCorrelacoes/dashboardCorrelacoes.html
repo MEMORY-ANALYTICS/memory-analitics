@@ -555,19 +555,35 @@
                     style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">
                     <div class="row">
                         <div class="col-xl-6 border border-dark border-left-0 border-bottom-0 border-top-0">
-                            <div class="col-xl-12 my-2 text-center h1">
-                                Temperatura x CPU Uso x Ram Uso
+                            <div class="col-xl-12 my-2">
+                                <h3 class="my-0 py-0">Tipo gráfico:</h3>
+
+                                <button class="btn btn-primary mt-2">Tempo Real</button>
                             </div>
-                            <canvas id="graficoLiveTempCPU"></canvas>
-                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            <script src="https://code.highcharts.com/stock/highstock.js"></script>
+                            <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+                            <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+                            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+                            <figure class="highcharts-figure">
+                                <div id="container2"
+                                    class="p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
+                                    style="box-shadow: 0.1em 0.2em 1em rgb(167, 166, 166);"></div>
+                            </figure>
                         </div>
                         <div class="col-xl-6 border border-dark border-right-0 border-bottom-0 border-top-0">
                             <div class="col-xl-12 my-2">
                                 <h3 class="my-0 py-0">Tipo gráfico:</h3>
-                                <button class="btn btn-primary mt-2">Disperção</button>
                                 <button class="btn btn-primary mt-2">Tempo Real</button>
                             </div>
-
+                            <script src="https://code.highcharts.com/stock/highstock.js"></script>
+                            <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+                            <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+                            <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+                            <figure class="highcharts-figure">
+                                <div id="container3"
+                                    class="p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
+                                    style="box-shadow: 0.1em 0.2em 1em rgb(167, 166, 166);"></div>
+                            </figure>
                         </div>
                     </div>
                 </div>
@@ -672,6 +688,129 @@
             console.log(erro);
         });
     }
+    // Create the chart
+    Highcharts.stockChart('container2', {
+        chart: {
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    const series = this.series[0];
+                    setInterval(function () {
+                        const x = (new Date()).getTime(), // current time
+                            y = Math.round(Math.random() * 100);
+                        series.addPoint([x, y], true, true);
+                    }, 1000);
+                }
+            }
+        },
+        accessibility: {
+            enabled: false
+        },
+        time: {
+            useUTC: true
+        },
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1M'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5M'
+            }, {
+                type: 'all',
+                text: 'Tudo'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+        title: {
+            text: 'CPU Temperatura '
+        },
+        exporting: {
+            enabled: true
+        },
+        series: [{
+            name: 'Temperatura',
+            data: (function () {
+                // generate an array of random data
+                const data = [],
+                    time = (new Date()).getTime();
+                for (let i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        }, {
+            name: 'Uso CPU',
+            data: []
+        }]
+    });
+    Highcharts.stockChart('container3', {
+        chart: {
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    const series = this.series[0];
+                    setInterval(function () {
+                        const x = (new Date()).getTime(), // current time
+                            y = Math.round(Math.random() * 100);
+                        series.addPoint([x, y], true, true);
+                    }, 1000);
+                }
+            }
+        },
+        accessibility: {
+            enabled: false
+        },
+        time: {
+            useUTC: false
+        },
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1M'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5M'
+            }, {
+                type: 'all',
+                text: 'Tudo'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+        title: {
+            text: 'Cpu uso   '
+        },
+        exporting: {
+            enabled: true
+        },
+        series: [{
+            name: 'Cpu Uso',
+            data: (function () {
+                // generate an array of random data
+                const data = [],
+                    time = (new Date()).getTime();
+                for (let i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        }, {
+            name: 'Uso CPU',
+            data: []
+        }]
+    });
     function selectGraficoOcorrenciaRede() {
         var requisitanteVar
         var fkServidorVar = listaServidores.value
