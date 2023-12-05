@@ -37,6 +37,7 @@ public class RecursoRede {
                 macAddres = "Mac Address não encontrado";
             } else {
                 macAddres = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+                System.out.println(macAddres);
                 break;
             }
         }
@@ -62,8 +63,6 @@ public class RecursoRede {
                 mbEnviados = interfacesRede.get(i).getBytesEnviados() * Math.pow(10,-6);
                 // System.out.println(mbEnviados);
                 break;
-            }else {
-                return null;
             }
         }
         return mbEnviados;
@@ -77,25 +76,23 @@ public class RecursoRede {
                 mbRecebidos = interfacesRede.get(i).getBytesRecebidos() * Math.pow(10,-6);
                 // System.out.println(mbRecebidos);
                 break;
-            }else {
-                return null;
             }
         }
         return mbRecebidos;
     }
 
     public void InsertMbEnviados(){
+        RecursoRede rR = new RecursoRede();
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbEnviados = capturarRegistroEnviados();
-        conexoes.get(1).execute("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);"
-                .formatted(mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente()));
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
     public void InsertMbRecebidos(){
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbRecebidos = capturarRegistroRecebidos();
-        conexoes.get(1).execute("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);".formatted(mbRecebidos.toString().replace(",","."), "Mb", "Recebidos Rede", dataHoraAtual.format(formatter), getFkComponente()));
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "Mb", "Recebidos Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
 
     public void InsertMbpsTransmissao(){
@@ -105,44 +102,8 @@ public class RecursoRede {
         Double taxaDeTrasmissao = capturarRegistroEnviados() + capturarRegistroRecebidos()/2;
         //System.out.println(taxaDeTrasmissao);
 
-        conexoes.get(1).execute(("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
-                "fkComponente) VALUES (%s, '%s', '%s', '%s', %d);").formatted(
-                taxaDeTrasmissao.toString().replace(",","."),
-                "Mbps", "Taxa de Transmissão", dataHoraAtual.format(formatter), getFkComponente()));
-    }
-    public void InsertPacotesEnviados(){
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Double pacotesEnviados = 0.0;
-        List<RedeInterface> interfacesRede= looca.getRede().getGrupoDeInterfaces().getInterfaces();
-        for (int i = 0; i < interfacesRede.size(); i++) {
-            if (interfacesRede.get(i).getPacotesEnviados() != 0){
-                pacotesEnviados = (double) interfacesRede.get(i).getPacotesEnviados();
-                // System.out.println(mbEnviados);
-                break;
-            }
-        }
-        conexoes.get(1).execute("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);".formatted(
-                pacotesEnviados.toString().replace(",","."), "Pacotes", "Enviados Rede",
-                dataHoraAtual.format(formatter), getFkComponente()));
-    }
-
-
-    public void InsertPacotesRecebidos(){
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        Double pacotesRecebidos = 0.0;
-        List<RedeInterface> interfacesRede= looca.getRede().getGrupoDeInterfaces().getInterfaces();
-        for (int i = 0; i < interfacesRede.size(); i++) {
-            if (interfacesRede.get(i).getPacotesRecebidos() != 0){
-                pacotesRecebidos = (double) interfacesRede.get(i).getPacotesRecebidos();
-                // System.out.println(mbEnviados);
-                break;
-            }
-        }
-        conexoes.get(1).execute("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);".formatted(
-                pacotesRecebidos.toString().replace(",","."), "Pacotes", "Recebidos Rede",
-                dataHoraAtual.format(formatter), getFkComponente()));
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",taxaDeTrasmissao.toString().replace(",","."),
+                "Mbps", "Taxa de Transmissão", dataHoraAtual.format(formatter), getFkComponente());
     }
 
     public void InsertLatencia(){
@@ -158,9 +119,45 @@ public class RecursoRede {
         Double totalTime = totalBytes / taxaDeTrasmissao;
         Double tempoLatencia = (totalTime / 2) * Math.pow(10,-4);
 
-        conexoes.get(1).execute(("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (%s, '%s', '%s', '%s', %d);").formatted(
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
+                        "fkComponente) VALUES (?, ?, ?, ?, ?);",
                 tempoLatencia.toString().replace(",","."),
-                "ms", "Latência da Rede", dataHoraAtual.format(formatter), getFkComponente()));
+                "ms", "Latência da Rede", dataHoraAtual.format(formatter), getFkComponente());
+    }
+
+    public void InsertPacotesEnviados(){
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Double pacotesEnviados = 0.0;
+        List<RedeInterface> interfacesRede= looca.getRede().getGrupoDeInterfaces().getInterfaces();
+        for (int i = 0; i < interfacesRede.size(); i++) {
+            if (interfacesRede.get(i).getPacotesEnviados() != 0){
+                pacotesEnviados = (double) interfacesRede.get(i).getPacotesEnviados();
+                //System.out.println(pacotesEnviados);
+                break;
+            }
+        }
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
+                pacotesEnviados.toString().replace(",","."), "Pacotes", "Enviados Rede",
+                dataHoraAtual.format(formatter), getFkComponente());
+    }
+
+
+    public void InsertPacotesRecebidos(){
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Double pacotesRecebidos = 0.0;
+        List<RedeInterface> interfacesRede= looca.getRede().getGrupoDeInterfaces().getInterfaces();
+        for (int i = 0; i < interfacesRede.size(); i++) {
+            if (interfacesRede.get(i).getPacotesRecebidos() != 0){
+                pacotesRecebidos = (double) interfacesRede.get(i).getPacotesRecebidos();
+                // System.out.println(pacotesRecebidos);
+                break;
+            }
+        }
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
+                pacotesRecebidos.toString().replace(",","."), "Pacotes", "Recebidos Rede",
+                dataHoraAtual.format(formatter), getFkComponente());
     }
 
     public void capturarRegistro(){

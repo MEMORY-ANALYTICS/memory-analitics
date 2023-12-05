@@ -26,8 +26,7 @@ var dashCorrelacao = require("./src/routes/dashCorrelacao");
 var dashRede3 = require("./src/routes/dashboardRede3");
 var dashRede2 = require("./src/routes/dashboardRede2");
 var dashRede1 = require("./src/routes/dashboardRede1");
-
-
+const dashboardHardwareRouter = require('./src/routes/dashboardHardware');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -47,9 +46,6 @@ app.use("/grafico",graficoRouter);
 app.use("/servidor", servidorRouter);
 app.use("/kpi",kpiRouter);
 app.use("/dashCorrelacao",dashCorrelacao);
-app.use("/dashboardRede3",dashRede3);
-app.use("/dashboardRede2",dashRede2);
-app.use("/dashboardRede1",dashRede1);
 app.use("/processos",processosRouter);
 
 app.listen(PORTA, function () {

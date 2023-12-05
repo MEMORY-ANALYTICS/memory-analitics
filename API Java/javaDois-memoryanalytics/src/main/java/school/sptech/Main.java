@@ -17,6 +17,7 @@ public class Main {
             RecursoProcessadorFrequencia recursoProcessadorFrequencia = new RecursoProcessadorFrequencia();
             RecursoProcessadorUso recursoProcessadorUso = new RecursoProcessadorUso();
             RecursoProcessos recursoProcessos = new RecursoProcessos();
+            RecursoRede recursoRede =new RecursoRede();
             @Override
             public void run() {
                 recursoDiscoTamanhoTotal.capturarRegistro();
@@ -25,6 +26,13 @@ public class Main {
                 recursoProcessadorFrequencia.capturarRegistro();
                 recursoProcessadorUso.capturarRegistro();
                 recursoProcessos.capturarRegistro();
+                recursoRede.capturarRegistro();
+            }
+        };
+
+        TimerTask timerTaskRede = new TimerTask() {
+            @Override
+            public void run() {
             }
         };
 
