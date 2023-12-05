@@ -14,4 +14,7 @@ router.post("/selectServidores", (req, res) => {
 router.post("/selectTemperatura", (req, res) => {
     dashCorrelacaoController.selectTemperatura(req, res);
 });
+router.post("/selectCpu", (req, res) => {
+    dashCorrelacaoController.selectCpu(req, res);
+});
 module.exports = router;

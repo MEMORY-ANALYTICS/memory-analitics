@@ -35,6 +35,18 @@ function selectGraficoOcorrencia(fkServidor, requisitante, fkEmpresa, metodo) {
     } 
   }
 
+  function selectCpu(fkServidor) {
+    var instrucaoSql =
+    `SELECT c.fkServidor, 
+    r.valorRegistro AS usoCpu,
+    r.tipoMedida,
+    r.dtHoraRegistro
+    FROM registro r
+    JOIN componente c ON r.fkComponente = c.idComponente
+    WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso';`
+    return database.executar(instrucaoSql);
+}
+
   function selectTemperatura(fkServidor) {
   
     instrucaoSql = `
