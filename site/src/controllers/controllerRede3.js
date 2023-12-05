@@ -1,19 +1,51 @@
 var database = require("../database/config");
 
-function autenticar(email, senha) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
-    email,
-    senha
-  );
-  var instrucao = `
-  SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
-	join login on idFuncionario = fkFuncionario JOIN empresa ON fkEmpresa = idEmpresa
-  WHERE email = '${email}' AND senha = '${senha}';
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
+function listar(req, res){
+
+    var fkEmpresa = req.params.fkEmpresa;	
+    console.log('Estou no Controller com o valor de:' + fkEmpresa)	
+
+    modelRede3.listar(fkEmpresa).then(function (resultado) {	
+      if (resultado.length > 0) {	
+          res.status(200).json(resultado);	
+          console.log("Resultado da Controller:"+ resultado);	
+      } else {	
+          res.status(204).send("Nenhum resultado encontrado!")	
+      }	
+  }).catch(function (erro) {	
+      console.log(erro);	
+      console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+      res.status(500).json(erro.sqlMessage);	
+  });	
+}	
+
+function pegarIdComponente(){
+  var fkServidor = req.params.fkServidor;
+
+  modelRede3
+    .pegarIdComponente(fkServidor)
+    .then(function (resultado) {
+
+      if (resultado.length == 1) {
+        console.log(resultado);
+        res.json(resultado[0]);
+      } else if (resultado.length == 0) {
+        res.status(403).send("fkServidor Invalida");
+      } else {
+        res.status(403).send("Mais de uma fkServidor");
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(
+        "\nHouve um erro ao selecionar o idComponente! ERRO: ",
+        erro.sqlMessage
+      );
+      res.status(500).json(erro.sqlMessage);
+    });
 }
+
 module.exports = {
-  autenticar,
+  listar,
+  pegarIdComponente
 };
