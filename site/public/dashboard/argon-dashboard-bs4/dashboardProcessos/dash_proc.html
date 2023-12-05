@@ -834,7 +834,7 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
-    
+    var myChart2;
     var myChart;
     nomeProto.innerHTML = sessionStorage.getItem("NOME_USUARIO");
     let proximaAtualizacao;
@@ -843,6 +843,9 @@
 
     if (myChart != undefined) {
       myChart.destroy();
+    }
+    if(myChart2 != undefined){
+      myChart2.destroy();
     }
     myChart = new Chart(ctx, {});
 
@@ -934,7 +937,7 @@
       };
 
       // Adicionando gráfico criado em div na tela
-      let myChart2 = new Chart(document.getElementById(`myChart`), config);
+      myChart2 = new Chart(document.getElementById(`myChart`), config);
       setTimeout(() => atualizarGrafico(4, dados, myChart2), 10000);
     }
 
