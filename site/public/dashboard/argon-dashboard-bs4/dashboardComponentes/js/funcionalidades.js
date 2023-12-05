@@ -8,40 +8,7 @@ let picoCPU = 80;  // Substitua pelos valores reais
 let picoRAM = 80;  // Substitua pelos valores reais
 let picoDISCO = 80;  // Substitua pelos valores reais
 
-  
-function downloadPDF() {
-  const contentCopy = document.getElementById('containers').cloneNode(true);
-  const spanElement = contentCopy.querySelector('span');
-  const filterElement = contentCopy.querySelector('.filter');
-
-  if (filterElement) {
-    filterElement.parentNode.removeChild(filterElement);
-  }
-
-  // Adicione os valores de pico de uso ao conteúdo do PDF
-  const contentHTML = `
-    <p>Pico de Uso de CPU: ${picoCPU}%</p>
-    <p>Pico de Uso de RAM: ${picoRAM}%</p>
-    <p>Pico de Uso de DISCO: ${picoDISCO}%</p>
-  `;
-
-  // Adicione o conteúdo HTML ao clone do elemento
-  contentCopy.innerHTML += contentHTML;
-
-  const options = {
-    margin: 10,
-    filename: 'relatorio.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    font: { size: 30 } // Tamanho da fonte maior
-  };
-
-  html2pdf(contentCopy, options);
-}
-
-
-function preencherDropdownServidores(servidores) {
+  function preencherDropdownServidores(servidores) {
   const selectServidor = document.getElementById('selectServidor');
 
   servidores.forEach((servidor) => {
@@ -254,6 +221,38 @@ function updateChart(series, resourceType) {
 
   const currentTime = new Date().getTime();
   series.addPoint([currentTime, resourceUsage], true, true);
+}
+
+function downloadPDF() {
+  const contentCopy = document.getElementById('containers').cloneNode(true);
+  const spanElement = contentCopy.querySelector('span');
+  const filterElement = contentCopy.querySelector('.filter');
+
+  if (filterElement) {
+    filterElement.parentNode.removeChild(filterElement);
+  }
+
+  // Adicione os valores de pico de uso ao conteúdo do PDF
+  const contentHTML = `
+    <p>Pico de Uso de CPU: ${Math.round(cpuMax)}%</p>
+    <p>Pico de Uso de RAM: ${Math.round(ramMax)}%</p>
+    <p>Pico de Uso de DISCO: ${Math.round(discoMax)}%</p>
+    <p>Mês Com Maiores Picos: Julho</p>
+  `;
+
+  // Adicione o conteúdo HTML ao clone do elemento
+  contentCopy.innerHTML += contentHTML;
+
+  const options = {
+    margin: 10,
+    filename: 'relatorio.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    font: { size: 30 } // Tamanho da fonte maior
+  };
+
+  html2pdf(contentCopy, options);
 }
 
 const historicoCPU = [];
