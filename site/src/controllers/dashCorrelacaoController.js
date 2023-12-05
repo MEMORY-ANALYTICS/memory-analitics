@@ -15,7 +15,7 @@ function selectServidores(req, res){
         }	
     }).catch(function (erro) {	
         console.log(erro);	
-        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+        console.log("Houve um erro ao buscar os Servidores", erro.sqlMessage);	
         res.status(500).json(erro.sqlMessage);	
     });	
 }
@@ -35,7 +35,7 @@ function selectGraficoOcorrencia(req, res){
         }	
     }).catch(function (erro) {	
         console.log(erro);	
-        console.log("Houve um erro ao buscar o usuário", erro.sqlMessage);	
+        console.log("Houve um erro ao buscar as ocorrencias", erro.sqlMessage);	
         res.status(500).json(erro.sqlMessage);	
     });	
 }
