@@ -407,8 +407,8 @@
                                                 <p class="h2 text-center ">Servidor Visualizado:</h1>
                                             </div>
                                             <div class="col-xl-6 py-2">
-                                                <select onchange="selectGraficoOcorrencia()" id="listaServidores" class="form-control text-primary border-0"
-                                                    style="font-size: 1.2em; text-align: center;
+                                                <select onchange="selectGraficoOcorrencia()" id="listaServidores"
+                                                    class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
                                                 box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);"
                                                     id="exampleFormControlSelect1">
                                                     <option value="0">Todos</option>
@@ -732,71 +732,76 @@
 <script>
     var chartOcorrencias = Highcharts.chart('container', {
         chart: {
-            backgroundColor: '#ffffff'
+            type: 'bar'
         },
-
         title: {
-            text: 'Ocorrências por Dashboard',
-            align: 'center'
-        },
-
-        subtitle: {
-            text: '',
+            text: 'Historic World Population by Region',
             align: 'left'
         },
-
-        yAxis: {
+        subtitle: {
+            text: 'Source: <a ' +
+                'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
+                'target="_blank">Wikipedia.org</a>',
+            align: 'left'
+        },
+        xAxis: {
+            categories: ['Componente', 'Temperatura', 'Rede', 'Processos'],
             title: {
-                text: 'Número de Ocorrências'
+                text: null
+            },
+            gridLineWidth: 1,
+            lineWidth: 0
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Population (millions)',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            },
+            gridLineWidth: 0
+        },
+        tooltip: {
+            valueSuffix: ' millions'
+        },
+        plotOptions: {
+            bar: {
+                borderRadius: '50%',
+                dataLabels: {
+                    enabled: true
+                },
+                groupPadding: 0.1
             }
         },
-
         legend: {
             layout: 'vertical',
             align: 'right',
-            verticalAlign: 'middle'
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
         },
-
-        plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 1
-            }
+        credits: {
+            enabled: false
         },
-
         series: [{
-            name: 'Dashboard Componentes',
-            data: []
+            name: 'Dia',
+            data: [631, 727, 3202, 721]
         }, {
-            name: 'Dashboard Temperatura',
-            data: []
+            name: 'Mes',
+            data: [814, 841, 3714, 726]
         }, {
-            name: 'Dashboard Rede',
-            data: []
-        }, {
-            name: 'Dashboard Processos',
-            data: []
-        }
-        ],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
+            name: 'Ano',
+            data: [1276, 1007, 4561, 746]
+        }]
     });
+
     // Create the chart
     Highcharts.stockChart('container2', {
         chart: {
@@ -1097,7 +1102,7 @@
                         } else if (requisitanteVar = 'Processo') {
                             qtdOcorrenciasProcessos = json[0].TotalChamados
                         }
-                        setTimeout(atualizarOcorrencias,5000)
+                        setTimeout(atualizarOcorrencias, 5000)
                     });
                 } else {
                     resposta.text().then(textoErro => {
@@ -1109,11 +1114,11 @@
             });
         }
     }
-    function atualizarOcorrencias(){
-        chartOcorrencias.series[0].update({data:qtdOcorrenciasComponente})
-        chartOcorrencias.series[1].update({data:qtdOcorrenciasTemperatura})
-        chartOcorrencias.series[2].update({data:qtdOcorrenciasRede})
-        chartOcorrencias.series[3].update({data:qtdOcorrenciasProcessos})
+    function atualizarOcorrencias() {
+        chartOcorrencias.series[0].update({ data: qtdOcorrenciasComponente })
+        chartOcorrencias.series[1].update({ data: qtdOcorrenciasTemperatura })
+        chartOcorrencias.series[2].update({ data: qtdOcorrenciasRede })
+        chartOcorrencias.series[3].update({ data: qtdOcorrenciasProcessos })
     }
     selectServidores()
     selectGraficoOcorrencia()
