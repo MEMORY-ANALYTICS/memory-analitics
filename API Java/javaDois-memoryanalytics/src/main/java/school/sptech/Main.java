@@ -25,6 +25,13 @@ public class Main {
                 recursoProcessadorFrequencia.capturarRegistro();
                 recursoProcessadorUso.capturarRegistro();
                 recursoProcessos.capturarRegistro();
+                //recursoRede.capturarRegistro();
+            }
+        };
+
+        TimerTask timerTaskRede = new TimerTask() {
+            @Override
+            public void run() {
             }
         };
 
