@@ -150,16 +150,15 @@ public class RecursoRede {
         Double sentBytes = capturarRegistroEnviados() * 1000000;
         Double totalBytes = receivedBytes + sentBytes;
         Double totalTime = totalBytes / taxaDeTrasmissao;
-        Double tempoLatencia = (totalTime / 2) * Math.pow(10,-4);
-
-        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
-                        "fkComponente) VALUES (?, ?, ?, ?, ?);",
-                tempoLatencia.toString().replace(",","."),
+        Double tempoLatencia = Math.round(1000. * (totalTime / 2) * Math.pow(10,-4)) / 1000.;
+        System.out.println("aaaa");
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
+                Double.valueOf(tempoLatencia.toString().replace(",",".")),
                 "ms", "Latência da Rede",Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
-
+        System.out.println("bbbbb");
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
                         "fkComponente) VALUES (?, ?, ?, ?, ?);",
-                tempoLatencia.toString().replace(",","."),
+                Double.valueOf(tempoLatencia.toString().replace(",",".")),
                 "ms", "Latência da Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
 
