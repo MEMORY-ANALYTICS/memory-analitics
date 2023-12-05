@@ -49,10 +49,10 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
 ('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10005),
-('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10005),
+('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10004),
 ('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10005),
 ('Windows', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10005),
-('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10005),
+('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10004),
 ('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
 ('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10004),
 ('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10004),
