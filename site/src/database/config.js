@@ -7,6 +7,7 @@ var sqlServerConfig = {
   database: "bd_memoryanalytics",
   user: "sa",
   password: "urubu100",
+  trustServerCertificate: true,
   pool: {
     max: 10,
     min: 0,
@@ -14,7 +15,7 @@ var sqlServerConfig = {
   },
   options: {
     encrypt: true, // for azure
-  },
+  }
 };
 
 // CONEXÃO DO MYSQL WORKBENCH
