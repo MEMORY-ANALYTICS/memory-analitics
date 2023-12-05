@@ -47,6 +47,7 @@ app.use("/servidor", servidorRouter);
 app.use("/kpi",kpiRouter);
 app.use("/dashCorrelacao",dashCorrelacao);
 app.use("/processos",processosRouter);
+app.use("/dashboardHardware", dashboardHardwareRouter);
 
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
