@@ -800,13 +800,13 @@
     setInterval(chamarOcorrencias, 2000);
     setInterval(atualizarDadosOcorrencias, 3000);
     
-    function chamarTemperaturaCpu(){
-        selectCpu()
-        selectTemperatura()
-    }
+
     function atualizarDadosTemperaturaCpu(){
-        graficoLiveTempCPU.data.datasets[0].data.push(temperatura) 
-        graficoLiveTempCPU.data.datasets[1].data.push(cpuUso)
+    var temperaturaaa = Math.round(Math.random()*75,2)
+    var temperaturaaa = Math.round(Math.random()*100,2)
+
+        graficoLiveTempCPU.data.datasets[0].data.push(temperaturaaa) 
+        graficoLiveTempCPU.data.datasets[1].data.push(cpuUsooo)
     }
     setInterval(chamarTemperaturaCpu, 2000);
     setInterval(atualizarDadosTemperaturaCpu, 3000);
