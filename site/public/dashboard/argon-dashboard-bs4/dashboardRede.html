@@ -28,7 +28,7 @@
 
   <link rel="stylesheet" href="/home/alexandra/Área de Trabalho/Projeto de PI 2ºSemestre/memory-analytics/site/public/dashboard/argon-dashboard-bs4/dashboardRede/style_grafico.css">
   <!-- Favicon -->
-  <link rel="icon" href="assets/img/brand/favicon.png" type="image/png">
+  <link rel="icon" href="../../../assets/img/Logo.png" type="image/png">
   <!-- Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
   <!-- Icons -->
@@ -55,12 +55,23 @@
   <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
     <div class="scrollbar-inner">
       <!-- Brand -->
-      <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="" style="padding-left: 2%;">
-          <img src="../../assets/img/logos/logo.png" alt="">
-          <b style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Memory Analytics</b>
-        </a>
+      <div class="sidenav-header align-items-center"
+      style="display: flex; flex-direction: row; justify-content: center;">
+
+      <div style="padding-right: 5%;">
+        <img src="../../../assets/img/Logo.png">
       </div>
+      <div>
+        <b style="
+                  font-family: inherit;
+                  color: #2fc3bf;
+                  font-size: 17px;
+                ">Memory <br>
+          Analytics
+        </b>
+      </div>
+
+    </div>
       <div class="navbar-inner">
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
@@ -69,13 +80,13 @@
             <li class="nav-item">
               <a class="nav-link active" href="paginaGerente.html">
                 <i class="ni ni-tv-2 text-primary"></i>
-                <span class="nav-link-text" style="padding-left: 5%;">Dashboard</span>
+                <span class="nav-link-text">Dashboard</span>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="funcionario/funcionarios.html">
                 <i class="ni ni-badge text-blue"></i>
-                <span class="nav-link-text" style="padding-left: 5%;">Funcionários</span>
+                <span class="nav-link-text">Funcionários</span>
               </a>
             </li>
             <li class="nav-item">
@@ -95,38 +106,37 @@
           <hr class="my-3">
           <!-- Heading -->
           <h6 class="navbar-heading p-0 text-muted">
-            <span class="docs-normal">Dashboards Personalizadas</span>
+            <span class="docs-normal">Dashboards</span>
           </h6>
           <!-- Navigation -->
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
-              <a class="nav-link" href="dashboardComponentes/paginaAnalistaHardware.html" target="_blank">
-                <img src="../../assets/icons_geral/hardware_icons.png">
+              <a class="nav-link" href="dashboardComponentes/paginaAnalistaHardware.html">
+                <img src="../../assets/icons_geral/hardware.svg">
                 <span class="nav-link-text" style="padding-left: 5%;">Hardware</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="dashboardProcessos/dash_proc.html" target="_blank">
-                <img src="../../assets/icons_geral/processo_icons.png">
+              <a class="nav-link" href="dashboardProcessos/dash_proc.html">
+                <img src="../../assets/icons_geral/processos.svg">
                 <span class="nav-link-text" style="padding-left: 5%;">Processos</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" target="_blank" style="background-color: #5d7cea; border-radius: 10px;">
-                <img src="../../assets/icons_geral/rede_icons.png">
+              <a class="nav-link active">
+                <img src="../../assets/icons_geral/rede.svg">
                 <span class="nav-link-text" style="padding-left: 5%;">Rede</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="dashboardTemperatura/public/dash_temp.html" target="_blank">
-                <img src="../../assets/icons_geral/temp_icons.png">
+              <a class="nav-link" href="dashboardTemperatura/public/dash_temp.html">
+                <img src="../../assets/icons_geral/temp.svg">
                 <span class="nav-link-text" style="padding-left: 5%;">Temperatura</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="dashboardCorrelacoes/dashboardCorrelacoes.html"
-                target="_blank">
-                <img src="../../assets/icons_geral/correlacao_icons.png">
+              <a class="nav-link" href="dashboardCorrelacoes/dashboardCorrelacoes.html">
+                <img src="../../assets/icons_geral/correlacao.svg">
                 <span class="nav-link-text" style="padding-left: 5%;">Correlação</span>
               </a>
             </li>
