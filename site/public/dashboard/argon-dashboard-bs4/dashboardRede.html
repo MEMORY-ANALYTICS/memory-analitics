@@ -445,7 +445,7 @@
                 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Latência Máximo</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Latência Máxima</h5>
                       <span class="h2 font-weight-bold mb-0">95.43 ms</span>
                     </div>
                     <div class="col-auto">
@@ -516,11 +516,11 @@
               <figure class="highcharts-figure3">
                 <div id="container3"></div>
                  <p class="highcharts-description3">
-                  Descrição: <b>Visualização da velocidade da sua rede</b>
+                  Descrição: <b>Visualização da velocidade da sua rede.</b>
                  </p>
                  <p class="highcharts-description3">
                   Status: <b style="color: red; font-weight: 30px; box-shadow:
-                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8)">Critíco</b>
+                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8)">Crítico</b>
                  </p>
               </figure>
             </div>
@@ -598,9 +598,6 @@
         
         <figure class="highcharts-figure2">
             <div id="container2"></div>
-            <p class="highcharts-description" style="color: black;">
-                O gráfico acima, ajudará a visualizar a relação entre Pacotes enviados e Pacotes recebidos.
-            </p>
             <br>
         </figure>
         <!-- Fim do 2º Grafico -->
@@ -854,9 +851,8 @@ Highcharts.chart('container2', {
             minWidth: 1000
         }
     },
-
     data: {
-        csvURL: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/analytics.csv',
+        // csvURL: 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/analytics.csv',
         beforeParse: function (csv) {
             return csv.replace(/\n\n/g, '\n');
         }
