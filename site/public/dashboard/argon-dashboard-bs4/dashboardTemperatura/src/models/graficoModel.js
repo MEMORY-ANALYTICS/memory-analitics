@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function graficoCpuHora(fkServidor) {
 
-  fkServidor = 8
+  fkServidor = 4
 
   instrucaoSql = `
   select valorRegistro, dtHoraRegistro,tipoComponente from 
@@ -16,7 +16,7 @@ function graficoCpuHora(fkServidor) {
 function graficoCpuSemana() {
 
   anoMes = '2023-12'
-  fkServidor = 8;
+  fkServidor = 4;
 
   instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, date(dtHoraRegistro) as dia 
   from registro 
@@ -32,7 +32,7 @@ function graficoCpuSemana() {
 function graficoCpuMes() {
 
   anoMes = '2023-12'
-  fkServidor = 8;
+  fkServidor = 4;
   
   instrucaoSql = `select round(avg(valorRegistro),2) as valorMedia, MONTH(dtHoraRegistro) as dia from registro 
 	where tipoMedida = '°C' and MONTH(dtHoraRegistro) like '${anoMes}%'
@@ -48,7 +48,7 @@ function filtroData() {
 
   dataInicio = '2023-01-01'
   dataFim = '2023-12-31'
-  fkServidor = 8
+  fkServidor = 4
 
   
   instrucaoSql = `
@@ -69,7 +69,7 @@ function graficoIncidentes(apelidoServidor) {
   instrucaoSql = `
   select sum(idChamadoServidor) as quantidade, Month(dtHoraChamado) as mes from 
   chamadoServidor join componente on fkComponente = idComponente
-  join servidor on fkServidor = idServidor where descricao like 'CPU' and apelidoServidor = '${apelidoServidor}'
+  join servidor on fkServidor = idServidor where descricao like 'CPU' and apelidoServidor = 'mined'
   group by Month(dtHoraChamado) order by mes desc;
 `
 

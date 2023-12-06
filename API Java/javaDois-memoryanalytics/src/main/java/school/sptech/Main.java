@@ -1,5 +1,7 @@
 package school.sptech;
 
+import school.sptech.Login.Login;
+import school.sptech.Login.LoginDao;
 import school.sptech.Recurso.*;
 import school.sptech.Servidores.Downtime;
 
@@ -11,6 +13,10 @@ import java.util.TimerTask;
 public class Main {
     public static void main(String[] args) {
 
+        LoginDao loginDao = new LoginDao();
+
+        System.out.println("Digite o Login: ");
+        loginDao.verificaLogin()
         LocalDateTime dateTime = LocalDateTime.now();
 
 

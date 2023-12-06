@@ -834,16 +834,10 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
-    var myChart2;
-    var myChart;
     nomeProto.innerHTML = sessionStorage.getItem("NOME_USUARIO");
     let proximaAtualizacao;
     obterDadosGrafico(4);
     const ctx = document.getElementById("myChart");
-
-    if (myChart != undefined) {
-      myChart.destroy();
-    }
 
     myChart = new Chart(ctx, {});
 
@@ -934,12 +928,10 @@
         data: dados,
       };
 
-      if (myChart2 != undefined) {
-        myChart2.destroy();
-      }
       // Adicionando gráfico criado em div na tela
-      myChart2 = new Chart(document.getElementById(`myChart`), config);
-      setTimeout(() => atualizarGrafico(4, dados, myChart2), 10000);
+      let myChart = new Chart(document.getElementById(`myChart`), config);
+
+      setTimeout(() => atualizarGrafico(4, dados, myChart), 10000);
     }
 
     function atualizarGrafico(fkServer, dados, myChart) {
@@ -983,13 +975,18 @@
                 dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
                 dados.datasets[0].data.shift(); // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
+                dados.datasets[0].data.push(); // incluir uma nova medida de umidade
 
                 dados.datasets[1].data.shift(); // apagar o primeiro de temperatura
                 dados.datasets[1].data.push(novoRegistro[0].ram); // incluir uma nova medida de temperatura
-                myChart.destroy();
+
                 myChart.update();
               }
+
+              // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+              proximaAtualizacao = setTimeout(() => {
+                atualizarGrafico(fkServer, dados, myChart);
+              }, 10000);
             });
           } else {
             console.error("Nenhum dado encontrado ou erro na API");
@@ -1009,7 +1006,7 @@
 
     getAllProcessosBanidos(4);
     function getAllProcessosBanidos(fkServer) {
-      tableProcessos.innerHTML = "";
+      tableProcessos.innerHTML = '';
       fetch(`/processos/getAllProcessosBanidos/${fkServer}`, {
         cache: "no-store",
       })
@@ -1063,30 +1060,30 @@
         });
     }
 
-    getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
+    // getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
 
-    function getAllServers(fkEmpresa) {
-      console.log(fkEmpresa);
-      fetch(`/servidor/getAll/${fkEmpresa}`)
-        .then(function (response) {
-          if (response.ok) {
-            response.json().then(function (resposta) {
-              console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
-              for (i = 0; i < resposta.length; i++) {
-                select = document.getElementById("selectServer");
-                select.innerHTML += `<option>${resposta[0]} </option>`;
-              }
-            });
-          } else {
-            console.error("Nenhum dado encontrado ou erro na API");
-          }
-        })
-        .catch(function (error) {
-          console.error(
-            `Erro na obtenção dos dados p/ Usuario: ${error.message}`
-          );
-        });
-    }
+    // function getAllServers(fkEmpresa) {
+    //   console.log(fkEmpresa);
+    //   fetch(`/servidor/getAll/${fkEmpresa}`)
+    //     .then(function (response) {
+    //       if (response.ok) {
+    //         response.json().then(function (resposta) {
+    //           console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
+    //           for (i = 0; i < resposta.length; i++) {
+    //             select = document.getElementById("selectServer");
+    //             select.innerHTML += `<option>${resposta[0]} </option>`;
+    //           }
+    //         });
+    //       } else {
+    //         console.error("Nenhum dado encontrado ou erro na API");
+    //       }
+    //     })
+    //     .catch(function (error) {
+    //       console.error(
+    //         `Erro na obtenção dos dados p/ Usuario: ${error.message}`
+    //       );
+    //     });
+    // }
 
     function cadastrarProcesso(fkServidor) {
       var erro = false;
@@ -1171,5 +1168,5 @@
         }
       });
     }
-  </script>
+    </script>
 </html>
