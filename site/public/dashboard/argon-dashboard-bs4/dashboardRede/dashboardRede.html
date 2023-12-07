@@ -1,0 +1,736 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <title>Dashboard - Rede</title>
+  <link rel="stylesheet" href="style_rede.css" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="../../../assets/img/Logo.png" type="image/png">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" />
+  <!-- Icons -->
+  <link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css" />
+  <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" />
+  <!-- Page plugins -->
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="../../argon-dashboard-bs4/assets/css/argon.css?v=1.2.0" type="text/css" />
+  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
+  <!-- Google charts -->
+   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+  <!-- Sidenav -->
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header align-items-center"
+        style="display: flex; flex-direction: row; justify-content: center;">
+
+        <div style="padding-right: 5%;">
+          <img src="../../../assets/img/Logo.png">
+        </div>
+        <div>
+          <b style="
+                  font-family: inherit;
+                  color: #2fc3bf;
+                  font-size: 17px;
+                ">Memory <br>
+            Analytics
+          </b>
+        </div>
+
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="../paginaGerente.html">
+                <i class="ni ni-tv-2 text-primary"></i>
+                <span class="nav-link-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../funcionario/funcionarios.html">
+                <i class="ni ni-badge text-blue"></i>
+                <span class="nav-link-text">Funcionários</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../server/servers.html">
+                <i class="ni ni-building   text-primary"></i>
+                <span class="nav-link-text">Servidores</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../componente/componentes.html">
+                <i class="ni ni-laptop text-blue"></i>
+                <span class="nav-link-text">Componentes</span>
+              </a>
+            </li>
+          </ul>
+          <!-- Divider -->
+          <hr class="my-3">
+          <!-- Heading -->
+          <h6 class="navbar-heading p-0 text-muted">
+            <span class="docs-normal">Dashboards</span>
+          </h6>
+          <!-- Navigation -->
+          <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+              <a class="nav-link" href="../dashboardComponentes/paginaAnalistaHardware.html">
+                <img src="../../../assets/icons_geral/hardware.svg">
+                <span class="nav-link-text" style="padding-left: 5%;">Hardware</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../dashboardProcessos/dash_proc.html">
+                <img src="../../../assets/icons_geral/processos.svg">
+                <span class="nav-link-text" style="padding-left: 5%;">Processos</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active">
+                <img src="../../../assets/icons_geral/rede.svg">
+                <span class="nav-link-text" style="padding-left: 5%;">Rede</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../dashboardTemperatura/public/dash_temp.html">
+                <img src="../../../assets/icons_geral/temp.svg">
+                <span class="nav-link-text" style="padding-left: 5%;">Temperatura</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../dashboardCorrelacoes/dashboardCorrelacoes.html">
+                <img src="../../../assets/icons_geral/correlacao.svg">
+                <span class="nav-link-text" style="padding-left: 5%;">Correlação</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Search form -->
+          <!-- Navbar links -->
+          <ul class="navbar-nav align-items-center  ml-md-auto ">
+            <li class="nav-item d-xl-none">
+              <!-- Sidenav toggler -->
+              <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin"
+                data-target="#sidenav-main">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item d-sm-none">
+              <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+                <i class="ni ni-zoom-split-in"></i>
+              </a>
+            </li>
+            <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
+              <li class="nav-item dropdown">
+                <div class="media align-items-center">
+                  <!-- <a class="btn-sm btn-neutral" id="kelvinButton" onclick="dowloadCsv()" style="cursor: pointer;">Download
+                    CSV Registros Rede</a> -->
+                  <span class="avatar avatar-sm rounded-circle">
+                    <img alt="Image placeholder" src="../assets/img/theme/user.png">
+                  </span>
+                  <div class="media-body  ml-2  d-none d-lg-block">
+                    <span class="mb-0 text-sm  font-weight-bold" id="nomeLogin" style="color: #fff;"></span>
+                  </div>
+                </div>
+                </a>
+              </li>
+            </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+      <div class="container-fluid">
+        <div class="header-body">
+          <div class="row align-items-center py-4">
+
+            <!-- CSS DOS CARDS DE MONITORAMENTO E SELECT -->
+            <div class="col-xl-12">
+              <div class="row">
+                <div class="form-group col-xl-3 py-2 bg bg-white rounded mr-2"
+                  style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+                  <div class="col-xl-12">
+                    <div class="row">
+                      <div class="col-xl-6 d-flex justify-content-center align-middle">
+                        <p class="h2 text-center ">Servidor Visualizado:</h1>
+                      </div>
+                      <div class="col-xl-6 py-2">
+                        <select onchange="selectGraficoOcorrencia()" id="listaServidores"
+                          class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
+                                  box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);" id="exampleFormControlSelect1">
+                          <option value="0">mined</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FIM DO CSS DOS CARDS DE MONITORAMENTO E SELECT -->
+          </div>
+
+          <!-- Card stats -->
+          <div class="row">
+
+
+            <div class="col-xl-4 col-md-6">
+              <div class="card card-stats" style="height: 70%;">
+                <!-- Card body -->
+                <div class="card-body" style="box-shadow:
+                0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Velocidade Mínima</h5>
+                      <span class="h2 font-weight-bold mb-0" id="menorValorTxTransmissao">50.07 Mbps</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow"> PROBLEMA -->
+                        <!-- <img src="../../../assets/icons_geral/dash_icons.png" alt=""> -->
+                        <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 pb-3 text-sm">
+                    <!--
+                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    -->
+
+                    <span class="text-nowrap">Atualizado em :</span>
+                    <span>2023-12-05 10:21:43</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+              <div class="card card-stats" style="height: 70%;">
+                <!-- Card body -->
+                <div class="card-body" style="box-shadow:
+                0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Latência Máxima</h5>
+                      <span class="h2 font-weight-bold mb-0">95.43 ms</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow"> PROBLEMA -->
+                        <!-- <img src="../../../assets/icons_geral/dash_icons.png" alt=""> -->
+                        <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <!--
+                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    -->
+                    <span class="text-nowrap">Horário de maior latência:</span>
+                    <span>12:01:10</span>
+                    <br>
+                    <span class="text-nowrap">Atualizado em :</span>
+                    <span id="dataKpiLatencia">2023-12-05 10:37:24</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+              <div class="card card-stats" style="height: 70%; border-width: 20px; border-color: #3350b9;">
+                <!-- Card body -->
+                <div class="card-body" style="box-shadow:
+                0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Pacotes Enviados e Recebidos</h5>
+                      <span class="h2 font-weight-bold mb-0" id="media">744533 Pacotes/dia</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                        <!-- <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow"> PROBLEMA -->
+                        <!-- <img src="../../../assets/icons_geral/dash_icons.png" alt=""> -->
+                        <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <!--
+                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    -->
+                    <span class="text-nowrap">Atualizado em :</span>
+                    <span>2023-12-05 11:32:07</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--7 ">
+      <div style="display: flex; justify-content: space-around; flex-direction: row ;">
+        <div class="card" style="box-shadow:
+        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 25rem; max-width: 20rem;">
+
+          <!--Grafico 3------------------------------------------------------------------------------ -->
+          <!-- <div id="chart_div" style="width: 400px; height: 120px;"></div> GOOGLE CHARTS -->
+          <div class="card text-center shadow-lg" style="max-width: 25rem;">
+            <div class="card-body">
+              <script src="https://code.highcharts.com/highcharts.js"></script>
+              <script src="https://code.highcharts.com/highcharts-more.js"></script>
+              <script src="https://code.highcharts.com/modules/exporting.js"></script>
+              <script src="https://code.highcharts.com/modules/export-data.js"></script>
+              <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+              <figure class="highcharts-figure3">
+                <div id="container3"></div>
+                 <p class="highcharts-description3">
+                  Descrição: <b>Visualização da velocidade da sua rede.</b>
+                 </p>
+                 <p class="highcharts-description3">
+                  Status: <b style="color: red; font-weight: 30px; box-shadow:
+                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8)">Crítico</b>
+                 </p>
+              </figure>
+            </div>
+            <!--Fim grafico 3------------------------------------------------------------------------------ -->
+
+
+          </div>
+        </div>
+
+        <div class="col-xl-8">
+          <div class="card bg-default" style="box-shadow:
+          0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+            <div class="card-header bg-transparent">
+
+              <div class="row align-items-center">
+
+                <div class="col">
+                  <!--
+                    <h6 class="text-light text-uppercase ls-1 mb-1">Overview</h6>
+                  -->
+                  <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end;">Latência da Rede</h5>
+                  <ul class="nav nav-pills justify-content" style="justify-content: start;">
+
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body" style="box-shadow:
+            0.3em 0.3em 1em rgba(65, 58, 58, 0.6);">
+
+              <!-------------------------------------- Chart 1 --------------------------------------------->
+              <div>
+                <canvas id="myChart"></canvas>
+              </div>
+              <!-- Fim do 1º Grafico -->
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Fim do Grafico 3 e 1-->
+      <div class="col-xl-13">
+        <div class="card bg-default" style="box-shadow:
+        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); ">
+          <!--<div class="card-header bg-transparent">
+          <div class="row align-items-center">
+            
+            </div>
+
+            <h5 class="h3 text-white mb-0" style="font-size: large; align-items: end; margin-top: 15px;">Grafico de Envio e Recebimento de dados</h5>
+                  <ul class="nav nav-pills justify-content" style="justify-content: start;">
+
+          </div>
+          -->
+          <div class="card-body" style="box-shadow:
+      0.3em 0.3em 1em rgba(65, 58, 58, 0.6); background-color: #ffffff; height: rem;">
+
+            <!-------------------------------------- Chart 2--------------------------------------------->
+            <canvas id="myChart2" width="600" height="300"></canvas>
+            <!-- Fim do 2º Grafico -->
+
+          </div>
+        </div>
+      </div>
+
+</body>
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_velocidade_rede.js"></script>
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_latecia_rede.js"></script>
+<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_mb_Rec_Env_rede.js"></script>
+
+</html>
+
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+<script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+<script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+<script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+<!-- Optional JS -->
+<script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+<script src="../dashboard/argon-dashboard-bs4/dashboardTemperatura/public/js/index.js"></script>
+<!-- Argon JS -->
+<script src="../assets/js/argon.js?v=1.2.0"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  funcionarioLogado();
+  atualizarDatasKpis()
+
+  function atualizarDatasKpis() {
+    dataKpiLatencia.innerHTML = formatarData(2);
+  }
+  function formatarData(opcao) {
+    dataTemp = new Date();
+
+    var dia = dataTemp.getDate();
+    var mes = dataTemp.getMonth() + 1;
+    var ano = dataTemp.getFullYear();
+
+    if (dia < 10) {
+      dia = `0${dia}`
+    }
+    if (opcao == 1) {
+      var selectBanco = `${ano}-${mes}-${dia}`;
+      return selectBanco;
+    } else {
+      var selectBanco = `${dia}/${mes}/${ano}`;
+      return selectBanco;
+    }
+  }
+  // alert(formatarData(2))
+
+  graficoUm();
+  graficoDois();
+  // graficoTres();
+
+  // ------------------------------------------------------------ Inicio Gráfico 1 -----------------------------------
+  function bgGradient(ctx, chartArea, scales){
+    const { left, right, top, bottom, width, height } = chartArea;
+    const { x, y} = scales;
+    const gradientBackground = ctx.createLinearGradient(0, top, 0, bottom)
+    gradientBackground.addColorStop(0, 'rgba(255, 26, 104, 1)')
+    gradientBackground.addColorStop(1, 'rgba(255, 26, 104, 0.4)')
+    return gradientBackground
+  }
+  function graficoUm() {
+    const ctx = document.getElementById('myChart');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          // backgroundColor: ["white"],
+          // borderColor: ['white'],
+          backgroundColor: (context) =>   {
+           const chart = context.chart;
+           const { ctx, chartArea, scales} = chart;
+
+           if(!chartArea){
+            return null;
+           }
+           return bgGradient(ctx, chartArea, scales)
+          },
+          tension: 0.4,
+          fill: true
+          // fontColor: 'white'
+        }
+        ]
+      },
+      options: {
+        // https://pt.stackoverflow.com/questions/428093/como-mudo-a-cor-dos-valores-de-indice-do-grafico
+        scales: {
+          y: {
+            beginAtZero: true
+          },
+          xAxes: [{
+            display: true,
+            gridLines: {
+              display: false,
+              color: '#fff'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            gridLines: {
+              color: '#fff'
+            },
+            ticks: {
+              fontColor: 'white' // aqui branco
+            }
+          
+          }]
+        }
+        // , color: ['white']
+      }
+    });
+  }
+  // Final Grafico 1--------------------------------------------------------------------------------------------------
+
+  // Grafico 2--------------------------------------------------------------------------------------------------
+  function graficoDois(){
+    const ctx2 = document.getElementById('myChart2');
+    new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: [12, 19, 3, 5, 2, 3],
+          // backgroundColor: ["white"],
+          // borderColor: ['white'],
+          tension: 0.2,
+          fill: true
+          // fontColor: 'white'
+        },
+        {
+          label: '# of Votes',
+          data: [20, 30, 40, 60, 53, 8],
+          // backgroundColor: ["white"],
+          // borderColor: ['white'],
+          tension: 0.2,
+          // fill: true
+          // fontColor: 'white'
+        }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          },
+          xAxes: [{
+            display: true,
+            gridLines: {
+              display: false,
+              color: 'black'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            gridLines: {
+              color: 'black'
+            },
+            ticks: {
+              fontColor: 'black' // aqui branco
+            }
+          
+          }]
+        }
+        // , color: ['white']
+      }
+    });
+  }
+  //-------------------Final Grafico 2-----------------------------------------------------------------
+
+  // function graficoTres(){
+  Highcharts.chart('container3', {
+
+    chart: {
+      type: 'gauge',
+      plotBackgroundColor: null,
+      plotBackgroundImage: null,
+      plotBorderWidth: 0,
+      plotShadow: false,
+      height: '85%'
+    },
+
+    title: {
+      text: 'Velocidade da Rede'
+    },
+
+    pane: {
+      startAngle: -90,
+      endAngle: 89.9,
+      background: null,
+      center: ['50%', '75%'],
+      size: '110%'
+    },
+
+    // the value axis
+    yAxis: {
+      min: 0,
+      max: 200,
+      tickPixelInterval: 72,
+      tickPosition: 'inside',
+      tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+      tickLength: 20,
+      tickWidth: 2,
+      minorTickInterval: null,
+      labels: {
+        distance: 20,
+        style: {
+          fontSize: '14px'
+        }
+      },
+      lineWidth: 0,
+      plotBands: [{
+        from: 160, //Máximo capturado - (Máximo capturado * 1/4)
+        to: 200,//Máximo capturado em 30 registros
+        color: '#55BF3B', // green
+        thickness: 20
+      }, {
+        from: 105, //Máximo capturado - (Máximo capturado * 2/4)
+        to: 160, //Máximo capturado - (Máximo capturado * 1/4)
+        color: '#DDDF0D', // yellow
+        thickness: 20
+      }, {
+        from: 0,
+        to: 105, //Máximo capturado - (Máximo capturado * 3/4)
+        color: '#DF5353', // red
+        thickness: 20
+      }]
+    },
+    credits: {
+      enabled: false
+    },
+
+    series: [{
+      name: 'Speed',
+      data: [55], // taxa de tranmissão atual
+      tooltip: {
+        valueSuffix: ' Mb/s'
+      },
+      dataLabels: {
+        format: '{y} Mb/s',
+        borderWidth: 0,
+        color: (
+          Highcharts.defaultOptions.title &&
+          Highcharts.defaultOptions.title.style &&
+          Highcharts.defaultOptions.title.style.color
+        ) || '#333333',
+        style: {
+          fontSize: '16px'
+        }
+      },
+      dial: {
+        radius: '80%',
+        backgroundColor: 'gray',
+        baseWidth: 12,
+        baseLength: '0%',
+        rearLength: '0%'
+      },
+      pivot: {
+        backgroundColor: 'gray',
+        radius: 6
+      }
+
+
+    }]
+
+  });
+
+  // Add some life
+  setInterval(() => {
+    const chart = Highcharts.charts[0];
+    if (chart && !chart.renderer.forExport) {
+      const point = chart.series[0].points[0],
+        inc = Math.round((Math.random() - 0.5) * 20);
+
+      let newVal = point.y + inc;
+      if (newVal < 0 || newVal > 200) {
+        newVal = point.y - inc;
+      }
+
+      point.update(newVal);
+    }
+
+  }, 1000);
+
+  //-------------------Final Grafico 3-----------------------------------------------------------------
+
+  function sair() {
+    sessionStorage.ID_FUNCIONARIO = null;
+    window.location = "index.html";
+  }
+
+  function funcionarioLogado() {
+    nomeLogin.innerHTML = sessionStorage.NOME_USUARIO;
+  }
+  // }
+</script>
+<!-- <script type="text/javascript">
+
+  google.charts.load('current', {'packages':['gauge']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['Network', 68]
+    ]);
+
+    var options = {
+      width: 400, height: 120,
+      redFrom: 90, redTo: 100,
+      yellowFrom:75, yellowTo: 90,
+      minorTicks: 5
+    };
+
+    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+    chart.draw(data, options);
+
+    setInterval(function() {
+      data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+      chart.draw(data, options);
+    }, 13000);
+  }
+</script> -->

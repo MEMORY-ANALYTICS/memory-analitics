@@ -3,13 +3,13 @@ use bd_memoryanalytics;
 -- -=-=-=-=-=-=-=-=-=-=-= Inserindo Dados -=-=-=-=-=-=-=-=-=-=-=
 
 -- Inserir dados na tabela 'empresa'
-INSERT INTO empresa VALUES (10000 , 'Memory Analytics','12345675601234', 'memoryAnalytics@gmail.com', '1122884455' );
 INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
-('Empresa A', '12345678901234', 'empresaA@gmail.com', '1122334455'),
-('Empresa B', '56789012345678', 'empresaB@gmail.com', '2233445566'),
-('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677'),
-('Empresa D', '90123456789012', 'empresaD@gmail.com', '3344556677'),
-("U Contact", "10293847561184", "ucontact@gmail.com", "119480165714");
+('Memory Analytics','12345675601234', 'memoryAnalytics@gmail.com', '1122884455' ), -- 10000
+('Empresa A', '12345678901234', 'empresaA@gmail.com', '1122334455'), -- 10001
+('Empresa B', '56789012345678', 'empresaB@gmail.com', '2233445566'), -- 10002
+('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677'), -- 10002
+('Empresa D', '90123456789012', 'empresaD@gmail.com', '3344556677'), -- 10002
+("U Contact", "10293847561184", "ucontact@gmail.com", "119480165714"); -- 10002
 
 -- Inserir dados na tabela 'endereco'
 INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES

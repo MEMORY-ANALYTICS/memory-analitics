@@ -6,7 +6,7 @@ var cors = require("cors");
 var path = require("path");
 var PORTA = process.env.AMBIENTE_PROCESSO == "desenvolvimento" ? 3333 : 8080;
 
-require("dotenv").config() // arquivo dotenv para variaveis de ambiente
+// require("dotenv").config() // arquivo dotenv para variaveis de ambiente
 
 var app = express();
 
@@ -23,9 +23,7 @@ var graficoRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTem
 var servidorRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/servidor");
 var kpiRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/kpi");
 var dashCorrelacao = require("./src/routes/dashCorrelacao");
-var dashRede3 = require("./src/routes/dashboardRede3");
-var dashRede2 = require("./src/routes/dashboardRede2");
-var dashRede1 = require("./src/routes/dashboardRede1");
+var dashboardRedeRouter= require("./src/routes/dashboardRede");
 const dashboardHardwareRouter = require('./src/routes/dashboardHardware');
 
 app.use(express.json());
@@ -47,6 +45,7 @@ app.use("/servidor", servidorRouter);
 app.use("/kpi",kpiRouter);
 app.use("/dashCorrelacao",dashCorrelacao);
 app.use("/processos",processosRouter);
+app.use("/dashboardRedeRouter", dashboardRedeRouter);
 app.use("/dashboardHardware", dashboardHardwareRouter);
 
 app.listen(PORTA, function () {
