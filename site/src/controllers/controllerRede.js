@@ -1,19 +1,30 @@
-var database = require("../database/config");
+var redeModel = require("../models/modelRede");
 
-function autenticar(email, senha) {
-  console.log(
-    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
-    email,
-    senha
-  );
-  var instrucao = `
-  SELECT idFuncionario, nomeFunc, emailFunc, telefoneFunc, fkCargo, fkEmpresa, nomeEmpresa FROM funcionario
-	join login on idFuncionario = fkFuncionario JOIN empresa ON fkEmpresa = idEmpresa
-  WHERE email = '${email}' AND senha = '${senha}';
-    `;
-  console.log("Executando a instrução SQL: \n" + instrucao);
-  return database.executar(instrucao);
+function listar(req, res) {
+  var fkEmpresa = req.params.fkEmpresa;
+
+  redeModel.listar(fkEmpresa)
+        .then(
+            function (resultado) {
+                if (resultado.length > 0) {
+                    res.status(200).json(resultado);
+                } else {
+                    res.status(204).send("Nenhum resultado encontrado!");
+                }
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "Houve um erro ao buscar os Servidores: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
 }
+
 module.exports = {
-  autenticar,
+  listar
 };

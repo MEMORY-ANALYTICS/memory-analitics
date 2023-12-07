@@ -7,9 +7,9 @@ INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
 ('Memory Analytics','12345675601234', 'memoryAnalytics@gmail.com', '1122884455' ), -- 10000
 ('Empresa A', '12345678901234', 'empresaA@gmail.com', '1122334455'), -- 10001
 ('Empresa B', '56789012345678', 'empresaB@gmail.com', '2233445566'), -- 10002
-('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677'), -- 10002
-('Empresa D', '90123456789012', 'empresaD@gmail.com', '3344556677'), -- 10002
-("U Contact", "10293847561184", "ucontact@gmail.com", "119480165714"); -- 10002
+('Empresa C', '90123456789012', 'empresaC@gmail.com', '3344556677'), -- 10003
+('Empresa D', '90123456789012', 'empresaD@gmail.com', '3344556677'), -- 10004
+("U Contact", "10293847561184", "ucontact@gmail.com", "119480165714"); -- 10005
 
 -- Inserir dados na tabela 'endereco'
 INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
@@ -30,11 +30,12 @@ INSERT INTO cargo (nomeCargo) VALUES
 
 INSERT INTO funcionario (nomeFunc, emailFunc, telefoneFunc, permissao, fkEmpresa, fkCargo, fkSupervisor) VALUES
 ('Gustavo Desunte', 'gustavo@email.com', '11122233344', 'A', 10000, 1, NULL),
-('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10001, 2, 100),
-('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10002, 3, 100),
-('Daniel', 'daniel@email.com', '44455566677', 'C', 10002, 3, NULL),
-('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10004, 1, null),
-('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10004, 2, 105); 
+('Adrino Marquês', 'adriano@email.com', '22233344455', 'A', 10000, 2, 100),
+('Gabriel Branco', 'gabriel@email.com', '33344455566', 'B', 10000, 3, 100),
+('Daniel', 'daniel@email.com', '44455566677', 'C', 10000, 3, NULL),
+('Rafael Almeida', 'rafael.almeida@email.com','11092942094', 'A', 10005, 1, null),
+('Ana Fonseca', 'anafonseca@email.com', '12938402039', 'C', 10005, 2, 104),
+('Roberto Marques', 'robertoMarques@email.com', '12939802039', 'C', 10005, 2, 104);
 
 -- Inserir dados na tabela 'login'
 INSERT INTO login (email, senha, fkFuncionario) VALUES
@@ -43,32 +44,66 @@ INSERT INTO login (email, senha, fkFuncionario) VALUES
 ('gabriel@email.com', 'senha789', 102),
 ('daniel@email.com', 'senhaDaniel', 103),
 ('rafael.almeida@email.com', 'rafa123', 104),
-('ana.fonseca@email.com','ana123',105);
+('anafonseca@email.com','ana123',105),
+('robertoMarques@email.com','roberto123',106);
 
 
 -- Inserir dados na tabela 'servidor'
 INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor,  macAdress, fkEmpresa) VALUES
-('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10005),
-('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10004),
-('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10005),
-('Windows', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10005),
-('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10004),
-('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10002),
-('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10004),
-('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10004),
-('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10004),
-('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10004);
+('Linux', 'rapha', 'Rio de Janeiro', '00:11:B1:RB:ES0:88', 10005), -- 1
+('Windows', 'ale123', 'São Paulo', '00:45:e2:dd:d6:45', 10005), -- 2
+('Linux', 'danie', 'São Paulo', '00:11:B2:RB:E1:88', 10005), -- 3
+('Windows', 'mined', 'São Paulo', '11:11:B1:RB:E1:88', 10005), -- 4
+('Linux', 'ale321', 'Rio de Janeiro', '98:2c:bc:a3:63:12', 10005), -- 5
+('Windows', 'Servidor D', 'Rio de Janeiro', '00:11:B1:RB:E1:90', 10000), -- 6
+('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10000), -- 7
+('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10000), -- 8
+('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10000), -- 9
+('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10000); -- 10
 
 
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
-('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU
-('Intel', 'Xeon', 'CPU', 2, 10, 9), -- CPU
-('Intel', 'Xeon', 'CPU', 2, 10, 10), -- CPU
-('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM
-('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO
-('TPLink','NP3200','REDE', 10, 85, 2), -- REDE
-('TPLink','NP3200','REDE', 10, 85, 5); -- REDE
+('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU -> 1
+('Intel', 'Xeon', 'CPU', 2, 10, 9), -- CPU -> 2
+('Intel', 'Xeon', 'CPU', 2, 10, 10), -- CPU -> 3
+('Corsair', 'Vengeance', 'RAM', 15, 85, 4), -- RAM -> 4
+('WD', 'Black', 'DISCO', 1, 70 , 4), -- DISCO -> 5
+('TPLink','NP3200','REDE', 10, 85, 2), -- REDE -> 6
+('TPLink','NP3200','REDE', 10, 85, 5), -- REDE -> 7
+('Intel', 'Xeon', 'CPU', 2, 10, 1), -- CPU -> 8
+('Intel', 'Xeon', 'CPU', 2, 10, 2), -- CPU -> 9
+('Intel', 'Xeon', 'CPU', 2, 10, 3), -- CPU -> 10
+('Intel', 'Xeon', 'CPU', 2, 10, 5), -- CPU -> 11
+('Intel', 'Xeon', 'CPU', 2, 10, 6), -- CPU -> 12
+('Intel', 'Xeon', 'CPU', 2, 10, 7), -- CPU -> 13
+('Intel', 'Xeon', 'CPU', 2, 10, 8), -- CPU -> 14
+('Corsair', 'Vengeance', 'RAM', 15, 85, 1), -- RAM -> 15
+('Corsair', 'Vengeance', 'RAM', 15, 85, 2), -- RAM -> 16
+('Corsair', 'Vengeance', 'RAM', 15, 85, 3), -- RAM -> 17
+('Corsair', 'Vengeance', 'RAM', 15, 85, 5), -- RAM -> 18
+('Corsair', 'Vengeance', 'RAM', 15, 85, 6), -- RAM -> 19
+('Corsair', 'Vengeance', 'RAM', 15, 85, 7), -- RAM -> 20
+('Corsair', 'Vengeance', 'RAM', 15, 85, 8), -- RAM -> 21
+('Corsair', 'Vengeance', 'RAM', 15, 85, 9), -- RAM -> 22
+('Corsair', 'Vengeance', 'RAM', 15, 85, 10), -- RAM -> 23
+('WD', 'Black', 'DISCO', 1, 70 , 1), -- DISCO -> 24
+('WD', 'Black', 'DISCO', 1, 70 , 2), -- DISCO -> 25
+('WD', 'Black', 'DISCO', 1, 70 , 3), -- DISCO -> 26
+('WD', 'Black', 'DISCO', 1, 70 , 5), -- DISCO -> 27
+('WD', 'Black', 'DISCO', 1, 70 , 6), -- DISCO -> 28
+('WD', 'Black', 'DISCO', 1, 70 , 7), -- DISCO -> 29
+('WD', 'Black', 'DISCO', 1, 70 , 8), -- DISCO -> 30
+('WD', 'Black', 'DISCO', 1, 70 , 9), -- DISCO -> 31
+('WD', 'Black', 'DISCO', 1, 70 , 10), -- DISCO -> 32
+('TPLink','NP3200','REDE', 10, 85, 1), -- REDE -> 33
+('TPLink','NP3200','REDE', 10, 85, 3), -- REDE -> 34
+('TPLink','NP3200','REDE', 10, 85, 4), -- REDE -> 35
+('TPLink','NP3200','REDE', 10, 85, 6), -- REDE -> 36
+('TPLink','NP3200','REDE', 10, 85, 7), -- REDE -> 37
+('TPLink','NP3200','REDE', 10, 85, 8), -- REDE ->38
+('TPLink','NP3200','REDE', 10, 85, 9), -- REDE -> 39
+('TPLink','NP3200','REDE', 10, 85, 10); -- REDE -> 40
 
 
 INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
@@ -129,7 +164,7 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
 
-insert into chamadoServidor(descricao,dtHoraChamado,fkComponente) values 
+insert into chamadoServidor(descricao,dtHoraChamado,fkServidor) values 
 ("CPU","2023-03-12 10:00:00", 1 ),
 ("CPU","2023-03-12 10:00:00", 2 ),
 ("CPU","2023-03-12 10:00:00", 3 ),

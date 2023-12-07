@@ -75,8 +75,8 @@ idChamadoServidor INT PRIMARY KEY AUTO_INCREMENT,
 codigoChamado VARCHAR(45),
 descricao varchar(45),
 dtHoraChamado DATETIME,
-fkComponente INT,
-FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+fkServidor INT,
+FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
 );
 
 

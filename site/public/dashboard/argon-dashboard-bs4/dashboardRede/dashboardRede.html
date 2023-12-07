@@ -200,10 +200,10 @@
                         <p class="h2 text-center ">Servidor Visualizado:</h1>
                       </div>
                       <div class="col-xl-6 py-2">
-                        <select onchange="selectGraficoOcorrencia()" id="listaServidores"
+                        <select onchange="pegarDadosRede()" id="listarServido"
                           class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
                                   box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);" id="exampleFormControlSelect1">
-                          <option value="0">mined</option>
+                          <!-- <option value="0">mined</option> -->
                         </select>
                       </div>
                     </div>
@@ -403,13 +403,6 @@
         </div>
       </div>
 
-</body>
-<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_velocidade_rede.js"></script>
-<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_latecia_rede.js"></script>
-<script src="../argon-dashboard-bs4/dashboardRede/js/grafico_mb_Rec_Env_rede.js"></script>
-
-</html>
-
 <!-- Argon Scripts -->
 <!-- Core -->
 <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -426,6 +419,9 @@
 <script src="../assets/js/argon.js?v=1.2.0"></script>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+<script src="../dashboardRede/js/requisicoesRede.js"></script>
+</html>
 
 <script>
   funcionarioLogado();
