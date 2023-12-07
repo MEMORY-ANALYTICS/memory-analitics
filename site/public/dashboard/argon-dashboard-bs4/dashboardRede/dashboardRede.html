@@ -430,24 +430,6 @@
   function atualizarDatasKpis() {
     dataKpiLatencia.innerHTML = formatarData(2);
   }
-  function formatarData(opcao) {
-    dataTemp = new Date();
-
-    var dia = dataTemp.getDate();
-    var mes = dataTemp.getMonth() + 1;
-    var ano = dataTemp.getFullYear();
-
-    if (dia < 10) {
-      dia = `0${dia}`
-    }
-    if (opcao == 1) {
-      var selectBanco = `${ano}-${mes}-${dia}`;
-      return selectBanco;
-    } else {
-      var selectBanco = `${dia}/${mes}/${ano}`;
-      return selectBanco;
-    }
-  }
   // alert(formatarData(2))
 
   graficoUm();
@@ -491,27 +473,11 @@
       },
       options: {
         // https://pt.stackoverflow.com/questions/428093/como-mudo-a-cor-dos-valores-de-indice-do-grafico
+        animation: false,
         scales: {
           y: {
             beginAtZero: true
-          },
-          xAxes: [{
-            display: true,
-            gridLines: {
-              display: false,
-              color: '#fff'
-            }
-          }],
-          yAxes: [{
-            display: true,
-            gridLines: {
-              color: '#fff'
-            },
-            ticks: {
-              fontColor: 'white' // aqui branco
-            }
-          
-          }]
+          }
         }
         // , color: ['white']
       }
@@ -550,24 +516,7 @@
         scales: {
           y: {
             beginAtZero: true
-          },
-          xAxes: [{
-            display: true,
-            gridLines: {
-              display: false,
-              color: 'black'
-            }
-          }],
-          yAxes: [{
-            display: true,
-            gridLines: {
-              color: 'black'
-            },
-            ticks: {
-              fontColor: 'black' // aqui branco
-            }
-          
-          }]
+          }
         }
         // , color: ['white']
       }

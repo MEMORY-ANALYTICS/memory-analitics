@@ -10,12 +10,11 @@ function formatarData(opcao){
   }
   if(opcao == 1){
     // Buscar no banco
-  var dateNow = `${ano}-${mes}-${dia}`;
+   return dateNow = `${ano}-${mes}-${dia}`;
   }else{
     // usar direto com id.innerHTML na KPI
-    var dateNow = `${dia}-${mes}-${ano}`;
+   return dateNow = `${dia}-${mes}-${ano}`;
   }
-  return dateNow;
 }
 
 listar();
