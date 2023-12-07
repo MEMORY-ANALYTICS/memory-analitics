@@ -2,23 +2,23 @@ package school.sptech.Login;
 
 public class Login {
 
-    private String login;
-    private String senha;
+    protected String email;
+    protected String senha;
 
-    public Login(String login, String senha) {
-        this.login = login;
+    public Login(String email, String senha) {
+        this.email = email;
         this.senha = senha;
     }
 
     public Login() {
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
