@@ -2,7 +2,6 @@ DROP DATABASE IF EXISTS bd_memoryanalytics;
 CREATE DATABASE IF NOT EXISTS bd_memoryanalytics;
 USE bd_memoryanalytics;
 
-
 CREATE USER IF NOT EXISTS urubu100 IDENTIFIED BY 'urubu100';
 GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON bd_memoryanalytics.* TO urubu100;
 FLUSH PRIVILEGES;
@@ -71,17 +70,6 @@ fkServidor INT,
 FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
 );
 
-CREATE TABLE IF NOT EXISTS `componente`(
-idComponente INT PRIMARY KEY AUTO_INCREMENT,
-fabricante VARCHAR(45),
-nomeModelo VARCHAR(45),
-tipoComponente VARCHAR(45),
-limiteMin DOUBLE,
-limiteMax DOUBLE,
-fkServidor INT,
-FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
-);
-
 CREATE TABLE IF NOT EXISTS `chamadoServidor`(
 idChamadoServidor INT PRIMARY KEY AUTO_INCREMENT,
 codigoChamado VARCHAR(45),
@@ -91,23 +79,6 @@ fkComponente INT,
 FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
 );
 
-CREATE TABLE IF NOT EXISTS `downtimeServidor`(
-idDowntimeServidor INT PRIMARY KEY AUTO_INCREMENT,
-tempoDowntime INT,
-dtHoraDowntime DATETIME,
-fkServidor INT,
-FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
-);
-
-CREATE TABLE IF NOT EXISTS `registro`(
-  idRegistro INT PRIMARY KEY AUTO_INCREMENT,
-  valorRegistro DOUBLE,
-  tipoMedida VARCHAR(25),
-  detalheRegistro VARCHAR(45),
-  dtHoraRegistro DATETIME,
-  fkComponente INT,
-  FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
-);
 
 CREATE TABLE IF NOT EXISTS `processos`(
 idProcessos INT PRIMARY KEY AUTO_INCREMENT,
@@ -126,18 +97,27 @@ nomeProcesso VARCHAR(150),
 fkServidor INT,
 FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor));
 
--- CREATE TABLE IF NOT EXISTS `recurso`(
---  idRecurso INT PRIMARY KEY AUTO_INCREMENT,
---  tipoRecurso VARCHAR(45),
---  fkComponente INT,
---  FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
--- );
+CREATE TABLE IF NOT EXISTS `componente`(
+idComponente INT PRIMARY KEY AUTO_INCREMENT,
+fabricante VARCHAR(45),
+nomeModelo VARCHAR(45),
+tipoComponente VARCHAR(45),
+limiteMin DOUBLE,
+limiteMax DOUBLE,
+fkServidor INT,
+FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
+);
 
--- CREATE TABLE IF NOT EXISTS `medidaComponente`(
---  idMedidaComponente INT PRIMARY KEY auto_increment,
---  tipoMedida VARCHAR(25),
---  unidadeMedida VARCHAR(45)
--- );
+CREATE TABLE IF NOT EXISTS `registro`(
+  idRegistro INT PRIMARY KEY AUTO_INCREMENT,
+  valorRegistro DOUBLE,
+  tipoMedida VARCHAR(25),
+  detalheRegistro VARCHAR(45),
+  dtHoraRegistro DATETIME,
+  fkComponente INT,
+  FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+);
+
 -- PROCEDURES VERIFICADAS E JA EM PRODUÇÃO --
 
 DELIMITER $$
