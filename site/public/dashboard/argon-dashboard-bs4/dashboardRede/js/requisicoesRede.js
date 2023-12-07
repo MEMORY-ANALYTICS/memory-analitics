@@ -1,8 +1,29 @@
+function formatarData(opcao){
+  dataTemp = new Date();
+  
+  var dia = dataTemp.getDate();
+  var mes = dataTemp.getMonth()+1;
+  var ano = dataTemp.getFullYear();
+  
+  if(dia<10){
+    dia = `0${dia}`
+  }
+  if(opcao == 1){
+    // Buscar no banco
+  var dateNow = `${ano}-${mes}-${dia}`;
+  }else{
+    // usar direto com id.innerHTML na KPI
+    var dateNow = `${dia}-${mes}-${ano}`;
+  }
+  return dateNow;
+}
 
 listar();
 function listar() {
+  // Tirar uma váriavel numérica idServidor com a fkEmpresa pega no sessionStorage
+  // SELECT * FROM servidor JOIN componente ON fkServidor=idServidor WHERE fkEmpresa = ${10005} AND tipoComponente = 'REDE';
   var fkEmpresa = sessionStorage.EMPRESA_USUARIO;
-
+  
   fetch(`/dashboardRedeRoute/listar/${fkEmpresa}`, {
     method: "GET",
   })
@@ -11,35 +32,44 @@ function listar() {
         empresas.forEach((servidor) => {
           for(var i = 0; i < servidor.length; i++)
           listarServidor.innerHTML += `<option value='${servidor[i].idServidor}'>${servidor[i].apelidoServidor}</option>`;
-        });
       });
-    })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
     });
+  })
+  .catch(function (resposta) {
+    console.log(`#ERRO: ${resposta}`);
+  });
+
+  // retorno = valor selecionado no option ex: 4
 }
 
-function sumirMensagem() {
-  cardErro.style.display = "none";
+function selectComponente(){
+  // Tirar uma váriavel númérica idComponete no componente com o idServidor pego na função listar();
+  // SELECT idComponente FROM componente WHERE fkServidor = ${4} AND tipoComponente = 'REDE';
+
+  
+  // retorno = 35
 }
 
-function formatarData(){
-  dataTemp = new Date();
+function kpiMaiorVelocidade(){
+  var dataAtual = formatarData(1);
+  // Pegar o menor valor junto com a dtHoraRegistro diário que foi registrado
+  // SELECT min(valorRegistro), dtHoraRegistro FROM registro WHERE fkComponente = ${idComponente} AND tipoMedida = 'Mbps' 
+  // AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro;
+  
 
-var dia = dataTemp.getDate();
-var mes = dataTemp.getMonth()+1;
-var ano = dataTemp.getFullYear();
 
-if(dia<10){
-  dia = `0${dia}`
-}
-  var selectBanco = `${ano}-${mes}-${dia}`;
+// Jogar Horário com innerHTML
+// retorno = # min(valorRegistro), dtHoraRegistro => '1328.632464', '2023-10-09 10:30:00'
 
-  return selectBanco;
 }
 
-pegarKpiLatencia();
+function selectGraficoVelocidadeRede(){
+  var dataAtual = formatarData(1);
+  // Pegar apenas o maior valor do dia
+  // select max(valorRegistro) from registro where fkComponente = ${idComponente} AND tipoMedida = 'Mbps' 
+  // AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro;
 
-function pegarKpiLatencia() {
-alert(formatarData())
+
+
+  // retorno = 1333.079139
 }
