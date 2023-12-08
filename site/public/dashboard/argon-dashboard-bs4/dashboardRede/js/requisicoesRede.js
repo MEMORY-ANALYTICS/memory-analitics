@@ -187,20 +187,16 @@ function kpiMediaPacotes(idComponente) {
 
 }
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
-function selectGraficoVelocidadeRede(idComponente) {
-  // Pegar apenas o maior valor do dia
-  // select max(valorRegistro) from registro where fkComponente = ${idComponente} AND tipoMedida = 'Mbps' 
-  // AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro;
-  var fkComponente = idComponente;
+function valorGrafico3() {
+  var fkServidor = listarServidor.value;
   var dataAtual = formatarData(1);
   var valorRegistroPego = 0;
-  fetch(`/dashboardRedeRouter/pegarVelocidadeMax/${fkComponente}/${dataAtual}`, {
+  fetch(`/dashboardRedeRouter/pegarVelocidadeMax/${fkServidor}/${dataAtual}`, {
     method: "GET",
   })
     .then(function (resposta) {
       resposta.json().then((registro) => {
           valorRegistroPego = registro[0].valorMaxRegistro;
-          alert(valorRegistroPego)
           return valorRegistroPego
 
       });

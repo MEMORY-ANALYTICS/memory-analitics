@@ -22,7 +22,7 @@ router.get("/pegarKpiPacotes/:fkComponente/:dataAtual", function (req, res) {
     dashboardRedeController.pegarKpiPacotes(req, res);
 });
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
-router.get("/pegarVelocidadeMax/:fkComponente/:dataAtual", function (req, res) {
+router.get("/pegarVelocidadeMax/:fkServidor/:dataAtual", function (req, res) {
     dashboardRedeController.pegarVelocidadeMax(req, res);
 });
 module.exports = router; 

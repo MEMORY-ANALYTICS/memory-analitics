@@ -135,12 +135,12 @@ function pegarIdComponente(req, res) {
   }
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
   function pegarVelocidadeMax(req, res) {
-    var fkComponente = req.params.fkComponente;
+    var fkServidor = req.params.fkServidor;
     var dataAtual = req.params.dataAtual;
-    console.log(fkComponente);
-    console.log(dataAtual);
+    // console.log(fkServidor);
+    // console.log(dataAtual);
   
-    redeModel.pegarVelocidadeMax(fkComponente,dataAtual)
+    redeModel.pegarVelocidadeMax(fkServidor,dataAtual)
           .then(
               function (resultado) {
                   if (resultado.length > 0) {

@@ -39,8 +39,9 @@ function listar(fkEmpresa) {
   }
   // SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE DATE(dtHoraRegistro) = '2023-12-07' AND tipoMedida = 'Pacotes';
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
-  function pegarVelocidadeMax(fkComponente,dataAtual) {
-    var query = `SELECT max(valorRegistro) AS valorMaxRegistro FROM registro WHERE fkComponente = ${fkComponente} AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '${dataAtual}';`;
+  function pegarVelocidadeMax(fkServidor,dataAtual) {
+    var query = `SELECT max(valorRegistro) AS valorMaxRegistro FROM registro JOIN componente ON fkComponente = idComponente JOIN servidor ON FkServidor = idServidor 
+    WHERE fkServidor = ${fkServidor} AND tipoComponente = 'REDE' AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '${dataAtual}';`;
   
     return database.executar(query);
   }
