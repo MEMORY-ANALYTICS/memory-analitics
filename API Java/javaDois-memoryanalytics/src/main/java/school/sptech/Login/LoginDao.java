@@ -67,6 +67,13 @@ public class LoginDao {
                 localServidor,
                 looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac(),
                 getFkEmpresa()));
+
+        getConexoes().get(1).execute("INSERT INTO servidor VALUES ('%s','%s','%s','%s',%d);".formatted(
+                looca.getSistema().getSistemaOperacional(),
+                apelidoServidor,
+                localServidor,
+                looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac(),
+                getFkEmpresa()));
     }
 
     public Boolean verificaCadastroServidor(){
