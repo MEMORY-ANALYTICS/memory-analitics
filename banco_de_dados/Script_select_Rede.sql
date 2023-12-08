@@ -8,9 +8,9 @@ select min(valorRegistro) from registro where fkComponente = 35 AND tipoMedida =
 SELECT min(valorRegistro) FROM registro WHERE fkComponente = 35 AND tipoMedida = 'Mbps';
 
 -- Pegar o maior valor que a rede já chegou;
-select max(valorRegistro) from registro where fkComponente = 35 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-10-09' GROUP BY dtHoraRegistro;
+SELECT max(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-12-07';
 -- SQL SERVER
-SELECT min(valorRegistro), dtHoraRegistro FROM registro WHERE fkComponente = 35 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-10-09' GROUP BY dtHoraRegistro;
+SELECT min(valorRegistro), dtHoraRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-12-07' GROUP BY dtHoraRegistro LIMIT 1;
 
 -- Pegar o Último registro inserido
 SELECT valorRegistro FROM registro where fkComponente = 35 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC LIMIT 1;

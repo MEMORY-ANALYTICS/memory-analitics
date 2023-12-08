@@ -200,10 +200,10 @@
                         <p class="h2 text-center ">Servidor Visualizado:</h1>
                       </div>
                       <div class="col-xl-6 py-2">
-                        <select onchange="pegarDadosRede()" id="listarServido"
+                        <select onchange="selectIdComponente()" id="listarServidor"
                           class="form-control text-primary border-0" style="font-size: 1.2em; text-align: center;
                                   box-shadow: 0.1em 0.1em 0.5em rgba(92, 85, 85, 0.6);" id="exampleFormControlSelect1">
-                          <!-- <option value="0">mined</option> -->
+                          <!-- <option disabled="true">apelido servidor</option> -->
                         </select>
                       </div>
                     </div>
@@ -226,7 +226,8 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Velocidade Mínima</h5>
-                      <span class="h2 font-weight-bold mb-0" id="menorValorTxTransmissao">50.07 Mbps</span>
+                      <span class="h2 font-weight-bold mb-0" id="menorValorTransmissao"></span>
+                      <span class="h2 font-weight-bold mb-0">Mbps</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -241,8 +242,8 @@
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
 
-                    <span class="text-nowrap">Atualizado em :</span>
-                    <span>2023-12-05 10:21:43</span>
+                    <span class="text-nowrap">Data e hora do registro:</span>
+                    <span id="momentoDaCaptura"></span>
                   </p>
                 </div>
               </div>
@@ -255,7 +256,8 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Latência Máxima</h5>
-                      <span class="h2 font-weight-bold mb-0">95.43 ms</span>
+                      <span class="h2 font-weight-bold mb-0" id="latenciaMax"></span>
+                      <span class="h2 font-weight-bold mb-0">ms</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -269,11 +271,8 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
-                    <span class="text-nowrap">Horário de maior latência:</span>
-                    <span>12:01:10</span>
-                    <br>
-                    <span class="text-nowrap">Atualizado em :</span>
-                    <span id="dataKpiLatencia">2023-12-05 10:37:24</span>
+                    <span class="text-nowrap">Data e hora do registro:</span>
+                    <span id="dataKpiLatencia"></span>
                   </p>
                 </div>
               </div>
@@ -286,7 +285,8 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Pacotes Enviados e Recebidos</h5>
-                      <span class="h2 font-weight-bold mb-0" id="media">744533 Pacotes/dia</span>
+                      <span class="h2 font-weight-bold mb-0" id="kpiMediaPacote" style="display: block;"></span>
+                      <span class="h2 font-weight-bold mb-0">Pacotes</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -301,7 +301,7 @@
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
                     <span class="text-nowrap">Atualizado em :</span>
-                    <span>2023-12-05 11:32:07</span>
+                    <span id="dataKpiMedia">2023-12-05 11:32:07</span>
                   </p>
                 </div>
               </div>
@@ -426,7 +426,7 @@
 <script>
   funcionarioLogado();
   atualizarDatasKpis()
-
+  // selectIdComponente();
   function atualizarDatasKpis() {
     dataKpiLatencia.innerHTML = formatarData(2);
   }

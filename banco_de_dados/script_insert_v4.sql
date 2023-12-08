@@ -142,23 +142,23 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
 (10,'%','Uso RAM', '2023-10-09 10:00:00', 2),  -- RAM
-(329.415816,'Mb','Enviados Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(1998.433296,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 35),  -- REDE
-(85.42277900366695, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 35), -- REDE
-(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(1332.9576005,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 35),  -- REDE
-(85.42994977827041, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 35), -- REDE
-(330.586587,'Mb','Enviados Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(2004.9851039999999,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(1333.079139,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 35),  -- REDE
-(1328.632464,'Mbps','Taxa de Transmissão', '2023-10-09 10:30:00', 35),  -- REDE
-(85.43925798563782, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 35), -- REDE
-(330.548499,'Mb','Enviados Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(2004.8182029999998,'Mb','Recebidos Rede', '2023-10-09 10:30:00', 35),  -- REDE
-(1332.9576005,'Mbps','Taxa de tranferência', '2023-10-09 10:30:00', 35),  -- REDE
-(85.25846318978412, 'ms', 'Latência da Rede', '2023-10-09 10:30:00', 35), -- REDE
+(329.415816,'Mb','Enviados Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(1998.433296,'Mb','Recebidos Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(1328.632464,'Mbps','Taxa de Transmissão', '2023-12-07 10:30:00', 35),  -- REDE
+(85.42277900366695, 'ms', 'Latência da Rede', '2023-12-07 10:30:00', 35), -- REDE
+(330.548499,'Mb','Enviados Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(2004.8182029999998,'Mb','Recebidos Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(1332.9576005,'Mbps','Taxa de Transmissão', '2023-12-07 10:30:00', 35),  -- REDE
+(85.42994977827041, 'ms', 'Latência da Rede', '2023-12-07 10:30:00', 35), -- REDE
+(330.586587,'Mb','Enviados Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(2004.9851039999999,'Mb','Recebidos Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(1333.079139,'Mbps','Taxa de Transmissão', '2023-12-07 10:30:00', 35),  -- REDE
+(1328.632464,'Mbps','Taxa de Transmissão', '2023-12-07 10:30:00', 35),  -- REDE
+(85.43925798563782, 'ms', 'Latência da Rede', '2023-12-07 10:30:00', 35), -- REDE
+(330.548499,'Mb','Enviados Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(2004.8182029999998,'Mb','Recebidos Rede', '2023-12-07 10:30:00', 35),  -- REDE
+(1332.9576005,'Mbps','Taxa de tranferência', '2023-12-07 10:30:00', 35),  -- REDE
+(85.25846318978412, 'ms', 'Latência da Rede', '2023-12-07 10:30:00', 35), -- REDE
 (40, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
@@ -179,4 +179,4 @@ insert into chamadoServidor(descricao,dtHoraChamado,fkServidor) values
 -- select * from registro where idRegistro > 156;
 
 -- Para exibir os dados no dash da Ana Fonseca e do Renan Almeida
-SELECT * FROM servidor join empresa on fkEmpresa = idEmpresa join componente on fkServidor = idServidor WHERE fkEmpresa = 10005;
+-- SELECT * FROM servidor join empresa on fkEmpresa = idEmpresa join componente on fkServidor = idServidor WHERE fkEmpresa = 10005;
