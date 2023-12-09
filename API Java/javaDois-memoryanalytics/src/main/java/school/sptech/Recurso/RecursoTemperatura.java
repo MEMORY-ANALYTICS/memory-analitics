@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Componentes.Componente;
 import school.sptech.Servicos.BancoDados.ConexaoMySql;
 import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
+import school.sptech.Servidores.Servidor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class RecursoTemperatura  extends Recurso{
     private List<JdbcTemplate> conexoes;
+    private Looca looca;
     public RecursoTemperatura(Componente componente) {
         super("temperatura","°C", 0.0, componente);
 
+        this.looca = new Looca();
         ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
         ConexaoMySql conexaoMySql = new ConexaoMySql();
         JdbcTemplate con1 = conexaoSqlServer.criarConexao();
@@ -58,6 +61,44 @@ public class RecursoTemperatura  extends Recurso{
                         """.formatted(getFkServer()),
                 new BeanPropertyRowMapper<>(Componente.class));
         return teste.get(0).getIdComponente();
+    }
+
+    public Integer getFkServer() {
+        String macAddres = "";
+        for (int i = 0; i < looca.getRede().getGrupoDeInterfaces().getInterfaces().size(); i++) {
+
+            String macAddresAtual = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+
+            if (macAddresAtual.isBlank() || macAddresAtual == null || macAddresAtual.isEmpty()) {
+                macAddres = "Mac Address não encontrado";
+            } else {
+                macAddres = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+                //System.out.println(macAddres);
+                break;
+            }
+        }
+        List<Servidor> teste = conexoes.get(1).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(macAddres),
+                new BeanPropertyRowMapper<>(Servidor.class));
+        return teste.get(0).getIdServidor();
+    }
+
+    public Integer getFkServerSqlServer() {
+        String macAddres = "";
+        for (int i = 0; i < looca.getRede().getGrupoDeInterfaces().getInterfaces().size(); i++) {
+
+            String macAddresAtual = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+
+            if (macAddresAtual.isBlank() || macAddresAtual == null || macAddresAtual.isEmpty()) {
+                macAddres = "Mac Address não encontrado";
+            } else {
+                macAddres = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(i).getEnderecoMac();
+                //System.out.println(macAddres);
+                break;
+            }
+        }
+        List<Servidor> teste = conexoes.get(0).query("SELECT idServidor FROM servidor where macAdress = '%s';".formatted(macAddres),
+                new BeanPropertyRowMapper<>(Servidor.class));
+        return teste.get(0).getIdServidor();
     }
 
     @Override
