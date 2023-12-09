@@ -113,7 +113,7 @@ BEGIN
         descricao varchar(45),
         dtHoraChamado DATETIME,
         fkServidor INT,
-        FOREIGN KEY (fkServidor) REFERENCES componente (idServidor)
+        FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
     );
 END;
 
