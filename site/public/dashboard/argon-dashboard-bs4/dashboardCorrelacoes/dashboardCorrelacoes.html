@@ -568,7 +568,7 @@
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                             </div>
                         </div>
-                        
+
                         <div class="col-xl-6 border border-dark border-right-0 border-bottom-0 border-top-0">
                             <div class="col-xl-12 my-2">
                                 <h3 class="my-0 py-0">Tipo gráfico:</h3>
@@ -592,8 +592,10 @@
                             <h3>Filtro de Tempo:</h3>
 
                             <div class="btn-group">
-                                <button id="togglePersoEspacoTempo" type="button" class="btn btn-primary mt-2">Espaço de tempo</button>
-                                <button id="splitPersoEspacoTempo" type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
+                                <button id="togglePersoEspacoTempo" type="button" class="btn btn-primary mt-2">Espaço de
+                                    tempo</button>
+                                <button id="splitPersoEspacoTempo" type="button"
+                                    class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 </button>
                                 <div class="dropdown-menu">
@@ -605,71 +607,85 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="col-xl-7 my-2">
-                                <h3>Filtro Dashboards:</h3>
-                                <!-- Example split danger button -->
-                                <div class="btn-group">
-                                    <button id="togglePersoComponente" type="button" class="btn btn-primary mt-2">Componente</button>
-                                    <button id="splitPersoComponente" type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button id="persoCpu" class="dropdown-item" type="button">Uso da CPU</button>
-                                        <button id="persoRam" class="dropdown-item" type="button">Uso da Ram</button>
-                                        <button id="persoDisco" class="dropdown-item" type="button">Uso do Disco</button>
-                                    </div>
-                                </div>
-                                <div class="btn-group">
-                                    <button id="togglePersoRede" type="button" class="btn btn-primary mt-2">Rede</button>
-                                    <button id="splitPersoRede" type="button"
-                                        class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button id="persoBytesEnviados" class="dropdown-item" type="button">Bytes Enviados</button>
-                                        <button id="persoBytesRecebidos" class="dropdown-item" type="button">Bytes Recebidos</button>
-                                    </div>
-                                </div>
-                                <div class="btn-group">
-                                    <button id="togglePersoTemperatura" type="button" class="btn btn-primary mt-2">Temperatura CPU</button>
-                                    </button>
-                                </div>
-                                <div class="btn-group">
-                                    <button id="togglePersoProcessos" type="button" class="btn btn-primary mt-2">Processos</button>
-                                    <button id="splitPersoProcessos" type="button"
-                                        class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button id="persoProcessosBloq" class="dropdown-item" type="button">Processos Bloqueados</button>
-                                        <button id="persoProcessosTotais" class="dropdown-item" type="button">Processos Bloqueados</button>
-                                    </div>
+                        <div class="col-xl-6 my-2">
+                            <h3>Filtro Dashboards:</h3>
+                            <!-- Example split danger button -->
+                            <div class="btn-group">
+                                <button id="togglePersoComponente" type="button"
+                                    class="btn btn-primary mt-2">Componente</button>
+                                <button id="splitPersoComponente" type="button"
+                                    class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button id="persoCpu" class="dropdown-item" type="button">Uso da CPU</button>
+                                    <button id="persoRam" class="dropdown-item" type="button">Uso da Ram</button>
+                                    <button id="persoDisco" class="dropdown-item" type="button">Uso do Disco</button>
                                 </div>
                             </div>
-                            <div class="col-xl-2 my-2">
-                                <h3>Atualizar Gráfico:</h3>
-                                <button id="persoAtualizar" class="btn btn-primary mt-2 ">Atualizar</button>
+                            <div class="btn-group">
+                                <button id="togglePersoRede" type="button" class="btn btn-primary mt-2">Rede</button>
+                                <button id="splitPersoRede" type="button"
+                                    class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button id="persoBytesEnviados" class="dropdown-item" type="button">Bytes
+                                        Enviados</button>
+                                    <button id="persoBytesRecebidos" class="dropdown-item" type="button">Bytes
+                                        Recebidos</button>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button id="togglePersoTemperatura" type="button"
+                                    class="btn btn-primary mt-2">Temperatura CPU</button>
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button id="togglePersoProcessos" type="button"
+                                    class="btn btn-primary mt-2">Processos</button>
+                                <button id="splitPersoProcessos" type="button"
+                                    class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button id="persoProcessosBloq" class="dropdown-item" type="button">Processos
+                                        Bloqueados</button>
+                                    <button id="persoProcessosTotais" class="dropdown-item" type="button">Processos
+                                        Bloqueados</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="row px-4">
-                                    <div class="col-xl-10 mt-3">
-                                        <div id="container4"
-                                            class="col-xl-12 p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
-                                            style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">
-                                            <canvas id="graficoPersonalizado"></canvas>
-                                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                                        </div>
-                                        <p class="highcharts-description"></p>
-                                    </div>
-                                    <div class="col-xl-2 mb-5 bg-white rounded border border-info"
-                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107); height: 15rem; align-self: center;">
-                                        <h2 class="display-3 font-weight-bold text-center mb-4 text-dark">Grau de
-                                            correlação:</h2>
-                                        <p class="display-3 text-center font-weight-bold text-info">95,104%</p>
+                        <div class="col-xl-3 my-2">
+                            <h3>Tipo gráfico:</h3>
+                            <div class="btn-group">
+                                <button id="togglePersoTipoGrafico" type="button"
+                                    class="btn btn-primary mt-2">Selecione o tipo</button>
+                                <button id="splitPersoTipoGrafico" type="button"
+                                    class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </button>
+                                <div class="dropdown-menu">
+                                    <button onclick="persoLinha()" id="persoGraficoLinha" class="dropdown-item" type="button">Linha</button>
+                                    <button onclick="persoDispersao()" id="persoGraficoDispersao" class="dropdown-item" type="button">Dispersão</button>
+                                    <button onclick="persoBarras()" id="persoGraficoBarras" class="dropdown-item" type="button">Barras</button>
+                                    <button onclick="persoRegressao()" id="persoGraficoRegressao" class="dropdown-item" type="button">Regressão linear</button>
+                                    <button onclick="persoSetores()" id="persoGraficoSetores" class="dropdown-item" type="button">Setores</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="row px-4">
+                                <div class="col-xl-12 mt-3">
+                                    <div id="container4"
+                                        class="col-xl-12 p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
+                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">
+                                        <canvas id="graficoPersonalizado"></canvas>
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                     </div>
                                 </div>
                             </div>
@@ -677,18 +693,19 @@
                     </div>
                 </div>
             </div>
-            <!-- Argon Scripts -->
-            <!-- Core -->
-            <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-            <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-            <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-            <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-            <!-- Optional JS -->
-            <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
-            <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
-            <!-- Argon JS -->
-            <script src="../assets/js/argon.js?v=1.2.0"></script>
+        </div>
+        <!-- Argon Scripts -->
+        <!-- Core -->
+        <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+        <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+        <!-- Optional JS -->
+        <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+        <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+        <!-- Argon JS -->
+        <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
 
 <script src="./backend.js"></script>
