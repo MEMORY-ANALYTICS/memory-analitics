@@ -10,7 +10,7 @@ SELECT min(valorRegistro) FROM registro WHERE fkComponente = 35 AND tipoMedida =
 -- Pegar o maior valor que a rede já chegou;
 SELECT max(valorRegistro) FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-12-07';
 -- SQL SERVER
-SELECT min(valorRegistro), dtHoraRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '2023-12-07' GROUP BY dtHoraRegistro LIMIT 1;
+SELECT max(valorRegistro), dtHoraRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-12-07' GROUP BY dtHoraRegistro LIMIT 1;
 
 -- Pegar o Último registro inserido
 SELECT valorRegistro FROM registro where fkComponente = 35 AND tipoMedida = 'Mbps' ORDER BY idRegistro DESC LIMIT 1;
@@ -43,6 +43,10 @@ SELECT valorRegistro FROM registro WHERE fkComponente = 35 AND tipoMedida = 'Pac
 -- SQL Server
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Enviados Rede' ORDER BY idRegistro DESC;
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 7 AND tipoMedida = 'Pacotes' AND detalheRegistro = 'Recebidos Rede' ORDER BY idRegistro DESC;
+
+use bd_memoryanalytics;
+SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE fkComponente = 6 AND DATE(dtHoraRegistro) = '2023-12-07' AND tipoMedida = 'Pacotes';
+
 -- -------------------------------------------------------------------------------------------
 
 
