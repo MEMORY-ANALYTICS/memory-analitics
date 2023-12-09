@@ -54,7 +54,7 @@ function selectCpu(req, res) {
 
     dashCorrelacaoModel.selectCpu(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectCpu:" + resultado);
             } else {
@@ -75,7 +75,7 @@ function selectRam(req, res) {
 
     dashCorrelacaoModel.selectRam(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectRam:" + resultado);
             } else {
@@ -96,7 +96,7 @@ function selectDisco(req, res) {
 
     dashCorrelacaoModel.selectDisco(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectDisco:" + resultado);
             } else {
@@ -138,7 +138,7 @@ function selectRede(req, res) {
 
     dashCorrelacaoModel.selectRede(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectRede:" + resultado);
             } else {

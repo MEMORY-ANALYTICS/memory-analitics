@@ -48,14 +48,15 @@ function selectCpu() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
                 console.log("json comprimento")
                 console.log(json.length)
+                console.log("json colchetes")
+                console.log(json[0])
                 console.log("json completo")
                 console.log(json)
-                console.log("json index 0")
-                console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    alert("Nenhum resultado encontrado para CPU")
+                }
             });
         } else {
             resposta.text().then(textoErro => {
