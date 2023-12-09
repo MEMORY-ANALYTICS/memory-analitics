@@ -1,32 +1,50 @@
 nomeLogin.innerHTML = sessionStorage.NOME_USUARIO
-
-
-var ctx = document.getElementById('graficoTemperatura');
-createTemp(ctx)
-
-var ctx1 = document.getElementById('graficoComparativo');
-createFiltroData(ctx1)
-
-var numeroBotao = 1
-
-createIncidentes()
-
-
-var apelidoServidor = "Servidor B"
-
 getServidor()
-horaDash1(apelidoServidor)
-graficoIncidentesMes('Servidor B')
+
+var botaoSelecionado = 1
+var listMes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']  
+var listKpi = ["qtdIncidentes", "MedTemp", "CpuTempMax", "CpuTempMin"]
+
+var dataTemp = new Date();
+var dia = dataTemp.getDate();
+if (dia < 10) {
+  dia = `0${dia}`
+}
+var mes = dataTemp.getMonth() + 1;
+var ano = dataTemp.getFullYear();
+var dataHojeFront = `${dia}/${mes}/${ano}`
+var dataHoje = `${mes}-${dia}-${ano}`
+var dataHojeBack = `${ano}-${mes}-${dia}`
+var anoMes = `${ano}-${mes}`
+var select;
+
+createTemp()
+createFiltroData()
+horaDash(getOptionValue())
+createIncidentes()
+graficoIncidentesMes(getOptionValue())
+
+for (i = 0; i < listKpi.length; i++) {
+  getKpi(listKpi[i])
+}
+
+function getOptionValue(){
+  select = document.getElementById(selecaoApelidoServidor)
+  return select.options[select.selectIndex].value;
+  
+}
+
+setInterval(() => atualizarDados(), 500000);
 
 
-setInterval(() => {
-
-  if (numeroBotao == 1){
-    horaDash1(apelidoServidor)
-  } else if (numeroBotao == 2){
-    semanaDash1(apelidoServidor)
+function atualizarDados() {
+  if (botaoSelecionado == 1){
+    horaDash(getOptionValue())
+  } else if (botaoSelecionado == 2){
+    semanaDash(getOptionValue(), anoMes)
   } else {
-    mesDash1(apelidoServidor)
+    mesDash(getOptionValue(), anoMes)
   }
   
   for (i = 0; i < listKpi.length; i++) {
@@ -34,51 +52,36 @@ setInterval(() => {
   }
   
   graficoIncidentes.destroy()
-
   createIncidentes()
   graficoIncidentesMes('Servidor B')
-
-}, 30000);
-
-
-
-
-
-dataTemp = new Date();
-
-var dia = dataTemp.getDate();
-var mes = dataTemp.getMonth() + 1;
-var ano = dataTemp.getFullYear();
-
-if (dia < 10) {
-  dia = `0${dia}`
 }
 
-var dataHojeFront = `${dia}/${mes}/${ano}`
-var dataHoje = `${mes}-${dia}-${ano}`
 
-
-var listKpi = ["qtdIncidentes", "MedTemp", "CpuTempMax", "CpuTempMin"]
-
-for (i = 0; i < listKpi.length; i++) {
-  getKpi(listKpi[i])
-}
 
 
 function getServidor() {
 
 
-  fetch(`/servidor/servidor`).then(res => {
+  fetch(`/servidor/servidor`, {
+    method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email : sessionStorage.EMAIL_USUARIO
+      })
+  }).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-        console.log(json[i])
-
+        
         var novaOpcao = document.createElement("option");
-        novaOpcao.text = json[i].apelidoServidor
-        novaOpcao.value = json[i].macAdress
-
         var select = document.getElementById("selecaoApelidoServidor");
+        
+        novaOpcao.text = json[i].apelidoServidor
+        novaOpcao.value = json[i].idServidor
+        
         select.appendChild(novaOpcao);
+      
       }
     })
   })
@@ -91,15 +94,23 @@ function getServidor() {
 function getKpi(metodoKpi) {
 
   fetch(`/kpi/${metodoKpi}`, {
-    method: "GET"
-  }).then(res => {
+    method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        dataMomento: dataHojeBack,
+        fkServidor: idServidor
+      })
+    }).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
+        
         var dataMysql;
         var dataTratado;
         var diaTratado;
-        var listMes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
         var valorRegistro;
+        
         if (metodoKpi == "qtdIncidentes") {
 
           valorRegistro = json[i].quantidade
@@ -138,8 +149,8 @@ function getKpi(metodoKpi) {
           cpuTempMin.innerHTML = json[i].valorRegistro;
           dataMysql = json[i].dtHoraRegistro
           dataTratado = new Date(dataMysql);
-
           diaTratado = dataTratado.getDay();
+
           if (diaTratado < 10) {
             diaTratado = `0${diaTratado}`
           }
@@ -154,9 +165,10 @@ function getKpi(metodoKpi) {
           } else {
             estadoTempMedia.innerHTML = 'Aceitável'
           }
+          
           medTemp.innerHTML = json[i].mediaTemperatura;
-
           dataMedTemp.innerHTML = dataHojeFront;
+        
         }
       }
     })
@@ -173,11 +185,11 @@ function graficoIncidentesMes(apelidoServidor) {
   fetch(`/grafico/graficoIncidentes/${apelidoServidor}`).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-
-       
+  
         graficoIncidentes.data.datasets[0].data.push(json[i].quantidade)
         graficoIncidentes.data.labels.push(json[i].mes)
         graficoIncidentes.update()
+      
       }
     })
   })
@@ -186,7 +198,9 @@ function graficoIncidentesMes(apelidoServidor) {
     })
 }
 
-function createTemp(ctx) {
+function createTemp() {
+
+  var ctx = document.getElementById('graficoTemperatura');
 
   graficoTemperatura = new Chart(ctx, {
     type: 'line',
@@ -194,6 +208,32 @@ function createTemp(ctx) {
       labels: [],
       datasets: [{
         label: 'Temperatura',
+        data: [],
+        borderWidth: 1
+      }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+function createFiltroData() {
+
+  
+  var ctx1 = document.getElementById('graficoComparativo');
+
+  graficoFiltroData = new Chart(ctx1, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [{
+        label: 'temperatura',
         data: [],
         borderWidth: 1
       }
@@ -239,28 +279,6 @@ function createIncidentes() {
       ]
     },
     options: {
-     
-    
-    }
-  });
-
-
-}
-
-function createFiltroData(ctx1) {
-
-  graficoFiltroData = new Chart(ctx1, {
-    type: 'line',
-    data: {
-      labels: [],
-      datasets: [{
-        label: 'temperatura',
-        data: [],
-        borderWidth: 1
-      }
-      ]
-    },
-    options: {
       scales: {
         y: {
           beginAtZero: true
@@ -269,6 +287,3 @@ function createFiltroData(ctx1) {
     }
   });
 }
-
-
-

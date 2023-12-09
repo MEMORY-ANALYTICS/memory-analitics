@@ -18,8 +18,8 @@ SELECT * FROM cargo;
 
 SELECT * FROM servidor;
 SELECT * FROM componente;
-SELECT * FROM recurso;
-SELECT * FROM medidaComponente;
+
+SELECT * FROM registro;
 
 SELECT * FROM chamadoServidor;
 SELECT * FROM downtimeServidor;
