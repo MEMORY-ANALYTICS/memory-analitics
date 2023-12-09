@@ -1,20 +1,23 @@
-function chamarOcorrencias() {
-    selectGraficoOcorrenciaComponente()
-    selectGraficoOcorrenciaProcesso()
-    selectGraficoOcorrenciaRede()
-    selectGraficoOcorrenciaTemperatura()
-}
+// function chamarOcorrencias() {
+//     selectGraficoOcorrenciaComponente()
+//     selectGraficoOcorrenciaProcesso()
+//     selectGraficoOcorrenciaRede()
+//     selectGraficoOcorrenciaTemperatura()
+// }
 
-function atualizarDadosOcorrencias() {
-    graficoOcorrencias.data.datasets[0].data.push(qtdOcorrenciasComponente)
-    graficoOcorrencias.data.datasets[1].data.push(qtdOcorrenciasTemperatura)
-    graficoOcorrencias.data.datasets[2].data.push(qtdOcorrenciasRede)
-    graficoOcorrencias.data.datasets[3].data.push(qtdOcorrenciasProcessos)
-    graficoOcorrencias.update()
-}
+// function atualizarDadosOcorrencias() {
+//     graficoOcorrencias.data.datasets[0].data.push(qtdOcorrenciasComponente)
+//     graficoOcorrencias.data.datasets[1].data.push(qtdOcorrenciasTemperatura)
+//     graficoOcorrencias.data.datasets[2].data.push(qtdOcorrenciasRede)
+//     graficoOcorrencias.data.datasets[3].data.push(qtdOcorrenciasProcessos)
+//     graficoOcorrencias.update()
+// }
 
 function persoLinha() {
-    createPersoLinha()
+    if (typeof graficoPerso !== 'undefined') {
+        graficoPerso.destroy()
+    }
+    createPersoLinha(ctx3)
     graficoPerso.type = 'line'
     graficoPerso.data.datasets = [{
         label: 'My First Dataset',
@@ -26,27 +29,62 @@ function persoLinha() {
     graficoPerso.update()
 }
 function persoBarra() {
-
-}
-function persoDispersao() {
-
-}
-function persoSetores() {
-
-}
-function persoRegressao() {
-    createPersoRegressao()
+    if (typeof graficoPerso !== 'undefined') {
+        graficoPerso.destroy()
+    }
+    createPersoBarra(ctx3)
     graficoPerso.data.datasets = [{
-        type: 'line',
-        label: 'Bar Dataset',
-        data: [10, 20, 30, 40]
-    }, {
-        type: 'line',
-        label: 'Line Dataset',
-        data: [50, 50, 50, 50],
+        label: 'My First Dataset',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
     }]
     graficoPerso.update()
 }
+function persoDispersao() {
+    if (typeof graficoPerso !== 'undefined') {
+        graficoPerso.destroy()
+    }
+    createPersoDispersao(ctx3)
+    graficoPerso.type = 'line'
+    graficoPerso.data.datasets = [{
+        label: 'My First Dataset',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+    }]
+    graficoPerso.update()
+}
+function persoSetores() {
+    if (typeof graficoPerso !== 'undefined') {
+        graficoPerso.destroy()
+    }
+    createPersoSetores(ctx3)
+    graficoPerso.type = 'line'
+    graficoPerso.data.datasets = [{
+        label: 'My First Dataset',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+    }]
+    graficoPerso.update()
+}
+// function persoRegressao() {
+//     createPersoRegressao(ctx3)
+//     graficoPerso.data.datasets = [{
+//         type: 'line',
+//         label: 'Bar Dataset',
+//         data: [10, 20, 30, 40]
+//     }, {
+//         type: 'line',
+//         label: 'Line Dataset',
+//         data: [50, 50, 50, 50],
+//     }]
+//     graficoPerso.update()
+// }
 
 // Criação dos gráficos
 
@@ -180,19 +218,19 @@ function createPersoSetores(ctx3) {
         }
     });
 }
-function createPersoRegressao(ctx3) {
+// function createPersoRegressao(ctx3) {
 
-    graficoPerso = new Chart(ctx3, {
-        data: {
-            labels: ['Registros'],
-            datasets: []
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-}
+//     graficoPerso = new Chart(ctx3, {
+//         data: {
+//             labels: ['Registros'],
+//             datasets: []
+//         },
+//         options: {
+//             scales: {
+//                 y: {
+//                     beginAtZero: true
+//                 }
+//             }
+//         }
+//     });
+// }

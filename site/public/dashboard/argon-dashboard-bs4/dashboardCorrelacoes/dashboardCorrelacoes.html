@@ -439,7 +439,7 @@
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
                                                     Área com maior número de chamados:
                                                 </h5>
-                                                <span id="maiorOcorrencia" class="h2 font-weight-bold mb-0"></span>
+                                                <span id="maiorAreaChamados" class="h2 font-weight-bold mb-0"></span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -461,9 +461,9 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
-                                                    Percentual de correlação entre CPU X Temperatura:
+                                                    Percentual de correlação atual do gráfico personalizado:
                                                 </h5>
-                                                <span class="h2 font-weight-bold mb-0">97.64%</span>
+                                                <span id="percentualCorrelacao" class="h2 font-weight-bold mb-0">97.64%</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -472,7 +472,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <p class="mt-3 pb-3 text-sm">
+                                        <p  class="mt-3 pb-3 text-sm">
                                             <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
@@ -487,9 +487,9 @@
                                         <div class="row">
                                             <div class="col">
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
-                                                    Percentual de assertividade de dados
+                                                    Quantidade de dados analizados
                                                 </h5>
-                                                <span class="h2 font-weight-bold mb-0">86%</span>
+                                                <span id="quantidadeDados" class="h2 font-weight-bold mb-0">154000</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -669,10 +669,10 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <button onclick="persoLinha()" id="persoGraficoLinha" class="dropdown-item" type="button">Linha</button>
-                                    <button onclick="persoDispersao()" id="persoGraficoDispersao" class="dropdown-item" type="button">Dispersão</button>
-                                    <button onclick="persoBarras()" id="persoGraficoBarras" class="dropdown-item" type="button">Barras</button>
-                                    <button onclick="persoRegressao()" id="persoGraficoRegressao" class="dropdown-item" type="button">Regressão linear</button>
+                                    <button onclick="persoBarra()" id="persoGraficoBarras" class="dropdown-item" type="button">Barras</button>
                                     <button onclick="persoSetores()" id="persoGraficoSetores" class="dropdown-item" type="button">Setores</button>
+                                    <button onclick="persoDispersao()" id="persoGraficoDispersao" class="dropdown-item" type="button">Dispersão</button>
+                                    <button onclick="persoRegressao()" id="persoGraficoRegressao" class="dropdown-item" type="button">Regressão linear</button>
                                 </div>
                             </div>
                         </div>
