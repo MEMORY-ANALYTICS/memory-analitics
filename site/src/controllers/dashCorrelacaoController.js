@@ -50,7 +50,7 @@ function selectServidores(req, res) {
 function selectCpu(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectCpu com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectCpu com o valor de: fkServidor -> ' + fkServidor)
 
     dashCorrelacaoModel.selectCpu(fkServidor)
         .then(function (resultado) {
@@ -71,7 +71,7 @@ function selectCpu(req, res) {
 function selectRam(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectRam com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectRam com o valor de: fkServidor -> ' + fkServidor)
 
     dashCorrelacaoModel.selectRam(fkServidor)
         .then(function (resultado) {
@@ -92,7 +92,7 @@ function selectRam(req, res) {
 function selectDisco(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectDisco com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectDisco com o valor de: fkServidor -> ' + fkServidor)
 
     dashCorrelacaoModel.selectDisco(fkServidor)
         .then(function (resultado) {
@@ -134,7 +134,7 @@ function selectDisco(req, res) {
 function selectRede(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectRede com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectRede com o valor de: fkServidor -> ' + fkServidor)
 
     dashCorrelacaoModel.selectRede(fkServidor)
         .then(function (resultado) {

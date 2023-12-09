@@ -48,12 +48,9 @@ function selectCpu() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log("json comprimento")
-                console.log(json.length)
-                console.log("json colchetes")
+                console.log("SelectCPU")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-                console.log("json completo")
-                console.log(json)
                 if(typeof json[0] === 'undefined'){
                     alert("Nenhum resultado encontrado para CPU")
                 }
@@ -83,11 +80,8 @@ function selectRam() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 // Testes
-                console.log("json comprimento")
-                console.log(json.length)
-                console.log("json completo")
-                console.log(json)
-                console.log("json index 0")
+                console.log("SelectRAM")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
 
 
@@ -117,13 +111,9 @@ function selectDisco() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 // Testes
-                console.log("json comprimento")
-                console.log(json.length)
-                console.log("json completo")
-                console.log(json)
-                console.log("json index 0")
+                console.log("SelectDisco")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
 
             });
         } else {
@@ -151,11 +141,8 @@ function selectRede() {
         if (resposta.ok) {
             resposta.json().then(json => {
                 // Testes
-                console.log("json comprimento")
-                console.log(json.length)
-                console.log("json completo")
-                console.log(json)
-                console.log("json index 0")
+                console.log("SelectRede")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
 
 
