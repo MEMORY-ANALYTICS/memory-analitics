@@ -33,7 +33,6 @@ function listar() {
           if (i == 0) {
             listarServidor.innerHTML += `<option value="${servidor[i].idServidor}">${servidor[i].apelidoServidor}</option>`;
             selectIdComponente()
-            // kpiMenorVelocidade()
           } else {
             listarServidor.innerHTML += `<option value="${servidor[i].idServidor}">${servidor[i].apelidoServidor}</option>`;
           }
@@ -67,6 +66,7 @@ function selectIdComponente() {
         kpiMenorVelocidade(idComponente)
         kpiMaiorLatencia(idComponente)
         kpiMediaPacotes(idComponente)
+        valorGrafico1(idComponente)
         sessionStorage.ID_COMPONENTE = idComponente;
 
       });
@@ -178,10 +178,9 @@ function kpiMediaPacotes(idComponente) {
 
 }
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
-valorGrafico1()
 
-function valorGrafico1() {
-  var fkComponente = sessionStorage.ID_COMPONENTE;
+function valorGrafico1(idComponente) {
+  var fkComponente = idComponente;
   var dataAtual = formatarData(1);
   var valorRegistroPego = 0;
   fetch(`/dashboardRedeRouter/pegarLatenciaAtual/${fkComponente}/${dataAtual}`).then(function (response) {
