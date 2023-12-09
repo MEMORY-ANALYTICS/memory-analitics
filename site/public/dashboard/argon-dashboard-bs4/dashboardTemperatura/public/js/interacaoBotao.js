@@ -1,65 +1,64 @@
 
-function horaDash1(apelidoServidor) {
+function horaDash(idServidor) {
 
-  numeroBotao = 1
+  botaoSelecionado = 1 // index.js
 
-  idHoraDash1.style = "background-color: #5E72E4; cursor: pointer;"
-  textoHora1.style = "color:  #FFFF"
+  idHoraDash.style = "background-color: #5E72E4; cursor: pointer;"
+  textoHora.style = "color:  #FFFF"
 
-  idSemanaDash1.style = "background-color:  #FFFF; cursor: pointer;"
-  textoSemana1.style = "color: #5e72e4; "
+  idSemanaDash.style = "background-color:  #FFFF; cursor: pointer;"
+  textoSemana.style = "color: #5e72e4; "
 
-  idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes1.style = "color: #5e72e4;"
+  idMesDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoMes.style = "color: #5e72e4;"
   ctx = document.getElementById('graficoTemperatura');
   graficoTemperatura.destroy()
   createTemp(ctx)
-  exibirGrafico("graficoCpuHora", apelidoServidor)
+  exibirGrafico("graficoCpuHora", idServidor)
 }
 
-function semanaDash1() {
+function semanaDash(idServidor, anoMes) {
 
-  numeroBotao = 2
+  botaoSelecionado = 2
 
-  idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora1.style = "color: #5e72e4; "
+  idHoraDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoHora.style = "color: #5e72e4; "
 
-  idSemanaDash1.style = "background-color: #5E72E4; cursor: pointer;"
-  textoSemana1.style = "color: #FFFF; "
+  idSemanaDash.style = "background-color: #5E72E4; cursor: pointer;"
+  textoSemana.style = "color: #FFFF; "
 
-  idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes1.style = "color: #5e72e4; "
+  idMesDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoMes.style = "color: #5e72e4; "
 
   graficoTemperatura.destroy()
   createTemp(ctx)
-  exibirGrafico("graficoCpuSemana")
+  exibirGrafico("graficoCpuSemana",idServidor, anoMes)
 }
 
-function mesDash1() {
+function mesDash() {
 
-  idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora1.style = "color: #5e72e4"
+  idHoraDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoHora.style = "color: #5e72e4"
 
-  idSemanaDash1.style = "background-color: #FFFF; cursor: pointer; "
-  textoSemana1.style = "color: #5e72e4 "
+  idSemanaDash.style = "background-color: #FFFF; cursor: pointer; "
+  textoSemana.style = "color: #5e72e4 "
 
-  idMesDash1.style = "background-color: #5E72E4; cursor: pointer;"
-  textoMes1.style = "color: #FFFF"
+  idMesDash.style = "background-color: #5E72E4; cursor: pointer;"
+  textoMes.style = "color: #FFFF"
 
   graficoTemperatura.destroy()
   createTemp(ctx)
-  exibirGrafico("graficoCpuMes")
-
+  exibirGrafico("graficoCpuMes",idServidor, anoMes)
 
 }
-
 
 function pesquisarIntevaloData() {
 
   var dataInicio = document.getElementById("dataInicio").value;
   var dataFim = document.getElementById("dataFim").value;
-
-  console.log(dataInicio, dataFim)
+  var idServidor = select.options[select.selectIndex].value;
+  
+  console.log(dataInicio, dataFim, idServidor)
 
   if (dataFim < dataInicio) {
     alert("Data inválida!")
@@ -73,39 +72,38 @@ function pesquisarIntevaloData() {
       body: JSON.stringify({
         dataInicioServer: dataInicio,
         dataFimServer: dataFim,
-        fkServidor: 8
+        idServidorServer: idServidor
       })
     }).then(res => {
       res.json().then(json => {
         for (let i = 0; i < json.length; i++) {
-          console.log(json[i].valor)
 
-          graficoFiltroData.data.datasets[0].data.push(json[i].valor)
-          
           var data = new Date(json[i].dia)
           var dataCompleta = (`${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`);
-          
+
+          graficoFiltroData.data.datasets[0].data.push(json[i].valor) 
           graficoFiltroData.data.labels.push(dataCompleta)
           graficoFiltroData.update()
-
-          
+    
         }
       })
     })
-
   }
-
-
 }
 
-
-
-function exibirGrafico(tipoGrafico, apelidoServidor) {
+function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
   console.log(tipoGrafico)
 
-  fetch(`/grafico/${tipoGrafico}/${apelidoServidor}`, {
-    method: "GET"
+  fetch(`/grafico/${tipoGrafico}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      idServidor : idServidor,
+      data: anoMes
+    })
   }).then(res => {
     res.json().then(json => {
       for (var i = (json.length - 1); i >= 0; i--) {
@@ -113,9 +111,10 @@ function exibirGrafico(tipoGrafico, apelidoServidor) {
         const diaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
 
         if (tipoGrafico == "graficoCpuHora") {
-          graficoTemperatura.data.datasets[0].data.push(json[i].valorRegistro)
+
           var horario = new Date(json[i].dtHoraRegistro)
 
+          graficoTemperatura.data.datasets[0].data.push(json[i].valorRegistro)
           graficoTemperatura.data.labels.push(`${horario.getHours()}:${horario.getMinutes()}`)
           graficoTemperatura.update()
 
@@ -123,33 +122,25 @@ function exibirGrafico(tipoGrafico, apelidoServidor) {
 
           var data = new Date(json[i].dia)
           var nomeDiaSemana = diaSemana[data.getDay()]
+
           graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)
           graficoTemperatura.data.labels.push(nomeDiaSemana)
           graficoTemperatura.update()
 
-
-
         } else if (tipoGrafico == "graficoCpuMes") {
-
-          console.log(json[i].valorMedia)
-
+    
           var data = new Date(json[i].dia)
-          var dataDia = (`${data.getDate()}/${data.getMonth() + 1}`);
+          var dataDia = (`${data.getDate()}/${data.getMonth() + 1}`)
+
           graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)
           graficoTemperatura.data.labels.push(dataDia)
           graficoTemperatura.update()
+
         }
       }
-
     })
-
   })
     .catch(err => {
       console.log(err);
     })
-
 }
-
-
-
-

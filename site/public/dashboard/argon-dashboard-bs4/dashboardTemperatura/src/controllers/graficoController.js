@@ -2,9 +2,8 @@ var graficoModel = require("../models/graficoModel")
 
 
 function graficoCpuHora(req,res){
-    // var idServidor = req.body.idServidor;
-    var apelido = req.params.apelidoServidor;
-   graficoModel.graficoCpuHora(apelido).then(function(resultado){
+    var idServidor = req.body.idServidor;
+   graficoModel.graficoCpuHora(data).then(function(resultado){
        res.status(200).json(resultado);
    }).catch(function(erro){
        // res.status(500).json(erro.sqlMessage);
@@ -12,9 +11,9 @@ function graficoCpuHora(req,res){
 }
 
 function graficoCpuSemana(req,res){
-    // var idServidor = req.body.idServidor;
-    var apelido = req.params.apelidoServidor;
-   graficoModel.graficoCpuSemana(apelido).then(function(resultado){
+    var idServidor = req.body.idServidor;
+    var data = req.params.data;
+   graficoModel.graficoCpuSemana(idServidor,data).then(function(resultado){
        res.status(200).json(resultado);
    }).catch(function(erro){
        // res.status(500).json(erro.sqlMessage);
@@ -22,9 +21,9 @@ function graficoCpuSemana(req,res){
 }
 
 function graficoCpuMes(req,res){
-    // var idServidor = req.body.idServidor;
-    var apelido = req.params.apelidoServidor;
-   graficoModel.graficoCpuMes(apelido).then(function(resultado){
+    var idServidor = req.body.idServidor;
+    var data = req.params.data;
+   graficoModel.graficoCpuMes(idServidor,data).then(function(resultado){
        res.status(200).json(resultado);
    }).catch(function(erro){
        // res.status(500).json(erro.sqlMessage);
@@ -35,9 +34,9 @@ function filtroData(req,res){
 
     var dataInicio = req.body.dataInicioServer
     var dataFim = req.body.dataFimServer
-    var fkServidor = req.body.fkServidor
+    var idServidorServer = req.body.idServidor
    
-   graficoModel.filtroData(dataInicio,dataFim,fkServidor).then(function(resultado){
+   graficoModel.filtroData(dataInicio,dataFim,idServidorServer).then(function(resultado){
        res.status(200).json(resultado);
    }).catch(function(erro){
        // res.status(500).json(erro.sqlMessage);
