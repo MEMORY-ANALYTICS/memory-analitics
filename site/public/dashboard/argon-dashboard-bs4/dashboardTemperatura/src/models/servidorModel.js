@@ -1,9 +1,9 @@
 var database = require("../database/config")
 
-      function getServidor() {
-        email = 'anafonseca@email.com'
+      function getServidor(email) {
+        
         instrucaoSql = `
-        select apelidoServidor,macAdress from servidor join empresa on fkEmpresa = idEmpresa 
+        select idServidor, apelidoServidor from servidor join empresa on fkEmpresa = idEmpresa 
         where idEmpresa = (select idEmpresa from empresa join funcionario on fkEmpresa = idEmpresa 
           where emailFunc = '${email}' and SistemaOperacionalServidor = 'Linux');
        `
@@ -11,7 +11,6 @@ var database = require("../database/config")
         return database.executar(instrucaoSql);
       }  
 
-  
     module.exports = {
         getServidor
     }
