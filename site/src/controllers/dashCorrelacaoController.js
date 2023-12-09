@@ -73,7 +73,7 @@ function selectRam(req, res) {
 
     console.log('Estou no Controller selectRam com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor)
+    dashCorrelacaoModel.selectRam(fkServidor)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -94,7 +94,7 @@ function selectDisco(req, res) {
 
     console.log('Estou no Controller selectDisco com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor)
+    dashCorrelacaoModel.selectDisco(fkServidor)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -136,7 +136,7 @@ function selectRede(req, res) {
 
     console.log('Estou no Controller selectRede com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectTemperatura(fkServidor)
+    dashCorrelacaoModel.selectRede(fkServidor)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
