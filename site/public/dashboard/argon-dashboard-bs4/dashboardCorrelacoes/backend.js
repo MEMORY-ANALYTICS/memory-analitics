@@ -35,8 +35,8 @@ function selectServidores() {
     });
 }
 
-function selectComponente() {
-    fetch("/dashCorrelacao/selectComponente", {
+function selectCpu() {
+    fetch("/dashCorrelacao/selectCpu", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

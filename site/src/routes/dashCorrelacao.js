@@ -30,9 +30,9 @@ router.post("/selectDisco", (req, res) => {
 });
 
     // Temperatura
-router.post("/selectTemperatura", (req, res) => {
-    dashCorrelacaoController.selectTemperatura(req, res);
-});
+// router.post("/selectTemperatura", (req, res) => {
+//     dashCorrelacaoController.selectTemperatura(req, res);
+// });
 
     // Rede
 router.post("/selectRede", (req, res) => {
