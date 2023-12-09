@@ -105,13 +105,14 @@ END;
 
 
 -- CREATE TABLE chamadoServidor
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'chamadoServidor')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'chamadoServidor')
 BEGIN
-    CREATE TABLE chamadoServidor(
+   CREATE TABLE chamadoServidor(
         idChamadoServidor INT PRIMARY KEY IDENTITY(1,1),
         codigoChamado VARCHAR(45),
         descricao varchar(45),
         dtHoraChamado DATETIME,
+		requisitante VARCHAR(45),
         fkServidor INT,
         FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
     );
