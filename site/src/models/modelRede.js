@@ -19,14 +19,14 @@ function listar(fkEmpresa) {
   }
 
   function pegarKpiVelocidade(fkComponente,dataAtual) {
-    var query = `SELECT min(valorRegistro) AS valorRegistro, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
-    fkComponente = ${fkComponente} AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
+    var query = `SELECT min(valorRegistro) AS valorVelocidadeMin, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
+    fkComponente = ${fkComponente} AND tipoMedida = 'MBps' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
   
     return database.executar(query);
   }
  
   function pegarKpiLatencia(fkComponente,dataAtual) {
-    var query = `SELECT max(valorRegistro) AS valorRegistro, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
+    var query = `SELECT max(valorRegistro) AS valorLatenciaMax, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
     fkComponente = ${fkComponente} AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
   
     return database.executar(query);
@@ -39,11 +39,10 @@ function listar(fkEmpresa) {
   }
   // SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE DATE(dtHoraRegistro) = '2023-12-07' AND tipoMedida = 'Pacotes';
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
-  function pegarVelocidadeMax(fkServidor,dataAtual) {
-    var query = `SELECT max(valorRegistro) AS valorMaxRegistro FROM registro JOIN componente ON fkComponente = idComponente JOIN servidor ON FkServidor = idServidor 
-    WHERE fkServidor = ${fkServidor} AND tipoComponente = 'REDE' AND tipoMedida = 'Mbps' AND  date(dtHoraRegistro) = '${dataAtual}';`;
-  
+  function pegarLatenciaAtual(fkComponente,dataAtual) {
+    var query = `
+    SELECT max(valorRegistro) AS valorLatenciaAtual, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE fkComponente = ${fkComponente} AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
     return database.executar(query);
   }
   module.exports = {listar, pegarIdComponente, pegarKpiVelocidade, pegarKpiLatencia, pegarKpiPacotes,
-     pegarVelocidadeMax};
+    pegarLatenciaAtual};

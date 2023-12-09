@@ -115,15 +115,15 @@ public class RecursoRede {
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbEnviados = capturarRegistroEnviados();
-        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
-        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "Mb", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente());
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "MB", "Enviados Rede", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",mbEnviados.toString().replace(",","."), "MB", "Enviados Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
     public void InsertMbRecebidos(){
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Double mbRecebidos = capturarRegistroRecebidos();
-        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "Mb", "Recebidos Rede", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
-        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "Mb", "Recebidos Rede", dataHoraAtual.format(formatter), getFkComponente());
+        conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "MB", "Recebidos Rede", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
+        conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);", mbRecebidos.toString().replace(",","."), "MB", "Recebidos Rede", dataHoraAtual.format(formatter), getFkComponente());
     }
 
     public void InsertMbpsTransmissao(){
@@ -134,9 +134,9 @@ public class RecursoRede {
         //System.out.println(taxaDeTrasmissao);
 
         conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",taxaDeTrasmissao.toString().replace(",","."),
-                "Mbps", "Taxa de Transmissão", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
+                "MBps", "Taxa de Transmissão", Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",taxaDeTrasmissao.toString().replace(",","."),
-                "Mbps", "Taxa de Transmissão", dataHoraAtual.format(formatter), getFkComponente());
+                "MBps", "Taxa de Transmissão", dataHoraAtual.format(formatter), getFkComponente());
     }
 
     public void InsertLatencia(){

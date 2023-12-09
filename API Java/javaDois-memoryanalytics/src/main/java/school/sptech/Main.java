@@ -46,7 +46,7 @@ public class Main {
                         recursoProcessadorFrequencia.capturarRegistro();
                         recursoProcessadorUso.capturarRegistro();
                         recursoProcessos.capturarRegistro();
-//                recursoRede.capturarRegistro();
+                        recursoRede.capturarRegistro();
                     }
                 };
 

@@ -57,7 +57,7 @@ idServidor INT PRIMARY KEY AUTO_INCREMENT,
 SistemaOperacionalServidor VARCHAR(20),
 apelidoServidor VARCHAR(45),
 localServidor varchar(25),
-macAdress VARCHAR(20),
+macAdress VARCHAR(25),
 fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );

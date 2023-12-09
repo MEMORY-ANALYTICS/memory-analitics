@@ -367,7 +367,7 @@
 
               <!-------------------------------------- Chart 1 --------------------------------------------->
               <div>
-                <canvas id="myChart"></canvas>
+                <canvas id="graficoLatencia"></canvas>
               </div>
               <!-- Fim do 1º Grafico -->
 
@@ -446,14 +446,17 @@
     return gradientBackground
   }
   function graficoUm() {
-    const ctx = document.getElementById('myChart');
+
+    // valorGrafico1();
+    // graficoLatencia.labels.push = time;
+    const ctx = document.getElementById('graficoLatencia');
     new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Latência Atual',
+          data:[],
           // backgroundColor: ["white"],
           // borderColor: ['white'],
           backgroundColor: (context) =>   {
@@ -650,6 +653,7 @@
   }
   // }
 </script>
+<!-- <script src="../dashboardRede/js/requisicoesRede.js"></script> -->
 <!-- <script type="text/javascript">
 
   google.charts.load('current', {'packages':['gauge']});

@@ -67,7 +67,7 @@ function selectIdComponente() {
         kpiMenorVelocidade(idComponente)
         kpiMaiorLatencia(idComponente)
         kpiMediaPacotes(idComponente)
-        return idComponente;
+        sessionStorage.ID_COMPONENTE = idComponente;
 
       });
     })
@@ -81,10 +81,7 @@ function selectIdComponente() {
 function kpiMenorVelocidade(idComponente) {
   var fkComponente = idComponente;
   var dataAtual = formatarData(1);
-  // alert(fkComponente)
-  // alert(dataAtual)
-  // Pegar o menor valor junto com a dtHoraRegistro diário que foi registrado
-  var valorRegistroPego = 0;
+  var valorRegistroPego1 = 0;
   var momentoRegistro = "";
   fetch(`/dashboardRedeRouter/pegarKpiVelocidade/${fkComponente}/${dataAtual}`, {
     method: "GET",
@@ -92,17 +89,14 @@ function kpiMenorVelocidade(idComponente) {
     .then(function (resposta) {
       resposta.json().then((registro) => {
        
-          valorRegistroPego = registro[0].valorRegistro;
+          valorRegistroPego1 = registro[0].valorVelocidadeMin;
           momentoRegistro = registro[0].horaRegistro
 
-          if(valorRegistroPego == null || valorRegistroPego == ''){
+          if(valorRegistroPego1 == null || valorRegistroPego1 == ''){
             menorValorTransmissao.innerHTML = '';
             momentoDaCaptura.innerHTML = '';
           }else{
-          const valorRegistroPegoFormatado = valorRegistroPego.toLocaleString('pt-BR', {
-            maximumFractionDigits: 2,
-          });
-          menorValorTransmissao.innerHTML = valorRegistroPegoFormatado;
+          menorValorTransmissao.innerHTML = valorRegistroPego1.toFixed(2);
           momentoDaCaptura.innerHTML = `${formatarData(2)} ${momentoRegistro}`
 
         }
@@ -128,17 +122,14 @@ function kpiMaiorLatencia(idComponente) {
   })
     .then(function (resposta) {
       resposta.json().then((registro) => {
-          valorRegistroPego = registro[0].valorRegistro;
+          valorRegistroPego = registro[0].valorLatenciaMax;
           momentoRegistro = registro[0].horaRegistro
 
           if (valorRegistroPego == null) {
             latenciaMax.innerHTML = '';
             dataKpiLatencia.innerHTML = '';
           }else{
-          const valorRegistroPegoFormatado = valorRegistroPego.toLocaleString('pt-BR', {
-            maximumFractionDigits: 2,
-          });
-          latenciaMax.innerHTML = valorRegistroPegoFormatado;
+          latenciaMax.innerHTML = valorRegistroPego.toFixed(2);
           dataKpiLatencia.innerHTML = `${formatarData(2)} ${momentoRegistro}`
         }
         
@@ -187,21 +178,45 @@ function kpiMediaPacotes(idComponente) {
 
 }
 // -------------------------------------------- Fim Kpis - Retorno de variáveis ------------------------------------------------
-function valorGrafico3() {
-  var fkServidor = listarServidor.value;
+valorGrafico1()
+
+function valorGrafico1() {
+  var fkComponente = sessionStorage.ID_COMPONENTE;
   var dataAtual = formatarData(1);
   var valorRegistroPego = 0;
-  fetch(`/dashboardRedeRouter/pegarVelocidadeMax/${fkServidor}/${dataAtual}`, {
-    method: "GET",
-  })
-    .then(function (resposta) {
-      resposta.json().then((registro) => {
-          valorRegistroPego = registro[0].valorMaxRegistro;
-          return valorRegistroPego
+  fetch(`/dashboardRedeRouter/pegarLatenciaAtual/${fkComponente}/${dataAtual}`).then(function (response) {
+    if (response.ok) {
+        // alert(response.status);
+        if (response.status == 204) {
 
-      });
-    })
-    .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-    });
+            // var feed = document.getElementById("registrando");
+            // var mensagem = document.createElement("scroll-page");
+
+            mensagem.innerHTML = "0." //SE NÂO APARECER NADA, MUDAR AQUI
+            feed.appendChild(mensagem);
+
+            throw "Nenhum resultado encontrado!!";
+        }
+
+        response.json().then(function (resposta) {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+            // var feed = document.getElementById("registrando");
+            // feed.innerHTML = "";
+            var graficoLatencia = graficoLatencia
+            graficoLatencia.data.datasets[0].data = [];
+            
+            for (let i = 0; i < resposta.length; i++) {
+                let latenciaAgora = resposta[i].valorLatenciaAtual;
+                graficoLatencia.data.datasets[0].data.push(latenciaAgora.toFixed(2));
+                alert("a")
+            }
+            graficoLatencia.update();
+        });
+    } else {
+        throw ("Houve um erro na API")
+    }
+}).catch(function (erro) {
+    console.error(erro);
+});
 }
