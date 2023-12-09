@@ -112,8 +112,8 @@ BEGIN
         codigoChamado VARCHAR(45),
         descricao varchar(45),
         dtHoraChamado DATETIME,
-        fkComponente INT,
-        FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+        fkServidor INT,
+        FOREIGN KEY (fkServidor) REFERENCES componente (idServidor)
     );
 END;
 
@@ -144,4 +144,4 @@ BEGIN
     );
 END;
 
--- Ultima atualização 09/12/2023 16:23
+-- Ultima atualiza  o 09/12/2023 16:23

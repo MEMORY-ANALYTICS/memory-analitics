@@ -159,3 +159,12 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
+
+insert into chamadoServidor(descricao,dtHoraChamado,fkServidor) values 
+("CPU","2023-03-12 10:00:00", 1 ),
+("CPU","2023-03-12 10:00:00", 2 ),
+("CPU","2023-03-12 10:00:00", 3 ),
+("CPU","2023-03-12 11:00:00", 1 ),
+("CPU","2023-03-12 11:00:00", 2 ),
+("CPU","2023-03-12 11:00:00", 3 ),
+("CPU","2023-04-12 11:00:00", 3 );
