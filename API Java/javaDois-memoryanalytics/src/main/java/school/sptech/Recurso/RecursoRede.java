@@ -161,11 +161,12 @@ public class RecursoRede {
         conexoes.get(0).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES (?, ?, ?, ?, ?);",
                 Double.valueOf(tempoLatencia.toString().replace(",",".")),
                 "ms", "Latência da Rede",Data.formatarParaSQLServer(dataHoraAtual), getFkComponenteSqlServer());
-        System.out.println("bbbbb");
+        //System.out.println("bbbbb");
         conexoes.get(1).update("INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, " +
                         "fkComponente) VALUES (?, ?, ?, ?, ?);",
                 Double.valueOf(tempoLatencia.toString().replace(",",".")),
                 "ms", "Latência da Rede", dataHoraAtual.format(formatter), getFkComponente());
+
     }
 
     public void InsertPacotesEnviados(){
