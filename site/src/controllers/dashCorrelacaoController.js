@@ -165,6 +165,9 @@ function selectRede(req, res) {
 module.exports = {
     selectServidores,
     selectGraficoOcorrencia,
-    selectTemperatura,
-    selectCpu
+    selectCpu,
+    selectRam,
+    selectDisco,
+    // selectTemperatura,
+    selectRede
 } 
