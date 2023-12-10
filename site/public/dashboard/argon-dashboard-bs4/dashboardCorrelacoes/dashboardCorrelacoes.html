@@ -601,10 +601,14 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button onclick="setFiltroDia()" id="persoDia" class="dropdown-item" type="button">Dia</button>
-                                    <button onclick="setFiltroSemana()" id="persoSemana" class="dropdown-item" type="button">Semana</button>
-                                    <button onclick="setFiltroMes()" id="persoMes" class="dropdown-item" type="button">Mês</button>
-                                    <button onclick="setFiltroAno()" id="persoAno" class="dropdown-item" type="button">Ano</button>
+                                    <button onclick="setFiltroDia()" id="persoDia" class="dropdown-item"
+                                        type="button">Dia</button>
+                                    <button onclick="setFiltroSemana()" id="persoSemana" class="dropdown-item"
+                                        type="button">Semana</button>
+                                    <button onclick="setFiltroMes()" id="persoMes" class="dropdown-item"
+                                        type="button">Mês</button>
+                                    <button onclick="setFiltroAno()" id="persoAno" class="dropdown-item"
+                                        type="button">Ano</button>
                                 </div>
                             </div>
                         </div>
@@ -620,9 +624,15 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button id="persoCpu" class="dropdown-item" type="button">Uso da CPU</button>
-                                    <button id="persoRam" class="dropdown-item" type="button">Uso da Ram</button>
-                                    <button id="persoDisco" class="dropdown-item" type="button">Uso do Disco</button>
+                                    <button onclick="setFiltroCpuUso()" id="persoCpuUso" class="dropdown-item"
+                                        type="button">Uso da CPU</button>
+                                    <button onclick="setFiltroRam()" id="persoRam" class="dropdown-item"
+                                        type="button">Uso da Ram</button>
+                                    <button onclick="setFiltroDisco()" id="persoDisco" class="dropdown-item"
+                                        type="button">Uso do Disco</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button onclick="setFiltroCpuFreq()" id="persoCpuFreq" class="dropdown-item"
+                                        type="button">Frequência da CPU</button>
                                 </div>
                             </div>
                             <div class="btn-group">
@@ -633,14 +643,22 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button id="persoBytesEnviados" class="dropdown-item" type="button">Bytes
-                                        Enviados</button>
-                                    <button id="persoBytesRecebidos" class="dropdown-item" type="button">Bytes
-                                        Recebidos</button>
+                                    <button onclick="setFiltroPacoteRecebido()" id="persoPacotesRecebidos"
+                                        class="dropdown-item" type="button">Pacotes Recebidos</button>
+                                    <button onclick="setFiltroPacoteEnviado()" id="persoPacoresEnviados"
+                                        class="dropdown-item" type="button">Pacotes Enviados</button>
+                                    <button onclick="setFiltroMbRecebido()" id="persoMbRecebidos" class="dropdown-item"
+                                        type="button">MB Recebidos</button>
+                                    <button onclick="setFiltroMbEnviado()" id="persoMbEnviados" class="dropdown-item"
+                                        type="button">Mb Enviados</button>
+                                    <button onclick="setFiltroTransmissao()" id="persoTransmissaoRede"
+                                        class="dropdown-item" type="button">Transmissão de rede</button>
+                                    <button onclick="setFiltroLatencia()" id="persoLatenciaRede" class="dropdown-item"
+                                        type="button">Latência da rede</button>
                                 </div>
                             </div>
                             <div class="btn-group">
-                                <button id="togglePersoTemperatura" type="button"
+                                <button onclick="setFiltroTemperatura()" id="togglePersoTemperatura" type="button"
                                     class="btn btn-primary mt-2">Temperatura CPU</button>
                                 </button>
                             </div>
@@ -652,10 +670,12 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button id="persoProcessosBloq" class="dropdown-item" type="button">Processos
-                                        Bloqueados</button>
-                                    <button id="persoProcessosTotais" class="dropdown-item" type="button">Processos
-                                        Bloqueados</button>
+                                    <button onclick="setFiltroProcessosQtd()" id="persoProcessosQtd"
+                                        class="dropdown-item" type="button">Quantidade de Processos</button>
+                                    <button onclick="setFiltroProcessosRam()" id="persoProcessosRam"
+                                        class="dropdown-item" type="button">Uso de Ram por Processos</button>
+                                    <button onclick="setFiltroProcessosCpu()" id="persoProcessosCpu"
+                                        class="dropdown-item" type="button">Uso de Cpu por Processos</button>
                                 </div>
                             </div>
                         </div>
@@ -687,9 +707,11 @@
                         <div class="col-xl-12">
                             <div class="row px-4">
                                 <div class="col-xl-12 mt-3">
-                                    <div id="mensagemPerso" class="col-xl-12 mb-5 py-2 bg-white rounded border border-light border-top-0 border-left-0 h1 display-2 text-center"
-                                    style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">GRÁFICO NÃO INICIALIZADO. ESCOLHA O TIPO DO GRÁFICO:</div>
-                                    
+                                    <div id="mensagemPerso"
+                                        class="col-xl-12 mb-5 py-2 bg-white rounded border border-light border-top-0 border-left-0 h1 display-2 text-center"
+                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">GRÁFICO NÃO
+                                        INICIALIZADO. ESCOLHA O TIPO DO GRÁFICO:</div>
+
                                     <div id="container4"
                                         class="col-xl-12 p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
                                         style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107); display: none; height: 50vh;">
@@ -726,7 +748,7 @@
 <script src="./graficos.js"></script>
 
 <script>
-        Swal.fire({
+    Swal.fire({
         icon: "question",
         title: "Como utilizar o gráfico personalizado!",
         text: `Para visualizar o grafico corretamente, selecione filtros e clique no botão atualizar!`,
@@ -744,12 +766,12 @@
     var ocorrenciasProcessos;
 
     var processos = {
-        usoCpu:[],
+        usoCpu: [],
         usoRam: [],
-        qtdProcessos:[],
-        dataHora:[]
+        qtdProcessos: [],
+        dataHora: []
     }
-    var componentes = { 
+    var componentes = {
         cpu: {
             registrosCpu: {
                 percentUso: [],
@@ -758,27 +780,160 @@
             },
             dataHora: [],
         },
-        ram:{
-            registrosRam:[],
-            dataHora:[]
+        ram: {
+            registrosRam: [],
+            dataHora: []
         },
-        disco:{
-            registrosDisco:{
+        disco: {
+            registrosDisco: {
                 percentUso: [],
-                armazenamento:[]
+                armazenamento: []
             },
-            dataHora:[]
+            dataHora: []
         },
-        rede:{
-            registrosRede:{
-                pacotesRecebidos:[],
+        rede: {
+            registrosRede: {
+                pacotesRecebidos: [],
                 pacotesEnviados: [],
                 MbRecebidos: [],
                 MbEnviados: [],
                 mbpsTransmissao: [],
                 msRede: []
             },
-            dataHora:[]
+            dataHora: []
+        }
+    }
+    var filtroTempo
+
+    function setFiltroDia() {
+        togglePersoEspacoTempo.innerHTML = 'Dia'
+        filtroTempo = "DAY"
+    }
+    function setFiltroSemana() {
+        togglePersoEspacoTempo.innerHTML = 'Semana'
+        filtroTempo = "WEEK"
+    }
+    function setFiltroMes() {
+        togglePersoEspacoTempo.innerHTML = 'Mes'
+        filtroTempo = "MONTH"
+    }
+    function setFiltroAno() {
+        togglePersoEspacoTempo.innerHTML = 'Ano'
+        filtroTempo = "YEAR"
+    }
+
+    var filtrosDashboard = {
+        cpuUso: false,
+        ram: false,
+        disco: false,
+        cpuFreq: false,
+        pacoteRecebido: false,
+        pacoteEnviado: false,
+        mbRecebido: false,
+        mbEnviado: false,
+        transmissao: false,
+        latencia: false,
+        temperatura: false,
+        processosQtd: false,
+        processosRam: false,
+        processosCpu: false
+    }
+    function setFiltroCpuUso() {
+        if (filtrosDashboard.cpuUso) {
+            filtrosDashboard.cpuUso = false
+        } else {
+            filtrosDashboard.cpuUso = true
+        }
+    }
+    function setFiltroRam() {
+        if (filtrosDashboard.ram) {
+            filtrosDashboard.ram = false
+        } else {
+            filtrosDashboard.ram = true
+        }
+    }
+    function setFiltroDisco() {
+        if (filtrosDashboard.disco) {
+            filtrosDashboard.disco = false
+        } else {
+            filtrosDashboard.disco = true
+        }
+    }
+    function setFiltroCpuFreq() {
+        if (filtrosDashboard.cpuFreq) {
+            filtrosDashboard.cpuFreq = false
+        } else {
+            filtrosDashboard.cpuFreq = true
+        }
+    }
+    function setFiltroPacoteRecebido() {
+        if (filtrosDashboard.pacoteRecebido) {
+            filtrosDashboard.pacoteRecebido = false
+        } else {
+            filtrosDashboard.pacoteRecebido = true
+        }
+    }
+    function setFiltroPacoteEnviado() {
+        if (filtrosDashboard.pacoteEnviado) {
+            filtrosDashboard.pacoteEnviado = false
+        } else {
+            filtrosDashboard.pacoteEnviado = true
+        }
+    }
+    function setFiltroMbRecebido() {
+        if (filtrosDashboard.mbRecebido) {
+            filtrosDashboard.mbRecebido = false
+        } else {
+            filtrosDashboard.mbRecebido = true
+        }
+    }
+    function setFiltroMbEnviado() {
+        if (filtrosDashboard.mbEnviado) {
+            filtrosDashboard.mbEnviado = false
+        } else {
+            filtrosDashboard.mbEnviado = true
+        }
+    }
+    function setFiltroTransmissao() {
+        if (filtrosDashboard.transmissao) {
+            filtrosDashboard.transmissao = false
+        } else {
+            filtrosDashboard.transmissao = true
+        }
+    }
+    function setFiltroLatencia() {
+        if (filtrosDashboard.latencia) {
+            filtrosDashboard.latencia = false
+        } else {
+            filtrosDashboard.latencia = true
+        }
+    }
+    function setFiltroTemperatura() {
+        if (filtrosDashboard.temperatura) {
+            filtrosDashboard.temperatura = false
+        } else {
+            filtrosDashboard.temperatura = true
+        }
+    }
+    function setFiltroProcessosQtd() {
+        if (filtrosDashboard.processosQtd) {
+            filtrosDashboard.processosQtd = false
+        } else {
+            filtrosDashboard.processosQtd = true
+        }
+    }
+    function setFiltroProcessosRam() {
+        if (filtrosDashboard.processosRam) {
+            filtrosDashboard.processosRam = false
+        } else {
+            filtrosDashboard.processosRam = true
+        }
+    }
+    function setFiltroProcessosCpu() {
+        if (filtrosDashboard.processosCpu) {
+            filtrosDashboard.processosCpu = false
+        } else {
+            filtrosDashboard.processosCpu = true
         }
     }
 
@@ -798,9 +953,9 @@
         }, 2000);
     }
     chamarOcorrencias()
-        setTimeout(() => {
-            atualizarDadosOcorrencias()
-        }, 2000);
+    setTimeout(() => {
+        atualizarDadosOcorrencias()
+    }, 2000);
 
 </script>
 
