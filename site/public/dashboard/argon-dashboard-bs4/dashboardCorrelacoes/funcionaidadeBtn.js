@@ -1,3 +1,24 @@
+var filtrosDashboard = {
+    cpuUso: false,
+    ram: false,
+    disco: false,
+    cpuFreq: false,
+    pacoteRecebido: false,
+    pacoteEnviado: false,
+    mbRecebido: false,
+    mbEnviado: false,
+    transmissao: false,
+    latencia: false,
+    temperatura: false,
+    processosQtd: false,
+    processosRam: false,
+    processosCpu: false
+}
+var processos = {
+    usoCpu: [],
+    usoRam: [],
+    qtdProcessos: [],
+}
 function setFiltroDia() {
     togglePersoEspacoTempo.innerHTML = 'Dia'
     filtroTempo = "DAY"
@@ -119,10 +140,6 @@ function atualizarVariaveis() {
     selectRam()
     selectDisco()
     selectRede()
-    chamarOcorrencias()
-    setTimeout(() => {
-        atualizarDadosOcorrencias()
-    }, 2000);
 }
 
 function chamarOcorrencias() {
@@ -140,7 +157,34 @@ function atualizarDadosOcorrencias() {
     graficoOcorrencias.data.datasets[3].data.push(qtdOcorrenciasProcessos)
     graficoOcorrencias.update()
 }
-
+var componentes = {
+    cpu: {
+        registrosCpu: {
+            percentUso: [],
+            frequencia: [],
+            temperatura: []
+        }
+    },
+    ram: {
+        registrosRam: []
+    },
+    disco: {
+        registrosDisco: {
+            percentUso: [],
+            armazenamento: []
+        }
+    },
+    rede: {
+        registrosRede: {
+            pacotesRecebidos: [],
+            pacotesEnviados: [],
+            MbRecebidos: [],
+            MbEnviados: [],
+            mbpsTransmissao: [],
+            msRede: []
+        }
+    }
+}
 function persoLinha() {
     mensagem = document.getElementById('mensagemPerso')
     grafico = document.getElementById('container4')
@@ -151,25 +195,134 @@ function persoLinha() {
         graficoPerso.destroy()
     }
     createPersoLinha(ctx3)
-    graficoPerso.data.datasets = [{
-        label: 'Uso CPU',
-        data: [100, 100, 20, 15, 30, 71, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }, {
-        label: 'Temperatura CPU',
-        data: [86, 89, 80, 75, 75, 85, 87],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }, {
-        label: 'Uso Ram',
-        data: [95, 89, 80, 51, 60, 80, 99],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }]
+    graficoPerso.data.labels.push(dataHora)
+    if (filtrosDashboard.cpuUso) {
+        graficoPerso.data.datasets.push({
+            label: 'Uso CPU',
+            data: [componentes.cpu.registrosCpu.percentUso],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.ram){
+        graficoPerso.data.datasets.push({
+            label: 'Uso RAM',
+            data: [componentes.ram.registrosRam],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.disco){
+        graficoPerso.data.datasets.push({
+            label: 'Uso Disco',
+            data: [componentes.disco.registrosDisco.percentUso],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    // COLOCAR ARMAZENAMENTO DO DISCO
+    if(filtrosDashboard.temperatura){
+        graficoPerso.data.datasets.push({
+            label: 'Temperatura CPU',
+            data: [componentes.cpu.registrosCpu.temperatura],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.cpuFreq){
+        graficoPerso.data.datasets.push({
+            label: 'Frequencia CPU',
+            data: [componentes.cpu.registrosCpu.frequencia],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.latencia){
+        graficoPerso.data.datasets.push({
+            label: 'Latência da Rede',
+            data: [componentes.rede.registrosRede.msRede],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.pacoteEnviado){
+        graficoPerso.data.datasets.push({
+            label: 'Pacotes enviados',
+            data: [componentes.rede.registrosRede.pacotesEnviados],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.pacoteRecebido){
+        graficoPerso.data.datasets.push({
+            label: 'Pacortes Recebidos',
+            data: [componentes.rede.registrosRede.pacotesRecebidos],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.mbEnviado){
+        graficoPerso.data.datasets.push({
+            label: 'Mega Bytes Enviados',
+            data: [componentes.rede.registrosRede.MbEnviados],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.mbRecebido){
+        graficoPerso.data.datasets.push({
+            label: 'Mega Bytes Recebidos',
+            data: [componentes.rede.registrosRede.MbRecebidos],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.transmissao){
+        graficoPerso.data.datasets.push({
+            label: 'Taxa de transmissão (MBps))',
+            data: [componentes.rede.registrosRede.mbpsTransmissao],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.processosQtd){
+        graficoPerso.data.datasets.push({
+            label: 'Quantidade de Processos',
+            data: [processos.qtdProcessos],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.processosRam){
+        graficoPerso.data.datasets.push({
+            label: 'Uso de Ram pelos processos',
+            data: [processos.usoRam],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if(filtrosDashboard.processosCpu){
+        graficoPerso.data.datasets.push({
+            label: 'Uso de CPU pelos Processos',
+            data: [processos.usoCpu],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
     graficoPerso.update()
 }
 function persoBarra() {
@@ -259,13 +412,13 @@ function createOcorrencias(ctx) {
             },
             ]
         },
-        options: { 
+        options: {
             responsive: true,
             maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top'
-              }
+            }
         }
     });
 }
@@ -278,21 +431,21 @@ function createlive(ctx2) {
     graficoLiveTempCPU = new Chart(ctx2, {
         type: 'bar',
         data: {
-            labels: ['Registros'],
+            labels: [],
             datasets: [
             ]
         },
-        options: { 
+        options: {
             title: {
-            display: true,
-            text: 'Gráfico Personalizado'
-          },
+                display: true,
+                text: 'Gráfico Personalizado'
+            },
             responsive: true,
             maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top'
-              },
+            },
             scales: {
                 x: {
                     type: 'time',
@@ -325,20 +478,20 @@ function createPersoBarra(ctx3) {
     graficoPerso = new Chart(ctx3, {
         type: 'bar',
         data: {
-            labels: ['Registros'],
+            labels: [],
             datasets: []
         },
-        options: { 
+        options: {
             title: {
-            display: true,
-            text: 'Gráfico Personalizado'
-          },
+                display: true,
+                text: 'Gráfico Personalizado'
+            },
             responsive: true,
             maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top'
-              },
+            },
             scales: {
                 x: {
                     type: 'time',
@@ -371,17 +524,17 @@ function createPersoLinha(ctx3) {
             labels: [],
             datasets: []
         },
-        options: { 
+        options: {
             title: {
-            display: true,
-            text: 'Gráfico Personalizado'
-          },
+                display: true,
+                text: 'Gráfico Personalizado'
+            },
             responsive: true,
             maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top'
-              },
+            },
             scales: {
                 x: {
                     type: 'time',
@@ -411,20 +564,20 @@ function createPersoDispersao(ctx3) {
     graficoPerso = new Chart(ctx3, {
         type: 'scatter',
         data: {
-            labels: ['Registros'],
+            labels: [],
             datasets: []
         },
-        options: { 
+        options: {
             title: {
-            display: true,
-            text: 'Gráfico Personalizado'
-          },
+                display: true,
+                text: 'Gráfico Personalizado'
+            },
             responsive: true,
             maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top'
-              },
+            },
             scales: {
                 x: {
                     type: 'time',
@@ -454,20 +607,20 @@ function createPersoSetores(ctx3) {
     graficoPerso = new Chart(ctx3, {
         type: 'pie',
         data: {
-            labels: ['Registros'],
+            labels: [],
             datasets: []
         },
-        options: { 
+        options: {
             title: {
-            display: true,
-            text: 'Gráfico Personalizado'
-          },
+                display: true,
+                text: 'Gráfico Personalizado'
+            },
             responsive: true,
             maintainAspectRatio: false,
             legend: {
                 display: true,
                 position: 'top'
-              },
+            },
             scales: {
                 x: {
                     type: 'time',
