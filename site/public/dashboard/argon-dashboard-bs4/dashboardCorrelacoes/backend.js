@@ -60,9 +60,13 @@ function selectCpu() {
                     console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
-                        if(json[i].tipoMedida = "")
-                        componentes.cpu.registrosCpu.push(json[i].registrosCpu)
-                        componentes.cpu.tipoMedida.push(json[i].tipoMedida)
+                        if (json[i].tipoMedida = "% de Uso") {
+                            componentes.cpu.percentUso.push(json[i].registrosCpu)
+                        } else if (json[i].detalheRegistro = "temperatura do processador") {
+                            componentes.cpu.registrosCpu.temperatura.push(json[i].registrosCpu)
+                        } else if (json[i].tipoMedida = "Megahertz") {
+                            componentes.cpu.registrosCpu.frequencia.push(json[i].registrosCpu)
+                        }
                         componentes.cpu.dataHora.push(json[i].dataHora)
                     }
                 }
@@ -104,11 +108,9 @@ function selectRam() {
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
                         componentes.ram.registrosRam.push(json[i].registrosRam)
-                        componentes.ram.tipoMedida.push(json[i].tipoMedida)
                         componentes.ram.dataHora.push(json[i].dataHora)
                     }
                 }
-
             });
         } else {
             resposta.text().then(textoErro => {
@@ -146,8 +148,11 @@ function selectDisco() {
                     console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
-                        componentes.disco.registrosDisco.push(json[i].registrosDisco)
-                        componentes.disco.tipoMedida.push(json[i].tipoMedida)
+                        if (json[i].tipoMedida == "% de Uso") {
+                            componentes.disco.registrosDisco.percentUso.push(json[i].registrosDisco)
+                        } else if (json[i].tipoMedida == "Gigabyte") {
+                            componentes.disco.registrosDisco.armazenamento.push(json[i].registrosDisco)
+                        }
                         componentes.disco.dataHora.push(json[i].dataHora)
                     }
                 }
