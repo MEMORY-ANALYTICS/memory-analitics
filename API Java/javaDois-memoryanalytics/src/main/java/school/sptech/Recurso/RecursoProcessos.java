@@ -133,23 +133,20 @@ public class RecursoProcessos {
         }
     }
 
-    public void capturarRegistro() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("y-M-d H:m:s");
-        LocalDateTime dateTime = LocalDateTime.now();
-        dateTime.format(formatter);
+    public void capturarRegistro(String dtHora1, String dtHora2) {
         getConexoes().get(0).execute("INSERT INTO processos VALUES (%s, %s,'%s', %d, '%s',%d)"
                 .formatted(getUsoCpuProcessos(),
                         getUsoRamProcessos(),
                         getProcessoMaiorMediaUso(),
                         quantidadeProcessosOnline(),
-                        dateTime.format(formatter),
+                        dtHora1,
                         getFkServer()));
         getConexoes().get(1).execute("INSERT INTO processos VALUES (null, %s, %s,'%s', %d, '%s',%d)"
                 .formatted(getUsoCpuProcessos(),
                         getUsoRamProcessos(),
                         getProcessoMaiorMediaUso(),
                         quantidadeProcessosOnline(),
-                        dateTime.format(formatter),
+                        dtHora2,
                         getFkServer()));
         getConexoes().get(0).execute("INSERT INTO chamadoServidor(requisitante) VALUES ('Processo')");
         try {
