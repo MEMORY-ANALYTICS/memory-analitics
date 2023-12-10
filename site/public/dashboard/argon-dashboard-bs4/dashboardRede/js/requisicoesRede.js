@@ -69,6 +69,9 @@ function selectIdComponente() {
         valorGrafico1(idComponente)
         sessionStorage.ID_COMPONENTE = idComponente;
 
+        // Chama a função novamente após 1 segundo
+       setTimeout(selectIdComponente(), 10000);
+
       });
     })
     .catch(function (resposta) {
@@ -96,7 +99,10 @@ function kpiMenorVelocidade(idComponente) {
             menorValorTransmissao.innerHTML = '';
             momentoDaCaptura.innerHTML = '';
           }else{
-          menorValorTransmissao.innerHTML = valorRegistroPego1.toFixed(2);
+            const numeroFormatado = valorRegistroPego1.toLocaleString('pt-BR', {
+              maximumFractionDigits: 2,
+            });
+          menorValorTransmissao.innerHTML = numeroFormatado;
           momentoDaCaptura.innerHTML = `${formatarData(2)} ${momentoRegistro}`
 
         }
@@ -129,7 +135,10 @@ function kpiMaiorLatencia(idComponente) {
             latenciaMax.innerHTML = '';
             dataKpiLatencia.innerHTML = '';
           }else{
-          latenciaMax.innerHTML = valorRegistroPego.toFixed(2);
+            const numeroFormatado2 = valorRegistroPego.toLocaleString('pt-BR', {
+              maximumFractionDigits: 2,
+            });
+          latenciaMax.innerHTML = numeroFormatado2;
           dataKpiLatencia.innerHTML = `${formatarData(2)} ${momentoRegistro}`
         }
         

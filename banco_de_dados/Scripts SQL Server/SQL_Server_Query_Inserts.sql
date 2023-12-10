@@ -241,4 +241,6 @@ VALUES ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Comp
 ('COD4', 'Chamado relacionado a Componente', '2023-12-05 08:15:00', 'Componente', 4);
 
 
--- Ultima atualizacao 09/12/2023 17:13
+INSERT INTO processosBanidos (nomeProcesso, fkServidor) VALUES ('discord.exe', 4);
+
+-- Ultima atualizacao 09/12/2023 21:31

@@ -33,7 +33,7 @@ function listar(fkEmpresa) {
   }
 
   function pegarKpiPacotes(fkComponente,dataAtual) {
-    var query = `SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE fkComponente = ${fkComponente} AND DATE(dtHoraRegistro) = '${dataAtual}' AND tipoMedida = 'Pacotes';`;
+    var query = `SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE fkComponente = ${fkComponente} AND DATE(dtHoraRegistro) = '${dataAtual}' AND tipoMedida = 'Pacotes' LIMIT 2;`;
   
     return database.executar(query);
   }
