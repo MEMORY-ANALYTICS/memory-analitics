@@ -1,3 +1,130 @@
+function setFiltroDia() {
+    togglePersoEspacoTempo.innerHTML = 'Dia'
+    filtroTempo = "DAY"
+}
+function setFiltroSemana() {
+    togglePersoEspacoTempo.innerHTML = 'Semana'
+    filtroTempo = "WEEK"
+}
+function setFiltroMes() {
+    togglePersoEspacoTempo.innerHTML = 'Mes'
+    filtroTempo = "MONTH"
+}
+function setFiltroAno() {
+    togglePersoEspacoTempo.innerHTML = 'Ano'
+    filtroTempo = "YEAR"
+}
+function setFiltroCpuUso() {
+    if (filtrosDashboard.cpuUso) {
+        filtrosDashboard.cpuUso = false
+    } else {
+        filtrosDashboard.cpuUso = true
+    }
+}
+function setFiltroRam() {
+    if (filtrosDashboard.ram) {
+        filtrosDashboard.ram = false
+    } else {
+        filtrosDashboard.ram = true
+    }
+}
+function setFiltroDisco() {
+    if (filtrosDashboard.disco) {
+        filtrosDashboard.disco = false
+    } else {
+        filtrosDashboard.disco = true
+    }
+}
+function setFiltroCpuFreq() {
+    if (filtrosDashboard.cpuFreq) {
+        filtrosDashboard.cpuFreq = false
+    } else {
+        filtrosDashboard.cpuFreq = true
+    }
+}
+function setFiltroPacoteRecebido() {
+    if (filtrosDashboard.pacoteRecebido) {
+        filtrosDashboard.pacoteRecebido = false
+    } else {
+        filtrosDashboard.pacoteRecebido = true
+    }
+}
+function setFiltroPacoteEnviado() {
+    if (filtrosDashboard.pacoteEnviado) {
+        filtrosDashboard.pacoteEnviado = false
+    } else {
+        filtrosDashboard.pacoteEnviado = true
+    }
+}
+function setFiltroMbRecebido() {
+    if (filtrosDashboard.mbRecebido) {
+        filtrosDashboard.mbRecebido = false
+    } else {
+        filtrosDashboard.mbRecebido = true
+    }
+}
+function setFiltroMbEnviado() {
+    if (filtrosDashboard.mbEnviado) {
+        filtrosDashboard.mbEnviado = false
+    } else {
+        filtrosDashboard.mbEnviado = true
+    }
+}
+function setFiltroTransmissao() {
+    if (filtrosDashboard.transmissao) {
+        filtrosDashboard.transmissao = false
+    } else {
+        filtrosDashboard.transmissao = true
+    }
+}
+function setFiltroLatencia() {
+    if (filtrosDashboard.latencia) {
+        filtrosDashboard.latencia = false
+    } else {
+        filtrosDashboard.latencia = true
+    }
+}
+function setFiltroTemperatura() {
+    if (filtrosDashboard.temperatura) {
+        filtrosDashboard.temperatura = false
+    } else {
+        filtrosDashboard.temperatura = true
+    }
+}
+function setFiltroProcessosQtd() {
+    if (filtrosDashboard.processosQtd) {
+        filtrosDashboard.processosQtd = false
+    } else {
+        filtrosDashboard.processosQtd = true
+    }
+}
+function setFiltroProcessosRam() {
+    if (filtrosDashboard.processosRam) {
+        filtrosDashboard.processosRam = false
+    } else {
+        filtrosDashboard.processosRam = true
+    }
+}
+function setFiltroProcessosCpu() {
+    if (filtrosDashboard.processosCpu) {
+        filtrosDashboard.processosCpu = false
+    } else {
+        filtrosDashboard.processosCpu = true
+    }
+}
+
+function atualizarVariaveis() {
+    console.log(`ATUALIZANDO VARIÁVEIS PARA O SERVIDOR: ${listaServidores.options[listaServidores.selectedIndex].text}`)
+    selectCpu()
+    selectRam()
+    selectDisco()
+    selectRede()
+    chamarOcorrencias()
+    setTimeout(() => {
+        atualizarDadosOcorrencias()
+    }, 2000);
+}
+
 function chamarOcorrencias() {
     selectGraficoOcorrenciaComponente()
     selectGraficoOcorrenciaProcesso()
