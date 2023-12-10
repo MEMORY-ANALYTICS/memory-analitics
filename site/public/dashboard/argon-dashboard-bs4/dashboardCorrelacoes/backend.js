@@ -48,16 +48,27 @@ function selectCpu() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log("SelectCPU")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de CPU!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else {
+                    console.log("SelectCPU")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        if (json[i].tipoMedida == "% de Uso") {
+                            componentes.cpu.registrosCpu.percentUso.push(json[i].registrosCpu)
+                        } else if (json[i].detalheRegistro == "Temperatura do processador") {
+                            componentes.cpu.registrosCpu.temperatura.push(json[i].registrosCpu)
+                        } else if (json[i].tipoMedida == "Megahertz") {
+                            componentes.cpu.registrosCpu.frequencia.push(json[i].registrosCpu)
+                        }
+                        componentes.cpu.dataHora.push(json[i].dataHora)
+                    }
                 }
             });
         } else {
@@ -84,19 +95,22 @@ function selectRam() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
-                console.log("SelectRAM")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json[0] === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de Ram!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else {
+                    console.log("SelectRAM")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        componentes.ram.registrosRam.push(json[i].registrosRam)
+                        componentes.ram.dataHora.push(json[i].dataHora)
+                    }
                 }
-
             });
         } else {
             resposta.text().then(textoErro => {
@@ -122,17 +136,25 @@ function selectDisco() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
-                console.log("SelectDisco")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json[0] === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de Disco!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else {
+                    console.log("SelectDISCO")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        if (json[i].tipoMedida == "% de Uso") {
+                            componentes.disco.registrosDisco.percentUso.push(json[i].registrosDisco)
+                        } else if (json[i].tipoMedida == "Gigabyte") {
+                            componentes.disco.registrosDisco.armazenamento.push(json[i].registrosDisco)
+                        }
+                        componentes.disco.dataHora.push(json[i].dataHora)
+                    }
                 }
             });
         } else {
@@ -159,17 +181,33 @@ function selectRede() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
-                console.log("SelectRede")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json[0] === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de Rede!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else {                    
+                    console.log("SelectREDE")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        if (json[i].detalheRegistro == "Recebidos Rede" && json[i].tipoMedida == "Pacotes") {
+                            componentes.rede.registrosRede.pacotesRecebidos.push(json[i].registrosRede)
+                        } else if (json[i].detalheRegistro == "Enviados Rede" && json[i].tipoMedida == "Pacotes") {
+                            componentes.rede.registrosRede.pacotesEnviados.push(json[i].registrosRede)
+                        }else if (json[i].detalheRegistro == "Recebidos Rede" && json[i].tipoMedida == "MB") {
+                            componentes.rede.registrosRede.MbRecebidos.push(json[i].registrosRede)
+                        }else if (json[i].detalheRegistro == "Enviados Rede" && json[i].tipoMedida == "MB") {
+                            componentes.rede.registrosRede.MbEnviados.push(json[i].registrosRede)
+                        }else if (json[i].tipoMedida == "MBps") {
+                            componentes.rede.registrosRede.mbpsTransmissao.push(json[i].registrosRede)
+                        }else if (json[i].tipoMedida == "ms") {
+                            componentes.rede.registrosRede.msRede.push(json[i].registrosRede)
+                        }
+                        componentes.rede.dataHora.push(json[i].dataHora)
+                    }
                 }
 
             });
@@ -182,19 +220,6 @@ function selectRede() {
         console.log(erro);
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 function selectGraficoOcorrenciaComponente() {
     var requisitanteVar
     var fkServidorVar = listaServidores.value

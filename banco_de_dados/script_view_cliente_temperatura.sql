@@ -83,7 +83,7 @@ select * from registro;
 (75, '°C','Temperatura do processador', '2023-10-09 10:04:00', 1),  -- CPU
 (98, '°C','Temperatura do processador', '2023-10-09 10:03:00', 1),  -- CPU
 (100, '°C','Temperatura do processador', '2023-10-09 10:06:00', 1),  -- CPU
-(100, '°C','Temperatura do processador', '2023-11-09 10:06:00', 1),  -- CPU
+(100, '°C','Temperatura do processador', '2023-10-09 10:06:00', 1),  -- CPU
 (100, '°C','Temperatura do processador', '2023-10-10 10:08:00', 1),  -- CPU
 (101, '°C','Temperatura do processador', '2023-10-11 10:08:00', 1),  -- CPU
 (134, '°C','Temperatura do processador', '2023-10-13 10:08:00', 1),  -- CPU
@@ -103,40 +103,38 @@ select * from registro;
 (90, '°C','Temperatura do processador', '2023-11-09 10:01:00', 3),  -- CPU
 (80, '°C','Temperatura do processador', '2023-12-09 10:02:00', 3),  -- CPU
 (80, '°C','Temperatura do processador', '2023-12-09 10:03:00', 3),  -- CPU
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-11-12 10:00:00", 2 ),
-('°C','temperatura do processador',"2023-10-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-10-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-10-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-10-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-10-12 11:00:00", 2 ),
-
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-09-12 11:00:00", 2 ),
-
-('°C','temperatura do processador',"2023-08-12 11:00:00", 2 ),
-('°C','temperatura do processador',"2023-08-12 11:00:00", 2 );
+(60, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2),
+(70, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(75, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(88, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(57, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(10, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(65, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(98, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(57, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(98, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(68, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(98, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(79, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(47, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(30, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(76, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(50.9, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(30.5, '°C','Temperatura do processador',"2023-11-12 10:00:00", 2 ),
+(20.7, '°C','Temperatura do processador',"2023-10-12 11:00:00", 2 ),
+(78.43, '°C','Temperatura do processador',"2023-10-12 11:00:00", 2 ),
+(66.85, '°C','Temperatura do processador',"2023-10-12 11:00:00", 2 ),
+(34.9, '°C','Temperatura do processador',"2023-10-12 11:00:00", 2 ),
+(100, '°C','Temperatura do processador',"2023-10-12 11:00:00", 2 ),
+(30, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(87, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(99, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(20.5, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(30,'°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(70.7, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(90, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(20.5, '°C','Temperatura do processador',"2023-09-12 11:00:00", 2 ),
+(60,'°C','Temperatura do processador',"2023-08-12 11:00:00", 2 ),
+(89, '°C','Temperatura do processador',"2023-08-12 11:00:00", 2 );
 
 

@@ -5,7 +5,10 @@ import school.sptech.Servicos.BancoDados.ConexaoMySql;
 import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
 import school.sptech.Componentes.Componente;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public abstract class Recurso{
@@ -29,7 +32,7 @@ public abstract class Recurso{
         conexoes.add(con1);
         conexoes.add(con2);
     }
-    public abstract Double capturarRegistro();
+    public abstract Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL);
 
     public String getNome() {
         return nome;
@@ -55,6 +58,7 @@ public abstract class Recurso{
     public void setValorRegistro(Double valorRegistro) {
         this.valorRegistro = valorRegistro;
     }
+
 
     public List<JdbcTemplate> getConexoes() {
         return conexoes;
