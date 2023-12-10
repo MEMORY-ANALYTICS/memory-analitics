@@ -32,7 +32,10 @@ function listar() {
         for (var i = 0; i < servidor.length; i++) {
           if (i == 0) {
             listarServidor.innerHTML += `<option value="${servidor[i].idServidor}">${servidor[i].apelidoServidor}</option>`;
-            selectIdComponente()
+            setTimeout(() => {
+              selectIdComponente()
+            }, 1000);
+            // setTimeout(selectIdComponente(), 1000);
           } else {
             listarServidor.innerHTML += `<option value="${servidor[i].idServidor}">${servidor[i].apelidoServidor}</option>`;
           }
@@ -58,7 +61,7 @@ function selectIdComponente() {
   })
     .then(function (resposta) {
       resposta.json().then((componente) => {
-        
+
         for (var i = 0; i < componente.length; i++) {
           idComponente = componente[i].idComponente;
         }
@@ -69,9 +72,9 @@ function selectIdComponente() {
         valorGrafico1(idComponente)
         sessionStorage.ID_COMPONENTE = idComponente;
 
-        // Chama a função novamente após 1 segundo
-       setTimeout(selectIdComponente(), 100000);
-
+        setTimeout(() => {
+          selectIdComponente()
+        }, 1000);
       });
     })
     .catch(function (resposta) {
@@ -91,22 +94,22 @@ function kpiMenorVelocidade(idComponente) {
   })
     .then(function (resposta) {
       resposta.json().then((registro) => {
-       
-          valorRegistroPego1 = registro[0].valorVelocidadeMin;
-          momentoRegistro = registro[0].horaRegistro
 
-          if(valorRegistroPego1 == null || valorRegistroPego1 == ''){
-            menorValorTransmissao.innerHTML = '';
-            momentoDaCaptura.innerHTML = '';
-          }else{
-            const numeroFormatado = valorRegistroPego1.toLocaleString('pt-BR', {
-              maximumFractionDigits: 2,
-            });
+        valorRegistroPego1 = registro[0].valorVelocidadeMin;
+        momentoRegistro = registro[0].horaRegistro
+
+        if (valorRegistroPego1 == null || valorRegistroPego1 == '') {
+          menorValorTransmissao.innerHTML = '';
+          momentoDaCaptura.innerHTML = '';
+        } else {
+          const numeroFormatado = valorRegistroPego1.toLocaleString('pt-BR', {
+            maximumFractionDigits: 2,
+          });
           menorValorTransmissao.innerHTML = numeroFormatado;
           momentoDaCaptura.innerHTML = `${formatarData(2)} ${momentoRegistro}`
 
         }
-        
+
       });
     })
     .catch(function (resposta) {
@@ -128,20 +131,20 @@ function kpiMaiorLatencia(idComponente) {
   })
     .then(function (resposta) {
       resposta.json().then((registro) => {
-          valorRegistroPego = registro[0].valorLatenciaMax;
-          momentoRegistro = registro[0].horaRegistro
+        valorRegistroPego = registro[0].valorLatenciaMax;
+        momentoRegistro = registro[0].horaRegistro
 
-          if (valorRegistroPego == null) {
-            latenciaMax.innerHTML = '';
-            dataKpiLatencia.innerHTML = '';
-          }else{
-            const numeroFormatado2 = valorRegistroPego.toLocaleString('pt-BR', {
-              maximumFractionDigits: 2,
-            });
+        if (valorRegistroPego == null) {
+          latenciaMax.innerHTML = '';
+          dataKpiLatencia.innerHTML = '';
+        } else {
+          const numeroFormatado2 = valorRegistroPego.toLocaleString('pt-BR', {
+            maximumFractionDigits: 2,
+          });
           latenciaMax.innerHTML = numeroFormatado2;
           dataKpiLatencia.innerHTML = `${formatarData(2)} ${momentoRegistro}`
         }
-        
+
       });
     })
     .catch(function (resposta) {
@@ -163,14 +166,14 @@ function kpiMediaPacotes(idComponente) {
   })
     .then(function (resposta) {
       resposta.json().then((registro) => {
-        
-          valorMedia = registro[0].mediaDodia;
-          // momentoRegistro = registro[0].horaRegistro
-          
-          if(valorMedia == null){
-            kpiMediaPacote.innerHTML =  '';
-            dataKpiMedia.innerHTML = '';
-          }else{
+
+        valorMedia = registro[0].mediaDodia;
+        // momentoRegistro = registro[0].horaRegistro
+
+        if (valorMedia == null) {
+          kpiMediaPacote.innerHTML = '';
+          dataKpiMedia.innerHTML = '';
+        } else {
 
           const valorRegistroPegoFormatado = valorMedia.toLocaleString('pt-BR', {
             maximumFractionDigits: 0,
@@ -179,7 +182,7 @@ function kpiMediaPacotes(idComponente) {
           kpiMediaPacote.innerHTML = valorRegistroPegoFormatado;
           dataKpiMedia.innerHTML = `${formatarData(2)}`
         }
-          });
+      });
     })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
@@ -193,38 +196,41 @@ function valorGrafico1(idComponente) {
   var dataAtual = formatarData(1);
   fetch(`/dashboardRedeRouter/pegarLatenciaAtual/${fkComponente}/${dataAtual}`).then(function (response) {
     if (response.ok) {
-        // alert(response.status);
-        if (response.status == 204) {
+      // alert(response.status);
+      if (response.status == 204) {
 
-            // var feed = document.getElementById("registrando");
-            // var mensagem = document.createElement("scroll-page");
+        mensagem.innerHTML = "0." //SE NÂO APARECER NADA, MUDAR AQUI
+        feed.appendChild(mensagem);
 
-            mensagem.innerHTML = "0." //SE NÂO APARECER NADA, MUDAR AQUI
-            feed.appendChild(mensagem);
+        throw "Nenhum resultado encontrado!!";
+      }
 
-            throw "Nenhum resultado encontrado!!";
+      response.json().then(resposta => {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+
+        // graficoLatenciaUm.data.datasets[0].data = [];
+
+
+        let latenciaAgora = resposta[0].valorLatenciaAtual;
+        let horaRegistro = resposta[0].horaRegistro;
+        graficoLatenciaUm.data.datasets[0].data.push(latenciaAgora.toFixed(2));
+        // graficoLatenciaUm.data.datasets[0].data.shift();
+        graficoLatenciaUm.data.labels.push(horaRegistro)
+
+        const maxDataPoints = 8;
+        if (graficoLatenciaUm.data.labels.length > maxDataPoints) {
+          graficoLatenciaUm.data.labels.shift();
+          graficoLatenciaUm.data.datasets[0].data.shift();
         }
 
-        response.json().then(function (resposta) {
-            console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-            // var feed = document.getElementById("registrando");
-            // feed.innerHTML = "";
-            var graficoLatencia = graficoLatencia
-            graficoLatencia.data.datasets[0].data = [];
-            
-            for (let i = 0; i < resposta.length; i++) {
-                let latenciaAgora = resposta[i].valorLatenciaAtual;
-                graficoLatencia.data.datasets[0].data.push(latenciaAgora.toFixed(2));
-                alert("a")
-            }
-            graficoLatencia.update();
-            // setTimeout(valorGrafico1(),10000)
-        });
+        // alert("a")
+        // graficoLatenciaUm.update();
+      });
     } else {
-        throw ("Houve um erro na API")
+      throw ("Houve um erro na API")
     }
-}).catch(function (erro) {
+  }).catch(function (erro) {
     console.error(erro);
-});
+  });
 }
