@@ -48,17 +48,17 @@ public class Main {
                     public void run() {
 
                         LocalDateTime dtHoraRegistro = LocalDateTime.now();
-                        String DtHoraRegistroSQL = Data.formatarParaSQLServer(dtHoraRegistro);
-                        String DtHoraRegistroMySQL = Data.formatarParaMySQL(dtHoraRegistro);
+                        String dtHoraRegistroSQL = Data.formatarParaSQLServer(dtHoraRegistro);
+                        String dtHoraRegistroMySQL = Data.formatarParaMySQL(dtHoraRegistro);
 
 
-                        recursoDiscoTamanhoTotal.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
-                        recursoDiscoUso.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
-                        recursoMemoriaUso.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
-                        recursoProcessadorFrequencia.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
-                        recursoProcessadorUso.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
-                        recursoProcessos.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
-                        recursoRede.capturarRegistro(DtHoraRegistroSQL,DtHoraRegistroMySQL);
+                        recursoDiscoTamanhoTotal.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
+                        recursoDiscoUso.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
+                        recursoMemoriaUso.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
+                        recursoProcessadorFrequencia.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
+                        recursoProcessadorUso.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
+                        recursoProcessos.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
+                        recursoRede.capturarRegistro(dtHoraRegistroSQL,dtHoraRegistroMySQL);
 
                     }
                 };
