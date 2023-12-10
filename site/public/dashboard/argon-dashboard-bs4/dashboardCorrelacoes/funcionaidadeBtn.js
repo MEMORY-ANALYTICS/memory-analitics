@@ -129,7 +129,6 @@ function chamarOcorrencias() {
 }
 
 function atualizarDadosOcorrencias() {
-    createOcorrencias(ctx)
     graficoOcorrencias.data.datasets[0].data.push(qtdOcorrenciasComponente)
     graficoOcorrencias.data.datasets[1].data.push(qtdOcorrenciasTemperatura)
     graficoOcorrencias.data.datasets[2].data.push(qtdOcorrenciasRede)
