@@ -50,7 +50,6 @@ public class Main {
                     }
                 };
 
-
                 Timer timer = new Timer();
                 timer.schedule(timerTask, 0, 1000);
             }
