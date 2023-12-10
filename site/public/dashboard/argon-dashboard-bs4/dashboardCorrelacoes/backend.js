@@ -52,7 +52,12 @@ function selectCpu() {
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
                 if(typeof json[0] === 'undefined'){
-                    alert("Nenhum resultado encontrado para CPU")
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de CPU!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
                 }
             });
         } else {
@@ -83,7 +88,14 @@ function selectRam() {
                 console.log("SelectRAM")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Ram!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                }
 
             });
         } else {
@@ -114,7 +126,14 @@ function selectDisco() {
                 console.log("SelectDisco")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Disco!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                }
             });
         } else {
             resposta.text().then(textoErro => {
@@ -144,7 +163,14 @@ function selectRede() {
                 console.log("SelectRede")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Rede!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                }
 
             });
         } else {

@@ -589,7 +589,7 @@
                 </div>
                 <div class="col-xl-12 mb-4 bg-white rounded border"
                     style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">
-                    <div class="row">
+                    <div class="row px-6">
                         <div class="col-xl-3 my-2">
                             <h3>Filtro de Tempo:</h3>
 
@@ -604,7 +604,6 @@
                                     <button id="persoDia" class="dropdown-item" type="button">Dia</button>
                                     <button id="persoSemana" class="dropdown-item" type="button">Semana</button>
                                     <button id="persoMes" class="dropdown-item" type="button">Mês</button>
-                                    <div class="dropdown-divider"></div>
                                     <button id="persoAno" class="dropdown-item" type="button">Ano</button>
                                 </div>
                             </div>
@@ -688,9 +687,12 @@
                         <div class="col-xl-12">
                             <div class="row px-4">
                                 <div class="col-xl-12 mt-3">
+                                    <div id="mensagemPerso" class="col-xl-12 mb-5 py-2 bg-white rounded border border-light border-top-0 border-left-0 h1 display-2 text-center"
+                                    style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">GRÁFICO NÃO INICIALIZADO. ESCOLHA O TIPO DO GRÁFICO:</div>
+                                    
                                     <div id="container4"
                                         class="col-xl-12 p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
-                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">
+                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107); display: none; height: 50vh;">
                                         <canvas id="graficoPersonalizado"></canvas>
                                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                     </div>
@@ -714,7 +716,9 @@
         <!-- Argon JS -->
         <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
 <script src="./backend.js"></script>
 <script src="./funcionaidadeBtn.js"></script>
 <script src="./graficos.js"></script>
@@ -731,16 +735,25 @@
     var ocorrenciasTemperatura;
     var ocorrenciasProcessos;
     var temperatura;
-    var ramUso;
-    var cpuUso;
-    var horario;
+    var dadosRede = {
+        
+    }
+    var dadosDisco = {
+
+    }
+    var dadosRam = {
+
+    }
+    var dadosCpu = {
+
+    }
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
-
     // Chamando funções iniciais
 
     selectServidores()
     function atualizarVariaveis() {
+        console.log(`ATUALIZANDO VARIÁVEIS PARA O SERVIDOR: ${listaServidores.options[listaServidores.selectedIndex].text}`)
         selectCpu()
         selectRam()
         selectDisco()
