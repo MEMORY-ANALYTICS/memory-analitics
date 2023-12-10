@@ -1,24 +1,3 @@
-var filtrosDashboard = {
-    cpuUso: false,
-    ram: false,
-    disco: false,
-    cpuFreq: false,
-    pacoteRecebido: false,
-    pacoteEnviado: false,
-    mbRecebido: false,
-    mbEnviado: false,
-    transmissao: false,
-    latencia: false,
-    temperatura: false,
-    processosQtd: false,
-    processosRam: false,
-    processosCpu: false
-}
-var processos = {
-    usoCpu: [],
-    usoRam: [],
-    qtdProcessos: [],
-}
 function setFiltroDia() {
     togglePersoEspacoTempo.innerHTML = 'Dia'
     filtroTempo = "DAY"
@@ -150,7 +129,6 @@ function chamarOcorrencias() {
 }
 
 function atualizarDadosOcorrencias() {
-    createOcorrencias(ctx)
     graficoOcorrencias.data.datasets[0].data.push(qtdOcorrenciasComponente)
     graficoOcorrencias.data.datasets[1].data.push(qtdOcorrenciasTemperatura)
     graficoOcorrencias.data.datasets[2].data.push(qtdOcorrenciasRede)

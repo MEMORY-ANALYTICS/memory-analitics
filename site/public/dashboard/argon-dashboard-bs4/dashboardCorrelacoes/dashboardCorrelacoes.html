@@ -817,7 +817,8 @@
     }
     
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
-    
+    createOcorrencias(ctx)
+
     // Chamando funções iniciais
     selectServidores()
     chamarOcorrencias()
@@ -825,7 +826,6 @@
         atualizarDadosOcorrencias()
     }, 2000);
     setInterval(() => {
-        chamarOcorrencias()
         atualizarDadosOcorrencias()
     }, 10000);
 
