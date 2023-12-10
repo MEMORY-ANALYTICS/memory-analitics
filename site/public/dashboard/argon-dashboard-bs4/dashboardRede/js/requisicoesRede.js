@@ -196,21 +196,9 @@ function valorGrafico1(idComponente) {
   var dataAtual = formatarData(1);
   fetch(`/dashboardRedeRouter/pegarLatenciaAtual/${fkComponente}/${dataAtual}`).then(function (response) {
     if (response.ok) {
-      // alert(response.status);
-      if (response.status == 204) {
-
-        mensagem.innerHTML = "0." //SE NÂO APARECER NADA, MUDAR AQUI
-        feed.appendChild(mensagem);
-
-        throw "Nenhum resultado encontrado!!";
-      }
 
       response.json().then(resposta => {
         console.log("Dados recebidos: ", JSON.stringify(resposta));
-
-
-        // graficoLatenciaUm.data.datasets[0].data = [];
-
 
         let latenciaAgora = resposta[0].valorLatenciaAtual;
         let horaRegistro = resposta[0].horaRegistro;
@@ -223,9 +211,6 @@ function valorGrafico1(idComponente) {
           graficoLatenciaUm.data.labels.shift();
           graficoLatenciaUm.data.datasets[0].data.shift();
         }
-
-        // alert("a")
-        // graficoLatenciaUm.update();
       });
     } else {
       throw ("Houve um erro na API")

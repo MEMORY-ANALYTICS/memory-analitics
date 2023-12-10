@@ -15,7 +15,8 @@ function listar(fkEmpresa) {
   // ----------------------------------------------------SQL server querys-----------------------------------------------------
   function pegarKpiVelocidade(fkComponente,dataAtual) {
     var query = `SELECT min(valorRegistro) AS valorVelocidadeMin, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
-    fkComponente = ${fkComponente} AND tipoMedida = 'MBps' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
+    fkComponente = ${fkComponente} AND tipoMedida = 'MBps' AND  date(dtHoraRegistro) = '${dataAtual}' 
+    GROUP BY horaRegistro ORDER BY valorVelocidadeMin LIMIT 1;`;
   
     // var query = `SELECT MIN(valorRegistro) AS valorVelocidadeMin, CONVERT(TIME, dtHoraRegistro) AS horaRegistro 
     // FROM registro 
@@ -32,8 +33,9 @@ function listar(fkEmpresa) {
   }
  
   function pegarKpiLatencia(fkComponente,dataAtual) {
-    var query = `SELECT max(valorRegistro) AS valorLatenciaMax, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
-    fkComponente = ${fkComponente} AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
+    var query = `SELECT MAX(valorRegistro) AS valorLatenciaMax, TIME(dtHoraRegistro) AS horaRegistro FROM registro 
+    WHERE fkComponente = ${fkComponente} AND tipoMedida = 'ms' AND DATE(dtHoraRegistro) = '${dataAtual}' 
+    GROUP BY horaRegistro ORDER BY valorLatenciaMax LIMIT 1;`;
 
     // var query = `SELECT MAX(valorRegistro) AS valorLatenciaMax, CONVERT(TIME, dtHoraRegistro) AS horaRegistro FROM registro WHERE 
     // fkComponente = ${fkComponente}
@@ -49,7 +51,7 @@ function listar(fkEmpresa) {
 
   function pegarKpiPacotes(fkComponente,dataAtual) {
     var query = `SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE fkComponente = ${fkComponente} 
-    AND DATE(dtHoraRegistro) = '${dataAtual}' AND tipoMedida = 'Pacotes' LIMIT 2;`;
+    AND DATE(dtHoraRegistro) = '${dataAtual}' AND tipoMedida = 'Pacotes' LIMIT 1;`;
     
     // var query = `SELECT TOP 1 AVG(valorRegistro) AS mediaDodia
     // FROM registro
