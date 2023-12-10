@@ -1,16 +1,16 @@
 
 function entrar() {
-  email_input.style ='border-color: black'
-  senha_input.style ='border-color: black'
+  email_input.style = 'border-color: black'
+  senha_input.style = 'border-color: black'
   var email = document.getElementById("email_input").value;
   var senha = document.getElementById("senha_input").value;
 
   if (email == "") {
-    email_input.style ='border-color: red'
-  } 
-  
-  if(senha == ""){
-    senha_input.style ='border-color: red'
+    email_input.style = 'border-color: red'
+  }
+
+  if (senha == "") {
+    senha_input.style = 'border-color: red'
   }
 
   console.log("FORM LOGIN: ", email);
@@ -51,20 +51,33 @@ function entrar() {
           sessionStorage.IDSUPERVISOR = json[0].idFuncionario;
 
           // if(sessionStorage.CARGO_USUARIO == "Gerente"){
-            window.location = "./dashboard/argon-dashboard-bs4/paginaGerente.html";
           // }else{
           //   window.location = "./dashboard/argon-dashboard-bs4/paginaAnalista.html";
           // }
 
         });
+        Swal.fire({
+          icon: "success",
+          title: "Login realizado com sucesso!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      setTimeout(() => {
+        window.location = "./dashboard/argon-dashboard-bs4/paginaGerente.html";
+      }, 3000);
       } else {
 
-       console.log("Houve um erro ao tentar realizar o login!");
+        console.log("Houve um erro ao tentar realizar o login!");
 
 
-       alert("Houve um erro ao tentar realizar o login!")
-       
-       
+        Swal.fire({
+          icon: "error",
+          title: "Erro no Login!",
+          text: `Cadastro não encontrado!`,
+          footer: 'Verifique seu email ou senha e tente novamente!'
+        });
+
+
 
         resposta.text().then((texto) => {
 
