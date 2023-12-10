@@ -123,23 +123,5 @@ public class Downtime {
                 ", dtHora=" + dtHora +
                 '}';
     }
-
-    public static void main(String[] args) {
-        RecursoDiscoTamanhoTotal discoTamanho = new RecursoDiscoTamanhoTotal();
-        RecursoDiscoUso discoUso = new RecursoDiscoUso();
-        RecursoMemoriaUso memoriaUso = new RecursoMemoriaUso();
-        RecursoProcessadorFrequencia processadorFrequencia = new RecursoProcessadorFrequencia();
-        RecursoProcessadorUso processadorUso = new RecursoProcessadorUso();
-
-        LocalDateTime dataHora = LocalDateTime.now();
-        school.sptech.Servidores.Downtime downtime = new school.sptech.Servidores.Downtime(0, dataHora, 4);
-
-//        downtime.calcDowntime();
-        discoTamanho.capturarRegistro();
-        discoUso.capturarRegistro();
-        memoriaUso.capturarRegistro();
-        processadorFrequencia.capturarRegistro();
-        processadorUso.capturarRegistro();
-
-    }
 }
+

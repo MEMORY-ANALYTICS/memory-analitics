@@ -22,12 +22,12 @@ public class RecursoProcessadorUso extends Recurso {
         this.processador = new Processador();
     }
 
-    public RecursoProcessadorUso () {
+    public RecursoProcessadorUso() {
         this("Processador", "% de Uso", 0.0);
     }
 
     @Override
-    public Double capturarRegistro() {
+    public Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL) {
         Processador processador = looca.getProcessador();
 
         setNome(processador.getNome());
@@ -38,17 +38,17 @@ public class RecursoProcessadorUso extends Recurso {
 
         LocalDateTime dataHoraAtual = LocalDateTime.now();
         getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
-                .formatted(getValorRegistro().toString().replace(",","."),
+                .formatted(getValorRegistro().toString().replace(",", "."),
                         getUnidadeMedida(),
                         "RecursoProcessadorUso",
-                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        dtHoraRegistroSQL,
                         selectFkComponente()));
         getConexoes().get(1).execute(
                 "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
                         + getValorRegistro() + ", '"
                         + getUnidadeMedida() + "', '"
                         + "RecursoProcessadorUso', '"
-                        + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                        + dtHoraRegistroMySQL + "', "
                         + selectFkComponente() + ")"
         );
         return usoDoProcessador;
@@ -80,12 +80,6 @@ public class RecursoProcessadorUso extends Recurso {
     public String toString() {
         return String.format("Nome: %s\nUnidade de Medida: %s\nValor do Registro: %.1f%%",
                 getNome(), getUnidadeMedida(), getValorRegistro());
-    }
-
-    public static void main(String[] args) {
-        RecursoProcessadorUso processadorUso = new RecursoProcessadorUso();
-
-        processadorUso.capturarRegistro();
     }
 }
 
