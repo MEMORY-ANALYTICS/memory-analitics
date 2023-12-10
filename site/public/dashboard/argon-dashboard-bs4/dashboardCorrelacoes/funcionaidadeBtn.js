@@ -14,6 +14,10 @@
 // }
 
 function persoLinha() {
+    mensagem = document.getElementById('mensagemPerso')
+    grafico = document.getElementById('container4')
+    grafico.style.display = 'flex'
+    mensagem.style.display = 'none'
     if (typeof graficoPerso !== 'undefined') {
         graficoPerso.destroy()
     }
