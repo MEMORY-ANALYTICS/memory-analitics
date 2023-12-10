@@ -726,6 +726,12 @@
 <script src="./graficos.js"></script>
 
 <script>
+        Swal.fire({
+        icon: "question",
+        title: "Como utilizar o gráfico personalizado!",
+        text: `Para visualizar o grafico corretamente, selecione filtros e clique no botão atualizar!`,
+        footer: 'Caso deseje trocar o tipo do gráfico novamente, clique na seta para baixo ao lado do botão atualizar. <br> <b>Memory Analytics</b>'
+    });
     // Variáveis de controle
     var apelidosServidores = [];
     var qtdOcorrenciasComponente;

@@ -17,6 +17,7 @@ function atualizarDadosOcorrencias() {
 function persoLinha() {
     mensagem = document.getElementById('mensagemPerso')
     grafico = document.getElementById('container4')
+    togglePersoTipoGrafico.innerHTML = 'Atualizar'
     grafico.style.display = 'flex'
     mensagem.style.display = 'none'
     if (typeof graficoPerso !== 'undefined') {
