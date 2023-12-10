@@ -52,7 +52,12 @@ function selectCpu() {
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
                 if(typeof json[0] === 'undefined'){
-                    alert("Nenhum resultado encontrado para CPU")
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de CPU!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
                 }
             });
         } else {
@@ -83,7 +88,14 @@ function selectRam() {
                 console.log("SelectRAM")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Ram!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                }
 
             });
         } else {
@@ -114,7 +126,14 @@ function selectDisco() {
                 console.log("SelectDisco")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Disco!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                }
             });
         } else {
             resposta.text().then(textoErro => {
@@ -144,7 +163,14 @@ function selectRede() {
                 console.log("SelectRede")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
+                if(typeof json[0] === 'undefined'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Rede!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                }
 
             });
         } else {
@@ -169,131 +195,131 @@ function selectRede() {
 
 
 
-// function selectGraficoOcorrenciaComponente() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Componente'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 console.log(json[0])
-//                 if (requisitanteVar == 'Componente') {
-//                     qtdOcorrenciasComponente = json[0].TotalChamados;
-//                     ocorrenciasComponente = requisitanteVar
-//                     graficoOcorrencias.update()
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaComponente() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Componente'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json[0])
+                if (requisitanteVar == 'Componente') {
+                    qtdOcorrenciasComponente = json[0].TotalChamados;
+                    ocorrenciasComponente = requisitanteVar
+                    graficoOcorrencias.update()
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
-// function selectGraficoOcorrenciaRede() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Rede'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 if (requisitanteVar == 'Rede') {
-//                     qtdOcorrenciasRede = json[0].TotalChamados
-//                     ocorrenciasRede = requisitanteVar
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaRede() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Rede'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (requisitanteVar == 'Rede') {
+                    qtdOcorrenciasRede = json[0].TotalChamados
+                    ocorrenciasRede = requisitanteVar
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
-// function selectGraficoOcorrenciaTemperatura() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Temperatura'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 if (requisitanteVar == 'Temperatura') {
-//                     qtdOcorrenciasTemperatura = json[0].TotalChamados
-//                     ocorrenciasTemperatura = requisitanteVar
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaTemperatura() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Temperatura'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (requisitanteVar == 'Temperatura') {
+                    qtdOcorrenciasTemperatura = json[0].TotalChamados
+                    ocorrenciasTemperatura = requisitanteVar
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
-// function selectGraficoOcorrenciaProcesso() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Processo'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 if (requisitanteVar == 'Processo') {
-//                     qtdOcorrenciasProcessos = json[0].TotalChamados
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaProcesso() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Processo'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (requisitanteVar == 'Processo') {
+                    qtdOcorrenciasProcessos = json[0].TotalChamados
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
