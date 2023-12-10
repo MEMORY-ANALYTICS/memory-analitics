@@ -433,6 +433,10 @@
   // alert(formatarData(2))
 
   graficoUm();
+  setInterval(() => {
+              graficoLatenciaUm.update()
+            }, 1000);
+
   graficoDois();
   // graficoTres();
 
@@ -447,11 +451,8 @@
   }
   function graficoUm() {
 
-    // valorGrafico1();
-    // graficoLatencia.labels.push = time;
-    // valorGrafico1(sessionStorage.ID_COMPONENTE)
     const ctx = document.getElementById('graficoLatencia');
-    new Chart(ctx, {
+    graficoLatenciaUm = new Chart(ctx, {
       type: 'line',
       data: {
         labels: [],
