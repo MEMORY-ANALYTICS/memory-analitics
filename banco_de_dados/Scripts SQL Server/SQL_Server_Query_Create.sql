@@ -48,7 +48,7 @@ END;
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'funcionario')
 BEGIN
     CREATE TABLE funcionario(
-        idFuncionario INT PRIMARY KEY IDENTITY(100000,1),
+        idFuncionario INT PRIMARY KEY IDENTITY(100,1),
         nomeFunc VARCHAR(80),
         emailFunc VARCHAR(45),
         telefoneFunc CHAR(11),
@@ -81,8 +81,8 @@ BEGIN
         idServidor INT PRIMARY KEY IDENTITY(1,1),
         SistemaOperacionalServidor VARCHAR(20),
         apelidoServidor VARCHAR(45),
+		localServidor varchar(25),
         macAdress varchar(25),
-        numeroSerieServidor VARCHAR(20),
         fkEmpresa INT,
         FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
     );
@@ -105,15 +105,16 @@ END;
 
 
 -- CREATE TABLE chamadoServidor
-IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'chamadoServidor')
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'chamadoServidor')
 BEGIN
-    CREATE TABLE chamadoServidor(
+   CREATE TABLE chamadoServidor(
         idChamadoServidor INT PRIMARY KEY IDENTITY(1,1),
         codigoChamado VARCHAR(45),
         descricao varchar(45),
         dtHoraChamado DATETIME,
-        fkComponente INT,
-        FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+		requisitante VARCHAR(45),
+        fkServidor INT,
+        FOREIGN KEY (fkServidor) REFERENCES servidor (idServidor)
     );
 END;
 
@@ -139,9 +140,33 @@ BEGIN
 		tipoMedida VARCHAR(25),
         detalheRegistro VARCHAR(45),
         dtHoraRegistro DATETIME,
-        fkRecurso INT,
-        fkMedidaComponente INT,
         fkComponente INT,
         FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
     );
 END;
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'processos')
+BEGIN
+	CREATE TABLE processos(
+		idProcessos INT PRIMARY KEY IDENTITY(1,1),
+		usoCpu FLOAT,
+		usoRam FLOAT,
+		processoMaiorMediaUso VARCHAR(75),
+		qtdProcessosOnline INT,
+        dtHora DATETIME,
+		fkServidor INT,
+		FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
+	);
+END;
+
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'processosBanidos')
+BEGIN
+	CREATE TABLE processosBanidos(
+		idProcesso INT PRIMARY KEY IDENTITY(1,1),
+		nomeProcesso VARCHAR(150),
+		fkServidor INT,
+		FOREIGN KEY(fkServidor) REFERENCES servidor(idServidor)
+	);
+END;
+
+-- Ultima atualizacao 09/12/2023 21:17

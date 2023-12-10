@@ -3,10 +3,11 @@ var sql = require("mssql");
 
 // CONEXÃO DO SQL SERVER - AZURE (NUVEM)
 var sqlServerConfig = {
-  server: "SEU_SERVIDOR",
-  database: "SEU_BANCO_DE_DADOS",
-  user: "SEU_USUARIO",
-  password: "SUA_SENHA",
+  server: "ec2-35-172-0-77.compute-1.amazonaws.com",
+  database: "bd_memoryanalytics",
+  user: "sa",
+  password: "urubu100",
+  trustServerCertificate: true,
   pool: {
     max: 10,
     min: 0,
@@ -14,13 +15,13 @@ var sqlServerConfig = {
   },
   options: {
     encrypt: true, // for azure
-  },
+  }
 };
 
 // CONEXÃO DO MYSQL WORKBENCH
 var mySqlConfig = {
   host: 'localhost',
-  database: 'bd_MemoryAnalytics',
+  database: 'bd_memoryanalytics',
   user: 'urubu100',
   password: 'urubu100',
 };

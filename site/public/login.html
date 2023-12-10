@@ -1,127 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-      crossorigin="anonymous"
-    ></script>
 
-    <script src="./js/login.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous" />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
-      input{
-        border-radius: 25px!important;
-      }
-      *{
-        font-family: 'Inter', sans-serif;
-      }
-    </style>
-  </head>
-  <body style="background-color: #010e50">
-    <div style="display: flex; flex-direction: row-reverse" class="w-50">
-      <div style="z-index: -1">
-        <img src="./assets/img/bolhas.svg" style="position: absolute; margin-top: 2vh;" />
-      </div>
+  <script src="./js/login.js"></script>
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap");
+
+    input {
+      border-radius: 25px !important;
+    }
+
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+
+<body style="background-color: #010e50">
+  <div style="display: flex; flex-direction: row-reverse" class="w-50">
+    <div style="z-index: -1">
+      <img src="./assets/img/bolhas.svg" style="position: absolute; margin-top: 2vh;" />
     </div>
-    <div
-      style="
+  </div>
+  <div style="
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-      "
-    >
-      <div
-        class="bg-white d-flex justify-content-center"
-        style="
+      ">
+    <div class="bg-white d-flex justify-content-center" style="
           height: 70vh;
           width: 30vw;
           align-items: center;
           flex-direction: column;
           box-shadow: 0px 4px 100px 3px #000;
-        "
-      >
-        <div class="d-flex justify-content-center mb-5" style="margin-bottom: -2rem!important;">
-          <h1 style="font-family: 'Inter', sans-serif">Login</h1>
-        </div>
-        <div class="w-100 mt-5">
-          <div class="d-flex justify-content-center">
-            <div class="form-group w-75">
-              <label for="email_input">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email_input"
-                placeholder="usuario@email.com"
-                />
-                <label for="email_validacao" style="align-items: center; color: red; display: none;">Email invállido</label>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <div class="form-group w-75">
-              <label for="senha_input">Senha</label>
-              <input
-              type="password"
-              class="form-control"
-              id="senha_input"
-              placeholder="*********"
-              />
-              <label for="senha_validacao" style="align-items: center; color: red; display: none;">Senha invállida</label>
-            </div>
+        ">
+      <div class="d-flex justify-content-center mb-5" style="margin-bottom: -2rem!important;">
+        <h1 style="font-family: 'Inter', sans-serif">Login</h1>
+      </div>
+      <div class="w-100 mt-5">
+        <div class="d-flex justify-content-center">
+          <div class="form-group w-75">
+            <label for="email_input">Email</label>
+            <input type="email" class="form-control" id="email_input" placeholder="usuario@email.com" />
+            <label for="email_validacao" style="align-items: center; color: red; display: none;">Email invállido</label>
           </div>
         </div>
-        <div
-          style="
+        <div class="d-flex justify-content-center">
+          <div class="form-group w-75">
+            <label for="senha_input">Senha</label>
+            <input type="password" class="form-control" id="senha_input" placeholder="*********" />
+            <label for="senha_validacao" style="align-items: center; color: red; display: none;">Senha invállida</label>
+          </div>
+        </div>
+      </div>
+      <div style="
             z-index: -1;
             display: flex;
             margin-right: 42vw;
             flex-direction: row-reverse;
-          "
-        >
-          <div>
-            <img src="./assets/img/bolhas.svg" style="position: absolute; rotate: 190deg;" />
-          </div>
+          ">
+        <div>
+          <img src="./assets/img/bolhas.svg" style="position: absolute; rotate: 190deg;" />
         </div>
-        <div class="w-75 mt-5">
-          <button
-          onclick="entrar()"
-            class="btn w-100"
-            style="
+      </div>
+      <div class="w-75 mt-5">
+        <button onclick="entrar()" class="btn w-100" style="
               color: white;
               background-color: #010e50;
               filter: drop-shadow(0px 0px 8px #000);
-            "
-          >
-            ENTRAR
-          </button>
-        </div>
-        <div class="mt-2">
-          <p>
-            Não possui cadastro? <span> <a href="./cadastro.html"> Cadastre-se </a> </span>
-          </p>
-        </div>
+            ">
+          ENTRAR
+        </button>
+      </div>
+      <div class="mt-2">
+        <p>
+          Não possui cadastro? <span> <a href="./cadastro.html"> Cadastre-se </a> </span>
+        </p>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+
 </html>

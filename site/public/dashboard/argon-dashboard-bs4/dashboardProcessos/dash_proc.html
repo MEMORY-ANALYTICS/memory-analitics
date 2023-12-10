@@ -57,6 +57,7 @@
       type="text/css"
     />
     <link rel="stylesheet" href="style_dashProc.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body>
@@ -69,12 +70,14 @@
       <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header align-items-center">
-          <a class="navbar-brand" href="javascript:void(0)">
-            <img
-              src="../assets/img/brand/blue.png"
-              class="navbar-brand-img"
-              alt="..."
-            />
+          <a class="navbar-brand" href="" style="padding-left: 2%">
+            <img src="../../../../assets/img/logos/logo.png" alt="" />
+            <b
+              style="
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              "
+              >Memory Analytics</b
+            >
           </a>
         </div>
         <div class="navbar-inner">
@@ -83,110 +86,110 @@
             <!-- Nav items -->
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" href="examples/dashboard.html">
+                <a class="nav-link active" href=".././paginaGerente.html">
                   <i class="ni ni-tv-2 text-primary"></i>
-                  <span class="nav-link-text">Dashboard</span>
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Dashboard</span
+                  >
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="examples/icons.html">
-                  <i class="ni ni-planet text-orange"></i>
-                  <span class="nav-link-text">Icons</span>
+                <a
+                  class="nav-link"
+                  href="../../argon-dashboard-bs4/funcionario/funcionarios.html"
+                >
+                  <i class="ni ni-badge text-blue"></i>
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Funcionários</span
+                  >
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="examples/map.html">
-                  <i class="ni ni-pin-3 text-primary"></i>
-                  <span class="nav-link-text">Google</span>
+                <a
+                  class="nav-link"
+                  href="../../argon-dashboard-bs4/server/servers.html"
+                >
+                  <i class="ni ni-building text-primary"></i>
+                  <span class="nav-link-text">Servidores</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="examples/profile.html">
-                  <i class="ni ni-single-02 text-yellow"></i>
-                  <span class="nav-link-text">Profile</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/tables.html">
-                  <i class="ni ni-bullet-list-67 text-default"></i>
-                  <span class="nav-link-text">Tables</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/login.html">
-                  <i class="ni ni-key-25 text-info"></i>
-                  <span class="nav-link-text">Login</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/register.html">
-                  <i class="ni ni-circle-08 text-pink"></i>
-                  <span class="nav-link-text">Register</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="examples/upgrade.html">
-                  <i class="ni ni-send text-dark"></i>
-                  <span class="nav-link-text">Upgrade</span>
+                <a
+                  class="nav-link"
+                  href="../../argon-dashboard-bs4/componente/componentes.html"
+                >
+                  <i class="ni ni-laptop text-blue"></i>
+                  <span class="nav-link-text">Componentes</span>
                 </a>
               </li>
             </ul>
             <!-- Divider -->
             <hr class="my-3" />
             <!-- Heading -->
-
             <h6 class="navbar-heading p-0 text-muted">
-              <span class="docs-normal">Documentation</span>
+              <span class="docs-normal">Dashboards Personalizadas</span>
             </h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
+                  href=".././dashboardComponentes/paginaAnalistaHardware.html"
                   target="_blank"
                 >
-                  <i class="ni ni-spaceship"></i>
-                  <span class="nav-link-text">Getting started</span>
+                  <img
+                    src="../../../../assets/icons_geral/hardware_icons.png"
+                  />
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Hardware</span
+                  >
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./dash_proc.html" target="_blank">
+                  <img
+                    src="../../../../assets/icons_geral/processo_icons.png"
+                  />
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Processos</span
+                  >
                 </a>
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html"
-                  target="_blank"
+                  href="../dashboardRede/dashboardRede.html"
                 >
-                  <i class="ni ni-palette"></i>
-                  <span class="nav-link-text">Foundation</span>
+                  <img src="../../../../assets/icons_geral/rede_icons.png" />
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Rede</span
+                  >
                 </a>
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html"
+                  href=".././dashboardTemperatura/public/dash_temp.html"
                   target="_blank"
                 >
-                  <i class="ni ni-ui-04"></i>
-                  <span class="nav-link-text">Components</span>
+                  <img src="../../../../assets/icons_geral/temp_icons.png" />
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Temperatura</span
+                  >
                 </a>
               </li>
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="https://demos.creative-tim.com/argon-dashboard/docs/plugins/charts.html"
+                  href=".././dashboardCorrelacoes/dashboardCorrelacoes.html"
                   target="_blank"
                 >
-                  <i class="ni ni-chart-pie-35"></i>
-                  <span class="nav-link-text">Plugins</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link active active-pro"
-                  href="examples/upgrade.html"
-                >
-                  <i class="ni ni-send text-dark"></i>
-                  <span class="nav-link-text">Upgrade to PRO</span>
+                  <img
+                    src="../../../../assets/icons_geral/correlacao_icons.png"
+                  />
+                  <span class="nav-link-text" style="padding-left: 5%"
+                    >Correlação</span
+                  >
                 </a>
               </li>
             </ul>
@@ -286,7 +289,7 @@
                             class="d-flex justify-content-between align-items-center"
                           >
                             <div>
-                              <h4 class="mb-0 text-sm">Ana Fonseca</h4>
+                              <h4 class="mb-0 text-sm"></h4>
                             </div>
                             <div class="text-right text-muted">
                               <small>2 hrs ago</small>
@@ -483,9 +486,10 @@
                       />
                     </span>
                     <div class="media-body ml-2 d-none d-lg-block">
-                      <span class="mb-0 text-sm font-weight-bold"
-                        >Ana Fonseca</span
-                      >
+                      <span
+                        class="mb-0 text-sm font-weight-bold"
+                        id="nomeProto"
+                      ></span>
                     </div>
                   </div>
                 </a>
@@ -523,10 +527,105 @@
       <!-- Header -->
 
       <!-- Header -->
+      <div
+        class="modal fade bd-example-modal-xl"
+        id="exampleModalCenterAdicionar"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div
+          class="modal-dialog modal-dialog-centered modal-xl"
+          role="document"
+        >
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Adicionar Processo
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="w-100" id="cadastro_processo">
+                <div class="w-100 row mx-1">
+                  <div class="form-group col-xl-12">
+                    <label for="nome_processo">NOME DO PROCESSO</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nome_processo"
+                      placeholder="discord"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Fechar
+              </button>
+              <button
+                onclick="cadastrarProcesso()"
+                type="button"
+                class="btn btn-primary"
+              >
+                Salvar mudanças
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="header bg-primary pb-6">
         <div class="container-fluid">
           <div class="header-body">
             <div class="row align-items-center py-4">
+              <div class="col-xl-12">
+                <div class="row">
+                  <div
+                    class="form-group col-xl-3 py-2 bg bg-white rounded mr-2"
+                    style="box-shadow: 0.3em 0.3em 1em rgba(65, 58, 58, 0.6)"
+                  >
+                    <div class="col-xl-12">
+                      <div class="row">
+                        <div
+                          class="col-xl-6 d-flex justify-content-center align-middle"
+                        >
+                          <p class="h2 text-center">Servidor Visualizado:</p>
+                        </div>
+                        <div class="col-xl-6 py-2">
+                          <select
+                            class="form-control text-primary border-0"
+                            style="
+                              font-size: 1.2em;
+                              text-align: center;
+                              box-shadow: 0.1em 0.1em 0.5em
+                                rgba(92, 85, 85, 0.6);
+                            "
+                            id="selectServer"
+                          >
+                            <option disabled selected>
+                              Selecione o Servidor
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- Card stats -->
               <div class="row">
                 <div class="col-xl-3 col-md-6">
@@ -541,7 +640,9 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Utilizacao de ram pelos processos
                           </h5>
-                          <span class="h2 font-weight-bold mb-0">54%</span>
+                          <span id="usoRam" class="h2 font-weight-bold mb-0"
+                            >54%</span
+                          >
                         </div>
                         <div class="col-auto">
                           <div
@@ -556,14 +657,6 @@
                       </div>
                       <p class="mt-3 mb-0 text-sm">
                         <span>Estável</span>
-                        <!--
-                      <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span>Condição : </span>
-                    -->
-                        <!--
-                      <span class="text-nowrap">Atualizado em :</span>
-                      <span>12:10</span>
-                    -->
                       </p>
                     </div>
                   </div>
@@ -581,7 +674,9 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Utilização de CPU pelos processos
                           </h5>
-                          <span class="h2 font-weight-bold mb-0">53%</span>
+                          <span id="usoCpu" class="h2 font-weight-bold mb-0"
+                            >53%</span
+                          >
                         </div>
                         <div class="col-auto">
                           <div
@@ -614,7 +709,9 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Processo que mais gasta recursos
                           </h5>
-                          <span class="h2 font-weight-bold mb-0"
+                          <span
+                            id="processoMaisGasta"
+                            class="h2 font-weight-bold mb-0"
                             >chrome.exe</span
                           >
                         </div>
@@ -649,7 +746,11 @@
                           <h5 class="card-title text-uppercase text-muted mb-0">
                             Quantidade de processos bloqueados:
                           </h5>
-                          <span class="h2 font-weight-bold mb-0">5</span>
+                          <span
+                            id="qtdProcessosBloqueados"
+                            class="h2 font-weight-bold mb-0"
+                            >5</span
+                          >
                         </div>
                         <div class="col-auto">
                           <div
@@ -676,30 +777,34 @@
         </div>
         <!-- Page content -->
         <div class="container-fluid mt--6">
-          <div class="row">
-            <div class="col-xl-6">
-              <script src="https://code.highcharts.com/highcharts.js"></script>
-              <script src="https://code.highcharts.com/modules/exporting.js"></script>
-              <script src="https://code.highcharts.com/modules/export-data.js"></script>
-              <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-              <figure class="highcharts-figure">
-                <div id="container"></div>
-              </figure>
-            </div>
-            <div class="col-xl-6">
-              <script src="https://code.highcharts.com/highcharts.js"></script>
-              <script src="https://code.highcharts.com/modules/exporting.js"></script>
-              <script src="https://code.highcharts.com/modules/export-data.js"></script>
-              <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-              <figure class="highcharts-figure">
-                <div id="container2"></div>
-              </figure>
+          <div class="row mb-4" style="background-color: white">
+            <div class="col-xl-12">
+              <p>
+                Quantidade de Processos Online:
+                <span id="qtdProcessosOnline">3</span>
+              </p>
+              <div style="height: 50vh" class="">
+                <canvas id="myChart"></canvas>
+              </div>
+              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             </div>
           </div>
         </div>
         <div class="container-fluid">
           <div class="table-responsive" style="background-color: white">
+            <div class="d-flex justify-content-between m-4">
+              <div>
+                <p>Processos Banidos:</p>
+              </div>
+              <a
+                class="btn"
+                style="box-shadow: 1px 1px 15px gray"
+                data-toggle="modal"
+                data-target="#exampleModalCenterAdicionar"
+                >+</a
+              >
+            </div>
+
             <!-- Projects table -->
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -708,24 +813,7 @@
                   <th style="width: auto; text-align: center">Ações</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <th style="width: auto; text-align: center">valorant.exe</th>
-                  <td style="text-align: center">38</td>
-                </tr>
-                <tr>
-                  <th style="width: auto; text-align: center">
-                    leagueoflegends.exe
-                  </th>
-                  <td style="width: auto; text-align: center">78</td>
-                </tr>
-                <tr>
-                  <th style="width: auto; text-align: center">
-                    counterstrike.exe
-                  </th>
-                  <td style="width: auto; text-align: center">14</td>
-                </tr>
-              </tbody>
+              <tbody id="tableProcessos"></tbody>
             </table>
           </div>
         </div>
@@ -745,160 +833,342 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
-    dataTesteCpu = [1, 2, 3];
-    dataTesteRam = [2, 5, 1];
-    Highcharts.chart("container", {
-      chart: {
-        backgroundColor: "#172b4d",
-        type: "area",
-      },
-      accessibility: {
-        description:
-          "Image description: An area chart compares the nuclear stockpiles of the USA and the USSR/Russia between 1945 and 2017. The number of nuclear weapons is plotted on the Y-axis and the years on the X-axis. The chart is interactive, and the year-on-year stockpile levels can be traced for each country. The US has a stockpile of 6 nuclear weapons at the dawn of the nuclear age in 1945. This number has gradually increased to 369 by 1950 when the USSR enters the arms race with 6 weapons. At this point, the US starts to rapidly build its stockpile culminating in 32,040 warheads by 1966 compared to the USSR’s 7,089. From this peak in 1966, the US stockpile gradually decreases as the USSR’s stockpile expands. By 1978 the USSR has closed the nuclear gap at 25,393. The USSR stockpile continues to grow until it reaches a peak of 45,000 in 1986 compared to the US arsenal of 24,401. From 1986, the nuclear stockpiles of both countries start to fall. By 2000, the numbers have fallen to 10,577 and 21,000 for the US and Russia, respectively. The decreases continue until 2017 at which point the US holds 4,018 weapons compared to Russia’s 4,500.",
-      },
-      title: {
-        text: "Uso de RAM e CPU pelos PROCESSOS",
-        style: {
-          color: "white",
-        },
-      },
-      subtitle: {
-        text: "Source: MEMORY ANALYTICS ",
-        style: {
-          color: "white",
-        },
-      },
-      xAxis: {
-        allowDecimals: false,
-        labels: {
-          style: {
-            color: "white",
-          },
-        },
-        tickColor: "#ffffff",
-        accessibility: {
-          rangeDescription: "Range: 1940 to 2017.",
-        },
-      },
-      yAxis: {
-        tickColor: "#ffffff",
-        title: {
-          text: "% de USO",
-          style: {
-            color: "white",
-          },
-        },
-        labels: {
-          style: {
-            color: "white",
-          },
-        },
-      },
-      tooltip: {
-        pointFormat: "{series.name} foi utilizada <b>{point.y:,.0f}</b>% ",
-      },
-      plotOptions: {
-        area: {
-          pointStart: 1,
-          marker: {
-            enabled: false,
-            symbol: "circle",
-            radius: 2,
-            states: {
-              hover: {
-                enabled: true,
-              },
-            },
-          },
-        },
-      },
-      series: [
-        {
-          name: "RAM",
-          data: dataTesteRam,
-        },
-        {
-          name: "CPU",
-          data: dataTesteCpu,
-        },
-      ],
-    });
+    var myChart2;
+    var myChart;
+    nomeProto.innerHTML = sessionStorage.getItem("NOME_USUARIO");
+    let proximaAtualizacao;
+    obterDadosGrafico(4);
+    const ctx = document.getElementById("myChart");
 
-    Highcharts.chart("container2", {
-      chart: {
-        backgroundColor: "#172b4d",
-        type: "column",
-      },
-      title: {
-        text: "Utilização total da máquina pelos processos",
-      },
-      subtitle: {
-        text: "Source: MEMORY ANALYTICS",
-      },
-      xAxis: {
-        type: "category",
-        labels: {
-          autoRotation: [-45, -90],
-          style: {
-            fontSize: "13px",
-            fontFamily: "Verdana, sans-serif",
+    if (myChart != undefined) {
+      myChart.destroy();
+    }
+
+    myChart = new Chart(ctx, {});
+
+    function obterDadosGrafico(fkServidor) {
+      if (proximaAtualizacao != undefined) {
+        clearTimeout(proximaAtualizacao);
+      }
+
+      fetch(`/processos/ultimas/${fkServidor}`, { cache: "no-store" })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+              resposta.reverse();
+              processoMaisGasta.innerHTML = resposta[resposta.length - 1].pmmu;
+              usoCpu.innerHTML = resposta[resposta.length - 1].cpu + "%";
+              usoRam.innerHTML = resposta[resposta.length - 1].ram + "%";
+              qtdProcessosOnline.innerHTML =
+                resposta[resposta.length - 1].qtdProcessosOnline;
+              plotarGrafico(resposta, fkServidor);
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+          );
+        });
+    }
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e,
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, fkServidor) {
+      console.log("iniciando plotagem do gráfico...");
+
+      // Criando estrutura para plotar gráfico - labels
+      let labels = [];
+
+      // Criando estrutura para plotar gráfico - dados
+      let dados = {
+        labels: labels,
+        datasets: [
+          {
+            label: "CPU",
+            data: [],
+            fill: true,
+            borderColor: "rgb(75, 192, 192)",
+            tension: 0.1,
           },
-        },
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: "Porcentagem % de USO",
-        },
-      },
-      legend: {
-        enabled: false,
-      },
-      tooltip: {
-        pointFormat: "Utilização em: 2023",
-      },
-      series: [
-        {
-          name: "Population",
-          colors: ["blue"],
-          colorByPoint: true,
-          groupPadding: 0,
-          data: [
-            ["Tokyo", 37.33],
-            ["Delhi", 31.18],
-            ["Shanghai", 27.79],
-            ["Sao Paulo", 22.23],
-            ["Mexico City", 21.91],
-            ["Dhaka", 21.74],
-            ["Cairo", 21.32],
-            ["Beijing", 20.89],
-            ["Mumbai", 20.67],
-            ["Osaka", 19.11],
-            ["Karachi", 16.45],
-            ["Chongqing", 16.38],
-            ["Istanbul", 15.41],
-            ["Buenos Aires", 15.25],
-            ["Kolkata", 14.974],
-            ["Kinshasa", 14.97],
-            ["Lagos", 14.86],
-            ["Manila", 14.16],
-            ["Tianjin", 13.79],
-            ["Guangzhou", 13.64],
-          ],
-          dataLabels: {
-            enabled: true,
-            rotation: -90,
-            color: "#FFFFFF",
-            align: "right",
-            format: "{point.y:.1f}", // one decimal
-            y: 10, // 10 pixels down from the top
-            style: {
-              fontSize: "13px",
-              fontFamily: "Verdana, sans-serif",
-            },
+          {
+            label: "RAM",
+            data: [],
+            fill: true,
+            borderColor: "rgb(199, 52, 52)",
+            tension: 0.1,
           },
-        },
-      ],
-    });
+        ],
+      };
+
+      console.log("----------------------------------------------");
+      console.log(
+        'Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":'
+      );
+      console.log(resposta);
+
+      // Inserindo valores recebidos em estrutura para plotar o gráfico
+      for (i = 0; i < resposta.length; i++) {
+        var registro = resposta[i];
+        labels.push(registro.momento_grafico);
+        dados.datasets[0].data.push(registro.cpu);
+        dados.datasets[1].data.push(registro.ram);
+      }
+
+      console.log("----------------------------------------------");
+      console.log("O gráfico será plotado com os respectivos valores:");
+      console.log("Labels:");
+      console.log(labels);
+      console.log("Dados:");
+      console.log(dados.datasets);
+      console.log("----------------------------------------------");
+
+      // Criando estrutura para plotar gráfico - config
+      const config = {
+        type: "line",
+        data: dados,
+      };
+
+      if (myChart2 != undefined) {
+        myChart2.destroy();
+      }
+      // Adicionando gráfico criado em div na tela
+      myChart2 = new Chart(document.getElementById(`myChart`), config);
+      setTimeout(() => atualizarGrafico(4, dados, myChart2), 10000);
+    }
+
+    function atualizarGrafico(fkServer, dados, myChart) {
+      fetch(`/processos/tempo-real/${fkServer}`, { cache: "no-store" })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (novoRegistro) {
+              obterDadosGrafico(fkServer);
+              // alertar(novoRegistro, fkServer);
+              console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+              console.log(`Dados atuais do gráfico:`);
+              console.log(dados);
+              usoCpu.innerHTML = novoRegistro[0].cpu + "%";
+              usoRam.innerHTML = novoRegistro[0].ram + "%";
+              qtdProcessosOnline.innerHTML = novoRegistro[0].qtdProcessosOnline;
+              let avisoCaptura = document.getElementById(
+                `avisoCaptura${fkServer}`
+              );
+              avisoCaptura.innerHTML = "";
+
+              if (
+                novoRegistro[0].momento_grafico ==
+                dados.labels[dados.labels.length - 1]
+              ) {
+                console.log(
+                  "---------------------------------------------------------------"
+                );
+                console.log(
+                  "Como não há dados novos para captura, o gráfico não atualizará."
+                );
+                console.log("Horário do novo dado capturado:");
+                console.log(novoRegistro[0].momento_grafico);
+                console.log("Horário do último dado capturado:");
+                console.log(dados.labels[dados.labels.length - 1]);
+                console.log(
+                  "---------------------------------------------------------------"
+                );
+              } else {
+                // tirando e colocando valores no gráfico
+                dados.labels.shift(); // apagar o primeiro
+                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+                dados.datasets[0].data.shift(); // apagar o primeiro de umidade
+                dados.datasets[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
+
+                dados.datasets[1].data.shift(); // apagar o primeiro de temperatura
+                dados.datasets[1].data.push(novoRegistro[0].ram); // incluir uma nova medida de temperatura
+                myChart.destroy();
+                myChart.update();
+              }
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+            proximaAtualizacao = setTimeout(
+              () => atualizarGrafico(fkServer, dados, myChart),
+              10000
+            );
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ gráfico: ${error.message}`
+          );
+        });
+    }
+
+    getAllProcessosBanidos(4);
+    function getAllProcessosBanidos(fkServer) {
+      tableProcessos.innerHTML = "";
+      fetch(`/processos/getAllProcessosBanidos/${fkServer}`, {
+        cache: "no-store",
+      })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              for (i = 0; i < resposta.length; i++) {
+                tableProcessos.innerHTML += `
+                    <tr>
+                      <td style="width: auto; text-align: center">
+                        ${resposta[i].nomeProcesso}
+                      </td>
+                      <td style="width: auto; text-align: center;cursor:pointer;">
+                        <p onclick="deleteProcesso(${resposta[i].idProcesso})">X</p>
+                     </td>
+                  </tr>
+                  `;
+              }
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ tabela: ${error.message}`
+          );
+        });
+    }
+
+    setInterval(() => {
+      getQtdProcessosBanidos(4);
+    }, 10000);
+    function getQtdProcessosBanidos(fkServer) {
+      fetch(`/processos/getQtdProcessosBanidos/${fkServer}`, {
+        cache: "no-store",
+      })
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              qtdProcessosBloqueados.innerHTML = resposta[0].qtdProcessos;
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ tabela: ${error.message}`
+          );
+        });
+    }
+
+    getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
+
+    function getAllServers(fkEmpresa) {
+      console.log(fkEmpresa);
+      fetch(`/servidor/getAll/${fkEmpresa}`)
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
+              for (i = 0; i < resposta.length; i++) {
+                select = document.getElementById("selectServer");
+                select.innerHTML += `<option>${resposta[0]} </option>`;
+              }
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ Usuario: ${error.message}`
+          );
+        });
+    }
+
+    function cadastrarProcesso(fkServidor) {
+      var erro = false;
+      var nomeProcessoVar = nome_processo.value;
+      fkServidor = 4;
+
+      if (nomeProcesso == "") {
+        nome_processo.style = "border-color: red !important";
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/processos/adicionarProcesso`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nomeProcesso: nomeProcessoVar,
+            fkServidor: fkServidor,
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+              alert("Cadastrado com sucesso!");
+              tableProcessos.innerHTML = "";
+              getAllProcessosBanidos(fkServidor);
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o cadastro do processo!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      } else {
+        alert("Houve um erro ao tentar realizar o cadastro do Processo!");
+      }
+    }
+
+    function deleteProcesso(idProcesso) {
+      Swal.fire({
+        title: "Deseja realmente deletar este processo?",
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: "Deletar",
+        denyButtonText: `Don't save`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          let erro = false;
+
+          if (idProcesso == null || idProcesso == undefined) {
+            erro = true;
+          }
+          if (!erro) {
+            fetch(`/processos/deleteProcesso/${idProcesso}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                  Swal.fire("Funcionário Deletado com sucesso!", "", "success");
+                  deleteFuncionario(idProcesso);
+                  tableFuncionarios.innerHTML = "";
+                  getAllProcessosBanidos(4);
+                } else {
+                }
+              })
+              .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+              });
+          }
+        } else if (result.isDenied) {
+          Swal.fire("Mudanças não efetuadas!", "", "info");
+        }
+      });
+    }
   </script>
 </html>

@@ -1,6 +1,6 @@
 package school.sptech.Servidores;
 
-import school.sptech.BancoDados.Conexao;
+import school.sptech.Servicos.BancoDados.Conexao;
 import school.sptech.Componentes.Componente;
 
 import java.util.ArrayList;
@@ -26,16 +26,31 @@ public class Servidor {
         this.localServidor = localServidor;
         this.chamados = chamados;
         this.downtime = downtime;
-        this.componentes =new ArrayList<>();
+        this.componentes = new ArrayList<>();
+        this.conexao = conexao;
+    }
+
+    public Servidor(String sistemaOperacionalServidor, String apelidoServidor, String localServidor,
+                    String macAdress, Integer fkEmpresa, List<Chamado> chamados, Downtime downtime,
+                    List<Componente> componentes, Conexao conexao) {
+        SistemaOperacionalServidor = sistemaOperacionalServidor;
+        this.apelidoServidor = apelidoServidor;
+        this.localServidor = localServidor;
+        this.macAdress = macAdress;
+        this.fkEmpresa = fkEmpresa;
+        this.chamados = chamados;
+        this.downtime = downtime;
+        this.componentes = componentes;
         this.conexao = conexao;
     }
 
     public Servidor() {
     }
 
-    public void querySelectComponentes(){
+    public void querySelectComponentes() {
         //Slect para pegar os componentes do servidor com fkServidor e inserir na lista componentes
     }
+
     public Integer getIdServidor() {
         return idServidor;
     }
@@ -129,6 +144,6 @@ public class Servidor {
                 ", downtime=" + downtime +
                 ", componentes=" + componentes +
                 ", conexao=" + conexao +
-                '}' + '\n' ;
+                '}' + '\n';
     }
 }

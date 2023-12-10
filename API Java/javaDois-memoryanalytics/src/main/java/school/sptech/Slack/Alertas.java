@@ -8,7 +8,7 @@ import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import java.io.IOException;
 
 public class Alertas {
-    private final String token = "xoxb-5803756490416-6261023221495-vMLeMVNvhW59kSpDznrSiq72";
+    private final String token = "xoxb-5803756490416-6261023221495-8cWdGYiFcgPs1MZpwbXukgNt";
     private final String channelId = "C0682SLMA74";
 
     public Alertas() {

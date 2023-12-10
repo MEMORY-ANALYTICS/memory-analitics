@@ -1,187 +1,146 @@
 
-var graficoCpu = false;
-var graficoCore = true;
+function horaDash(idServidor) {
 
+  botaoSelecionado = 1 // index.js
 
+  idHoraDash.style = "background-color: #5E72E4; cursor: pointer;"
+  textoHora.style = "color:  #FFFF"
 
+  idSemanaDash.style = "background-color:  #FFFF; cursor: pointer;"
+  textoSemana.style = "color: #5e72e4; "
 
-function horaDash1() {
+  idMesDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoMes.style = "color: #5e72e4;"
+  ctx = document.getElementById('graficoTemperatura');
+  graficoTemperatura.destroy()
+  createTemp(ctx)
+  exibirGrafico("graficoCpuHora", idServidor)
+}
 
-  idHoraDash1.style = "background-color: #5E72E4; cursor: pointer;"
-  textoHora1.style = "color:  #FFFF"
+function semanaDash(idServidor, anoMes) {
 
-  idSemanaDash1.style = "background-color:  #FFFF; cursor: pointer;"
-  textoSemana1.style = "color: #5e72e4; "
+  botaoSelecionado = 2
 
-  idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes1.style = "color: #5e72e4;"
+  idHoraDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoHora.style = "color: #5e72e4; "
 
-  if (graficoCore) {
-    exibirGrafico("graficoCoreHora")
-  } else {
-    exibirGrafico("graficoCpuHora")
-  }
+  idSemanaDash.style = "background-color: #5E72E4; cursor: pointer;"
+  textoSemana.style = "color: #FFFF; "
+
+  idMesDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoMes.style = "color: #5e72e4; "
+
+  graficoTemperatura.destroy()
+  createTemp(ctx)
+  exibirGrafico("graficoCpuSemana",idServidor, anoMes)
+}
+
+function mesDash() {
+
+  idHoraDash.style = "background-color: #FFFF; cursor: pointer;"
+  textoHora.style = "color: #5e72e4"
+
+  idSemanaDash.style = "background-color: #FFFF; cursor: pointer; "
+  textoSemana.style = "color: #5e72e4 "
+
+  idMesDash.style = "background-color: #5E72E4; cursor: pointer;"
+  textoMes.style = "color: #FFFF"
+
+  graficoTemperatura.destroy()
+  createTemp(ctx)
+  exibirGrafico("graficoCpuMes",idServidor, anoMes)
+
+}
+
+function pesquisarIntevaloData() {
+
+  var dataInicio = document.getElementById("dataInicio").value;
+  var dataFim = document.getElementById("dataFim").value;
+  var idServidor = select.options[select.selectIndex].value;
   
-}
+  console.log(dataInicio, dataFim, idServidor)
 
-function semanaDash1() {
-
-  idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora1.style = "color: #5e72e4; "
-
-  idSemanaDash1.style = "background-color: #5E72E4; cursor: pointer;"
-  textoSemana1.style = "color: #FFFF; "
-
-  idMesDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes1.style = "color: #5e72e4; "
-
-  if (graficoCore) {
-    exibirGrafico("graficoCoreSemana")
+  if (dataFim < dataInicio) {
+    alert("Data inválida!")
   } else {
-    exibirGrafico("graficoCpuSemana")
+
+    fetch('/grafico/filtroData', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        dataInicioServer: dataInicio,
+        dataFimServer: dataFim,
+        idServidorServer: idServidor
+      })
+    }).then(res => {
+      res.json().then(json => {
+        for (let i = 0; i < json.length; i++) {
+
+          var data = new Date(json[i].dia)
+          var dataCompleta = (`${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`);
+
+          graficoFiltroData.data.datasets[0].data.push(json[i].valor) 
+          graficoFiltroData.data.labels.push(dataCompleta)
+          graficoFiltroData.update()
+    
+        }
+      })
+    })
   }
-
 }
 
-function mesDash1() {
-
-  idHoraDash1.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora1.style = "color: #5e72e4"
-
-  idSemanaDash1.style = "background-color: #FFFF; cursor: pointer; "
-  textoSemana1.style = "color: #5e72e4 "
-
-  idMesDash1.style = "background-color: #5E72E4; cursor: pointer;"
-  textoMes1.style = "color: #FFFF"
-
-  if (graficoCore) {
-    exibirGrafico("graficoCoreMes")
-  } else {
-    exibirGrafico("graficoCpuMes")
-  }
-
-}
-
-function dadosOhm() {
-
-  idHoraDash2.style = "background-color: #5E72E4; cursor: pointer;"
-  textoHora2.style = "color:  #FFFF"
-
-  idSemanaDash2.style = "background-color:  #FFFF; cursor: pointer;"
-  textoSemana2.style = "color: #5e72e4; "
-
-  idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes2.style = "color: #5e72e4;"
-
-
-}
-
-function dadosSputil() {
-
-  idHoraDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoHora2.style = "color: #5e72e4; "
-
-  idSemanaDash2.style = "background-color: #5E72E4; cursor: pointer;"
-  textoSemana2.style = "color: #FFFF; "
-
-  idMesDash2.style = "background-color: #FFFF; cursor: pointer;"
-  textoMes2.style = "color: #5e72e4; "
-}
-
-
-
-function core() {
-  coreBackground.style = "background-color:#5E72E4; cursor: pointer; "
-  coreSpan.style = "color: #FFFF"
-
-  cpuBackground.style = "background-color: #FFFF; cursor: pointer;"
-  cpuSpan.style = "color: #5e72e4"
-
-  graficoCore = true;
-}
-
-function cpu() {
-  cpuBackground.style = "background-color:#5E72E4; cursor: pointer; "
-  cpuSpan.style = "color: #FFFF"
-
-  coreBackground.style = "background-color: #FFFF; cursor: pointer;"
-  coreSpan.style = "color: #5e72e4"
-
-  graficoCore = false;
-  graficoCpu = true;
-}
-
-function celsius() {
-
-  celsiusButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-  fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-
-}
-
-function fahrenheit() {
-  celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  fahrenheitButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-  kelvinButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-}
-
-function kelvin() {
-  celsiusButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  fahrenheitButton.style = " color: #525f7f background-color: #fff; cursor: pointer;"
-  kelvinButton.style = "color: #fff; background-color: #3350b9; cursor: pointer;"
-}
-
-function exibirGrafico(tipoGrafico){
+function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
   console.log(tipoGrafico)
 
   fetch(`/grafico/${tipoGrafico}`, {
-    method: "GET"
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      idServidor : idServidor,
+      data: anoMes
+    })
   }).then(res => {
     res.json().then(json => {
-      for (var i = 0; i < json.length; i++) {
-      
+      for (var i = (json.length - 1); i >= 0; i--) {
 
+        const diaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
 
+        if (tipoGrafico == "graficoCpuHora") {
 
-      
-      //medTempIdeal.innerHTML = json[0].valorRegistro;
+          var horario = new Date(json[i].dtHoraRegistro)
 
-        //medTempAtual.innerHTML = json[1].valorRegistro;
-       // coreTempMax.innerHTML = json[2].valorRegistro;
-       // coreTempMin.innerHTML = json[0].valorRegistro;
-       // identificaoCoreMin.innerHTML = json[0].tipoRecurso;
-       // identificaoCoreMax.innerHTML = json[0].tipoRecurso;
+          graficoTemperatura.data.datasets[0].data.push(json[i].valorRegistro)
+          graficoTemperatura.data.labels.push(`${horario.getHours()}:${horario.getMinutes()}`)
+          graficoTemperatura.update()
 
+        } else if (tipoGrafico == "graficoCpuSemana") {
 
+          var data = new Date(json[i].dia)
+          var nomeDiaSemana = diaSemana[data.getDay()]
 
+          graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)
+          graficoTemperatura.data.labels.push(nomeDiaSemana)
+          graficoTemperatura.update()
 
-        // graficoAtividades.data.datasets[0].data.push(json[i].nAtividades)
-        // graficoAtividades.data.labels.push(json[i].ano)
-        // graficoAtividades.update()
+        } else if (tipoGrafico == "graficoCpuMes") {
+    
+          var data = new Date(json[i].dia)
+          var dataDia = (`${data.getDate()}/${data.getMonth() + 1}`)
 
-        // graficoSocios.data.datasets[0].data.push(json[i].nSocio)
-        // graficoSocios.data.labels.push(json[i].ano)
-        // graficoSocios.update()
+          graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)
+          graficoTemperatura.data.labels.push(dataDia)
+          graficoTemperatura.update()
 
-        // graficoSexos.data.datasets[0].data.push(json[i].nHomem)
-        // graficoSexos.data.datasets[1].data.push(json[i].nMulher)
-        // graficoSexos.data.labels.push(json[i].ano)
-        // graficoSexos.update()
-
-        // if (i == json.l gth - 1) {
-        //     graficoIdades.data.datasets[0].data.push(json[i].nJuvenil)
-        //     graficoIdades.data.datasets[0].data.push(json[i].nJovem)
-        //     graficoIdades.data.datasets[0].data.push(json[i].nAdulto)
-        //     graficoIdades.update()
-        // }
+        }
       }
-
     })
-
   })
     .catch(err => {
       console.log(err);
     })
-
 }

@@ -6,8 +6,10 @@ import com.github.britooo.looca.api.group.discos.DiscoGrupo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Componentes.Componente;
+import school.sptech.Servicos.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RecursoDiscoTamanhoTotal extends Recurso {
@@ -50,15 +52,21 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
         this.valorRegistro = valorRegistro;
     }
 
-    public Integer selectFkComponente(){
-        List<Componente> teste = getConexoes().get(1).query("""
-                        SELECT idComponente JOIN servidor on fkServidor = idServidor where modelo = '%s' and macAdress = '%s'
+    public Integer selectFkComponente() {
+        List<Componente> teste = getConexoes().get(0).query("""
+                        SELECT idComponente FROM componente JOIN servidor ON fkServidor = idServidor WHERE tipoComponente = 'DISCO' AND macAdress = '%s';
                         """.formatted(
-                        looca.getGrupoDeDiscos().getDiscos().get(0).getNome(),
                         looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac()
                 ),
                 new BeanPropertyRowMapper<>(Componente.class));
-        return teste.get(0).getIdComponente();
+
+        // Verificar se a lista não está vazia antes de acessar o primeiro elemento
+        if (!teste.isEmpty()) {
+            return teste.get(0).getIdComponente();
+        } else {
+            // Tratar o caso em que a lista está vazia, por exemplo, retornar null ou lançar uma exceção
+            return null; // ou lançar uma exceção adequada
+        }
     }
     @Override
     public Double capturarRegistro() {
@@ -67,15 +75,27 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
         Disco disco = discoGrupo.getDiscos().get(0);
 
         setNome("Disco " + disco.getNome());
+        setUnidadeMedida("Gigabyte");
 
         double tamanhoTotalGB = disco.getTamanho() / (1024 * 1024 * 1024.0);
-        setValorRegistro(tamanhoTotalGB);
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
-        getConexoes().get(0).execute("INSERT INTO registro VALUES(null,?,?,?,?)".formatted
-                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", dataHoraAtual,selectFkComponente()));
-        getConexoes().get(1).execute("INSERT INTO registro INSERT INTO registro VALUES(null,?,?,?,?)".formatted
-                (getValorRegistro(),getUnidadeMedida(),"RecursoDiscoTamanhoTotal", dataHoraAtual,selectFkComponente()));
+        String tamanhoFormatado = String.format("%.0f", tamanhoTotalGB);
+        setValorRegistro(Double.parseDouble(tamanhoFormatado));
 
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
+        getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
+                .formatted(getValorRegistro().toString().replace(",","."),
+                        getUnidadeMedida(),
+                        "RecursoDiscoTamanhoTotal",
+                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        selectFkComponente()));
+        getConexoes().get(1).execute(
+                "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
+                        + getValorRegistro() + ", '"
+                        + getUnidadeMedida() + "', '"
+                        + "RecursoDiscoTamanhoTotal', '"
+                        + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                        + selectFkComponente() + ")"
+        );
         return tamanhoTotalGB;
     }
 
@@ -91,5 +111,12 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
                         "unidadeMedida='%s', " +
                         "valorRegistro=%.2f%%, ",
                 nome, unidadeMedida, valorRegistro);
+    }
+
+    public static void main(String[] args) {
+        RecursoDiscoTamanhoTotal discoTamanho = new RecursoDiscoTamanhoTotal();
+
+        System.out.println(discoTamanho.selectFkComponente());
+        discoTamanho.capturarRegistro();
     }
 }

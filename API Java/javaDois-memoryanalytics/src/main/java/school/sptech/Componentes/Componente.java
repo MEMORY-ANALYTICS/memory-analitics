@@ -1,9 +1,8 @@
 package school.sptech.Componentes;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.Conexao;
-import school.sptech.BancoDados.ConexaoMySql;
-import school.sptech.BancoDados.ConexaoSqlServer;
+import school.sptech.Servicos.BancoDados.ConexaoMySql;
+import school.sptech.Servicos.BancoDados.ConexaoSqlServer;
 import school.sptech.Recurso.Recurso;
 
 import java.util.ArrayList;
@@ -19,6 +18,10 @@ public class Componente {
     private List<Recurso> recursos;
     private List<JdbcTemplate> conexoes;
 
+    public Componente() {
+        this.recursos = new ArrayList<>();
+        this.conexoes = new ArrayList<>();
+    }
     public Componente(int idComponente, String fabricante, String nomeModelo, String tipoComponente, String limiteMin, String limiteMax,
                       List<Recurso> recursos) {
         ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();

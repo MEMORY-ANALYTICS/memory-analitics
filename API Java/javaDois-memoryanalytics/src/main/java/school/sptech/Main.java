@@ -1,24 +1,58 @@
 package school.sptech;
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import school.sptech.BancoDados.ConexaoMySql;
-import school.sptech.BancoDados.ConexaoSqlServer;
-import school.sptech.Recurso.RecursoDiscoUso;
-import school.sptech.Recurso.RecursoProcessos;
-import school.sptech.Recurso.RecursoTemperatura;
+import school.sptech.Login.Login;
+import school.sptech.Login.LoginDao;
+import school.sptech.Recurso.*;
 import school.sptech.Servidores.Downtime;
-import school.sptech.Servidores.Servidor;
-import school.sptech.Servidores.ServidorRowMapper;
-import school.sptech.Slack.Alertas;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
     public static void main(String[] args) {
-        // Select para pegar o servidor com macAdress
-        // Adicionar os atributos no servidor
 
+        LoginDao loginDao = new LoginDao();
+        Boolean isLogado = loginDao.verificaLogin();
+        Boolean isCadastrado = loginDao.verificaCadastroServidor();
+
+        if(isLogado){
+            if (!isCadastrado){
+                loginDao.cadastrarServidor();
+                System.out.println("Servidor Cadastrado com sucesso!");
+            }else{
+                LocalDateTime dateTime = LocalDateTime.now();
+
+
+                Downtime downtime = new Downtime(0, dateTime, 0);
+                downtime.calcDowntime();
+
+                TimerTask timerTask = new TimerTask() {
+
+                    RecursoDiscoUso recursoDiscoUso = new RecursoDiscoUso();
+                    RecursoDiscoTamanhoTotal recursoDiscoTamanhoTotal = new RecursoDiscoTamanhoTotal();
+                    RecursoMemoriaUso recursoMemoriaUso = new RecursoMemoriaUso();
+                    RecursoProcessadorFrequencia recursoProcessadorFrequencia = new RecursoProcessadorFrequencia();
+                    RecursoProcessadorUso recursoProcessadorUso = new RecursoProcessadorUso();
+                    RecursoProcessos recursoProcessos = new RecursoProcessos();
+                    RecursoRede recursoRede = new RecursoRede();
+                    @Override
+                    public void run() {
+                        recursoDiscoTamanhoTotal.capturarRegistro();
+                        recursoDiscoUso.capturarRegistro();
+                        recursoMemoriaUso.capturarRegistro();
+                        recursoProcessadorFrequencia.capturarRegistro();
+                        recursoProcessadorUso.capturarRegistro();
+                        recursoProcessos.capturarRegistro();
+                        recursoRede.capturarRegistro();
+                    }
+                };
+
+                Timer timer = new Timer();
+                timer.schedule(timerTask, 0, 1000);
+            }
+        }
     }
 }

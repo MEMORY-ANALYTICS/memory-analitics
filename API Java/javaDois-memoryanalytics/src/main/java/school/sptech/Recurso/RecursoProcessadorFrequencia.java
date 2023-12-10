@@ -1,12 +1,15 @@
 package school.sptech.Recurso;
 
 import com.github.britooo.looca.api.core.Looca;
+import com.github.britooo.looca.api.group.memoria.Memoria;
 import com.github.britooo.looca.api.group.processador.Processador;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Componentes.Componente;
+import school.sptech.Servicos.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RecursoProcessadorFrequencia extends Recurso {
@@ -23,28 +26,52 @@ public class RecursoProcessadorFrequencia extends Recurso {
 
     public RecursoProcessadorFrequencia () {
         this("Processador", "Mhz", 0.0);
-        double frequenciaMHz = processador.getFrequencia() / 1e6; // Convertendo de Hz para MHz
-        setValorRegistro(frequenciaMHz);
-    }
-
-
-    public Integer selectFkComponente(){
-        List<Componente> teste = getConexoes().get(1).query("""
-                        SELECT idComponente JOIN servidor on fkServidor = idServidor where nomeModelo = '%s' and macAdress = '%s'
-                        """.formatted(
-                        looca.getProcessador().getNome(),
-                        looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac()
-                        ),
-                new BeanPropertyRowMapper<>(Componente.class));
-        return teste.get(0).getIdComponente();
     }
 
     @Override
     public Double capturarRegistro() {
+        Processador processador = looca.getProcessador();
+
+        setNome(processador.getNome());
+        setUnidadeMedida("Megahertz");
+
+        double frequenciaMHz = processador.getFrequencia() / 1e6; // Convertendo de Hz para MHz
+        setValorRegistro(Math.ceil(frequenciaMHz));
+
         LocalDateTime dataHoraAtual = LocalDateTime.now();
-        getConexoes().get(0).execute("INSERT INTO registro VALUES(null,?,?,?,?)".formatted(getValorRegistro(),getUnidadeMedida(),"RecursoProcessadorFrequencia", dataHoraAtual,selectFkComponente()));
-        getConexoes().get(1).execute("INSERT INTO registro INSERT INTO registro VALUES(null,?,?,?,?)".formatted(getValorRegistro(),getUnidadeMedida(),"RecursoProcessadorFrequencia", dataHoraAtual,selectFkComponente()));
-        return getValorRegistro();
+        getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
+                .formatted(getValorRegistro().toString().replace(",","."),
+                        getUnidadeMedida(),
+                        "RecursoProcessadorFrequencia",
+                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        selectFkComponente()));
+        getConexoes().get(1).execute(
+                "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
+                        + getValorRegistro() + ", '"
+                        + getUnidadeMedida() + "', '"
+                        + "RecursoProcessadorFrequencia', '"
+                        + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                        + selectFkComponente() + ")"
+        );
+        return frequenciaMHz;
+    }
+
+
+    public Integer selectFkComponente() {
+        List<Componente> teste = getConexoes().get(0).query("""
+                        SELECT idComponente FROM componente JOIN servidor ON fkServidor = idServidor WHERE tipoComponente = 'CPU' AND macAdress = '%s';
+                        """.formatted(
+                        looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac()
+                ),
+                new BeanPropertyRowMapper<>(Componente.class));
+
+        // Verificar se a lista não está vazia antes de acessar o primeiro elemento
+        if (!teste.isEmpty()) {
+            return teste.get(0).getIdComponente();
+        } else {
+            // Tratar o caso em que a lista está vazia, por exemplo, retornar null ou lançar uma exceção
+            return null; // ou lançar uma exceção adequada
+        }
     }
 
     @Override
@@ -59,8 +86,8 @@ public class RecursoProcessadorFrequencia extends Recurso {
     }
 
     public static void main(String[] args) {
-        RecursoProcessadorFrequencia recursoProcessadorFrequencia = new RecursoProcessadorFrequencia();
-        recursoProcessadorFrequencia.capturarRegistro();
+        RecursoProcessadorFrequencia processadorFrequencia = new RecursoProcessadorFrequencia();
+        processadorFrequencia.capturarRegistro();
     }
 
 }
