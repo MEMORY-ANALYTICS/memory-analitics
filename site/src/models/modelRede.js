@@ -12,6 +12,7 @@ function listar(fkEmpresa) {
     return database.executar(query);
   }
 
+  // ----------------------------------------------------SQL server querys-----------------------------------------------------
   function pegarKpiVelocidade(fkComponente,dataAtual) {
     // var query = `SELECT min(valorRegistro) AS valorVelocidadeMin, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
     // fkComponente = ${fkComponente} AND tipoMedida = 'MBps' AND  date(dtHoraRegistro) = '${dataAtual}' GROUP BY dtHoraRegistro LIMIT 1;`;
