@@ -39,10 +39,10 @@ function selectCpu(fkServidor) {
   console.log(
     "ACESSEI O DASHOCORRENCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectCpu(): "
   );
-  var instrucaoSql = `SELECT c.fkServidor, r.valorRegistro AS usoCpu, r.tipoMedida, r.dtHoraRegistro FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso';`
+  var instrucao = `SELECT r.valorRegistro AS registrosCpu, r.tipoMedida as tipoMedida, r.dtHoraRegistro as dataHora FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU';`
   console.log("Executando a instrução SQL: \n" + instrucao);
 
-  return database.executar(instrucaoSql);
+  return database.executar(instrucao);
 }
 
 // Ram
@@ -50,10 +50,10 @@ function selectRam(fkServidor) {
   console.log(
     "ACESSEI O DASHOCORRENCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectRam(): "
   );
-  var instrucaoSql = `SELECT c.fkServidor, r.valorRegistro AS usoCpu, r.tipoMedida, r.dtHoraRegistro FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso';`
+  var instrucao = `SELECT r.valorRegistro AS registrosRam, r.tipoMedida as tipoMedida, r.dtHoraRegistro as dataHora FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'RAM';`
   console.log("Executando a instrução SQL: \n" + instrucao);
 
-  return database.executar(instrucaoSql);
+  return database.executar(instrucao);
 }
 
 // Disco
@@ -61,32 +61,32 @@ function selectDisco(fkServidor) {
   console.log(
     "ACESSEI O DASHOCORRENCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectDisco(): "
   );
-  var instrucaoSql = `SELECT c.fkServidor, r.valorRegistro AS usoCpu, r.tipoMedida, r.dtHoraRegistro FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso';`
+  var instrucao = `SELECT r.valorRegistro AS registrosDisco, r.tipoMedida as tipoMedida, r.dtHoraRegistro as dataHora FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'DISCO';`
   console.log("Executando a instrução SQL: \n" + instrucao);
 
-  return database.executar(instrucaoSql);
+  return database.executar(instrucao);
 }
 
 // Temperatura
-function selectTemperatura(fkServidor) {
-  console.log(
-    "ACESSEI O DASHOCORRENCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectTemperatura(): "
-  );
-  var instrucaoSql = `SELECT valorRegistro, dtHoraRegistro,tipoComponente FROM REGISTRO JOIN componente ON fkComponente = idComponente WHERE tipoMedida = '°C' AND  ${fkServidor} ORDER BY dtHoraRegistro DESC;`
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+// function selectTemperatura(fkServidor) {
+//   console.log(
+//     "ACESSEI O DASHOCORRENCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectTemperatura(): "
+//   );
+//   var instrucao = `SELECT r.valorRegistro AS usoCpu, r.tipoMedida as tipoMedida, r.dtHoraRegistro as dataHora FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'RAM';`
+//   console.log("Executando a instrução SQL: \n" + instrucao);
 
-  return database.executar(instrucaoSql);
-}
+//   return database.executar(instrucao);
+// }
 
 // Rede
 function selectRede(fkServidor) {
   console.log(
     "ACESSEI O DASHOCORRENCIA MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function selectRede(): "
   );
-  var instrucaoSql = `SELECT c.fkServidor, r.valorRegistro AS usoCpu, r.tipoMedida, r.dtHoraRegistro FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso';`
+  var instrucao = `SELECT r.valorRegistro AS registrosRede, r.tipoMedida as tipoMedida, r.dtHoraRegistro as dataHora FROM registro r JOIN componente c ON r.fkComponente = c.idComponente WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'REDE';`
   console.log("Executando a instrução SQL: \n" + instrucao);
 
-  return database.executar(instrucaoSql);
+  return database.executar(instrucao);
 }
 
 module.exports = {
@@ -95,6 +95,6 @@ module.exports = {
   selectCpu,
   selectRam,
   selectDisco,
-  selectTemperatura,
+  // selectTemperatura,
   selectRede
 };

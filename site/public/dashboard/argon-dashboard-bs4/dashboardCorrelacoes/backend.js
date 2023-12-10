@@ -35,33 +35,24 @@ function selectServidores() {
     });
 }
 
-function selectComponente() {
-    fetch("/dashCorrelacao/selectComponente", {
+function selectCpu() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectCpu", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            
+            fkServidor: fkServidorVar
         })
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
-                console.log("json comprimento")
-                console.log(json.length)
-                console.log("json colchetes")
+                console.log("SelectCPU")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-
-                for (var i = 0; i < json.length; i++) {
-                    apelidosServidores.push([json[i].apelidoServidor, json[i].idServidor]);
-                }
-                for (var i = 0; i < apelidosServidores.length - 1; i++) {
-                    console.log(apelidosServidores[i][1], apelidosServidores[i][0])
-                    var option = document.createElement('option');
-                    option.value = apelidosServidores[i][1];
-                    option.text = apelidosServidores[i][0];
-                    listaServidores.appendChild(option);
+                if(typeof json[0] === 'undefined'){
+                    alert("Nenhum resultado encontrado para CPU")
                 }
             });
         } else {
@@ -74,6 +65,97 @@ function selectComponente() {
     });
 }
 
+function selectRam() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectRam", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                // Testes
+                console.log("SelectRAM")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                console.log(json[0])
+
+
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+function selectDisco() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectDisco", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                // Testes
+                console.log("SelectDisco")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                console.log(json[0])
+
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+function selectRede() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectRede", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                // Testes
+                console.log("SelectRede")
+                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                console.log(json[0])
+
+
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
 
 
@@ -183,7 +265,7 @@ function selectComponente() {
 //     }).catch(function (erro) {
 //         console.log(erro);
 //     });
-// } 
+// }
 
 // function selectGraficoOcorrenciaProcesso() {
 //     var requisitanteVar

@@ -50,11 +50,11 @@ function selectServidores(req, res) {
 function selectCpu(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectCpu com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectCpu com o valor de: fkServidor -> ' + fkServidor)
 
     dashCorrelacaoModel.selectCpu(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectCpu:" + resultado);
             } else {
@@ -71,11 +71,11 @@ function selectCpu(req, res) {
 function selectRam(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectRam com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectRam com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor)
+    dashCorrelacaoModel.selectRam(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectRam:" + resultado);
             } else {
@@ -92,11 +92,11 @@ function selectRam(req, res) {
 function selectDisco(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectDisco com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectDisco com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor)
+    dashCorrelacaoModel.selectDisco(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectDisco:" + resultado);
             } else {
@@ -110,35 +110,35 @@ function selectDisco(req, res) {
 }
 
     // Temperatura
-function selectTemperatura(req, res) {
-    var fkServidor = req.body.fkServidor;
+// function selectTemperatura(req, res) {
+//     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectTemperatura com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+//     console.log('Estou no Controller selectTemperatura com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectTemperatura(fkServidor)
-        .then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-                console.log("Resultado da Controller selectTemperatura:" + resultado);
-            } else {
-                res.status(204).send("selectTemperatura: Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("selectTemperatura: Houve um erro ao buscar a temperatura", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-}
+//     dashCorrelacaoModel.selectTemperatura(fkServidor)
+//         .then(function (resultado) {
+//             if (resultado.length > 0) {
+//                 res.status(200).json(resultado);
+//                 console.log("Resultado da Controller selectTemperatura:" + resultado);
+//             } else {
+//                 res.status(204).send("selectTemperatura: Nenhum resultado encontrado!")
+//             }
+//         }).catch(function (erro) {
+//             console.log(erro);
+//             console.log("selectTemperatura: Houve um erro ao buscar a temperatura", erro.sqlMessage);
+//             res.status(500).json(erro.sqlMessage);
+//         });
+// }
 
     // Rede
 function selectRede(req, res) {
     var fkServidor = req.body.fkServidor;
 
-    console.log('Estou no Controller selectRede com o valor de: fkServidor, tipoComponente -> ' + fkServidor)
+    console.log('Estou no Controller selectRede com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectTemperatura(fkServidor)
+    dashCorrelacaoModel.selectRede(fkServidor)
         .then(function (resultado) {
-            if (resultado.length > 0) {
+            if (resultado.length >= 0) {
                 res.status(200).json(resultado);
                 console.log("Resultado da Controller selectRede:" + resultado);
             } else {
@@ -165,6 +165,9 @@ function selectRede(req, res) {
 module.exports = {
     selectServidores,
     selectGraficoOcorrencia,
-    selectTemperatura,
-    selectCpu
+    selectCpu,
+    selectRam,
+    selectDisco,
+    // selectTemperatura,
+    selectRede
 } 
