@@ -601,10 +601,10 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 </button>
                                 <div class="dropdown-menu">
-                                    <button id="persoDia" class="dropdown-item" type="button">Dia</button>
-                                    <button id="persoSemana" class="dropdown-item" type="button">Semana</button>
-                                    <button id="persoMes" class="dropdown-item" type="button">Mês</button>
-                                    <button id="persoAno" class="dropdown-item" type="button">Ano</button>
+                                    <button onclick="setFiltroDia()" id="persoDia" class="dropdown-item" type="button">Dia</button>
+                                    <button onclick="setFiltroSemana()" id="persoSemana" class="dropdown-item" type="button">Semana</button>
+                                    <button onclick="setFiltroMes()" id="persoMes" class="dropdown-item" type="button">Mês</button>
+                                    <button onclick="setFiltroAno()" id="persoAno" class="dropdown-item" type="button">Ano</button>
                                 </div>
                             </div>
                         </div>
@@ -761,7 +761,6 @@
         selectDisco()
         selectRede()
         chamarOcorrencias()
-        setTimeout(5000,atualizarDadosOcorrencias())
     }
 
 </script>
