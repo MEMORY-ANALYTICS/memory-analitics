@@ -736,18 +736,30 @@
     var ocorrenciasRede;
     var ocorrenciasTemperatura;
     var ocorrenciasProcessos;
-    var temperatura;
-    var dadosRede = {
-        
-    }
-    var dadosDisco = {
+    var processos = {
 
     }
-    var dadosRam = {
-
-    }
-    var dadosCpu = {
-
+    var componentes = { 
+        cpu: {
+            registrosCpu: [],
+            tipoMedida: [],
+            dataHora: [],
+        },
+        ram:{
+            registrosRam:[],
+            tipoMedida: [],
+            dataHora:[]
+        },
+        disco:{
+            registrosDisco:[],
+            tipoMedida: [],
+            dataHora:[]
+        },
+        rede:{
+            registrosRede:[],
+            tipoMedida: [],
+            dataHora:[]
+        }
     }
 
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
@@ -763,8 +775,12 @@
         chamarOcorrencias()
         setTimeout(() => {
             atualizarDadosOcorrencias()
-        }, 5000);
+        }, 2000);
     }
+    chamarOcorrencias()
+        setTimeout(() => {
+            atualizarDadosOcorrencias()
+        }, 2000);
 
 </script>
 

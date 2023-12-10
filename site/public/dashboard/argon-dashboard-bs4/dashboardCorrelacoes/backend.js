@@ -48,21 +48,22 @@ function selectCpu() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log("SelectCPU")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de CPU!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
-                } else{
-                    for(resultado in json){
-                        resultado.registrosCpu
-                        resultado.tipoMedida
-                        resultado.dataHora
+                } else {
+                    console.log("SelectCPU")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        if(json[i].tipoMedida = "")
+                        componentes.cpu.registrosCpu.push(json[i].registrosCpu)
+                        componentes.cpu.tipoMedida.push(json[i].tipoMedida)
+                        componentes.cpu.dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -90,17 +91,22 @@ function selectRam() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
-                console.log("SelectRAM")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json[0] === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de Ram!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else {
+                    console.log("SelectRAM")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        componentes.ram.registrosRam.push(json[i].registrosRam)
+                        componentes.ram.tipoMedida.push(json[i].tipoMedida)
+                        componentes.ram.dataHora.push(json[i].dataHora)
+                    }
                 }
 
             });
@@ -128,17 +134,22 @@ function selectDisco() {
     }).then(function (resposta) {
         if (resposta.ok) {
             resposta.json().then(json => {
-                // Testes
-                console.log("SelectDisco")
-                console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
-                console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json[0] === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
                         text: `Este servidor ainda não tem dados de Disco!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else {
+                    console.log("SelectDISCO")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        componentes.disco.registrosDisco.push(json[i].registrosDisco)
+                        componentes.disco.tipoMedida.push(json[i].tipoMedida)
+                        componentes.disco.dataHora.push(json[i].dataHora)
+                    }
                 }
             });
         } else {
@@ -169,7 +180,7 @@ function selectRede() {
                 console.log("SelectRede")
                 console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
                 console.log(json[0])
-                if(typeof json[0] === 'undefined'){
+                if (typeof json[0] === 'undefined') {
                     Swal.fire({
                         icon: "error",
                         title: "Sem dados!",
