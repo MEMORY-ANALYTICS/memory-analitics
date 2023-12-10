@@ -67,7 +67,7 @@ function selectCpu() {
                         } else if (json[i].tipoMedida == "Megahertz") {
                             componentes.cpu.registrosCpu.frequencia.push(json[i].registrosCpu)
                         }
-                        componentes.cpu.dataHora.push(json[i].dataHora)
+                        dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -108,7 +108,6 @@ function selectRam() {
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
                         componentes.ram.registrosRam.push(json[i].registrosRam)
-                        componentes.ram.dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -153,7 +152,6 @@ function selectDisco() {
                         } else if (json[i].tipoMedida == "Gigabyte") {
                             componentes.disco.registrosDisco.armazenamento.push(json[i].registrosDisco)
                         }
-                        componentes.disco.dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -206,7 +204,6 @@ function selectRede() {
                         }else if (json[i].tipoMedida == "ms") {
                             componentes.rede.registrosRede.msRede.push(json[i].registrosRede)
                         }
-                        componentes.rede.dataHora.push(json[i].dataHora)
                     }
                 }
 

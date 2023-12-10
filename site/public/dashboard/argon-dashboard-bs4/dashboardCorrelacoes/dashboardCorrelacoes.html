@@ -764,12 +764,12 @@
     var ocorrenciasRede;
     var ocorrenciasTemperatura;
     var ocorrenciasProcessos;
-
+    var filtroTempo
+    var dataHora = []
     var processos = {
         usoCpu: [],
         usoRam: [],
         qtdProcessos: [],
-        dataHora: []
     }
     var componentes = {
         cpu: {
@@ -777,19 +777,16 @@
                 percentUso: [],
                 frequencia: [],
                 temperatura: []
-            },
-            dataHora: [],
+            }
         },
         ram: {
-            registrosRam: [],
-            dataHora: []
+            registrosRam: []
         },
         disco: {
             registrosDisco: {
                 percentUso: [],
                 armazenamento: []
-            },
-            dataHora: []
+            }
         },
         rede: {
             registrosRede: {
@@ -799,12 +796,9 @@
                 MbEnviados: [],
                 mbpsTransmissao: [],
                 msRede: []
-            },
-            dataHora: []
+            }
         }
     }
-    var filtroTempo
-
     var filtrosDashboard = {
         cpuUso: false,
         ram: false,
@@ -823,13 +817,17 @@
     }
     
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
+    
     // Chamando funções iniciais
-
     selectServidores()
     chamarOcorrencias()
     setTimeout(() => {
         atualizarDadosOcorrencias()
     }, 2000);
+    setInterval(() => {
+        chamarOcorrencias()
+        atualizarDadosOcorrencias()
+    }, 10000);
 
 </script>
 
