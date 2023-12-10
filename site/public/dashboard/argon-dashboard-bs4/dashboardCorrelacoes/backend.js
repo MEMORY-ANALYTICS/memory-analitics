@@ -195,131 +195,131 @@ function selectRede() {
 
 
 
-// function selectGraficoOcorrenciaComponente() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Componente'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 console.log(json[0])
-//                 if (requisitanteVar == 'Componente') {
-//                     qtdOcorrenciasComponente = json[0].TotalChamados;
-//                     ocorrenciasComponente = requisitanteVar
-//                     graficoOcorrencias.update()
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaComponente() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Componente'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(json[0])
+                if (requisitanteVar == 'Componente') {
+                    qtdOcorrenciasComponente = json[0].TotalChamados;
+                    ocorrenciasComponente = requisitanteVar
+                    graficoOcorrencias.update()
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
-// function selectGraficoOcorrenciaRede() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Rede'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 if (requisitanteVar == 'Rede') {
-//                     qtdOcorrenciasRede = json[0].TotalChamados
-//                     ocorrenciasRede = requisitanteVar
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaRede() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Rede'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (requisitanteVar == 'Rede') {
+                    qtdOcorrenciasRede = json[0].TotalChamados
+                    ocorrenciasRede = requisitanteVar
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
-// function selectGraficoOcorrenciaTemperatura() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Temperatura'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 if (requisitanteVar == 'Temperatura') {
-//                     qtdOcorrenciasTemperatura = json[0].TotalChamados
-//                     ocorrenciasTemperatura = requisitanteVar
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaTemperatura() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Temperatura'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (requisitanteVar == 'Temperatura') {
+                    qtdOcorrenciasTemperatura = json[0].TotalChamados
+                    ocorrenciasTemperatura = requisitanteVar
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
 
-// function selectGraficoOcorrenciaProcesso() {
-//     var requisitanteVar
-//     var fkServidorVar = listaServidores.value
-//     requisitanteVar = 'Processo'
-//     fetch("/dashCorrelacao/selectGraficoOcorrencia", {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//             fkEmpresa: sessionStorage.EMPRESA_USUARIO,
-//             fkServidor: fkServidorVar,
-//             requisitante: requisitanteVar
-//         })
-//     }).then(function (resposta) {
-//         if (resposta.ok) {
-//             resposta.json().then(json => {
-//                 if (requisitanteVar == 'Processo') {
-//                     qtdOcorrenciasProcessos = json[0].TotalChamados
-//                 }
-//             });
-//         } else {
-//             resposta.text().then(textoErro => {
-//                 console.error(textoErro);
-//             });
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     });
-// }
+function selectGraficoOcorrenciaProcesso() {
+    var requisitanteVar
+    var fkServidorVar = listaServidores.value
+    requisitanteVar = 'Processo'
+    fetch("/dashCorrelacao/selectGraficoOcorrencia", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+            fkServidor: fkServidorVar,
+            requisitante: requisitanteVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (requisitanteVar == 'Processo') {
+                    qtdOcorrenciasProcessos = json[0].TotalChamados
+                }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}

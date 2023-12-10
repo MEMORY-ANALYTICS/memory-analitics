@@ -548,7 +548,7 @@
                     <div class="col-xl-12 text-center h1">
                         Ocorrências por dashboard
                     </div>
-                    <div class="col-xl-12 mt-4">
+                    <div class="col-xl-12 mt-4" style="height: 50vh;">
                         <canvas id="graficoOcorrencias"></canvas>
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     </div>
@@ -704,6 +704,8 @@
             </div>
         </div>
         <!-- Argon Scripts -->
+        <script src="path/to/chartjs/dist/chart.umd.js"></script>
+
         <!-- Core -->
         <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
         <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -758,6 +760,8 @@
         selectRam()
         selectDisco()
         selectRede()
+        chamarOcorrencias()
+        setTimeout(5000,atualizarDadosOcorrencias())
     }
 
 </script>
