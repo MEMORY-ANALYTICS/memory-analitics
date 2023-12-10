@@ -58,6 +58,12 @@ function selectCpu() {
                         text: `Este servidor ainda não tem dados de CPU!`,
                         footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
                     });
+                } else{
+                    for(resultado in json){
+                        resultado.registrosCpu
+                        resultado.tipoMedida
+                        resultado.dataHora
+                    }
                 }
             });
         } else {
@@ -182,19 +188,6 @@ function selectRede() {
         console.log(erro);
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 function selectGraficoOcorrenciaComponente() {
     var requisitanteVar
     var fkServidorVar = listaServidores.value
