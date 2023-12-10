@@ -12,6 +12,7 @@ import school.sptech.Servidores.Servidor;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RecursoTemperatura  extends Recurso{
@@ -32,23 +33,25 @@ public class RecursoTemperatura  extends Recurso{
     }
 
     @Override
-    public Double capturarRegistro() {
-
+    public Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL) {
         Temperatura temperatura = new Temperatura();
 
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
         getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
                 .formatted(getValorRegistro().toString().replace(",","."),
                         getUnidadeMedida(),
                         "temperatura do processador",
-                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        dtHoraRegistroSQL,
                         getIdComponente()));
         getConexoes().get(1).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
                 .formatted(getValorRegistro().toString().replace(",","."),
                         getUnidadeMedida(),
                         "temperatura do processador",
-                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                       dtHoraRegistroMySQL,
                         getIdComponente()));
+
+
+
+
 
         return temperatura.getTemperatura();
     }
