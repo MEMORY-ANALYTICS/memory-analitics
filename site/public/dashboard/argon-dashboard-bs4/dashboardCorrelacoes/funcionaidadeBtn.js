@@ -113,6 +113,29 @@ function setFiltroProcessosCpu() {
     }
 }
 
+function atualizarVariaveis() {
+    console.log(`ATUALIZANDO VARIÁVEIS PARA O SERVIDOR: ${listaServidores.options[listaServidores.selectedIndex].text}`)
+    selectCpu()
+    selectRam()
+    selectDisco()
+    selectRede()
+}
+
+function chamarOcorrencias() {
+    selectGraficoOcorrenciaComponente()
+    selectGraficoOcorrenciaProcesso()
+    selectGraficoOcorrenciaRede()
+    selectGraficoOcorrenciaTemperatura()
+}
+
+function atualizarDadosOcorrencias() {
+    createOcorrencias(ctx)
+    graficoOcorrencias.data.datasets[0].data.push(qtdOcorrenciasComponente)
+    graficoOcorrencias.data.datasets[1].data.push(qtdOcorrenciasTemperatura)
+    graficoOcorrencias.data.datasets[2].data.push(qtdOcorrenciasRede)
+    graficoOcorrencias.data.datasets[3].data.push(qtdOcorrenciasProcessos)
+    graficoOcorrencias.update()
+}
 function persoLinha() {
     mensagem = document.getElementById('mensagemPerso')
     grafico = document.getElementById('container4')
