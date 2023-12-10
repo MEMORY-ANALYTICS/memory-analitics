@@ -736,28 +736,42 @@
     var ocorrenciasRede;
     var ocorrenciasTemperatura;
     var ocorrenciasProcessos;
-    var processos = {
 
+    var processos = {
+        usoCpu:[],
+        usoRam: [],
+        qtdProcessos:[],
+        dataHora:[]
     }
     var componentes = { 
         cpu: {
-            registrosCpu: [],
-            tipoMedida: [],
+            registrosCpu: {
+                percentUso: [],
+                frequencia: [],
+                temperatura: []
+            },
             dataHora: [],
         },
         ram:{
             registrosRam:[],
-            tipoMedida: [],
             dataHora:[]
         },
         disco:{
-            registrosDisco:[],
-            tipoMedida: [],
+            registrosDisco:{
+                percentUso: [],
+                armazenamento:[]
+            },
             dataHora:[]
         },
         rede:{
-            registrosRede:[],
-            tipoMedida: [],
+            registrosRede:{
+                pacotesRecebidos:[],
+                pacotesEnviados: [],
+                MbRecebidos: [],
+                MbEnviados: [],
+                mbpsTransmissao: [],
+                msRede: []
+            },
             dataHora:[]
         }
     }
