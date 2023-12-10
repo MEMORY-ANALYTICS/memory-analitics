@@ -1,24 +1,3 @@
-var filtrosDashboard = {
-    cpuUso: false,
-    ram: false,
-    disco: false,
-    cpuFreq: false,
-    pacoteRecebido: false,
-    pacoteEnviado: false,
-    mbRecebido: false,
-    mbEnviado: false,
-    transmissao: false,
-    latencia: false,
-    temperatura: false,
-    processosQtd: false,
-    processosRam: false,
-    processosCpu: false
-}
-var processos = {
-    usoCpu: [],
-    usoRam: [],
-    qtdProcessos: [],
-}
 function setFiltroDia() {
     togglePersoEspacoTempo.innerHTML = 'Dia'
     filtroTempo = "DAY"
