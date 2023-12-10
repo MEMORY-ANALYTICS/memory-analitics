@@ -70,7 +70,7 @@ function selectIdComponente() {
         sessionStorage.ID_COMPONENTE = idComponente;
 
         // Chama a função novamente após 1 segundo
-       setTimeout(selectIdComponente(), 10000);
+       setTimeout(selectIdComponente(), 100000);
 
       });
     })
@@ -191,7 +191,6 @@ function kpiMediaPacotes(idComponente) {
 function valorGrafico1(idComponente) {
   var fkComponente = idComponente;
   var dataAtual = formatarData(1);
-  var valorRegistroPego = 0;
   fetch(`/dashboardRedeRouter/pegarLatenciaAtual/${fkComponente}/${dataAtual}`).then(function (response) {
     if (response.ok) {
         // alert(response.status);
@@ -220,6 +219,7 @@ function valorGrafico1(idComponente) {
                 alert("a")
             }
             graficoLatencia.update();
+            // setTimeout(valorGrafico1(),10000)
         });
     } else {
         throw ("Houve um erro na API")

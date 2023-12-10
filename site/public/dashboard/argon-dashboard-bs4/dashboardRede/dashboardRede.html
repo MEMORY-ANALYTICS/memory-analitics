@@ -300,8 +300,8 @@
                     <!--
                       <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     -->
-                    <span class="text-nowrap">Atualizado em :</span>
-                    <span id="dataKpiMedia">2023-12-05 11:32:07</span>
+                    <span class="text-nowrap">Data:</span>
+                    <span id="dataKpiMedia"></span>
                   </p>
                 </div>
               </div>
@@ -449,6 +449,7 @@
 
     // valorGrafico1();
     // graficoLatencia.labels.push = time;
+    // valorGrafico1(sessionStorage.ID_COMPONENTE)
     const ctx = document.getElementById('graficoLatencia');
     new Chart(ctx, {
       type: 'line',
