@@ -156,10 +156,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="../dashboardRede/dashboardRede.html"
-                >
+                <a class="nav-link" href="../dashboardRede/dashboardRede.html">
                   <img src="../../../../assets/icons_geral/rede_icons.png" />
                   <span class="nav-link-text" style="padding-left: 5%"
                     >Rede</span
@@ -607,6 +604,8 @@
                         </div>
                         <div class="col-xl-6 py-2">
                           <select
+                            onchange="atualizarServidor()"
+                            id="listaServidores"
                             class="form-control text-primary border-0"
                             style="
                               font-size: 1.2em;
@@ -614,10 +613,10 @@
                               box-shadow: 0.1em 0.1em 0.5em
                                 rgba(92, 85, 85, 0.6);
                             "
-                            id="selectServer"
+                            id="exampleFormControlSelect1"
                           >
-                            <option disabled selected>
-                              Selecione o Servidor
+                            <option value="0" disabled>
+                              Selecione um servidor
                             </option>
                           </select>
                         </div>
@@ -833,185 +832,110 @@
     <script src="../assets/js/argon.js?v=1.2.0"></script>
   </body>
   <script>
-    var myChart2;
-    var myChart;
+    localStorage.SERVER_ATUAL = null;
+    var apelidosServidores = [];
     nomeProto.innerHTML = sessionStorage.getItem("NOME_USUARIO");
-    let proximaAtualizacao;
-    obterDadosGrafico(4);
-    const ctx = document.getElementById("myChart");
 
-    if (myChart != undefined) {
-      myChart.destroy();
-    }
-
-    myChart = new Chart(ctx, {});
-
-    function obterDadosGrafico(fkServidor) {
-      if (proximaAtualizacao != undefined) {
-        clearTimeout(proximaAtualizacao);
-      }
-
-      fetch(`/processos/ultimas/${fkServidor}`, { cache: "no-store" })
-        .then(function (response) {
-          if (response.ok) {
-            response.json().then(function (resposta) {
-              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-              resposta.reverse();
-              processoMaisGasta.innerHTML = resposta[resposta.length - 1].pmmu;
-              usoCpu.innerHTML = resposta[resposta.length - 1].cpu + "%";
-              usoRam.innerHTML = resposta[resposta.length - 1].ram + "%";
-              qtdProcessosOnline.innerHTML =
-                resposta[resposta.length - 1].qtdProcessosOnline;
-              plotarGrafico(resposta, fkServidor);
-            });
-          } else {
-            console.error("Nenhum dado encontrado ou erro na API");
-          }
-        })
-        .catch(function (error) {
-          console.error(
-            `Erro na obtenção dos dados p/ gráfico: ${error.message}`
-          );
-        });
-    }
-
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e,
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, fkServidor) {
-      console.log("iniciando plotagem do gráfico...");
-
-      // Criando estrutura para plotar gráfico - labels
-      let labels = [];
-
-      // Criando estrutura para plotar gráfico - dados
-      let dados = {
-        labels: labels,
-        datasets: [
-          {
-            label: "CPU",
-            data: [],
-            fill: true,
-            borderColor: "rgb(75, 192, 192)",
-            tension: 0.1,
-          },
-          {
-            label: "RAM",
-            data: [],
-            fill: true,
-            borderColor: "rgb(199, 52, 52)",
-            tension: 0.1,
-          },
-        ],
-      };
-
-      console.log("----------------------------------------------");
-      console.log(
-        'Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":'
-      );
-      console.log(resposta);
-
-      // Inserindo valores recebidos em estrutura para plotar o gráfico
-      for (i = 0; i < resposta.length; i++) {
-        var registro = resposta[i];
-        labels.push(registro.momento_grafico);
-        dados.datasets[0].data.push(registro.cpu);
-        dados.datasets[1].data.push(registro.ram);
-      }
-
-      console.log("----------------------------------------------");
-      console.log("O gráfico será plotado com os respectivos valores:");
-      console.log("Labels:");
-      console.log(labels);
-      console.log("Dados:");
-      console.log(dados.datasets);
-      console.log("----------------------------------------------");
-
-      // Criando estrutura para plotar gráfico - config
-      const config = {
-        type: "line",
-        data: dados,
-      };
-
-      if (myChart2 != undefined) {
-        myChart2.destroy();
-      }
-      // Adicionando gráfico criado em div na tela
-      myChart2 = new Chart(document.getElementById(`myChart`), config);
-      setTimeout(() => atualizarGrafico(4, dados, myChart2), 10000);
-    }
-
-    function atualizarGrafico(fkServer, dados, myChart) {
-      fetch(`/processos/tempo-real/${fkServer}`, { cache: "no-store" })
-        .then(function (response) {
-          if (response.ok) {
-            response.json().then(function (novoRegistro) {
-              obterDadosGrafico(fkServer);
-              // alertar(novoRegistro, fkServer);
-              console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-              console.log(`Dados atuais do gráfico:`);
-              console.log(dados);
-              usoCpu.innerHTML = novoRegistro[0].cpu + "%";
-              usoRam.innerHTML = novoRegistro[0].ram + "%";
-              qtdProcessosOnline.innerHTML = novoRegistro[0].qtdProcessosOnline;
-              let avisoCaptura = document.getElementById(
-                `avisoCaptura${fkServer}`
-              );
-              avisoCaptura.innerHTML = "";
-
-              if (
-                novoRegistro[0].momento_grafico ==
-                dados.labels[dados.labels.length - 1]
-              ) {
-                console.log(
-                  "---------------------------------------------------------------"
-                );
-                console.log(
-                  "Como não há dados novos para captura, o gráfico não atualizará."
-                );
-                console.log("Horário do novo dado capturado:");
-                console.log(novoRegistro[0].momento_grafico);
-                console.log("Horário do último dado capturado:");
-                console.log(dados.labels[dados.labels.length - 1]);
-                console.log(
-                  "---------------------------------------------------------------"
-                );
-              } else {
-                // tirando e colocando valores no gráfico
-                dados.labels.shift(); // apagar o primeiro
-                dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-
-                dados.datasets[0].data.shift(); // apagar o primeiro de umidade
-                dados.datasets[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidade
-
-                dados.datasets[1].data.shift(); // apagar o primeiro de temperatura
-                dados.datasets[1].data.push(novoRegistro[0].ram); // incluir uma nova medida de temperatura
-                myChart.destroy();
-                myChart.update();
+    selectServidores();
+    getAllProcessosBanidos();
+    function selectServidores() {
+      fetch("/dashCorrelacao/selectServidores", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fkEmpresa: sessionStorage.EMPRESA_USUARIO,
+        }),
+      })
+        .then(function (resposta) {
+          if (resposta.ok) {
+            resposta.json().then((json) => {
+              console.log("json comprimento");
+              console.log(json.length);
+              console.log("json colchetes");
+              console.log(json[0]);
+              for (var i = 0; i < json.length; i++) {
+                apelidosServidores.push([
+                  json[i].apelidoServidor,
+                  json[i].idServidor,
+                ]);
+              }
+              for (var i = 0; i < apelidosServidores.length - 1; i++) {
+                console.log(apelidosServidores[i][1], apelidosServidores[i][0]);
+                var option = document.createElement("option");
+                option.value = apelidosServidores[i][1];
+                option.text = apelidosServidores[i][0];
+                listaServidores.appendChild(option);
               }
             });
           } else {
-            console.error("Nenhum dado encontrado ou erro na API");
-            // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(
-              () => atualizarGrafico(fkServer, dados, myChart),
-              10000
-            );
+            resposta.text().then((textoErro) => {
+              console.error(textoErro);
+            });
           }
         })
-        .catch(function (error) {
-          console.error(
-            `Erro na obtenção dos dados p/ gráfico: ${error.message}`
-          );
+        .catch(function (erro) {
+          console.log(erro);
         });
     }
 
-    getAllProcessosBanidos(4);
-    function getAllProcessosBanidos(fkServer) {
+    function atualizarServidor() {
+      localStorage.SERVER_ATUAL = listaServidores.value;
       tableProcessos.innerHTML = "";
-      fetch(`/processos/getAllProcessosBanidos/${fkServer}`, {
-        cache: "no-store",
-      })
+      getAllProcessosBanidos();
+      valorGrafico1();
+    }
+
+    function cadastrarProcesso() {
+      var erro = false;
+      var nomeProcessoVar = nome_processo.value;
+
+      if (nomeProcessoVar == "") {
+        nome_processo.style = "border-color: red !important";
+        erro = true;
+      }
+      if (!erro) {
+        fetch(`/processos/adicionarProcesso`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nomeProcesso: nomeProcessoVar,
+            fkServidor: localStorage.getItem("SERVER_ATUAL"),
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+              alert("Cadastrado com sucesso!");
+              tableProcessos.innerHTML = "";
+              getAllProcessosBanidos();
+            } else {
+              throw alert(
+                "Houve um erro ao tentar realizar o cadastro do processo!"
+              );
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      } else {
+        alert("Houve um erro ao tentar realizar o cadastro do Processo!");
+      }
+    }
+
+    function getAllProcessosBanidos() {
+      fetch(
+        `/processos/getAllProcessosBanidos/${localStorage.getItem(
+          "SERVER_ATUAL"
+        )}`,
+        {
+          cache: "no-store",
+        }
+      )
         .then(function (response) {
           if (response.ok) {
             response.json().then(function (resposta) {
@@ -1037,95 +961,6 @@
             `Erro na obtenção dos dados p/ tabela: ${error.message}`
           );
         });
-    }
-
-    setInterval(() => {
-      getQtdProcessosBanidos(4);
-    }, 10000);
-    function getQtdProcessosBanidos(fkServer) {
-      fetch(`/processos/getQtdProcessosBanidos/${fkServer}`, {
-        cache: "no-store",
-      })
-        .then(function (response) {
-          if (response.ok) {
-            response.json().then(function (resposta) {
-              qtdProcessosBloqueados.innerHTML = resposta[0].qtdProcessos;
-            });
-          } else {
-            console.error("Nenhum dado encontrado ou erro na API");
-          }
-        })
-        .catch(function (error) {
-          console.error(
-            `Erro na obtenção dos dados p/ tabela: ${error.message}`
-          );
-        });
-    }
-
-    getAllServers(sessionStorage.getItem("EMPRESA_USUARIO"));
-
-    function getAllServers(fkEmpresa) {
-      console.log(fkEmpresa);
-      fetch(`/servidor/getAll/${fkEmpresa}`)
-        .then(function (response) {
-          if (response.ok) {
-            response.json().then(function (resposta) {
-              console.log(`Dados recebidos: ${JSON.stringify(resposta[0])}`);
-              for (i = 0; i < resposta.length; i++) {
-                select = document.getElementById("selectServer");
-                select.innerHTML += `<option>${resposta[0]} </option>`;
-              }
-            });
-          } else {
-            console.error("Nenhum dado encontrado ou erro na API");
-          }
-        })
-        .catch(function (error) {
-          console.error(
-            `Erro na obtenção dos dados p/ Usuario: ${error.message}`
-          );
-        });
-    }
-
-    function cadastrarProcesso(fkServidor) {
-      var erro = false;
-      var nomeProcessoVar = nome_processo.value;
-      fkServidor = 4;
-
-      if (nomeProcesso == "") {
-        nome_processo.style = "border-color: red !important";
-        erro = true;
-      }
-      if (!erro) {
-        fetch(`/processos/adicionarProcesso`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nomeProcesso: nomeProcessoVar,
-            fkServidor: fkServidor,
-          }),
-        })
-          .then(function (resposta) {
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-              alert("Cadastrado com sucesso!");
-              tableProcessos.innerHTML = "";
-              getAllProcessosBanidos(fkServidor);
-            } else {
-              throw alert(
-                "Houve um erro ao tentar realizar o cadastro do processo!"
-              );
-            }
-          })
-          .catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-          });
-      } else {
-        alert("Houve um erro ao tentar realizar o cadastro do Processo!");
-      }
     }
 
     function deleteProcesso(idProcesso) {
@@ -1155,10 +990,8 @@
 
                 if (resposta.ok) {
                   Swal.fire("Funcionário Deletado com sucesso!", "", "success");
-                  deleteFuncionario(idProcesso);
-                  tableFuncionarios.innerHTML = "";
-                  getAllProcessosBanidos(4);
-                } else {
+                  tableProcessos.innerHTML = "";
+                  getAllProcessosBanidos();
                 }
               })
               .catch(function (resposta) {
@@ -1170,5 +1003,105 @@
         }
       });
     }
+
+    graficoUm();
+    function graficoUm() {
+      const ctx = document.getElementById("myChart");
+
+      grafico = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "CPU",
+              data: [],
+              borderColor: "rgb(206, 9, 167)",
+              borderWidth: 2,
+            },
+            {
+              label: "RAM",
+              data: [],
+              borderColor: "rgb(111, 178, 236)",
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false,
+            },
+          },
+        },
+      });
+    }
+    setInterval(() => {
+      valorGrafico1();
+      getQtdProcessosBanidos();
+    }, 4000);
+
+    function valorGrafico1() {
+      fetch(`/processos/tempo-real/${localStorage.getItem("SERVER_ATUAL")}`)
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then((resposta) => {
+              console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+              usoCpu.innerHTML = resposta[0].cpu;
+              usoRam.innerHTML = resposta[0].ram;
+              processoMaisGasta.innerHTML = resposta[0].pmmu;
+              qtdProcessosOnline.innerHTML = resposta[0].qtdProcessosOnline;
+
+              let cpu = resposta[0].cpu;
+              let ram = resposta[0].ram;
+              let dtHora = resposta[0].momento_grafico;
+
+              grafico.data.datasets[0].data.push(resposta[0].cpu);
+              grafico.data.datasets[1].data.push(resposta[0].ram);
+              grafico.data.labels.push(dtHora);
+
+              const maxDataPoints = 8;
+              if (grafico.data.labels.length > maxDataPoints) {
+                grafico.data.labels.shift();
+                grafico.data.datasets[0].data.shift();
+                grafico.data.datasets[1].data.shift();
+              }
+              grafico.update();
+            });
+          } else {
+            throw "Houve um erro na API";
+          }
+        })
+        .catch(function (erro) {
+          console.error(erro);
+        });
+    }
+
+    function getQtdProcessosBanidos() {
+      fetch(
+        `/processos/getQtdProcessosBanidos/${localStorage.getItem(
+          "SERVER_ATUAL"
+        )}`,
+        {
+          cache: "no-store",
+        }
+      )
+        .then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              qtdProcessosBloqueados.innerHTML = resposta[0].qtdProcessos;
+            });
+          } else {
+            console.error("Nenhum dado encontrado ou erro na API");
+          }
+        })
+        .catch(function (error) {
+          console.error(
+            `Erro na obtenção dos dados p/ tabela: ${error.message}`
+          );
+        });
+    }
+
   </script>
 </html>
