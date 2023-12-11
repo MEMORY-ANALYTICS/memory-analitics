@@ -313,6 +313,7 @@ function valorGrafico2Recebidos(idComponente) {
 function valorGrafico3(idComponente) {
   var fkComponente = idComponente;
   var dataAtual = formatarData(1);
+  
   fetch(`/dashboardRedeRouter/pegarVelocidadeAtual/${fkComponente}/${dataAtual}`).then(function (response) {
     if (response.ok) {
 
@@ -324,15 +325,9 @@ function valorGrafico3(idComponente) {
         // graficoVelocidade.series[0].data.push(velocidadeAtual);
 
         if (graficoVelocidade && !graficoVelocidade.renderer.forExport) {
-          const point = graficoVelocidade.series[0].points[0],
-            inc = velocidadeAtual.toFixed(0);
-
-          let newVal = point.y + inc;
-          if (newVal < 0 || newVal > 200) {
-            newVal = point.y - inc;
-          }
+          graficoVelocidade.series[0].points[0].update(Number(velocidadeAtual.toFixed(0)))
         }
-          // graficoLatenciaUm.update()
+          
         });
     } else {
       throw ("Houve um erro na API")

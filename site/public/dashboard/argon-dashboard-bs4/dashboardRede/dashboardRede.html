@@ -622,7 +622,7 @@
 
     series: [{
       name: 'Speed',
-      data: [], //55 taxa de tranmissão atual
+      data: [0], //55 taxa de tranmissão atual
       tooltip: {
         valueSuffix: ' MB/s'
       },
@@ -657,21 +657,7 @@
 
   // Add some life
   setInterval(() => {
-    // const chart = Highcharts.charts[0];
-    // if (chart && !chart.renderer.forExport) {
-    //   const point = chart.series[0].points[0],
-    //     inc = Math.round((Math.random() - 0.5) * 20);
-
-    //   let newVal = point.y + inc;
-    //   if (newVal < 0 || newVal > 200) {
-    //     newVal = point.y - inc;
-    //   }
-
-    //   point.update(newVal);
-    // }
-
     graficoVelocidade.update()
-
   }, 1000);
 
   //-------------------Final Grafico 3-----------------------------------------------------------------
