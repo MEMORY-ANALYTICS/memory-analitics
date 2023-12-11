@@ -49,10 +49,11 @@ function selectServidores(req, res) {
     // CPU
 function selectCpu(req, res) {
     var fkServidor = req.body.fkServidor;
+    var filtroTempo = req.body.filtroTempo;
 
     console.log('Estou no Controller selectCpu com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor)
+    dashCorrelacaoModel.selectCpu(fkServidor,filtroTempo)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -70,10 +71,10 @@ function selectCpu(req, res) {
     // Ram
 function selectRam(req, res) {
     var fkServidor = req.body.fkServidor;
-
+    var filtroTempo = req.body.filtroTempo;
     console.log('Estou no Controller selectRam com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectRam(fkServidor)
+    dashCorrelacaoModel.selectRam(fkServidor,filtroTempo)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -91,10 +92,10 @@ function selectRam(req, res) {
     // Disco
 function selectDisco(req, res) {
     var fkServidor = req.body.fkServidor;
-
+    var filtroTempo = req.body.filtroTempo;
     console.log('Estou no Controller selectDisco com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectDisco(fkServidor)
+    dashCorrelacaoModel.selectDisco(fkServidor,filtroTempo)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -111,10 +112,10 @@ function selectDisco(req, res) {
     // Rede
 function selectRede(req, res) {
     var fkServidor = req.body.fkServidor;
-
+    var filtroTempo = req.body.filtroTempo;
     console.log('Estou no Controller selectRede com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectRede(fkServidor)
+    dashCorrelacaoModel.selectRede(fkServidor,filtroTempo)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);

@@ -439,7 +439,8 @@
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
                                                     Área com maior número de chamados:
                                                 </h5>
-                                                <span id="maiorAreaChamados" class="h2 font-weight-bold mb-0"></span>
+                                                <span id="maiorAreaChamados"
+                                                    class="h2 font-weight-bold mb-0">Processos</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -464,7 +465,8 @@
                                                     Percentual de correlação atual do gráfico personalizado:
                                                 </h5>
                                                 <span id="percentualCorrelacao"
-                                                    class="h2 font-weight-bold mb-0">97.64%</span>
+                                                    class="h2 font-weight-bold mb-0">Inicialize o gráfico de regressão
+                                                    linear!</span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -490,8 +492,7 @@
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
                                                     Quantidade de dados analizados
                                                 </h5>
-                                                <span id="quantidadeDados"
-                                                    class="h2 font-weight-bold mb-0">154000</span>
+                                                <span id="quantidadeDados" class="h2 font-weight-bold mb-0"></span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -518,7 +519,7 @@
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
                                                     Quantidade de ocorrências:
                                                 </h5>
-                                                <span class="h2 font-weight-bold mb-0">126</span>
+                                                <span id="qtdOcorrenciasKPI" class="h2 font-weight-bold mb-0"></span>
                                             </div>
                                             <div class="col-auto">
                                                 <div
@@ -682,7 +683,8 @@
                         <div class="col-xl-3 my-2">
                             <h3>Tipo gráfico:</h3>
                             <div class="btn-group">
-                                <button id="togglePersoTipoGrafico" type="button" class="btn btn-primary mt-2">Selecione
+                                <button onclick="atualizarVariaveis()"
+                                    id="togglePersoTipoGrafico" type="button" class="btn btn-primary mt-2">Selecione
                                     o tipo</button>
                                 <button id="splitPersoTipoGrafico" type="button"
                                     class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
@@ -815,9 +817,9 @@
         processosRam: false,
         processosCpu: false
     }
-    
+
     nome_usuario.innerHTML = sessionStorage.NOME_USUARIO
-    
+
     // Chamando funções iniciais
     selectServidores()
     chamarOcorrencias()
@@ -827,8 +829,11 @@
     setInterval(() => {
         chamarOcorrencias()
         atualizarDadosOcorrencias()
-    }, 10000);
-
+    }, 2000);
+    setTimeout(() => {
+        qtdDadosKPI()
+    }, 2000);
+    createOcorrencias(ctx)
 </script>
 
 </html>
