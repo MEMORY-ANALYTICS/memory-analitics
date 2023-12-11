@@ -80,6 +80,38 @@ function listar(fkEmpresa) {
     return database.executar(query);
   }
 
+  function pegarPacotesEnviados(fkComponente,dataAtual) {
+    var query = `
+    SELECT valorRegistro AS pacotesEnviados, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE fkComponente = ${fkComponente} 
+    AND detalheRegistro = 'Enviados Rede' AND  date(dtHoraRegistro) = '${dataAtual}' ORDER BY idRegistro DESC LIMIT 1;`;
 
+    // var query = `
+    // SELECT TOP 1 MAX(valorRegistro) AS valorLatenciaAtual, CONVERT(time, dtHoraRegistro) AS horaRegistro
+    // FROM registro
+    // WHERE fkComponente = ${fkComponente}
+    // AND tipoMedida = 'ms'
+    // AND CONVERT(date, dtHoraRegistro) = '${dataAtual}'
+    // GROUP BY dtHoraRegistro
+    // ORDER BY valorLatenciaAtual DESC;`;
+
+    return database.executar(query);
+  }
+
+  function pegarPacotesRecebidos(fkComponente,dataAtual) {
+    var query = `
+    SELECT valorRegistro AS pacotesRecebidos, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE fkComponente = ${fkComponente} 
+    AND detalheRegistro = 'Recebidos Rede' AND  date(dtHoraRegistro) = '${dataAtual}' ORDER BY idRegistro DESC LIMIT 1;`;
+
+    // var query = `
+    // SELECT TOP 1 MAX(valorRegistro) AS valorLatenciaAtual, CONVERT(time, dtHoraRegistro) AS horaRegistro
+    // FROM registro
+    // WHERE fkComponente = ${fkComponente}
+    // AND tipoMedida = 'ms'
+    // AND CONVERT(date, dtHoraRegistro) = '${dataAtual}'
+    // GROUP BY dtHoraRegistro
+    // ORDER BY valorLatenciaAtual DESC;`;
+
+    return database.executar(query);
+  }
   module.exports = {listar, pegarIdComponente, pegarKpiVelocidade, pegarKpiLatencia, pegarKpiPacotes,
-    pegarLatenciaAtual};
+    pegarLatenciaAtual, pegarPacotesEnviados, pegarPacotesRecebidos};

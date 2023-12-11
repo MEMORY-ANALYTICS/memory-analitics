@@ -17,6 +17,27 @@ function formatarData(opcao) {
   }
 }
 
+function formatarHora(){
+ var dataAtual = new Date();
+
+// Obtendo a hora atual
+var horaAtual = dataAtual.getHours();
+if (horaAtual < 10) {
+  horaAtual = `0${horaAtual}`
+}
+var minutosAtuais = dataAtual.getMinutes();
+if (minutosAtuais < 10) {
+  minutosAtuais = `0${minutosAtuais}`
+}
+var segundosAtuais = dataAtual.getSeconds();
+if (segundosAtuais < 10) {
+  segundosAtuais = `0${segundosAtuais}`
+}
+
+var hora = `${horaAtual}:${minutosAtuais}:${segundosAtuais}`
+return hora;
+}
+
 listar();
 function listar() {
   // Tirar uma váriavel numérica idServidor com a fkEmpresa pega no sessionStorage
@@ -70,6 +91,8 @@ function selectIdComponente() {
         kpiMaiorLatencia(idComponente)
         kpiMediaPacotes(idComponente)
         valorGrafico1(idComponente)
+        valorGrafico2(idComponente)
+        valorGrafico2Recebidos(idComponente)
         sessionStorage.ID_COMPONENTE = idComponente;
 
         setTimeout(() => {
@@ -194,23 +217,89 @@ function kpiMediaPacotes(idComponente) {
 function valorGrafico1(idComponente) {
   var fkComponente = idComponente;
   var dataAtual = formatarData(1);
+  var horaAgora = formatarHora();
   fetch(`/dashboardRedeRouter/pegarLatenciaAtual/${fkComponente}/${dataAtual}`).then(function (response) {
     if (response.ok) {
 
       response.json().then(resposta => {
         console.log("Dados recebidos: ", JSON.stringify(resposta));
+        // graficoLatenciaUm.data.datasets.data = []
+        // graficoLatenciaUm.data.labels = []
 
         let latenciaAgora = resposta[0].valorLatenciaAtual;
         let horaRegistro = resposta[0].horaRegistro;
+
         graficoLatenciaUm.data.datasets[0].data.push(latenciaAgora.toFixed(2));
-        // graficoLatenciaUm.data.datasets[0].data.shift();
-        graficoLatenciaUm.data.labels.push(horaRegistro)
+        graficoLatenciaUm.data.labels.push(horaAgora)
+
+        // graficoLatenciaUm.data.labels.push(horaRegistro)
 
         const maxDataPoints = 8;
         if (graficoLatenciaUm.data.labels.length > maxDataPoints) {
           graficoLatenciaUm.data.labels.shift();
           graficoLatenciaUm.data.datasets[0].data.shift();
         }
+      });
+    } else {
+      throw ("Houve um erro na API")
+    }
+  }).catch(function (erro) {
+    console.error(erro);
+  });
+}
+
+function valorGrafico2(idComponente) {
+  var fkComponente = idComponente;
+  var dataAtual = formatarData(1);
+  var horaAgora = formatarHora();
+  fetch(`/dashboardRedeRouter/pegarPacotesEnviados/${fkComponente}/${dataAtual}`).then(function (response) {
+    if (response.ok) {
+
+      response.json().then(resposta => {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+        // graficoLatenciaUm.data.datasets.data = []
+        // graficoLatenciaUm.data.labels = []
+
+        let pacotesEnviados = resposta[0].pacotesEnviados;
+
+        graficoPacotesDois.data.datasets[1].data.push(pacotesEnviados);
+        graficoPacotesDois.data.labels.push(horaAgora)
+
+        const maxDataPoints = 15;
+        if (graficoPacotesDois.data.labels.length > maxDataPoints) {
+          graficoPacotesDois.data.labels.shift();
+          graficoPacotesDois.data.datasets[1].data.shift();
+        }
+// graficoLatenciaUm.update()
+      });
+    } else {
+      throw ("Houve um erro na API")
+    }
+  }).catch(function (erro) {
+    console.error(erro);
+  });
+}
+
+function valorGrafico2Recebidos(idComponente) {
+  var fkComponente = idComponente;
+  var dataAtual = formatarData(1);
+  var horaAgora = formatarHora();
+  fetch(`/dashboardRedeRouter/pegarPacotesRecebidos/${fkComponente}/${dataAtual}`).then(function (response) {
+    if (response.ok) {
+
+      response.json().then(resposta => {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+        let pacotesRecebidos = resposta[0].pacotesRecebidos;
+
+        graficoPacotesDois.data.datasets[0].data.push(pacotesRecebidos);
+
+        const maxDataPoints = 15;
+        if (graficoPacotesDois.data.labels.length > maxDataPoints) {
+          graficoPacotesDois.data.labels.shift();
+          graficoPacotesDois.data.datasets[0].data.shift();
+        }
+// graficoLatenciaUm.update()
       });
     } else {
       throw ("Houve um erro na API")
