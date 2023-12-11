@@ -1,3 +1,5 @@
+const { DateTime } = require("mssql")
+const { insertTemp } = require("../../src/models/insertTempModel")
 
 
 nomeLogin.innerHTML = sessionStorage.NOME_USUARIO
@@ -44,6 +46,34 @@ function getOptionValue() {
 }
 
 setInterval(() => atualizarDados(getOptionValue), 500000);
+
+
+setInterval(() => insertTemp(getOptionValue), 300000);
+
+function insertTemp(idServidor) {
+
+  var valorRegistro = (Math.random()*100) + 50
+  var dtHoraRegistro = new DateTime()
+
+
+  fetch(`/insertTemp/insertTemp`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      idServidor: idServidor,
+      valorRegistro: valorRegistro,
+      dtHoraRegistro: dtHoraRegistro
+    })
+  }
+  ).then(res => {
+  })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
 
 
 function atualizarDados(idServidor) {
