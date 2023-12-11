@@ -29,8 +29,8 @@ public class Main {
                 LocalDateTime dateTime = LocalDateTime.now();
 
 
-//                Downtime downtime = new Downtime(0, dateTime, 0);
-//                downtime.calcDowntime();
+                Downtime downtime = new Downtime(0, dateTime, 0);
+                downtime.calcDowntime();
 
                 TimerTask timerTask = new TimerTask() {
 
