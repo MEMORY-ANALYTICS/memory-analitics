@@ -20,7 +20,7 @@ order by count(idRegistro)
 desc limit 1;		
 
 # SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = ${fkEmpresa};
-SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = 10000;
+SELECT nomeComponente FROM getCompProblematico WHERE fkEmpresa = 10005;
 
 
 #### CHAMADOS ABERTOS ####
@@ -110,7 +110,7 @@ AND dtHoraRegistro >= DATE_SUB(now(), INTERVAL 1 MONTH)
 GROUP BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor
 ORDER BY NomeEmpresa, Dia, Mes, TipoComponente, idServidor;
 
-SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = 10000 GROUP BY Dia, Mes;
+SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = 10005 GROUP BY Dia, Mes;
 # SELECT SUM(ExcedeuLimites) picosDeUso, Dia, Mes FROM limitesExcedidos WHERE idEmpresa = ${fkEmpresa} GROUP BY Dia, Mes;
     
 -- -------------------------------------------------------------------------------------------------------------------------------

@@ -65,7 +65,7 @@ function pesquisarIntevaloData() {
   } else {
 
     fetch('/grafico/filtroData', {
-      method: "post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -97,7 +97,7 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
   fetch(`/grafico/${tipoGrafico}`
   , {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
@@ -131,7 +131,7 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
         } else if (tipoGrafico == "graficoCpuMes") {
     
-          var data = new Date(json[i].dia)
+          var data = new Date(json[i].mes)
           var dataDia = (`${data.getDate()}/${data.getMonth() + 1}`)
 
           graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)

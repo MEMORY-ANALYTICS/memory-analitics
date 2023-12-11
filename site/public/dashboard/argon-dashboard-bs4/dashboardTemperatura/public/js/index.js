@@ -1,6 +1,3 @@
-const { DateTime } = require("mssql")
-const { insertTemp } = require("../../src/models/insertTempModel")
-
 
 nomeLogin.innerHTML = sessionStorage.NOME_USUARIO
 var emailLogado = sessionStorage.getItem("EMAIL_USUARIO")
@@ -37,27 +34,29 @@ for (i = 0; i < listKpi.length; i++) {
 
 function getOptionValue() {
 
-  select = document.getElementById("selecaoApelidoServidor")
+  var idServidor = 12
+ // idServidor = selecaoApelidoServidor.value
 
-  var selectedValue = select.value;
-
-  return 12;
+  
+  console.log(idServidor)
+  return idServidor;
 
 }
 
-setInterval(() => atualizarDados(getOptionValue), 500000);
+setInterval(() => atualizarDados(getOptionValue), 50000);
 
 
-setInterval(() => insertTemp(getOptionValue), 300000);
+setInterval(() => insertTemp(getOptionValue), 30000);
 
 function insertTemp(idServidor) {
 
   var valorRegistro = (Math.random()*100) + 50
-  var dtHoraRegistro = new DateTime()
+  var datetime = new Date()
+  var dtHoraRegistro = (datetime).toLocaleDateString() + ' ' + (datetime).toLocaleTimeString(); 
 
 
-  fetch(`/insertTemp/insertTemp`, {
-    method: "post",
+  fetch(`/insertTemp/insertTempController`, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
@@ -91,7 +90,7 @@ function atualizarDados(idServidor) {
 
   graficoIncidentes.destroy()
   createIncidentes()
-  graficoIncidentesMes('Servidor B')
+  graficoIncidentesMes(getOptionValue())
 }
 
 
@@ -102,7 +101,7 @@ function getServidor(emailLogado) {
 
   fetch(`/servidor/servidor`
     , {
-      method: "post",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -134,7 +133,7 @@ function getServidor(emailLogado) {
 function getKpi(metodoKpi, idServidor) {
 
   fetch(`/kpi/${metodoKpi}`, {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
@@ -250,7 +249,7 @@ function getKpi(metodoKpi, idServidor) {
 function graficoIncidentesMes(idServidor) {
 
   fetch(`/grafico/graficoIncidentes`, {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },

@@ -2,7 +2,7 @@ var database = require("../database/config")
 
 function insertTemp(idServidor,valorRegistro, dtHoraRegistro) {
 
-  //idServidor = 12
+  idServidor = 12
 
   instrucaoSql = `
   INSERT INTO registroTemp(valorRegistro, tipoMedida, 

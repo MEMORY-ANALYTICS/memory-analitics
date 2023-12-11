@@ -407,7 +407,9 @@ function persoLinha() {
     mensagem.style.display = 'none'
     togglePersoTipoGrafico.onclick = function () {
         persoLinha()
-        atualizarVariaveis()
+        setTimeout(() => {
+            atualizarVariaveis()
+        }, 3000);
     };
     if (typeof graficoPerso !== 'undefined') {
         graficoPerso.destroy()
@@ -418,7 +420,7 @@ function persoLinha() {
         if (filtrosDashboard.cpuUso) {
             graficoPerso.data.datasets.push({
                 label: 'Uso CPU',
-                data: componentes.cpu.registrosCpu.percentUso.reverse,
+                data: componentes.cpu.registrosCpu.percentUso,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
@@ -684,8 +686,8 @@ function persoBarra() {
     grafico.style.display = 'flex'
     mensagem.style.display = 'none'
     togglePersoTipoGrafico.onclick = function () {
-        persoBarra()
         atualizarVariaveis()
+        persoBarra()
     };
     createPersoBarra(ctx3)
     graficoPerso.data.datasets = [{
@@ -731,8 +733,8 @@ function persoSetores() {
     grafico.style.display = 'flex'
     mensagem.style.display = 'none'
     togglePersoTipoGrafico.onclick = function () {
-        persoSetores()
         atualizarVariaveis()
+        persoSetores()
     };
     createPersoSetores(ctx3)
     graficoPerso.type = 'line'
@@ -755,8 +757,8 @@ function persoRegressao() {
     grafico.style.display = 'flex'
     mensagem.style.display = 'none'
     togglePersoTipoGrafico.onclick = function () {
-        persoRegressao()
         atualizarVariaveis()
+        persoRegressao()
     };
     createPersoRegressao(ctx3)
     graficoPerso.data.datasets = [{

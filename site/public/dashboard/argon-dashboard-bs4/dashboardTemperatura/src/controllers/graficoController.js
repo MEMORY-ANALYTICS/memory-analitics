@@ -1,60 +1,60 @@
 var graficoModel = require("../models/graficoModel")
 
 
-function graficoCpuHora(req,res){
+function graficoCpuHora(req, res) {
     var idServidor = req.body.idServidor;
-   graficoModel.graficoCpuHora(idServidor).then(function(resultado){
-       res.status(200).json(resultado);
-   }).catch(function(erro){
-       // res.status(500).json(erro.sqlMessage);
-   })
+    graficoModel.graficoCpuHora(idServidor).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        // res.status(500).json(erro.sqlMessage);
+    })
 }
 
-function graficoCpuSemana(req,res){
+function graficoCpuSemana(req, res) {
     var idServidor = req.body.idServidor;
     var data = req.params.data;
-   graficoModel.graficoCpuSemana(idServidor,data).then(function(resultado){
-       res.status(200).json(resultado);
-   }).catch(function(erro){
-       // res.status(500).json(erro.sqlMessage);
-   })
+    graficoModel.graficoCpuSemana(idServidor, data).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        // res.status(500).json(erro.sqlMessage);
+    })
 }
 
-function graficoCpuMes(req,res){
+function graficoCpuMes(req, res) {
     var idServidor = req.body.idServidor;
-   graficoModel.graficoCpuMes(idServidor).then(function(resultado){
-       res.status(200).json(resultado);
-   }).catch(function(erro){
-       // res.status(500).json(erro.sqlMessage);
-   })
+    graficoModel.graficoCpuMes(idServidor).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        // res.status(500).json(erro.sqlMessage);
+    })
 }
 
-function filtroData(req,res){
+function filtroData(req, res) {
 
     var dataInicio = req.body.dataInicioServer
     var dataFim = req.body.dataFimServer
     var idServidorServer = req.body.idServidor
-   
-   graficoModel.filtroData(dataInicio,dataFim,idServidorServer).then(function(resultado){
-       res.status(200).json(resultado);
-   }).catch(function(erro){
-       // res.status(500).json(erro.sqlMessage);
-   })
+
+    graficoModel.filtroData(dataInicio, dataFim, idServidorServer).then(function (resultado) {
+        res.status(200).json(resultado);
+    }).catch(function (erro) {
+        // res.status(500).json(erro.sqlMessage);
+    })
 }
 
-function graficoIncidentes(req,res){
+function graficoIncidentes(req, res) {
     var idServidor = req.body.fkServidor
-   graficoModel.graficoIncidentes(idServidor).then(function(resultado){
+    graficoModel.graficoIncidentes(idServidor).then(function (resultado) {
 
-       res.status(200).json(resultado);
+        res.status(200).json(resultado);
 
-   }).catch(function(erro){
-       // res.status(500).json(erro.sqlMessage);
-   })
+    }).catch(function (erro) {
+        // res.status(500).json(erro.sqlMessage);
+    })
 }
 
 
-module.exports  = {
+module.exports = {
     graficoCpuHora,
     graficoCpuSemana,
     graficoCpuMes,

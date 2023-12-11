@@ -1,4 +1,4 @@
-INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
+INSERT INTO registroTemp (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
 (82,'celsius','temperatura do processador','2023-01-05 03:00:00',43),
 (118,'celsius','temperatura do processador','2023-01-14 03:00:00',43),
 (94,'celsius','temperatura do processador','2023-01-17 21:00:00',43),
@@ -91,8 +91,11 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
  (64,'celsius','temperatura do processador','2023-11-21 17:00:00',43),
  (94,'celsius','temperatura do processador','2023-12-03 16:00:00',43),
  (65,'celsius','temperatura do processador','2023-12-07 15:00:00',43),
- (92,'celsius','temperatura do processador','2023-12-08 10:00:00',43);
+ (92,'celsius','temperatura do processador','2023-12-08 10:00:00',43),
  (65,'celsius','temperatura do processador','2023-12-09 15:00:00',43),
- (62,'celsius','temperatura do processador','2023-12-10 10:00:00',43);
+ (62,'celsius','temperatura do processador','2023-12-10 10:00:00',43),
  (45,'celsius','temperatura do processador','2023-12-11 15:00:00',43),
  (72,'celsius','temperatura do processador','2023-12-11 10:00:00',43);
+
+
+ select * from registroTemp;
