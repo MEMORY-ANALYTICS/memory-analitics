@@ -22,6 +22,7 @@ var componenteRouter = require("./src/routes/componente");
 var graficoRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/grafico");
 var servidorRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/servidor");
 var kpiRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/kpi");
+var insertTempRouter = require("./public/dashboard/argon-dashboard-bs4/dashboardTemperatura/src/routes/insertTemp")
 var dashCorrelacao = require("./src/routes/dashCorrelacao");
 var dashboardRedeRouter= require("./src/routes/dashboardRedeRoute");
 var dashboardHardwareRouter = require('./src/routes/dashboardHardware');
@@ -47,7 +48,7 @@ app.use("/dashCorrelacao",dashCorrelacao);
 app.use("/processos",processosRouter);
 app.use("/dashboardRedeRouter", dashboardRedeRouter);
 app.use("/dashboardHardware", dashboardHardwareRouter);
-
+app.use("/insertTemp", insertTempRouter);
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
 });

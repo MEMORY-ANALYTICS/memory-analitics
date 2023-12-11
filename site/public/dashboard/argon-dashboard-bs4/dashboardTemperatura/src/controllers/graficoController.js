@@ -22,8 +22,7 @@ function graficoCpuSemana(req,res){
 
 function graficoCpuMes(req,res){
     var idServidor = req.body.idServidor;
-    var data = req.params.data;
-   graficoModel.graficoCpuMes(idServidor,data).then(function(resultado){
+   graficoModel.graficoCpuMes(idServidor).then(function(resultado){
        res.status(200).json(resultado);
    }).catch(function(erro){
        // res.status(500).json(erro.sqlMessage);

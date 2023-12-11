@@ -15,15 +15,13 @@ public class Componente {
     private String tipoComponente;
     private String limiteMin;
     private String limiteMax;
-    private List<Recurso> recursos;
     private List<JdbcTemplate> conexoes;
 
     public Componente() {
-        this.recursos = new ArrayList<>();
         this.conexoes = new ArrayList<>();
     }
-    public Componente(int idComponente, String fabricante, String nomeModelo, String tipoComponente, String limiteMin, String limiteMax,
-                      List<Recurso> recursos) {
+    public Componente(int idComponente, String fabricante, String nomeModelo, String tipoComponente, String limiteMin, String limiteMax
+                     ) {
         ConexaoSqlServer conexaoSqlServer = new ConexaoSqlServer();
         ConexaoMySql conexaoMySql = new ConexaoMySql();
         JdbcTemplate con1 = conexaoSqlServer.criarConexao();
@@ -34,7 +32,6 @@ public class Componente {
         this.tipoComponente = tipoComponente;
         this.limiteMin = limiteMin;
         this.limiteMax = limiteMax;
-        this.recursos = recursos;
         this.conexoes = new ArrayList<>();
         conexoes.add(con1);
         conexoes.add(con2);
@@ -88,13 +85,7 @@ public class Componente {
         this.limiteMax = limiteMax;
     }
 
-    public List<Recurso> getRecursos() {
-        return recursos;
-    }
 
-    public void setRecursos(List<Recurso> recursos) {
-        this.recursos = recursos;
-    }
 
     public List<JdbcTemplate> getConexoes() {
         return conexoes;
@@ -109,7 +100,6 @@ public class Componente {
                 ", tipoComponente='" + tipoComponente + '\'' +
                 ", limiteMin='" + limiteMin + '\'' +
                 ", limiteMax='" + limiteMax + '\'' +
-                ", recursos=" + recursos +
                 ", conexoes=" + conexoes +
                 '}';
     }

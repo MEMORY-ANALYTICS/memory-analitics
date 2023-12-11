@@ -6,7 +6,7 @@ function graficoCpuHora(idServidor) {
 
   instrucaoSql = `
   select valorRegistro, dtHoraRegistro,tipoComponente from 
-  registro join componente on fkComponente = idComponente 
+  registroTemp join componente on fkComponente = idComponente 
   where tipoMedida = 'celsius' and  fkServidor = ${idServidor} order by dtHoraRegistro desc ;
   `
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -19,7 +19,7 @@ function graficoCpuSemana(idServidor,data) {
   //data = '2023-12-10'
 
   instrucaoSql = `select top 7 round(avg(valorRegistro),2) as valorMedia, convert(date, dtHoraRegistro) as dia 
-  from registro 
+  from registroTemp
 	where tipoMedida = 'celsius' and convert(date,dtHoraRegistro)  = '${data}' 
   and fkComponente = (select idComponente from componente where fkServidor = ${idServidor})
   group by convert(date,dtHoraRegistro) order by convert(date,dtHoraRegistro) desc;
@@ -29,13 +29,12 @@ function graficoCpuSemana(idServidor,data) {
   return database.executar(instrucaoSql);
 }
 
-function graficoCpuMes(idServidor,data) {
+function graficoCpuMes(idServidor) {
 
   //idServidor = 12
-  //data = '12'
 
   instrucaoSql = `
-  select round(avg(valorRegistro),2) as valorMedia, MONTH(convert(date,dtHoraRegistro)) as mes from registro 
+  select round(avg(valorRegistro),2) as valorMedia, MONTH(convert(date,dtHoraRegistro)) as mes from registroTemp 
     where tipoMedida = 'celsius'
   and fkComponente = (select idComponente from componente where fkServidor = '${idServidor}')
    group by MONTH(convert(date,dtHoraRegistro))
