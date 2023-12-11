@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var kpiController = require("../controllers/insertTempController")
 
-router.get("/insertTemp", function(req,res ){
+router.post("/insertTemp", function(req,res ){
     insertTempController.insertTemp(req,res);
 });
 

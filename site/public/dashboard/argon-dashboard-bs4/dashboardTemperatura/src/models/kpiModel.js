@@ -14,11 +14,11 @@ function qtdIncidentes(idServidor) {
 function MedTemp(idServidor,data) {
 
   idServidor = 12
-  data = '2023-12-10'
+  data = '2023-01-17'
 
   instrucaoSql = ` 
     select top 1 round(avg(valorRegistro),2) as mediaTemperatura from registroTemp join componente on fkComponente = idComponente 
-    where tipoMedida = 'celsius' and convert(date, dtHoraRegistro) = '${data}' and fkServidor = '${idServidor}'
+    where tipoMedida = 'celsius' and convert(date, dtHoraRegistro) like '${data}%' and fkServidor = '${idServidor}'
     GROUP BY convert(date, dtHoraRegistro) 
     order by mediaTemperatura desc;
       `
@@ -28,12 +28,12 @@ function MedTemp(idServidor,data) {
 function CpuTempMax(idServidor,data) {
 
   idServidor = 12
-  data = '2023-12-10'
+  data = '2023-01-17'
 
   instrucaoSql = `
     select top 1 valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registroTemp join componente on fkComponente = idComponente 
     join servidor on fkServidor = idServidor
-    where tipoMedida = 'celsius' and convert(date, dtHoraRegistro) = '${data}' and fkServidor = '${idServidor}'
+    where tipoMedida = 'celsius' and convert(date, dtHoraRegistro) like '${data}%' and fkServidor = '${idServidor}'
     order by valorRegistro desc;
         `
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -41,12 +41,12 @@ function CpuTempMax(idServidor,data) {
 }
 function CpuTempMin() {
   idServidor = 12
-  data = '2023-12-10'
+  data = '2023-01-17'
 
   instrucaoSql = `
         select top 1 valorRegistro, dtHoraRegistro, tipoComponente, fkServidor from registroTemp join componente on fkComponente = idComponente 
         join servidor on fkServidor = idServidor
-	      where tipoMedida = 'celsius' and convert(date, dtHoraRegistro) = '${data}' and fkServidor = '${idServidor}'
+	      where tipoMedida = 'celsius' and convert(date, dtHoraRegistro) like '${data}%' and fkServidor = '${idServidor}'
         order by valorRegistro;
         `
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
