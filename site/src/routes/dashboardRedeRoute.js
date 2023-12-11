@@ -27,4 +27,11 @@ router.get("/pegarLatenciaAtual/:fkComponente/:dataAtual", function (req, res) {
     dashboardRedeController.pegarLatenciaAtual(req, res);
 });
 
+router.get("/pegarPacotesEnviados/:fkComponente/:dataAtual", function (req, res) {
+    dashboardRedeController.pegarPacotesEnviados(req, res);
+});
+
+router.get("/pegarPacotesRecebidos/:fkComponente/:dataAtual", function (req, res) {
+    dashboardRedeController.pegarPacotesRecebidos(req, res);
+});
 module.exports = router; 
