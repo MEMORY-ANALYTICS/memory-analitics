@@ -1,5 +1,5 @@
 
-function horaDash(idServidor) {
+function horaDash(idServidor, anoMes) {
 
   botaoSelecionado = 1 // index.js
 
@@ -14,7 +14,7 @@ function horaDash(idServidor) {
   ctx = document.getElementById('graficoTemperatura');
   graficoTemperatura.destroy()
   createTemp(ctx)
-  exibirGrafico("graficoCpuHora", idServidor)
+  exibirGrafico("graficoCpuHora", idServidor, anoMes)
 }
 
 function semanaDash(idServidor, anoMes) {
@@ -35,7 +35,7 @@ function semanaDash(idServidor, anoMes) {
   exibirGrafico("graficoCpuSemana",idServidor, anoMes)
 }
 
-function mesDash() {
+function mesDash(idServidor, anoMes) {
 
   idHoraDash.style = "background-color: #FFFF; cursor: pointer;"
   textoHora.style = "color: #5e72e4"
@@ -56,7 +56,7 @@ function pesquisarIntevaloData() {
 
   var dataInicio = document.getElementById("dataInicio").value;
   var dataFim = document.getElementById("dataFim").value;
-  var idServidor = select.options[select.selectIndex].value;
+  var idServidor = getOptionValue();
   
   console.log(dataInicio, dataFim, idServidor)
 
@@ -65,7 +65,7 @@ function pesquisarIntevaloData() {
   } else {
 
     fetch('/grafico/filtroData', {
-      method: "POST",
+      method: "post",
       headers: {
         "Content-Type": "application/json"
       },
@@ -95,8 +95,9 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
   console.log(tipoGrafico)
 
-  fetch(`/grafico/${tipoGrafico}`, {
-    method: "POST",
+  fetch(`/grafico/${tipoGrafico}`
+  , {
+    method: "post",
     headers: {
       "Content-Type": "application/json"
     },
@@ -104,7 +105,8 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
       idServidor : idServidor,
       data: anoMes
     })
-  }).then(res => {
+  }
+  ).then(res => {
     res.json().then(json => {
       for (var i = (json.length - 1); i >= 0; i--) {
 
