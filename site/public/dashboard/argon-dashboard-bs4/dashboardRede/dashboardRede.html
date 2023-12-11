@@ -449,8 +449,8 @@
     const { left, right, top, bottom, width, height } = chartArea;
     const { x, y } = scales;
     const gradientBackground = ctx.createLinearGradient(0, top, 0, bottom)
-    gradientBackground.addColorStop(0, 'rgba(65, 105, 225, 1)')
-    gradientBackground.addColorStop(1, 'rgba(255, 26, 104, 0.1)')
+    gradientBackground.addColorStop(0, 'rgba(65, 105, 225, 2)')
+    gradientBackground.addColorStop(1, 'rgba(255, 26, 225, 0.2)')
     return gradientBackground
   }
   function graficoUm() {
@@ -475,8 +475,10 @@
             return bgGradient(ctx, chartArea, scales)
           },
           tension: 0.4,
-          fill: true
-          // fontColor: 'white'
+          fill: true,
+          pointBackgroundColor: 'rgba(147, 112, 219, 1)', // Cor roxa clara
+        pointBorderColor: 'white', // Contorno preto
+        pointBorderWidth: 0.6 // Largura do contorno
         }
         ]
       },
@@ -620,7 +622,7 @@
 
     series: [{
       name: 'Speed',
-      data: [55], // taxa de tranmissão atual
+      data: [], //55 taxa de tranmissão atual
       tooltip: {
         valueSuffix: ' MB/s'
       },
@@ -655,18 +657,20 @@
 
   // Add some life
   setInterval(() => {
-    const chart = Highcharts.charts[0];
-    if (chart && !chart.renderer.forExport) {
-      const point = chart.series[0].points[0],
-        inc = Math.round((Math.random() - 0.5) * 20);
+    // const chart = Highcharts.charts[0];
+    // if (chart && !chart.renderer.forExport) {
+    //   const point = chart.series[0].points[0],
+    //     inc = Math.round((Math.random() - 0.5) * 20);
 
-      let newVal = point.y + inc;
-      if (newVal < 0 || newVal > 200) {
-        newVal = point.y - inc;
-      }
+    //   let newVal = point.y + inc;
+    //   if (newVal < 0 || newVal > 200) {
+    //     newVal = point.y - inc;
+    //   }
 
-      point.update(newVal);
-    }
+    //   point.update(newVal);
+    // }
+
+    graficoVelocidade.update()
 
   }, 1000);
 

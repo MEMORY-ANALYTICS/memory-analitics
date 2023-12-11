@@ -113,5 +113,22 @@ function listar(fkEmpresa) {
 
     return database.executar(query);
   }
+
+  function pegarVelocidadeAtual(fkComponente,dataAtual) {
+    var query = `
+    SELECT valorRegistro AS velocidadeAtual, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE fkComponente = ${fkComponente} 
+    AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '${dataAtual}' ORDER BY idRegistro DESC LIMIT 1;`;
+
+    // var query = `
+    // SELECT TOP 1 MAX(valorRegistro) AS valorLatenciaAtual, CONVERT(time, dtHoraRegistro) AS horaRegistro
+    // FROM registro
+    // WHERE fkComponente = ${fkComponente}
+    // AND tipoMedida = 'ms'
+    // AND CONVERT(date, dtHoraRegistro) = '${dataAtual}'
+    // GROUP BY dtHoraRegistro
+    // ORDER BY valorLatenciaAtual DESC;`;
+
+    return database.executar(query);
+  }
   module.exports = {listar, pegarIdComponente, pegarKpiVelocidade, pegarKpiLatencia, pegarKpiPacotes,
-    pegarLatenciaAtual, pegarPacotesEnviados, pegarPacotesRecebidos};
+    pegarLatenciaAtual, pegarPacotesEnviados, pegarPacotesRecebidos, pegarVelocidadeAtual};

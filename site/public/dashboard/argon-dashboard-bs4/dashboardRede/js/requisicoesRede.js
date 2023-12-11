@@ -17,25 +17,25 @@ function formatarData(opcao) {
   }
 }
 
-function formatarHora(){
- var dataAtual = new Date();
+function formatarHora() {
+  var dataAtual = new Date();
 
-// Obtendo a hora atual
-var horaAtual = dataAtual.getHours();
-if (horaAtual < 10) {
-  horaAtual = `0${horaAtual}`
-}
-var minutosAtuais = dataAtual.getMinutes();
-if (minutosAtuais < 10) {
-  minutosAtuais = `0${minutosAtuais}`
-}
-var segundosAtuais = dataAtual.getSeconds();
-if (segundosAtuais < 10) {
-  segundosAtuais = `0${segundosAtuais}`
-}
+  // Obtendo a hora atual
+  var horaAtual = dataAtual.getHours();
+  if (horaAtual < 10) {
+    horaAtual = `0${horaAtual}`
+  }
+  var minutosAtuais = dataAtual.getMinutes();
+  if (minutosAtuais < 10) {
+    minutosAtuais = `0${minutosAtuais}`
+  }
+  var segundosAtuais = dataAtual.getSeconds();
+  if (segundosAtuais < 10) {
+    segundosAtuais = `0${segundosAtuais}`
+  }
 
-var hora = `${horaAtual}:${minutosAtuais}:${segundosAtuais}`
-return hora;
+  var hora = `${horaAtual}:${minutosAtuais}:${segundosAtuais}`
+  return hora;
 }
 
 listar();
@@ -93,6 +93,7 @@ function selectIdComponente() {
         valorGrafico1(idComponente)
         valorGrafico2(idComponente)
         valorGrafico2Recebidos(idComponente)
+        valorGrafico3(idComponente)
         sessionStorage.ID_COMPONENTE = idComponente;
 
         setTimeout(() => {
@@ -270,7 +271,7 @@ function valorGrafico2(idComponente) {
           graficoPacotesDois.data.labels.shift();
           graficoPacotesDois.data.datasets[1].data.shift();
         }
-// graficoLatenciaUm.update()
+        // graficoLatenciaUm.update()
       });
     } else {
       throw ("Houve um erro na API")
@@ -299,8 +300,40 @@ function valorGrafico2Recebidos(idComponente) {
           graficoPacotesDois.data.labels.shift();
           graficoPacotesDois.data.datasets[0].data.shift();
         }
-// graficoLatenciaUm.update()
+        // graficoLatenciaUm.update()
       });
+    } else {
+      throw ("Houve um erro na API")
+    }
+  }).catch(function (erro) {
+    console.error(erro);
+  });
+}
+
+function valorGrafico3(idComponente) {
+  var fkComponente = idComponente;
+  var dataAtual = formatarData(1);
+  fetch(`/dashboardRedeRouter/pegarVelocidadeAtual/${fkComponente}/${dataAtual}`).then(function (response) {
+    if (response.ok) {
+
+      response.json().then(resposta => {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+        let velocidadeAtual = resposta[0].velocidadeAtual;
+
+        // graficoVelocidade.series[0].data.push(velocidadeAtual);
+
+        if (graficoVelocidade && !graficoVelocidade.renderer.forExport) {
+          const point = graficoVelocidade.series[0].points[0],
+            inc = velocidadeAtual.toFixed(0);
+
+          let newVal = point.y + inc;
+          if (newVal < 0 || newVal > 200) {
+            newVal = point.y - inc;
+          }
+        }
+          // graficoLatenciaUm.update()
+        });
     } else {
       throw ("Houve um erro na API")
     }

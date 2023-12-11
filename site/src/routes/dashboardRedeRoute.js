@@ -34,4 +34,9 @@ router.get("/pegarPacotesEnviados/:fkComponente/:dataAtual", function (req, res)
 router.get("/pegarPacotesRecebidos/:fkComponente/:dataAtual", function (req, res) {
     dashboardRedeController.pegarPacotesRecebidos(req, res);
 });
+
+router.get("/pegarVelocidadeAtual/:fkComponente/:dataAtual", function (req, res) {
+    dashboardRedeController.pegarVelocidadeAtual(req, res);
+});
+
 module.exports = router; 
