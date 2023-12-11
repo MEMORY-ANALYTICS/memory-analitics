@@ -75,7 +75,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>school.sptech.exemplo.imagem.jframe.jar.executavel.Demo</mainClass> </manifest>
+                            <mainClass>school.sptech.Main</mainClass> </manifest>
                     </archive>
                 </configuration>
                 <executions>
