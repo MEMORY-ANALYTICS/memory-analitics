@@ -43,7 +43,8 @@ function selectCpu() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -61,13 +62,13 @@ function selectCpu() {
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
                         if (json[i].tipoMedida == "% de Uso") {
+                            dataHora.push(json[i].dataHora)
                             componentes.cpu.registrosCpu.percentUso.push(json[i].registrosCpu)
                         } else if (json[i].detalheRegistro == "Temperatura do processador") {
                             componentes.cpu.registrosCpu.temperatura.push(json[i].registrosCpu)
                         } else if (json[i].tipoMedida == "Megahertz") {
                             componentes.cpu.registrosCpu.frequencia.push(json[i].registrosCpu)
                         }
-                        dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -89,7 +90,8 @@ function selectRam() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo
 
         })
     }).then(function (resposta) {
@@ -129,7 +131,8 @@ function selectDisco() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo
 
         })
     }).then(function (resposta) {
@@ -173,7 +176,8 @@ function selectRede() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo
 
         })
     }).then(function (resposta) {

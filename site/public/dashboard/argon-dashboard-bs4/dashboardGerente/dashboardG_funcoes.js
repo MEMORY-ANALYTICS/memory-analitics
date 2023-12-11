@@ -310,7 +310,7 @@ function getDowntime() {
 }
 
 function getCompProblematico() {
-    fetch(`/dashboardG/getCompProblematico/${sessionStorage.EMPRESA_USUARIO}`).then(function (resposta) {
+    fetch(`/dashboardG/getCompProblematico/10005`).then(function (resposta) {
         if (resposta.ok) {
 
             resposta.json().then(function (json) {

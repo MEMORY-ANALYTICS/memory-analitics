@@ -76,28 +76,31 @@ public class Downtime {
                 new RegistroRowMapper(),
                 idServidor);
 
-        System.out.println(idServidor);
+//        System.out.println(idServidor);
+//        System.out.println(ultimoRegistroMySql.size());
+        if (ultimoRegistro.isEmpty()) {
+            System.out.println("O servidor " + idServidor + " não obtem nenhum registro relacionado ainda.");
+        } else {
+            LocalDateTime ultimo = ultimoRegistro.get(0).getDtHoraRegistro();
 
-        LocalDateTime ultimo = ultimoRegistroMySql.get(0).getDtHoraRegistro();
+//            System.out.println(ultimo);
+//            System.out.println(dtHoraAgora);
 
-        System.out.println(ultimo);
-        System.out.println(dtHoraAgora);
+            long diferencaDatas = ChronoUnit.SECONDS.between(ultimo, dtHoraAgora);
 
-        long diferencaDatas = ChronoUnit.SECONDS.between(ultimo, dtHoraAgora);
+            System.out.println("Segundo de Downtime: " + diferencaDatas);
 
-        System.out.println("Segundo de Downtime: " + diferencaDatas);
-
-        if (diferencaDatas > 10) {
-            conexoes.get(0).update("""
-                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
-                    (?, ?, ?);
-                    """, diferencaDatas, dtHoraAgora, idServidor);
-            conexoes.get(1).update("""
-                    INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
-                    (?, ?, ?);
-                    """, diferencaDatas, dtHoraAgora, idServidor);
+            if (diferencaDatas > 10) {
+                conexoes.get(0).update("""
+                        INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
+                        (?, ?, ?);
+                        """, diferencaDatas, dtHoraAgora, idServidor);
+                conexoes.get(1).update("""
+                        INSERT INTO downtimeServidor (tempoDowntime, dtHoraDowntime, fkServidor) VALUES
+                        (?, ?, ?);
+                        """, diferencaDatas, dtHoraAgora, idServidor);
+            }
         }
-
     }
 
     public int getTempoDowntime() {
@@ -119,9 +122,21 @@ public class Downtime {
     @Override
     public String toString() {
         return "Downtime{" +
-                "tempoDowntime=" + tempoDowntime +
-                ", dtHora=" + dtHora +
-                '}';
-    }
+            "tempoDowntime=" + tempoDowntime +
+            ", dtHora=" + dtHora +
+            '}';
 }
+
+    public static void main(String[] args) {
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        Downtime downtime = new Downtime(0, dateTime, 0);
+        downtime.calcDowntime();
+
+
+    }
+
+}
+
 
