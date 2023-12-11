@@ -93,7 +93,12 @@ function selectIdComponente() {
         valorGrafico1(idComponente)
         valorGrafico2(idComponente)
         valorGrafico2Recebidos(idComponente)
-        valorGrafico3(idComponente)
+        pegarMaxVelocidade(idComponente)
+
+        setTimeout(() => {
+          valorGrafico3(idComponente)
+        }, 1000);
+
         sessionStorage.ID_COMPONENTE = idComponente;
 
         setTimeout(() => {
@@ -113,29 +118,32 @@ function kpiMenorVelocidade(idComponente) {
   var dataAtual = formatarData(1);
   var valorRegistroPego1 = 0;
   var momentoRegistro = "";
+  
   fetch(`/dashboardRedeRouter/pegarKpiVelocidade/${fkComponente}/${dataAtual}`, {
     method: "GET",
+    cache: "no-store",
   })
     .then(function (resposta) {
+      if (resposta.status == 204) {
+        menorValorTransmissao.innerHTML = '';
+        momentoDaCaptura.innerHTML = '';
+      }else{
       resposta.json().then((registro) => {
-
+        
         valorRegistroPego1 = registro[0].valorVelocidadeMin;
         momentoRegistro = registro[0].horaRegistro
 
-        if (valorRegistroPego1 == null || valorRegistroPego1 == '') {
-          menorValorTransmissao.innerHTML = '';
-          momentoDaCaptura.innerHTML = '';
-        } else {
+        // console.log(registro[0])
+        
           const numeroFormatado = valorRegistroPego1.toLocaleString('pt-BR', {
             maximumFractionDigits: 2,
           });
           menorValorTransmissao.innerHTML = numeroFormatado;
           momentoDaCaptura.innerHTML = `${formatarData(2)} ${momentoRegistro}`
 
-        }
-
-      });
-    })
+        });
+      }
+      })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
     });
@@ -154,23 +162,23 @@ function kpiMaiorLatencia(idComponente) {
     method: "GET",
   })
     .then(function (resposta) {
+      if (resposta.status == 204) {
+        latenciaMax.innerHTML = '';
+        dataKpiLatencia.innerHTML = '';
+      } else {
       resposta.json().then((registro) => {
         valorRegistroPego = registro[0].valorLatenciaMax;
         momentoRegistro = registro[0].horaRegistro
 
-        if (valorRegistroPego == null) {
-          latenciaMax.innerHTML = '';
-          dataKpiLatencia.innerHTML = '';
-        } else {
           const numeroFormatado2 = valorRegistroPego.toLocaleString('pt-BR', {
             maximumFractionDigits: 2,
           });
           latenciaMax.innerHTML = numeroFormatado2;
           dataKpiLatencia.innerHTML = `${formatarData(2)} ${momentoRegistro}`
-        }
-
-      });
-    })
+       
+        });
+      }
+      })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
     });
@@ -189,16 +197,18 @@ function kpiMediaPacotes(idComponente) {
     method: "GET",
   })
     .then(function (resposta) {
+      if (resposta.status == 204) {
+        kpiMediaPacote.innerHTML = '';
+        dataKpiMedia.innerHTML = '';
+      } else {
       resposta.json().then((registro) => {
 
         valorMedia = registro[0].mediaDodia;
-        // momentoRegistro = registro[0].horaRegistro
 
-        if (valorMedia == null) {
+        if (valorMedia == null ) {
           kpiMediaPacote.innerHTML = '';
           dataKpiMedia.innerHTML = '';
         } else {
-
           const valorRegistroPegoFormatado = valorMedia.toLocaleString('pt-BR', {
             maximumFractionDigits: 0,
           });
@@ -206,8 +216,9 @@ function kpiMediaPacotes(idComponente) {
           kpiMediaPacote.innerHTML = valorRegistroPegoFormatado;
           dataKpiMedia.innerHTML = `${formatarData(2)}`
         }
-      });
-    })
+        });
+      }
+      })
     .catch(function (resposta) {
       console.log(`#ERRO: ${resposta}`);
     });
@@ -323,11 +334,45 @@ function valorGrafico3(idComponente) {
         let velocidadeAtual = resposta[0].velocidadeAtual;
 
         // graficoVelocidade.series[0].data.push(velocidadeAtual);
+      if(velocidadeAtual >= 0 && velocidadeAtual <= 60){
+        velocidadeAlerta.style.color = 'red';
+        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 0.8)";
+        velocidadeAlerta.innerHTML = "Crítico"
+      }else if(velocidadeAtual > 60 && velocidadeAtual <= 100){
+        velocidadeAlerta.style.color = 'orange';
+        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(255, 255, 0, 0.8)";
+        velocidadeAlerta.innerHTML = "Alerta"
+      } else{
+        velocidadeAlerta.style.color = 'green';
+        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 0.8)";
+        velocidadeAlerta.innerHTML = "Estável"
+      }
 
         if (graficoVelocidade && !graficoVelocidade.renderer.forExport) {
           graficoVelocidade.series[0].points[0].update(Number(velocidadeAtual.toFixed(0)))
         }
           
+        });
+    } else {
+      throw ("Houve um erro na API")
+    }
+  }).catch(function (erro) {
+    console.error(erro);
+  });
+}
+
+function pegarMaxVelocidade(idComponente) {
+  var fkComponente = idComponente;
+  var dataAtual = formatarData(1);
+  
+  fetch(`/dashboardRedeRouter/pegarMaxVelocidade/${fkComponente}/${dataAtual}`).then(function (response) {
+    if (response.ok) {
+
+      response.json().then(resposta => {
+        console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+        let velocidadeMaxima = resposta[0].valorVelocidadeMax;
+            sessionStorage.VELOCIDADE_MAX = velocidadeMaxima;
         });
     } else {
       throw ("Houve um erro na API")

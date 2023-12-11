@@ -333,8 +333,9 @@
                   Descrição: <b>Visualização da velocidade da sua rede.</b>
                 </p>
                 <p class="highcharts-description3">
-                  Status: <b style="color: red; font-weight: 30px; box-shadow:
-                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8)">Crítico</b>
+                  Status: <b id="velocidadeAlerta"></b>
+                  <!-- style="color: red; font-weight: 30px; box-shadow:
+                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8) -->
                 </p>
               </figure>
             </div>
@@ -549,7 +550,20 @@
         animation: false,
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+          ticks: {
+              // Configuração da cor dos valores do eixo Y
+              color: 'black' // Define a cor como branca
+            }
+          },
+          x: {
+            ticks: {
+              // Configuração da cor dos valores do eixo X
+              color: 'black' // Define a cor como branca
+            },
+            grid: {
+              color: 'grey' // Cor das linhas de grade do eixo X
+            }
           }
         }
         // , color: ['white']
@@ -559,6 +573,8 @@
   //-------------------Final Grafico 2-----------------------------------------------------------------
 
   // function graficoTres(){
+
+    // var valorMaxVelocidade = sessionStorage.VELOCIDADE_MAX.toFixed(0)
   graficoVelocidade = Highcharts.chart('container3', {
 
     chart: {
@@ -600,18 +616,18 @@
       },
       lineWidth: 0,
       plotBands: [{
-        from: 160, //Máximo capturado - (Máximo capturado * 1/4)
+        from: 100, //Máximo capturado - (Máximo capturado * 1/4)
         to: 200,//Máximo capturado em 30 registros
         color: '#55BF3B', // green
         thickness: 20
       }, {
-        from: 105, //Máximo capturado - (Máximo capturado * 2/4)
-        to: 160, //Máximo capturado - (Máximo capturado * 1/4)
+        from: 60, //Máximo capturado - (Máximo capturado * 2/4)
+        to: 100, //Máximo capturado - (Máximo capturado * 1/4)
         color: '#DDDF0D', // yellow
         thickness: 20
       }, {
         from: 0,
-        to: 105, //Máximo capturado - (Máximo capturado * 3/4)
+        to: 60, //Máximo capturado - (Máximo capturado * 3/4)
         color: '#DF5353', // red
         thickness: 20
       }]
@@ -672,33 +688,3 @@
   }
   // }
 </script>
-<!-- <script src="../dashboardRede/js/requisicoesRede.js"></script> -->
-<!-- <script type="text/javascript">
-
-  google.charts.load('current', {'packages':['gauge']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['Label', 'Value'],
-      ['Network', 68]
-    ]);
-
-    var options = {
-      width: 400, height: 120,
-      redFrom: 90, redTo: 100,
-      yellowFrom:75, yellowTo: 90,
-      minorTicks: 5
-    };
-
-    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-
-    setInterval(function() {
-      data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-      chart.draw(data, options);
-    }, 13000);
-  }
-</script> -->

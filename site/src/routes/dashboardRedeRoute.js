@@ -39,4 +39,8 @@ router.get("/pegarVelocidadeAtual/:fkComponente/:dataAtual", function (req, res)
     dashboardRedeController.pegarVelocidadeAtual(req, res);
 });
 
+router.get("/pegarMaxVelocidade/:fkComponente/:dataAtual", function (req, res) {
+    dashboardRedeController.pegarMaxVelocidade(req, res);
+});
+
 module.exports = router; 

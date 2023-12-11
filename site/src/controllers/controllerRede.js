@@ -239,6 +239,33 @@ function pegarIdComponente(req, res) {
               }
           );
   }
+
+  function pegarMaxVelocidade(req, res) {
+    var fkComponente = req.params.fkComponente;
+    var dataAtual = req.params.dataAtual;
+  
+    redeModel.pegarMaxVelocidade(fkComponente,dataAtual)
+          .then(
+              function (resultado) {
+                  if (resultado.length > 0) {
+                      res.status(200).json(resultado);
+                  } else {
+                      res.status(204).send("Nenhum resultado encontrado!");
+                  }
+              }
+          )
+          .catch(
+              function (erro) {
+                  console.log(erro);
+                  console.log(
+                      "Houve um erro ao buscar os Servidores: ",
+                      erro.sqlMessage
+                  );
+                  res.status(500).json(erro.sqlMessage);
+              }
+          );
+  }
+
 module.exports = {
   listar,
   pegarKpiVelocidade,
@@ -249,6 +276,7 @@ module.exports = {
   pegarPacotesEnviados,
   pegarPacotesRecebidos,
   pegarVelocidadeAtual,
+  pegarMaxVelocidade,
 
   pegarLatenciaAtual
 };
