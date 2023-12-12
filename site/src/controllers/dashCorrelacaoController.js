@@ -50,10 +50,11 @@ function selectServidores(req, res) {
 function selectCpu(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
+    var booleanRegressao = req.body.booleanRegressao
 
     console.log('Estou no Controller selectCpu com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor,filtroTempo)
+    dashCorrelacaoModel.selectCpu(fkServidor,filtroTempo,booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -72,9 +73,10 @@ function selectCpu(req, res) {
 function selectRam(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
+    var booleanRegressao = req.body.booleanRegressao
     console.log('Estou no Controller selectRam com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectRam(fkServidor,filtroTempo)
+    dashCorrelacaoModel.selectRam(fkServidor,filtroTempo,booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -93,9 +95,10 @@ function selectRam(req, res) {
 function selectDisco(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
+    var booleanRegressao = req.body.booleanRegressao
     console.log('Estou no Controller selectDisco com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectDisco(fkServidor,filtroTempo)
+    dashCorrelacaoModel.selectDisco(fkServidor,filtroTempo,booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -113,9 +116,10 @@ function selectDisco(req, res) {
 function selectRede(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
+    var booleanRegressao = req.body.booleanRegressao
     console.log('Estou no Controller selectRede com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectRede(fkServidor,filtroTempo)
+    dashCorrelacaoModel.selectRede(fkServidor,filtroTempo,booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -132,7 +136,26 @@ function selectRede(req, res) {
 
 // Dados de processos 
     // Processos comuns
-
+    function selectProcesso(req, res) {
+        var fkServidor = req.body.fkServidor;
+        var filtroTempo = req.body.filtroTempo;
+        var booleanRegressao = req.body.booleanRegressao
+        console.log('Estou no Controller selectProcesso com o valor de: fkServidor -> ' + fkServidor)
+    
+        dashCorrelacaoModel.selectProcesso(fkServidor,filtroTempo,booleanRegressao)
+            .then(function (resultado) {
+                if (resultado.length >= 0) {
+                    res.status(200).json(resultado);
+                    console.log("Resultado da Controller selectProcesso:" + resultado);
+                } else {
+                    res.status(204).send("selectProcesso: Nenhum resultado encontrado!")
+                }
+            }).catch(function (erro) {
+                console.log(erro);
+                console.log("selectProcesso: Houve um erro ao buscar a temperatura", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
     // Processos banidos
 
 
@@ -147,6 +170,6 @@ module.exports = {
     selectCpu,
     selectRam,
     selectDisco,
-    // selectTemperatura,
-    selectRede
+    selectRede,
+    selectProcesso
 } 

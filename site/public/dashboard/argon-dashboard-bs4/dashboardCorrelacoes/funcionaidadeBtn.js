@@ -34,6 +34,7 @@ function setFiltroTR() {
     atualizarVariaveis()
 }
 function setAllFalse() {
+    qtdRegressao = 0
     if (filtrosDashboard.cpuUso) {
         persoCpuUso.classList.remove('bg')
         persoCpuUso.classList.remove('bg-info')
@@ -1005,10 +1006,6 @@ function setFiltroProcessosCpu() {
         }
     }
 }
-function definirXeY() {
-
-
-}
 function calcularRegressaoLinear(eixoX, eixoY) {
     // X
     eixoX = eixoX.map(function (valor) {
@@ -1091,40 +1088,39 @@ function plotarRegressao() {
     var a = coeficientes.a;
     var b = coeficientes.b;
     var Rsq = coeficientes.Rsq
-    
+
 
     // Pega o valor de a e b do calcularRegressaoLinear e faz o calculo
     //com base no x (dados do dataDados)
     // filtrar por máquina e no filtro mostrar o tipo dela
     var valoresRegressao = eixosRegressao.x.map(function (x) {
-    // alfa + beta * x formula da regressão linear
-    // b + x * a seguindo as variaveis da função calcularRegressaoLinear
+        // alfa + beta * x formula da regressão linear
+        // b + x * a seguindo as variaveis da função calcularRegressaoLinear
         return b + x * a;
     });
-    
-    for (var i = 0; i < eixosRegressao.x.length; i++) {
+
+    for (var i = 0; i < dataHora.length; i++) {
         let valorX = eixosRegressao.x[i]
         let data = dataHora[i]
         juntarEixoXeData.push(`${valorX} | ${data}`)
     }
-        graficoPerso.data.labels = juntarEixoXeData
-        graficoPerso.data.datasets = [{
-            label: eixosRegressao.labely,
-            data: eixosRegressao.y,
-            backgroundColor: 'blue',
-            borderColor: 'transparent',
-            fill: false,
-        },
-        {
-            label: 'Regressão Linear',
-            data: valoresRegressao,
-            borderColor: 'red',
-            backgroundColor: 'red',
-            pointRadius: 0,
-            fill: false,
-        }]
-        graficoPerso.update()
-        alert(Rsq)
+    graficoPerso.data.labels = juntarEixoXeData
+    graficoPerso.data.datasets = [{
+        label: eixosRegressao.labely,
+        data: eixosRegressao.y,
+        backgroundColor: 'blue',
+        borderColor: 'transparent',
+        fill: false,
+    },
+    {
+        label: 'Regressão Linear',
+        data: valoresRegressao,
+        borderColor: 'red',
+        backgroundColor: 'red',
+        pointRadius: 0,
+        fill: false,
+    }]
+    graficoPerso.update()
     regressaoLinear.innerHTML = `${Rsq.toFixed(2)}%`
 }
 
@@ -1220,9 +1216,9 @@ function atualizarVariaveis() {
     selectRam(filtroTempo)
     selectDisco(filtroTempo)
     selectRede(filtroTempo)
+    selectProcesso(filtroTempo)
     setTimeout(() => {
         qtdDadosKPI()
-        dataHora = dataHora.map(formatarDataParaString);
     }, 2000);
 }
 
@@ -1580,7 +1576,6 @@ function persoBarra() {
             tension: 0.1
         })
     }
-    // COLOCAR ARMAZENAMENTO DO DISCO
     if (filtrosDashboard.temperatura) {
         graficoPerso.data.datasets.push({
             label: 'Temperatura CPU',
@@ -1756,7 +1751,7 @@ function persoRegressao() {
     setTimeout(() => {
         plotarRegressao()
     }, 2000);
-    
+
 }
 
 // Criação dos gráficos
@@ -1860,28 +1855,6 @@ function createPersoLinha(ctx3) {
         }
     });
 }
-function createPersoDispersao(ctx3) {
-
-    graficoPerso = new Chart(ctx3, {
-        type: 'scatter',
-        data: {
-            labels: [],
-            datasets: []
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Gráfico Personalizado'
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                position: 'top'
-            }
-        }
-    });
-}
 function createPersoSetores(ctx3) {
 
     graficoPerso = new Chart(ctx3, {
@@ -1920,3 +1893,60 @@ function createPersoRegressao(ctx3) {
         }
     });
 }
+
+function arredondarNumero(numero, casasDecimais) {
+    if (numero !== undefined && !isNaN(numero)) {
+        return parseFloat(numero.toFixed(casasDecimais));
+    }
+    return '';
+}
+
+function converterParaCSV() {
+    let csv = 'DataHora, UsoCPU, UsoRAM, QtdProcessos, PercentUsoCPU, FrequenciaCPU, TemperaturaCPU, PercentUsoDisco, ArmazenamentoDisco, PacotesRecebidos, PacotesEnviados, MbRecebidos, MbEnviados, mbpsTransmissao, msRede\n';
+
+    for (let i = 0; i < dataHora.length; i++) {
+        csv += `${dataHora[i] || ''}, ${arredondarNumero(processos.usoCpu[i], 2) || ''}, ${arredondarNumero(processos.usoRam[i], 2) || ''}, ${processos.qtdProcessos[i] || ''},`;
+        csv += `${arredondarNumero(componentes.cpu.registrosCpu.percentUso[i], 2) || ''}, ${arredondarNumero(componentes.cpu.registrosCpu.frequencia[i], 2) || ''}, ${arredondarNumero(componentes.cpu.registrosCpu.temperatura[i], 2) || ''},`;
+        csv += `${arredondarNumero(componentes.disco.registrosDisco.percentUso[i], 2) || ''}, ${arredondarNumero(componentes.disco.registrosDisco.armazenamento[i], 2) || ''},`;
+        csv += `${arredondarNumero(componentes.rede.registrosRede.pacotesRecebidos[i], 2) || ''}, ${arredondarNumero(componentes.rede.registrosRede.pacotesEnviados[i], 2) || ''},`;
+        csv += `${arredondarNumero(componentes.rede.registrosRede.MbRecebidos[i], 2) || ''}, ${arredondarNumero(componentes.rede.registrosRede.MbEnviados[i], 2) || ''},`;
+        csv += `${arredondarNumero(componentes.rede.registrosRede.mbpsTransmissao[i], 2) || ''}, ${arredondarNumero(componentes.rede.registrosRede.msRede[i], 2) || ''}\n`;
+    }
+
+    return csv;
+}
+
+function converterParaXLS() {
+    let xls = '<table><tr><td>DataHora</td><td>UsoCPU</td><td>UsoRAM</td><td>QtdProcessos</td><td>PercentUsoCPU</td><td>FrequenciaCPU</td><td>TemperaturaCPU</td><td>PercentUsoDisco</td><td>ArmazenamentoDisco</td><td>PacotesRecebidos</td><td>PacotesEnviados</td><td>MbRecebidos</td><td>MbEnviados</td><td>mbpsTransmissao</td><td>msRede</td></tr>';
+
+    for (let i = 0; i < dataHora.length; i++) {
+        xls += `<tr><td>${dataHora[i] || ''}</td><td>${arredondarNumero(processos.usoCpu[i], 2) || ''}</td><td>${arredondarNumero(processos.usoRam[i], 2) || ''}</td><td>${processos.qtdProcessos[i] || ''}</td>`;
+        xls += `<td>${arredondarNumero(componentes.cpu.registrosCpu.percentUso[i], 2) || ''}</td><td>${arredondarNumero(componentes.cpu.registrosCpu.frequencia[i], 2) || ''}</td><td>${arredondarNumero(componentes.cpu.registrosCpu.temperatura[i], 2) || ''}</td>`;
+        xls += `<td>${arredondarNumero(componentes.disco.registrosDisco.percentUso[i], 2) || ''}</td><td>${arredondarNumero(componentes.disco.registrosDisco.armazenamento[i], 2) || ''}</td>`;
+        xls += `<td>${arredondarNumero(componentes.rede.registrosRede.pacotesRecebidos[i], 2) || ''}</td><td>${arredondarNumero(componentes.rede.registrosRede.pacotesEnviados[i], 2) || ''}</td>`;
+        xls += `<td>${arredondarNumero(componentes.rede.registrosRede.MbRecebidos[i], 2) || ''}</td><td>${arredondarNumero(componentes.rede.registrosRede.MbEnviados[i], 2) || ''}</td>`;
+        xls += `<td>${arredondarNumero(componentes.rede.registrosRede.mbpsTransmissao[i], 2) || ''}</td><td>${arredondarNumero(componentes.rede.registrosRede.msRede[i], 2) || ''}</td></tr>`;
+    }
+
+    xls += '</table>';
+    return xls;
+}
+
+document.getElementById('btnbaixarcsv').addEventListener('click', function() {
+    const link = document.createElement('a');
+    link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(converterParaCSV());
+    link.download = 'dados.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
+
+document.getElementById('btnbaixarxls').addEventListener('click', function() {
+    const xlsData = converterParaXLS();
+    const link = document.createElement('a');
+    link.href = 'data:application/vnd.ms-excel,' + encodeURIComponent(xlsData);
+    link.download = 'dados.xls';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});

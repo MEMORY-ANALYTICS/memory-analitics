@@ -44,7 +44,8 @@ function selectCpu() {
         },
         body: JSON.stringify({
             fkServidor: fkServidorVar,
-            filtroTempo: filtroTempo
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -70,6 +71,7 @@ function selectCpu() {
                             componentes.cpu.registrosCpu.frequencia.push(json[i].registrosCpu)
                         }
                     }
+                    dataHora = dataHora.map(formatarDataParaString);
                 }
             });
         } else {
@@ -91,8 +93,8 @@ function selectRam() {
         },
         body: JSON.stringify({
             fkServidor: fkServidorVar,
-            filtroTempo: filtroTempo
-
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -132,7 +134,8 @@ function selectDisco() {
         },
         body: JSON.stringify({
             fkServidor: fkServidorVar,
-            filtroTempo: filtroTempo
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
 
         })
     }).then(function (resposta) {
@@ -177,7 +180,9 @@ function selectRede() {
         },
         body: JSON.stringify({
             fkServidor: fkServidorVar,
-            filtroTempo: filtroTempo
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
+
 
         })
     }).then(function (resposta) {
@@ -211,6 +216,49 @@ function selectRede() {
                     }
                 }
 
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+function selectProcesso() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectProcesso", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
+
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (typeof json[0] === 'undefined') {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Processos!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                } else {
+                    console.log("SelectPrcocessos")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        processos.usoCpu.push(json[i].usoCpu)
+                        processos.usoRam.push(json[i].usoRam)
+                        processos.qtdProcessos.push(json[i].qtdProcessosOnline)
+                    }
+                }
             });
         } else {
             resposta.text().then(textoErro => {
