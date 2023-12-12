@@ -40,7 +40,14 @@ router.post("/selectProcesso", (req, res) => {
     dashCorrelacaoController.selectProcesso(req, res);
 });
     // Processos banidos
-// router.post("/selectProcessosBanidos", (req, res) => {
-//     dashCorrelacaoController.selectProcessosBanidos(req, res);
-// });
+router.post("/selectTempoRealCpu", (req, res) => {
+    dashCorrelacaoController.selectTempoRealCpu(req, res);
+});
+router.post("/selectTempoRealRam", (req, res) => {
+    dashCorrelacaoController.selectTempoRealRam(req, res);
+});
+router.post("/selectTempoRealProc", (req, res) => {
+    dashCorrelacaoController.selectTempoRealProc(req, res);
+});
+
 module.exports = router;

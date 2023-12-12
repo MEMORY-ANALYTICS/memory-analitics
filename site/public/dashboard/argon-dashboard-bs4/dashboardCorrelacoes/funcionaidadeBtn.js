@@ -1,3 +1,19 @@
+const coresRGB = [
+    'rgb(255, 0, 0)',     // Vermelho
+    'rgb(0, 255, 0)',     // Verde
+    'rgb(0, 0, 255)',     // Azul
+    'rgb(255, 255, 0)',   // Amarelo
+    'rgb(255, 0, 255)',   // Magenta
+    'rgb(0, 255, 255)',   // Ciano
+    'rgb(255, 128, 0)',   // Laranja
+    'rgb(128, 0, 255)',   // Roxo
+    'rgb(0, 128, 255)',   // Azul Claro
+    'rgb(128, 255, 0)',   // Verde Claro
+    'rgb(255, 0, 128)',   // Rosa
+    'rgb(128, 255, 255)', // Azul Ciano
+    'rgb(255, 128, 128)', // Rosa Claro
+    'rgb(128, 128, 128)'  // Cinza Médio
+  ];
 filtroTempo = "ALLTIME"
 regressao = false
 qtdRegressao = 0
@@ -1258,6 +1274,7 @@ function atualizarDadosOcorrencias() {
     qtdOcorrenciasKPI.innerHTML = qtdOcorrenciasTotal
 }
 function persoLinha() {
+    regressao = false
     mensagem = document.getElementById('mensagemPerso')
     grafico = document.getElementById('container4')
     togglePersoTipoGrafico.innerHTML = 'Linha | Atualizar'
@@ -1280,7 +1297,7 @@ function persoLinha() {
                 label: 'Uso CPU',
                 data: componentes.cpu.registrosCpu.percentUso,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[0],
                 tension: 0.1
             })
         }
@@ -1289,7 +1306,7 @@ function persoLinha() {
                 label: 'Uso RAM',
                 data: componentes.ram.registrosRam,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[1],
                 tension: 0.1
             })
         }
@@ -1298,7 +1315,7 @@ function persoLinha() {
                 label: 'Uso Disco',
                 data: componentes.disco.registrosDisco.percentUso,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[2],
                 tension: 0.1
             })
         }
@@ -1308,7 +1325,7 @@ function persoLinha() {
                 label: 'Temperatura CPU',
                 data: componentes.cpu.registrosCpu.temperatura,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[3],
                 tension: 0.1
             })
         }
@@ -1317,7 +1334,7 @@ function persoLinha() {
                 label: 'Frequencia CPU',
                 data: componentes.cpu.registrosCpu.frequencia,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[13],
                 tension: 0.1
             })
         }
@@ -1326,7 +1343,7 @@ function persoLinha() {
                 label: 'Latência da Rede',
                 data: componentes.rede.registrosRede.msRede,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[4],
                 tension: 0.1
             })
         }
@@ -1335,7 +1352,7 @@ function persoLinha() {
                 label: 'Pacotes enviados',
                 data: componentes.rede.registrosRede.pacotesEnviados,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[5],
                 tension: 0.1
             })
         }
@@ -1344,7 +1361,7 @@ function persoLinha() {
                 label: 'Pacortes Recebidos',
                 data: componentes.rede.registrosRede.pacotesRecebidos,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[6],
                 tension: 0.1
             })
         }
@@ -1353,7 +1370,7 @@ function persoLinha() {
                 label: 'Mega Bytes Enviados',
                 data: componentes.rede.registrosRede.MbEnviados,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[7],
                 tension: 0.1
             })
         }
@@ -1362,7 +1379,7 @@ function persoLinha() {
                 label: 'Mega Bytes Recebidos',
                 data: componentes.rede.registrosRede.MbRecebidos,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[8],
                 tension: 0.1
             })
         }
@@ -1371,7 +1388,7 @@ function persoLinha() {
                 label: 'Taxa de transmissão (MBps))',
                 data: componentes.rede.registrosRede.mbpsTransmissao,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[9],
                 tension: 0.1
             })
         }
@@ -1380,7 +1397,7 @@ function persoLinha() {
                 label: 'Quantidade de Processos',
                 data: processos.qtdProcessos,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[10],
                 tension: 0.1
             })
         }
@@ -1389,7 +1406,7 @@ function persoLinha() {
                 label: 'Uso de Ram pelos processos',
                 data: processos.usoRam,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[11],
                 tension: 0.1
             })
         }
@@ -1398,7 +1415,7 @@ function persoLinha() {
                 label: 'Uso de CPU pelos Processos',
                 data: processos.usoCpu,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[12],
                 tension: 0.1
             })
         }
@@ -1409,7 +1426,7 @@ function persoLinha() {
                 label: 'Uso CPU',
                 data: componentes.cpu.registrosCpu.percentUso.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[0],
                 tension: 0.1
             })
         }
@@ -1418,7 +1435,7 @@ function persoLinha() {
                 label: 'Uso RAM',
                 data: componentes.ram.registrosRam,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[1],
                 tension: 0.1
             })
         }
@@ -1427,7 +1444,7 @@ function persoLinha() {
                 label: 'Uso Disco',
                 data: componentes.disco.registrosDisco.percentUso.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[2],
                 tension: 0.1
             })
         }
@@ -1437,7 +1454,7 @@ function persoLinha() {
                 label: 'Temperatura CPU',
                 data: componentes.cpu.registrosCpu.temperatura.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[3],
                 tension: 0.1
             })
         }
@@ -1446,7 +1463,7 @@ function persoLinha() {
                 label: 'Frequencia CPU',
                 data: componentes.cpu.registrosCpu.frequencia.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[4],
                 tension: 0.1
             })
         }
@@ -1455,7 +1472,7 @@ function persoLinha() {
                 label: 'Latência da Rede',
                 data: componentes.rede.registrosRede.msRede.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[5],
                 tension: 0.1
             })
         }
@@ -1464,7 +1481,7 @@ function persoLinha() {
                 label: 'Pacotes enviados',
                 data: componentes.rede.registrosRede.pacotesEnviados.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[6],
                 tension: 0.1
             })
         }
@@ -1473,7 +1490,7 @@ function persoLinha() {
                 label: 'Pacortes Recebidos',
                 data: componentes.rede.registrosRede.pacotesRecebidos.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[7],
                 tension: 0.1
             })
         }
@@ -1482,7 +1499,7 @@ function persoLinha() {
                 label: 'Mega Bytes Enviados',
                 data: componentes.rede.registrosRede.MbEnviados.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[8],
                 tension: 0.1
             })
         }
@@ -1491,7 +1508,7 @@ function persoLinha() {
                 label: 'Mega Bytes Recebidos',
                 data: componentes.rede.registrosRede.MbRecebidos.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[9],
                 tension: 0.1
             })
         }
@@ -1500,7 +1517,7 @@ function persoLinha() {
                 label: 'Taxa de transmissão (MBps))',
                 data: componentes.rede.registrosRede.mbpsTransmissao.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[10],
                 tension: 0.1
             })
         }
@@ -1509,7 +1526,7 @@ function persoLinha() {
                 label: 'Quantidade de Processos',
                 data: processos.qtdProcessos.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[11],
                 tension: 0.1
             })
         }
@@ -1518,7 +1535,7 @@ function persoLinha() {
                 label: 'Uso de Ram pelos processos',
                 data: processos.usoRam.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[12],
                 tension: 0.1
             })
         }
@@ -1527,7 +1544,7 @@ function persoLinha() {
                 label: 'Uso de CPU pelos Processos',
                 data: processos.usoCpu.reverse(),
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: coresRGB[13],
                 tension: 0.1
             })
         }
@@ -1535,6 +1552,7 @@ function persoLinha() {
     graficoPerso.update()
 }
 function persoBarra() {
+    regressao = false
     if (typeof graficoPerso !== 'undefined') {
         graficoPerso.destroy()
     }
@@ -1543,173 +1561,74 @@ function persoBarra() {
     togglePersoTipoGrafico.innerHTML = 'Barra | Atualizar'
     grafico.style.display = 'flex'
     mensagem.style.display = 'none'
-    togglePersoTipoGrafico.onclick = function () {
-        atualizarVariaveis()
-        persoBarra()
-    };
+        togglePersoTipoGrafico.onclick = function () {
+            atualizarVariaveis()
+            setTimeout(() => {
+                persoBarra()
+            }, 2000);
+        };
     createPersoBarra(ctx3)
-    graficoPerso.data.labels = dataHora
     if (filtrosDashboard.cpuUso) {
-        graficoPerso.data.datasets.push({
-            label: 'Uso CPU',
-            data: componentes.cpu.registrosCpu.percentUso,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Uso CPU')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.cpu.registrosCpu.percentUso))
     }
     if (filtrosDashboard.ram) {
-        graficoPerso.data.datasets.push({
-            label: 'Uso RAM',
-            data: componentes.ram.registrosRam,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Uso RAM')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.ram.registrosRam))
     }
     if (filtrosDashboard.disco) {
-        graficoPerso.data.datasets.push({
-            label: 'Uso Disco',
-            data: componentes.disco.registrosDisco.percentUso,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Uso Disco')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.disco.registrosDisco.percentUso))
     }
     if (filtrosDashboard.temperatura) {
-        graficoPerso.data.datasets.push({
-            label: 'Temperatura CPU',
-            data: componentes.cpu.registrosCpu.temperatura,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Temperatura CPU')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.cpu.registrosCpu.temperatura))
     }
     if (filtrosDashboard.cpuFreq) {
-        graficoPerso.data.datasets.push({
-            label: 'Frequencia CPU',
-            data: componentes.cpu.registrosCpu.frequencia,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Frequencia CPU')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.cpu.registrosCpu.frequencia))
     }
     if (filtrosDashboard.latencia) {
-        graficoPerso.data.datasets.push({
-            label: 'Latência da Rede',
-            data: componentes.rede.registrosRede.msRede,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Latência da Rede')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.msRede))
     }
     if (filtrosDashboard.pacoteEnviado) {
-        graficoPerso.data.datasets.push({
-            label: 'Pacotes enviados',
-            data: componentes.rede.registrosRede.pacotesEnviados,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Pacotes enviados')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.pacotesEnviados))
     }
     if (filtrosDashboard.pacoteRecebido) {
-        graficoPerso.data.datasets.push({
-            label: 'Pacortes Recebidos',
-            data: componentes.rede.registrosRede.pacotesRecebidos,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Pacotes Recebidos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.pacotesRecebidos))
     }
     if (filtrosDashboard.mbEnviado) {
-        graficoPerso.data.datasets.push({
-            label: 'Mega Bytes Enviados',
-            data: componentes.rede.registrosRede.MbEnviados,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('MegaBytes Enviados')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.MbEnviados))
     }
     if (filtrosDashboard.mbRecebido) {
-        graficoPerso.data.datasets.push({
-            label: 'Mega Bytes Recebidos',
-            data: componentes.rede.registrosRede.MbRecebidos,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('MegaBytes Recebidos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.MbRecebidos))
     }
     if (filtrosDashboard.transmissao) {
-        graficoPerso.data.datasets.push({
-            label: 'Taxa de transmissão (MBps))',
-            data: componentes.rede.registrosRede.mbpsTransmissao,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Taxa de transmissão (MBps)')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.mbpsTransmissao))
     }
     if (filtrosDashboard.processosQtd) {
-        graficoPerso.data.datasets.push({
-            label: 'Quantidade de Processos',
-            data: processos.qtdProcessos,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Quantidade de Processos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(processos.qtdProcessos))
     }
     if (filtrosDashboard.processosRam) {
-        graficoPerso.data.datasets.push({
-            label: 'Uso de Ram pelos processos',
-            data: processos.usoRam,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Uso de Ram pelos processos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(processos.usoRam))
     }
     if (filtrosDashboard.processosCpu) {
-        graficoPerso.data.datasets.push({
-            label: 'Uso de CPU pelos Processos',
-            data: processos.usoCpu,
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1
-        })
+        graficoPerso.data.labels.push('Uso de CPU pelos Processos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(processos.usoCpu))
     }
-    graficoPerso.data.datasets = [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }]
-    graficoPerso.update()
-}
-function persoDispersao() {
-    if (typeof graficoPerso !== 'undefined') {
-        graficoPerso.destroy()
-    }
-    setAllFalse()
-    mensagem = document.getElementById('mensagemPerso')
-    grafico = document.getElementById('container4')
-    togglePersoTipoGrafico.innerHTML = 'Dispersão | Atualizar'
-    grafico.style.display = 'flex'
-    mensagem.style.display = 'none'
-    togglePersoTipoGrafico.onclick = function () {
-        persoDispersao()
-        atualizarVariaveis()
-    };
-    createPersoDispersao(ctx3)
-    graficoPerso.type = 'line'
-    graficoPerso.data.datasets = [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }]
+
     graficoPerso.update()
 }
 function persoSetores() {
+    regressao = false
     if (typeof graficoPerso !== 'undefined') {
         graficoPerso.destroy()
     }
@@ -1718,19 +1637,70 @@ function persoSetores() {
     togglePersoTipoGrafico.innerHTML = 'Setores | Atualizar'
     grafico.style.display = 'flex'
     mensagem.style.display = 'none'
-    togglePersoTipoGrafico.onclick = function () {
-        atualizarVariaveis()
-        persoSetores()
-    };
+        togglePersoTipoGrafico.onclick = function () {
+            atualizarVariaveis()
+            setTimeout(() => {
+                persoSetores()
+            }, 2000);
+        };
     createPersoSetores(ctx3)
-    graficoPerso.type = 'line'
-    graficoPerso.data.datasets = [{
-        label: 'My First Dataset',
-        data: [],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-    }]
+    if (filtrosDashboard.cpuUso) {
+        graficoPerso.data.labels.push('Uso CPU')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.cpu.registrosCpu.percentUso))
+    }
+    if (filtrosDashboard.ram) {
+        graficoPerso.data.labels.push('Uso RAM')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.ram.registrosRam))
+    }
+    if (filtrosDashboard.disco) {
+        graficoPerso.data.labels.push('Uso Disco')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.disco.registrosDisco.percentUso))
+    }
+    if (filtrosDashboard.temperatura) {
+        graficoPerso.data.labels.push('Temperatura CPU')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.cpu.registrosCpu.temperatura))
+    }
+    if (filtrosDashboard.cpuFreq) {
+        graficoPerso.data.labels.push('Frequencia CPU')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.cpu.registrosCpu.frequencia))
+    }
+    if (filtrosDashboard.latencia) {
+        graficoPerso.data.labels.push('Latência da Rede')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.msRede))
+    }
+    if (filtrosDashboard.pacoteEnviado) {
+        graficoPerso.data.labels.push('Pacotes enviados')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.pacotesEnviados))
+    }
+    if (filtrosDashboard.pacoteRecebido) {
+        graficoPerso.data.labels.push('Pacotes Recebidos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.pacotesRecebidos))
+    }
+    if (filtrosDashboard.mbEnviado) {
+        graficoPerso.data.labels.push('MegaBytes Enviados')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.MbEnviados))
+    }
+    if (filtrosDashboard.mbRecebido) {
+        graficoPerso.data.labels.push('MegaBytes Recebidos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.MbRecebidos))
+    }
+    if (filtrosDashboard.transmissao) {
+        graficoPerso.data.labels.push('Taxa de transmissão (MBps)')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(componentes.rede.registrosRede.mbpsTransmissao))
+    }
+    if (filtrosDashboard.processosQtd) {
+        graficoPerso.data.labels.push('Quantidade de Processos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(processos.qtdProcessos))
+    }
+    if (filtrosDashboard.processosRam) {
+        graficoPerso.data.labels.push('Uso de Ram pelos processos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(processos.usoRam))
+    }
+    if (filtrosDashboard.processosCpu) {
+        graficoPerso.data.labels.push('Uso de CPU pelos Processos')
+        graficoPerso.data.datasets[0].data.push(calcularMedia(processos.usoCpu))
+    }
+
     graficoPerso.update()
 }
 function persoRegressao() {
@@ -1782,33 +1752,58 @@ function createOcorrencias(ctx) {
     });
 }
 
-var ctx2 = document.getElementById('graficoCorrelacao');
-createlive(ctx2)
+var ctx2 = document.getElementById('graficoProc');
 
-function createlive(ctx2) {
+var ctx4 = document.getElementById('graficoComp');
 
-    graficoLiveTempCPU = new Chart(ctx2, {
-        type: 'bar',
+
+function createliveProc(ctx2) {
+
+    graficoLiveProc = new Chart(ctx2, {
+        type: 'line',
         data: {
             labels: [],
-            datasets: [
-            ]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Gráfico Personalizado'
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-                position: 'top'
+            datasets: [{
+                label: 'Uso Cpu Processos',
+                data: [],
+                borderWidth: 1,
+                borderColor: coresRGB[5],
+                tension: 0.1
+            },{
+                label: 'Uso Ram Processos',
+                data: [],
+                borderWidth: 1,
+                borderColor: coresRGB[10],
+                tension: 0.1
             }
+            ]
         }
     });
 }
 
+function createliveComp(ctx4) {
+
+    graficoLiveComp = new Chart(ctx4, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Uso Cpu Componentes',
+                data: [],
+                borderWidth: 1,
+                borderColor: coresRGB[3],
+                tension: 0.1
+            },{
+                label: 'Uso Ram Componentes',
+                data: [],
+                borderWidth: 1,
+                borderColor: coresRGB[2],
+                tension: 0.1
+            }
+            ]
+        }
+    });
+}
 var ctx3 = document.getElementById('graficoPersonalizado');
 
 function createPersoBarra(ctx3) {
@@ -1817,7 +1812,13 @@ function createPersoBarra(ctx3) {
         type: 'bar',
         data: {
             labels: [],
-            datasets: []
+            datasets: [{
+                label: 'Registros',
+                data: [],
+                borderWidth: 1,
+                backgroundColor: coresRGB,
+                tension: 0.1
+            }]
         },
         options: {
             title: {
@@ -1858,10 +1859,16 @@ function createPersoLinha(ctx3) {
 function createPersoSetores(ctx3) {
 
     graficoPerso = new Chart(ctx3, {
-        type: 'line',
+        type: 'pie',
         data: {
             labels: [],
-            datasets: []
+            datasets: [{
+                label: 'Registros',
+                data: [],
+                fill: true,
+                backgroundColor: coresRGB,
+                tension: 0.1
+            }]
         },
         options: {
             title: {
@@ -1892,6 +1899,22 @@ function createPersoRegressao(ctx3) {
             }
         }
     });
+}
+
+function calcularMedia(valores) {
+    if (valores.length === 0) {
+        return null;
+    }
+
+    let soma = 0;
+
+    for (let i = 0; i < valores.length; i++) {
+        if (typeof valores[i] === 'number') {
+            soma += valores[i];
+        }
+    }
+
+    return soma / valores.length;
 }
 
 function arredondarNumero(numero, casasDecimais) {
