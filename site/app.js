@@ -48,7 +48,7 @@ app.use("/dashCorrelacao",dashCorrelacao);
 app.use("/processos",processosRouter);
 app.use("/dashboardRedeRouter", dashboardRedeRouter);
 app.use("/dashboardHardware", dashboardHardwareRouter);
-// app.use("/insertTemp", insertTempRouter);
+app.use("/insertTemp", insertTempRouter);
 app.listen(PORTA, function () {
   console.log(`Servidor rodando na porta ${PORTA}`);
 });

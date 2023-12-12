@@ -54,6 +54,9 @@ function mesDash(idServidor, anoMes) {
 
 function pesquisarIntevaloData() {
 
+  graficoFiltroData.destroy()
+  createFiltroData()
+
   var dataInicio = document.getElementById("dataInicio").value;
   var dataFim = document.getElementById("dataFim").value;
   var idServidor = getOptionValue();
@@ -79,6 +82,8 @@ function pesquisarIntevaloData() {
         for (let i = 0; i < json.length; i++) {
 
           var data = new Date(json[i].dia)
+
+          
           var dataCompleta = (`${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`);
 
           graficoFiltroData.data.datasets[0].data.push(json[i].valor) 
@@ -114,7 +119,10 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
         if (tipoGrafico == "graficoCpuHora") {
 
+
+          console.log(json[i].dtHoraRegistro)
           var horario = new Date(json[i].dtHoraRegistro)
+          console.log(horario)
 
           graficoTemperatura.data.datasets[0].data.push(json[i].valorRegistro)
           graficoTemperatura.data.labels.push(`${horario.getHours()}:${horario.getMinutes()}`)
@@ -123,6 +131,9 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
         } else if (tipoGrafico == "graficoCpuSemana") {
 
           var data = new Date(json[i].dia)
+
+          console.log(data.getDay())
+
           var nomeDiaSemana = diaSemana[data.getDay()]
 
           graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)

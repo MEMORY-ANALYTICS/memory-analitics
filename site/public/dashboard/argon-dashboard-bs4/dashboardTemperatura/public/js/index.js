@@ -10,7 +10,7 @@ var listMes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
 var listKpi = ["qtdIncidentes", "MedTemp", "CpuTempMax", "CpuTempMin"]
 
 var dataTemp = new Date();
-var dia = dataTemp.getDate();
+var dia = dataTemp.getDay();
 if (dia < 10) {
   dia = `0${dia}`
 }
@@ -43,19 +43,19 @@ function getOptionValue() {
 
 }
 
-setInterval(() => atualizarDados(getOptionValue), 50000);
+setInterval(() => atualizarDados(getOptionValue), 40000);
 
 
 setInterval(() => insertTemp(getOptionValue), 30000);
 
 function insertTemp(idServidor) {
 
-  var valorRegistro = (Math.random()*100) + 50
+  var valorRegistro = Math.round(((Math.random()*80) + 50),2)
   var datetime = new Date()
   var dtHoraRegistro = (datetime).toLocaleDateString() + ' ' + (datetime).toLocaleTimeString(); 
 
 
-  fetch(`/insertTemp/insertTempController`, {
+  fetch(`/insertTemp/inserirDados`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -76,6 +76,9 @@ function insertTemp(idServidor) {
 
 
 function atualizarDados(idServidor) {
+
+  console.log('atualizando o gráfico')
+
   if (botaoSelecionado == 1) {
     horaDash(getOptionValue(), idServidor, anoMes)
   } else if (botaoSelecionado == 2) {
@@ -187,29 +190,37 @@ function getKpi(metodoKpi, idServidor) {
 
           cpuTempMax.innerHTML = json[i].valorRegistro;
 
-          dataMysql = json[i].dtHoraRegistro
-          dataTratado = new Date(dataMysql);
-
-          diaTratado = dataTratado.getDay();
-          if (diaTratado < 10) {
-            diaTratado = `0${diaTratado}`
+          dataBanco = json[i].dtHoraRegistro;
+          
+          anoBanco = dataBanco.substring(0,4)
+          mesBanco = dataBanco.substring(5,7)
+          diaBanco = dataBanco.substring(8,10)
+          horaBanco = dataBanco.substring(11,13)
+          minutosBanco = dataBanco.substring(14,16)
+          
+          if (diaBanco < 10) {
+            diaBanco = `0${diaBanco}`
           }
 
-          momentoRegistroMax.innerHTML = `${dataTratado.getHours()}h ${dataTratado.getMinutes()} min.`;
-          dataRegistroMax.innerHTML = `${diaTratado}/${dataTratado.getMonth() + 1}/${dataTratado.getFullYear()}`;
+          momentoRegistroMax.innerHTML = `${horaBanco}h ${minutosBanco} min.`;
+          dataRegistroMax.innerHTML = `${diaBanco}/${mesBanco}/${anoBanco}`;
         } else if (metodoKpi == "CpuTempMin") {
 
           cpuTempMin.innerHTML = json[i].valorRegistro;
-          dataMysql = json[i].dtHoraRegistro
-          dataTratado = new Date(dataMysql);
-          diaTratado = dataTratado.getDay();
+          dataBanco = json[i].dtHoraRegistro
+          
+          anoBanco = dataBanco.substring(0,4)
+          mesBanco = dataBanco.substring(5,7)
+          diaBanco = dataBanco.substring(8,10)
+          horaBanco = dataBanco.substring(11,13)
+          minutosBanco = dataBanco.substring(14,16)
 
-          if (diaTratado < 10) {
-            diaTratado = `0${diaTratado}`
+          if (diaBanco < 10) {
+            diaBanco = `0${diaBanco}`
           }
 
-          momentoRegistroMin.innerHTML = `${dataTratado.getHours()}h ${dataTratado.getMinutes()} min.`;
-          dataRegistroMin.innerHTML = `${diaTratado}/${dataTratado.getMonth() + 1}/${dataTratado.getFullYear()}`;
+          momentoRegistroMin.innerHTML = `${horaBanco}h ${minutosBanco} min.`;
+          dataRegistroMin.innerHTML = `${diaBanco}/${mesBanco}/${anoBanco}`;
 
         } else if (metodoKpi == "MedTemp") {
 
@@ -228,12 +239,15 @@ function getKpi(metodoKpi, idServidor) {
               }
             })
             
+          } else if(json[i].mediaTemperatura > 85 || json[i].mediaTemperatura < 55){
+            estadoTempMedia.innerHTML = 'Alerta'
           } else {
             estadoTempMedia.innerHTML = 'Aceitável'
           }
 
           medTemp.innerHTML = json[i].mediaTemperatura;
-          dataMedTemp.innerHTML = dataHojeFront;
+
+          dataMedTemp.innerHTML = `12/12/2023`;
 
         }
       }
@@ -262,7 +276,7 @@ function graficoIncidentesMes(idServidor) {
       for (var i = 0; i < json.length; i++) {
 
         graficoIncidentes.data.datasets[0].data.push(json[i].quantidade)
-        graficoIncidentes.data.labels.push(json[i].mes)
+        graficoIncidentes.data.labels.push(listMes[json[i].mes-1])
         graficoIncidentes.update()
 
       }
@@ -333,7 +347,7 @@ function createIncidentes() {
     data: {
       labels: [],
       datasets: [{
-        label: [],
+        label: ['Insidentes'],
         data: [],
         backgroundColor: [
           'rgb(255, 99, 132)',
