@@ -57,7 +57,7 @@ function filtroData(dataInicio,dataFim,idServidor) {
   instrucaoSql = `
   SELECT convert(date,dtHoraRegistro) AS dia, round(AVG(valorRegistro),2) AS valor FROM registroTemp
   WHERE dtHoraRegistro BETWEEN '${dataInicio}' AND '${dataFim}' and tipoMedida = 'celsius' 
-  and fkComponente = (select idComponente from componente where fkServidor = ${idServidor})
+  and fkComponente = 43
   GROUP BY convert(date,dtHoraRegistro) order by dia;
 `
 

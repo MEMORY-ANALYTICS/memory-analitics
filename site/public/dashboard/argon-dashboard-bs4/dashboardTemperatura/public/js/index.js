@@ -45,12 +45,9 @@ function getOptionValue() {
 
 setInterval(() => atualizarDados(getOptionValue), 40000);
 
-
-setInterval(() => insertTemp(getOptionValue), 30000);
-
 function insertTemp(idServidor) {
 
-  var valorRegistro = Math.round(((Math.random()*2)+60),2)
+  var valorRegistro = Math.round(((Math.random()*5)+60),2)
   var datetime = new Date()
   var dtHoraRegistro = (datetime).toLocaleDateString() + ' ' + (datetime).toLocaleTimeString(); 
 
@@ -76,6 +73,8 @@ function insertTemp(idServidor) {
 
 
 function atualizarDados(idServidor) {
+
+  insertTemp(getOptionValue)
 
   console.log('atualizando o gráfico')
 
