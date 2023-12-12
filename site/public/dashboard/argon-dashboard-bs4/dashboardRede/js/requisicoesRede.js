@@ -332,19 +332,22 @@ function valorGrafico3(idComponente) {
         console.log("Dados recebidos: ", JSON.stringify(resposta));
 
         let velocidadeAtual = resposta[0].velocidadeAtual;
-
         // graficoVelocidade.series[0].data.push(velocidadeAtual);
       if(velocidadeAtual >= 0 && velocidadeAtual <= 60){
         velocidadeAlerta.style.color = 'red';
-        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 0.8)";
+        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 1)";
+        ContornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 1)";
         velocidadeAlerta.innerHTML = "Crítico"
       }else if(velocidadeAtual > 60 && velocidadeAtual <= 100){
         velocidadeAlerta.style.color = 'orange';
-        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(255, 255, 0, 0.8)";
+        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(255, 255, 0, 1)";
+        contornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(255, 255, 0, 1)";
+        contornoGrafico3.style.backgroundColor = "yellow"
         velocidadeAlerta.innerHTML = "Alerta"
       } else{
         velocidadeAlerta.style.color = 'green';
-        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 0.8)";
+        velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 1)";
+        ContornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 1)";
         velocidadeAlerta.innerHTML = "Estável"
       }
 
