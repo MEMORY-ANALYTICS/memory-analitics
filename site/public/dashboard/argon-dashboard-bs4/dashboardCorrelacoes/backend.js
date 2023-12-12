@@ -397,3 +397,88 @@ function selectGraficoOcorrenciaProcesso() {
         console.log(erro);
     });
 }
+
+function selectTempoRealCpu() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectTempoRealCpu", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {  
+                tempoReal.usoCpu.push(json[0].registro)
+                tempoReal.dataHora.push(formatarDataParaString(json[0].dthora))
+                graficoLiveComp.data.labels.push(formatarDataParaString(json[0].dthora))
+                graficoLiveComp.data.datasets[0].data.push(json[0].registro)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+
+function selectTempoRealRam() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectTempoRealRam", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                tempoReal.usoRam.push(json[0].registro)
+                graficoLiveComp.data.datasets[1].data.push(json[0].registro)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+
+function selectTempoRealProc() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectTempoRealProc", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                tempoReal.cpuProc.push(json[0].cpu)
+                tempoReal.ramProc.push(json[0].ram)
+                graficoLiveProc.data.labels.push(formatarDataParaString(json[0].dthora))
+                graficoLiveProc.data.datasets[0].data.push(json[0].cpu)
+                graficoLiveProc.data.datasets[1].data.push(json[0].ram)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}

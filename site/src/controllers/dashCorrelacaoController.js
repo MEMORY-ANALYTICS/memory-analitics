@@ -46,7 +46,7 @@ function selectServidores(req, res) {
 
 
 // Dados de componentes
-    // CPU
+// CPU
 function selectCpu(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
@@ -54,7 +54,7 @@ function selectCpu(req, res) {
 
     console.log('Estou no Controller selectCpu com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectCpu(fkServidor,filtroTempo,booleanRegressao)
+    dashCorrelacaoModel.selectCpu(fkServidor, filtroTempo, booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -69,14 +69,14 @@ function selectCpu(req, res) {
         });
 }
 
-    // Ram
+// Ram
 function selectRam(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
     var booleanRegressao = req.body.booleanRegressao
     console.log('Estou no Controller selectRam com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectRam(fkServidor,filtroTempo,booleanRegressao)
+    dashCorrelacaoModel.selectRam(fkServidor, filtroTempo, booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -91,14 +91,14 @@ function selectRam(req, res) {
         });
 }
 
-    // Disco
+// Disco
 function selectDisco(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
     var booleanRegressao = req.body.booleanRegressao
     console.log('Estou no Controller selectDisco com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectDisco(fkServidor,filtroTempo,booleanRegressao)
+    dashCorrelacaoModel.selectDisco(fkServidor, filtroTempo, booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -112,14 +112,14 @@ function selectDisco(req, res) {
             res.status(500).json(erro.sqlMessage);
         });
 }
-    // Rede
+// Rede
 function selectRede(req, res) {
     var fkServidor = req.body.fkServidor;
     var filtroTempo = req.body.filtroTempo;
     var booleanRegressao = req.body.booleanRegressao
     console.log('Estou no Controller selectRede com o valor de: fkServidor -> ' + fkServidor)
 
-    dashCorrelacaoModel.selectRede(fkServidor,filtroTempo,booleanRegressao)
+    dashCorrelacaoModel.selectRede(fkServidor, filtroTempo, booleanRegressao)
         .then(function (resultado) {
             if (resultado.length >= 0) {
                 res.status(200).json(resultado);
@@ -135,34 +135,82 @@ function selectRede(req, res) {
 }
 
 // Dados de processos 
-    // Processos comuns
-    function selectProcesso(req, res) {
-        var fkServidor = req.body.fkServidor;
-        var filtroTempo = req.body.filtroTempo;
-        var booleanRegressao = req.body.booleanRegressao
-        console.log('Estou no Controller selectProcesso com o valor de: fkServidor -> ' + fkServidor)
-    
-        dashCorrelacaoModel.selectProcesso(fkServidor,filtroTempo,booleanRegressao)
-            .then(function (resultado) {
-                if (resultado.length >= 0) {
-                    res.status(200).json(resultado);
-                    console.log("Resultado da Controller selectProcesso:" + resultado);
-                } else {
-                    res.status(204).send("selectProcesso: Nenhum resultado encontrado!")
-                }
-            }).catch(function (erro) {
-                console.log(erro);
-                console.log("selectProcesso: Houve um erro ao buscar a temperatura", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
-    }
-    // Processos banidos
+// Processos comuns
+function selectProcesso(req, res) {
+    var fkServidor = req.body.fkServidor;
+    var filtroTempo = req.body.filtroTempo;
+    var booleanRegressao = req.body.booleanRegressao
+    console.log('Estou no Controller selectProcesso com o valor de: fkServidor -> ' + fkServidor)
 
+    dashCorrelacaoModel.selectProcesso(fkServidor, filtroTempo, booleanRegressao)
+        .then(function (resultado) {
+            if (resultado.length >= 0) {
+                res.status(200).json(resultado);
+                console.log("Resultado da Controller selectProcesso:" + resultado);
+            } else {
+                res.status(204).send("selectProcesso: Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("selectProcesso: Houve um erro ao buscar a temperatura", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
+function selectTempoRealCpu(req, res) {
+    var fkServidor = req.body.fkServidor;
+    console.log('Estou no Controller selectTempoRealCpu com o valor de: fkServidor -> ' + fkServidor)
 
+    dashCorrelacaoModel.selectTempoRealCpu(fkServidor)
+        .then(function (resultado) {
+            if (resultado.length >= 0) {
+                res.status(200).json(resultado);
+                console.log("Resultado da Controller selectTempoRealCpu:" + resultado);
+            } else {
+                res.status(204).send("selectTempoRealCpu: Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("selectTempoRealCpu: Houve um erro ao buscar a selectTempoRealCpu", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+function selectTempoRealRam(req, res) {
+    var fkServidor = req.body.fkServidor;
+    console.log('Estou no Controller selectTempoRealRam com o valor de: fkServidor -> ' + fkServidor)
 
+    dashCorrelacaoModel.selectTempoRealRam(fkServidor)
+        .then(function (resultado) {
+            if (resultado.length >= 0) {
+                res.status(200).json(resultado);
+                console.log("Resultado da Controller selectTempoRealRam:" + resultado);
+            } else {
+                res.status(204).send("selectTempoRealRam: Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("selectProcesso: Houve um erro ao buscar a selectTempoRealRam", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+function selectTempoRealProc(req, res) {
+    var fkServidor = req.body.fkServidor;
+    console.log('Estou no Controller selectTempoRealProc com o valor de: fkServidor -> ' + fkServidor)
 
-
+    dashCorrelacaoModel.selectTempoRealProc(fkServidor)
+        .then(function (resultado) {
+            if (resultado.length >= 0) {
+                res.status(200).json(resultado);
+                console.log("Resultado da Controller selectTempoRealProc:" + resultado);
+            } else {
+                res.status(204).send("selectTempoRealProc: Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("selectProcesso: Houve um erro ao buscar a selectTempoRealProc", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
 
 module.exports = {
     selectServidores,
@@ -171,5 +219,8 @@ module.exports = {
     selectRam,
     selectDisco,
     selectRede,
-    selectProcesso
+    selectProcesso,
+    selectTempoRealCpu,
+    selectTempoRealRam,
+    selectTempoRealProc
 } 

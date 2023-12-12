@@ -569,7 +569,8 @@
                         <div class="col-xl-12">
                             <h1 class=" text-center my-0 py-0">Gráficos em tempo real:</h3>
                                 <div class="row">
-                                    <div class="col-xl-6 border border-light border-left-0 border-bottom-0 border-top-0">
+                                    <div
+                                        class="col-xl-6 border border-light border-left-0 border-bottom-0 border-top-0">
                                         <div class="col-xl-12 my-2">
                                             <h3 class="my-0 py-0 text-center">Uso de Cpu e Ram por processos</h3>
                                         </div>
@@ -577,7 +578,7 @@
                                         <div id="container2"
                                             class="p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
                                             style="box-shadow: 0.1em 0.2em 1em rgb(167, 166, 166);">
-                                            <canvas id="graficoCorrelacao"></canvas>
+                                            <canvas id="graficoProc"></canvas>
                                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                         </div>
                                     </div>
@@ -591,7 +592,7 @@
                                         <div id="container3"
                                             class="p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
                                             style="box-shadow: 0.1em 0.2em 1em rgb(167, 166, 166);">
-                                            <canvas id="graficoCorrelacao2"></canvas>
+                                            <canvas id="graficoComp"></canvas>
                                             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                         </div>
                                     </div>
@@ -724,11 +725,12 @@
                                 <div class="col-xl-12 mt-3">
                                     <div id="mensagemPerso"
                                         class="col-xl-12 mb-5 py-2 bg-white rounded border border-light border-top-0 border-left-0 h1 display-4 text-center"
-                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">Por favor, escolha o tipo do gráfico para inicializá-lo</div>
+                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107);">Por favor, escolha o
+                                        tipo do gráfico para inicializá-lo</div>
 
                                     <div id="container4"
                                         class="col-xl-12 p-3 mb-5 bg-white rounded border border-light border-top-0 border-left-0"
-                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107); display: none; width: 100%; height: 50vh;">
+                                        style="box-shadow: 0.1em 0.2em 1em rgb(107, 107, 107); display: none; width: 100%; height: 70vh;">
                                         <canvas id="graficoPersonalizado"></canvas>
                                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                     </div>
@@ -741,9 +743,11 @@
                             <div class="row">
                                 <div class="col-xl-12 bg-white rounded ">
                                     <div class="row">
-                                    <button class="mx-3 btn btn-outline-primary large" id="btnbaixarcsv">Baixar CSV</button>
-                                    <button class="mx-2 btn btn-outline-primary large" id="btnbaixarxls">Baixar XLS</button>
-                                </div>
+                                        <button class="mx-3 btn btn-outline-primary large" id="btnbaixarcsv">Baixar
+                                            CSV</button>
+                                        <button class="mx-2 btn btn-outline-primary large" id="btnbaixarxls">Baixar
+                                            XLS</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -824,6 +828,13 @@ https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js
             }
         }
     }
+    var tempoReal = {
+        cpuProc: [],
+        ramProc: [],
+        usoCpu: [],
+        usoRam: [],
+        dataHora: []
+    }
     var filtrosDashboard = {
         cpuUso: false,
         ram: false,
@@ -860,6 +871,33 @@ https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js
         qtdDadosKPI()
     }, 2000);
     createOcorrencias(ctx)
+    setInterval(() => {
+        if (regressao) {
+            togglePersoEspacoTempo.classList.add("disabled")
+            splitPersoEspacoTempo.classList.add("disabled")
+        } else {
+            togglePersoEspacoTempo.classList.remove("disabled")
+            splitPersoEspacoTempo.classList.remove("disabled")
+        }
+    }, 500);
+    createliveProc(ctx2)
+    createliveComp(ctx4)
+    setInterval(() => {
+        selectTempoRealCpu()
+        selectTempoRealRam()
+        selectTempoRealProc()
+        const maxDataPoints = 10;
+                if (graficoLiveProc.data.labels.length > maxDataPoints) {
+                    graficoLiveProc.data.labels.shift();
+                    graficoLiveProc.data.datasets[0].data.shift();
+                }
+                if (graficoLiveComp.data.labels.length > maxDataPoints) {
+                    graficoLiveComp.data.labels.shift();
+                    graficoLiveComp.data.datasets[0].data.shift();
+                }
+        graficoLiveProc.update()
+        graficoLiveComp.update()
+    }, 5000);
 </script>
 
 </html>
