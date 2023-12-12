@@ -17,7 +17,7 @@ r.tipoMedida,
 r.dtHoraRegistro
 FROM registro r
 JOIN componente c ON r.fkComponente = c.idComponente
-WHERE c.fkServidor = 1 AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso'
+WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso'
 ORDER BY r.idRegistro DESC;`;
 return database.executar(instrucaoSql);
 }
@@ -53,30 +53,9 @@ return database.executar(instrucaoSql);
 function getMaxCpu(fkServidor) {
     var instrucaoSql = 
     `SELECT
-        c.fkServidor,
-        MAX(r.valorRegistro) AS maxUsoCpu,
-        r.tipoMedida,
-        FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
-    FROM
-        registro r
-    JOIN
-        componente c ON r.fkComponente = c.idComponente
-    WHERE
-        c.fkServidor = ${fkServidor}
-        AND c.tipoComponente = 'CPU'
-        AND r.tipoMedida = '% de Uso'
-        AND CONVERT(DATE, r.dtHoraRegistro) = CONVERT(DATE, GETDATE())
-    GROUP BY
-        c.fkServidor, r.tipoMedida, CONVERT(DATE, r.dtHoraRegistro);`;
-    return database.executar(instrucaoSql);
-    }
-
-function getMaxRam(fkServidor) {
-var instrucaoSql = 
-`SELECT
     c.fkServidor,
-    MAX(r.valorRegistro) AS maxUsoRam,
-    r.tipoMedida,
+    MAX(r.valorRegistro) AS maxUsoCpu,
+    MAX(r.tipoMedida) AS tipoMedida,
     FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
 FROM
     registro r
@@ -84,32 +63,53 @@ JOIN
     componente c ON r.fkComponente = c.idComponente
 WHERE
     c.fkServidor = ${fkServidor}
-    AND c.tipoComponente = 'RAM'
     AND r.tipoMedida = '% de Uso'
-    AND CONVERT(DATE, r.dtHoraRegistro) = CONVERT(DATE, GETDATE())
+    AND c.tipoComponente = 'CPU'
 GROUP BY
-    c.fkServidor, r.tipoMedida, CONVERT(DATE, r.dtHoraRegistro);`;
+    c.fkServidor,
+    CONVERT(DATE, r.dtHoraRegistro);`;
+    return database.executar(instrucaoSql);
+    }
+
+function getMaxRam(fkServidor) {
+var instrucaoSql = 
+`SELECT
+c.fkServidor,
+MAX(r.valorRegistro) AS maxUsoRam,
+MAX(r.tipoMedida) AS tipoMedida,
+FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
+FROM
+registro r
+JOIN
+componente c ON r.fkComponente = c.idComponente
+WHERE
+c.fkServidor = ${fkServidor}
+AND r.tipoMedida = '% de Uso'
+AND c.tipoComponente = 'RAM'
+GROUP BY
+c.fkServidor,
+CONVERT(DATE, r.dtHoraRegistro);`;
 return database.executar(instrucaoSql);
 }
 
 function getMaxDisco(fkServidor) {
     var instrucaoSql = 
     `SELECT
-        c.fkServidor,
-        MAX(r.valorRegistro) AS maxUsoDisco,
-        r.tipoMedida,
-        FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
-    FROM
-        registro r
-    JOIN
-        componente c ON r.fkComponente = c.idComponente
-    WHERE
-        c.fkServidor = ${fkServidor}
-        AND c.tipoComponente = 'Disco'
-        AND r.tipoMedida = '% de Uso'
-        AND CONVERT(DATE, r.dtHoraRegistro) = CONVERT(DATE, GETDATE())
-    GROUP BY
-        c.fkServidor, r.tipoMedida, CONVERT(DATE, r.dtHoraRegistro);`;
+    c.fkServidor,
+    MAX(r.valorRegistro) AS maxUsoDisco,
+    MAX(r.tipoMedida) AS tipoMedida,
+    FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
+FROM
+    registro r
+JOIN
+    componente c ON r.fkComponente = c.idComponente
+WHERE
+    c.fkServidor = ${fkServidor}
+    AND r.tipoMedida = '% de Uso'
+    AND c.tipoComponente = 'DISCO'
+GROUP BY
+    c.fkServidor,
+    CONVERT(DATE, r.dtHoraRegistro);`;
     return database.executar(instrucaoSql);
     }
 
