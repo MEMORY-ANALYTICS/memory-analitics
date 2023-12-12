@@ -14,7 +14,7 @@ c.fkServidor,
 r.idRegistro,
 r.valorRegistro AS usoCpu,
 r.tipoMedida,
-r.dtHoraRegistro
+FORMAT(r.dtHoraRegistro , 'dd-MM-yyyy HH:mm') as dtHoraRegistro
 FROM registro r
 JOIN componente c ON r.fkComponente = c.idComponente
 WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso'
@@ -28,7 +28,7 @@ var instrucaoSql = `SELECT TOP 10
         r.idRegistro,
         r.valorRegistro AS usoRam,
         r.tipoMedida,
-        r.dtHoraRegistro
+        FORMAT(r.dtHoraRegistro , 'dd-MM-yyyy HH:mm') as dtHoraRegistro
         FROM registro r
         JOIN componente c ON r.fkComponente = c.idComponente
         WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'RAM' AND r.tipoMedida = '% de Uso'
@@ -42,7 +42,7 @@ var instrucaoSql = `SELECT TOP 10
         r.idRegistro, 
         r.valorRegistro AS usoDisco,
         r.tipoMedida,
-        r.dtHoraRegistro
+        FORMAT(r.dtHoraRegistro , 'dd-MM-yyyy HH:mm') as dtHoraRegistro
         FROM registro r
         JOIN componente c ON r.fkComponente = c.idComponente
         WHERE c.fkServidor = ${fkServidor} AND c.tipoComponente = 'Disco' AND r.tipoMedida = '% de Uso'
@@ -56,7 +56,7 @@ function getMaxCpu(fkServidor) {
     c.fkServidor,
     MAX(r.valorRegistro) AS maxUsoCpu,
     MAX(r.tipoMedida) AS tipoMedida,
-    FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
+    FORMAT(MAX(r.dtHoraRegistro), 'dd-MM-yyyy') AS dataHoraRegistro
 FROM
     registro r
 JOIN
@@ -77,7 +77,7 @@ var instrucaoSql =
 c.fkServidor,
 MAX(r.valorRegistro) AS maxUsoRam,
 MAX(r.tipoMedida) AS tipoMedida,
-FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
+FORMAT(MAX(r.dtHoraRegistro), 'dd-MM-yyyy') AS dataHoraRegistro
 FROM
 registro r
 JOIN
@@ -98,7 +98,7 @@ function getMaxDisco(fkServidor) {
     c.fkServidor,
     MAX(r.valorRegistro) AS maxUsoDisco,
     MAX(r.tipoMedida) AS tipoMedida,
-    FORMAT(MAX(r.dtHoraRegistro), 'yyyy-MM-dd HH:mm') AS dataHoraRegistro
+    FORMAT(MAX(r.dtHoraRegistro), 'dd-MM-yyyy') AS dataHoraRegistro
 FROM
     registro r
 JOIN
@@ -184,7 +184,7 @@ function getUltimoCpu(fkEmpresa) {
     r.idRegistro,
     r.valorRegistro AS usoCpu,
     r.tipoMedida,
-    r.dtHoraRegistro
+    FORMAT(r.dtHoraRegistro , 'dd-MM-yyyy HH:mm') as dtHoraRegistro
     FROM registro r
     JOIN componente c ON r.fkComponente = c.idComponente
     WHERE c.fkServidor = ${fkEmpresa} AND c.tipoComponente = 'CPU' AND r.tipoMedida = '% de Uso' 
@@ -199,7 +199,7 @@ function getUltimoRam(fkEmpresa) {
     r.idRegistro,
     r.valorRegistro AS usoRam,
     r.tipoMedida,
-    r.dtHoraRegistro
+    FORMAT(r.dtHoraRegistro , 'dd-MM-yyyy HH:mm') as dtHoraRegistro
     FROM registro r
     JOIN componente c ON r.fkComponente = c.idComponente
     WHERE c.fkServidor = ${fkEmpresa} AND c.tipoComponente = 'RAM' AND r.tipoMedida = '% de Uso' 
@@ -214,7 +214,7 @@ function getUltimoDisco(fkEmpresa) {
     r.idRegistro,
     r.valorRegistro AS usoDisco,
     r.tipoMedida,
-    r.dtHoraRegistro
+    FORMAT(r.dtHoraRegistro , 'dd-MM-yyyy HH:mm') as dtHoraRegistro
     FROM registro r
     JOIN componente c ON r.fkComponente = c.idComponente
     WHERE c.fkServidor = ${fkEmpresa} AND c.tipoComponente = 'DISCO' AND r.tipoMedida = '% de Uso' 

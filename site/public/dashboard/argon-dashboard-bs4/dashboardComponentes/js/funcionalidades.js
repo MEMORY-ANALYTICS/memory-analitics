@@ -2,25 +2,26 @@
 
 mudarServidor();
 
+var fkServidor;
+var nomeServidor;
+
 // Alterando nome do Login
 nomeLogin.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
-let picoCPU = 80; // Substitua pelos valores reais
-let picoRAM = 80; // Substitua pelos valores reais
-let picoDISCO = 80; // Substitua pelos valores reais
+let picoCPU = 0; 
+let picoRAM = 0; 
+let picoDISCO = 0; 
 
 function preencherDropdownServidores(servidores) {
   const selectServidor = document.getElementById("selectServidor");
 
   servidores.forEach((servidor) => {
     const option = document.createElement("option");
-    option.value = servidor.idServidor; // Aqui, assumo que o servidor tem um atributo idServidor, ajuste conforme sua estrutura
-    option.text = servidor.nomeServidor; // Substitua pelo atributo que contém o nome do servidor
+    option.value = servidor.idServidor; 
+    option.text = servidor.nomeServidor; 
     selectServidor.appendChild(option);
   });
 }
-
-var fkServidor;
 
 function mudarServidor() {
   const selectServidor = document.getElementById("selectServidor");
@@ -28,7 +29,7 @@ function mudarServidor() {
     cache: "no-store",
   }).then((res) => {
     res.json().then((json) => {
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < json.length; i++) {
         console.log(json[i]);
         var novaOpcao = document.createElement("option");
         novaOpcao.text = json[i].apelidoServidor;
@@ -38,6 +39,7 @@ function mudarServidor() {
       }
 
       fkServidor = selectServidor.value// Atualiza o valor de fkServidor ao selecionar um novo servidor
+      nomeServidor = selectServidor.options[selectServidor.selectedIndex].text;
       getDadosCpu(); // Chame a função getDadosCpu() ao mudar o servidor para buscar os dados atualizados
       getDadosRam(); // Chame a função getDadosRam() ao mudar o servidor para buscar os dados atualizados
       getDadosDisco(); // Chame a função getDadosDisco() ao mudar o servidor para buscar os dados atualizados
@@ -231,7 +233,8 @@ async function getKpiCpu() {
     if (response.ok) {
       const data = await response.json();
       kpiCPU.innerHTML = data[0].maxUsoCpu + "%";
-      dataKpiCpu.innerHTML = data[0].dataHoraRegistro;
+      dataKpiCpu.innerHTML = '&nbsp' + data[0].dataHoraRegistro;
+      picoCPU = data[0].maxUsoCpu;
     } else {
       const textoErro = await response.text();
       console.error(textoErro);
@@ -255,7 +258,8 @@ async function getKpiRam() {
     if (response.ok) {
       const data = await response.json();
       kpiRAM.innerHTML = data[0].maxUsoRam + "%";
-      dataKpiRam.innerHTML = data[0].dataHoraRegistro;
+      dataKpiRam.innerHTML = '&nbsp' + data[0].dataHoraRegistro;
+      picoRAM = data[0].maxUsoRam;
     } else {
       const textoErro = await response.text();
       console.error(textoErro);
@@ -279,7 +283,8 @@ async function getKpiDisco() {
     if (response.ok) {
       const data = await response.json();
       kpiDISCO.innerHTML = data[0].maxUsoDisco + "%";
-      dataKpiDisco.innerHTML = data[0].dataHoraRegistro;
+      dataKpiDisco.innerHTML = '&nbsp' + data[0].dataHoraRegistro;
+      picoDISCO = data[0].maxUsoDisco;
     } else {
       const textoErro = await response.text();
       console.error(textoErro);
@@ -342,10 +347,10 @@ function criarGrafico() {
       data: {
         labels: dtCpu,
         datasets: [{
-          label: '',
+          label: 'Uso Percentual de CPU',
           data: cpuUsageArray,
-          // backgroundColor: ["white"],
-          // borderColor: ['white'],
+          backgroundColor: ["white"],
+          borderColor: ['white'],
           backgroundColor: (context) => {
             const chart = context.chart;
             const { ctx, chartArea, scales } = chart;
@@ -368,6 +373,7 @@ function criarGrafico() {
         scales: {
           y: {
             beginAtZero: true,
+            max: 100,
             ticks: {
               // Configuração da cor dos valores do eixo Y
               color: 'white' // Define a cor como branca
@@ -379,7 +385,10 @@ function criarGrafico() {
               color: 'white' // Define a cor como branca
             },
             grid: {
-              color: 'white' // Cor das linhas de grade do eixo X
+              color: 'rgba(255, 255, 255, 0.1)' // Cor das linhas de grade do eixo X
+            },
+            callback: function (value) {
+              return value + '%';
             }
           }
         },
@@ -404,10 +413,10 @@ function criarGrafico() {
       data: {
         labels: dtRam,
         datasets: [{
-          label: '',
+          label: 'Uso Percentual de RAM',
           data: ramUsageArray,
-          // backgroundColor: ["white"],
-          // borderColor: ['white'],
+          backgroundColor: ["white"],
+          borderColor: ['white'],
           backgroundColor: (context) => {
             const chart = context.chart;
             const { ctx, chartArea, scales } = chart;
@@ -465,10 +474,10 @@ function criarGrafico() {
       data: {
         labels: dtDisco,
         datasets: [{
-          label: '',
+          label: 'Uso Percentual de Disco',
           data: discoUsageArray,
-          // backgroundColor: ["white"],
-          // borderColor: ['white'],
+          backgroundColor: ["white"],
+          borderColor: ['white'],
           backgroundColor: (context) => {
             const chart = context.chart;
             const { ctx, chartArea, scales } = chart;
@@ -491,6 +500,7 @@ function criarGrafico() {
         scales: {
           y: {
             beginAtZero: true,
+            max: 100,
             ticks: {
               // Configuração da cor dos valores do eixo Y
               color: 'white' // Define a cor como branca
@@ -518,6 +528,37 @@ function criarGrafico() {
       }
     });
 
+    function downloadPDF() {
+      const contentCopy = document.getElementById('containers').cloneNode(true);
+      const spanElement = contentCopy.querySelector('span');
+      const filterElement = contentCopy.querySelector('.filter');
+    
+      if (filterElement) {
+        filterElement.parentNode.removeChild(filterElement);
+      }
+    
+      // Adicione os valores de pico de uso ao conteúdo do PDF
+      const contentHTML = `
+      <p>//</p><h1>Usuário Logado: ${sessionStorage.NOME_USUARIO}</h1>
+      <h1>Apelido do Servidor: ${nomeServidor}</h1>
+      `;
+    
+      // Remover todos os quebras de linha e espaços desnecessários
+      contentCopy.innerHTML += contentHTML.replace(/\n\s*/g, "");
+    
+      const options = {
+        margin: 10,
+        filename: 'relatorio.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        font: { size: 60 } // Tamanho da fonte maior
+      };
+    
+      html2pdf(contentCopy, options);
+    }
+    
+
 
 function updateChart(chart, dataArray, dateArray) {
   chart.data.labels = dateArray;
@@ -539,7 +580,7 @@ setInterval(() => {
   getKpiRam();
   getKpiDisco();
   getKpiUsoMes();
-}, 5000); // 5000 milissegundos = 5 segundos
+}, 2000); // 5000 milissegundos = 5 segundos
 
 
 // Chame a função para buscar e renderizar os dados com base no servidor selecionado
