@@ -422,10 +422,10 @@ function criarGrafico() {
     graficoRAM = new Chart(ctx2, {
       type: 'line',
       data: {
-        labels: dtRam,
+        labels: dtRam.reverse(),
         datasets: [{
           label: 'Uso Percentual de RAM',
-          data: ramUsageArray,
+          data: ramUsageArray.reverse(),
           backgroundColor: ["white"],
           borderColor: ['white'],
           backgroundColor: (context) => {
@@ -483,10 +483,10 @@ function criarGrafico() {
     graficoDISCO = new Chart(ctx3, {
       type: 'line',
       data: {
-        labels: dtDisco,
+        labels: dtDisco.reverse(),
         datasets: [{
           label: 'Uso Percentual de Disco',
-          data: discoUsageArray,
+          data: discoUsageArray.reverse(),
           backgroundColor: ["white"],
           borderColor: ['white'],
           backgroundColor: (context) => {

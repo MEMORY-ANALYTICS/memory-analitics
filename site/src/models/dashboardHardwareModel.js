@@ -2,7 +2,7 @@
 var database = require("../database/config");
 
 function getServidor() {
-var email = "gustavo@email.com";
+var email = "anafonseca@email.com";
 instrucaoSql = `select idServidor,apelidoServidor,macAdress,idEmpresa from servidor join empresa on fkEmpresa = idEmpresa 
     where idEmpresa = (select idEmpresa from empresa join  funcionario on fkEmpresa = idEmpresa where emailFunc = '${email}');`;
 return database.executar(instrucaoSql);
