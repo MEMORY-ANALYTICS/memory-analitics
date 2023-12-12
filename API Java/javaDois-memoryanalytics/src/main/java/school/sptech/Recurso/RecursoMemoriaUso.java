@@ -28,7 +28,7 @@
         }
 
         @Override
-        public Double capturarRegistro() {
+        public Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL) {
             Memoria memoria = looca.getMemoria();
 
             setNome("Memória Padrão");
@@ -37,19 +37,18 @@
             double usoDeMemoriaPercentual = calcularUsoDeMemoriaPercentual(memoria);
             setValorRegistro(Math.ceil(usoDeMemoriaPercentual));
 
-            LocalDateTime dataHoraAtual = LocalDateTime.now();
             getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
                     .formatted(getValorRegistro().toString().replace(",","."),
                             getUnidadeMedida(),
                             "RecursoMemoriaUso",
-                            dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                            dtHoraRegistroSQL,
                             selectFkComponente()));
             getConexoes().get(1).execute(
                     "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
                             + getValorRegistro() + ", '"
                             + getUnidadeMedida() + "', '"
                             + "RecursoMemoriaUso', '"
-                            + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                            + dtHoraRegistroMySQL + "', "
                             + selectFkComponente() + ")"
             );
             return usoDeMemoriaPercentual;
@@ -95,10 +94,5 @@
         public String toString() {
             return String.format("Nome: %s\nUnidade de Medida: %s\nValor de Registro: %.2f\n",
                     getNome(), getUnidadeMedida(), getValorRegistro());
-        }
-
-        public static void main(String[] args) {
-            RecursoMemoriaUso memoriaUso = new RecursoMemoriaUso();
-            memoriaUso.capturarRegistro();
         }
     }

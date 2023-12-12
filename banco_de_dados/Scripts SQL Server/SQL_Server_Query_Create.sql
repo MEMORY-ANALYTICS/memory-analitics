@@ -145,6 +145,19 @@ BEGIN
     );
 END;
 
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'bd_memoryanalytics' AND TABLE_NAME = 'registro')
+BEGIN
+    CREATE TABLE registroTemp(
+        idRegistro INT PRIMARY KEY IDENTITY(1,1),
+        valorRegistro FLOAT,
+		tipoMedida VARCHAR(25),
+        detalheRegistro VARCHAR(45),
+        dtHoraRegistro DATETIME,
+        fkComponente INT,
+        FOREIGN KEY (fkComponente) REFERENCES componente (idComponente)
+    );
+END;
+
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'dbo' AND TABLE_NAME = 'processos')
 BEGIN
 	CREATE TABLE processos(

@@ -1,5 +1,5 @@
 
-function horaDash(idServidor) {
+function horaDash(idServidor, anoMes) {
 
   botaoSelecionado = 1 // index.js
 
@@ -14,7 +14,7 @@ function horaDash(idServidor) {
   ctx = document.getElementById('graficoTemperatura');
   graficoTemperatura.destroy()
   createTemp(ctx)
-  exibirGrafico("graficoCpuHora", idServidor)
+  exibirGrafico("graficoCpuHora", idServidor, anoMes)
 }
 
 function semanaDash(idServidor, anoMes) {
@@ -35,7 +35,7 @@ function semanaDash(idServidor, anoMes) {
   exibirGrafico("graficoCpuSemana",idServidor, anoMes)
 }
 
-function mesDash() {
+function mesDash(idServidor, anoMes) {
 
   idHoraDash.style = "background-color: #FFFF; cursor: pointer;"
   textoHora.style = "color: #5e72e4"
@@ -54,9 +54,12 @@ function mesDash() {
 
 function pesquisarIntevaloData() {
 
+  graficoFiltroData.destroy()
+  createFiltroData()
+
   var dataInicio = document.getElementById("dataInicio").value;
   var dataFim = document.getElementById("dataFim").value;
-  var idServidor = select.options[select.selectIndex].value;
+  var idServidor = getOptionValue();
   
   console.log(dataInicio, dataFim, idServidor)
 
@@ -78,7 +81,11 @@ function pesquisarIntevaloData() {
       res.json().then(json => {
         for (let i = 0; i < json.length; i++) {
 
+          
+
           var data = new Date(json[i].dia)
+
+          
           var dataCompleta = (`${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`);
 
           graficoFiltroData.data.datasets[0].data.push(json[i].valor) 
@@ -95,7 +102,8 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
 
   console.log(tipoGrafico)
 
-  fetch(`/grafico/${tipoGrafico}`, {
+  fetch(`/grafico/${tipoGrafico}`
+  , {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -104,33 +112,72 @@ function exibirGrafico(tipoGrafico, idServidor, anoMes) {
       idServidor : idServidor,
       data: anoMes
     })
-  }).then(res => {
+  }
+  ).then(res => {
     res.json().then(json => {
       for (var i = (json.length - 1); i >= 0; i--) {
+
+        var dataBanco;
+        var horaBanco;
+        var minutosBanco;
+        var diaBanco;
+
 
         const diaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
 
         if (tipoGrafico == "graficoCpuHora") {
 
-          var horario = new Date(json[i].dtHoraRegistro)
+
+          console.log(json[i].dtHoraRegistro)
+          dataBanco = (json[i].dtHoraRegistro)
+
+      
+
+          horaBanco = dataBanco.substring(11,13)
+          minutosBanco = dataBanco.substring(14,16)
+
 
           graficoTemperatura.data.datasets[0].data.push(json[i].valorRegistro)
-          graficoTemperatura.data.labels.push(`${horario.getHours()}:${horario.getMinutes()}`)
+          graficoTemperatura.data.labels.push(`${horaBanco}:${minutosBanco}`)
           graficoTemperatura.update()
 
         } else if (tipoGrafico == "graficoCpuSemana") {
 
-          var data = new Date(json[i].dia)
-          var nomeDiaSemana = diaSemana[data.getDay()]
+          dataBanco = json[i].dia
+          console.log(json[i].dia)
 
+
+          anoBanco = dataBanco.substring(0,4)
+          mesBanco = dataBanco.substring(5,7)
+          diaBanco = dataBanco.substring(8,10)
+         
+        
+          var data = new Date(anoBanco,mesBanco-1,diaBanco)
+          console.log(data)
+
+          var numeroDiaSemana = data.getDay()
+          console.log(numeroDiaSemana)
+
+          var nomeDiaSemana = diaSemana[numeroDiaSemana]
+          console.log(nomeDiaSemana)
           graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)
           graficoTemperatura.data.labels.push(nomeDiaSemana)
           graficoTemperatura.update()
 
         } else if (tipoGrafico == "graficoCpuMes") {
+
+
     
-          var data = new Date(json[i].dia)
-          var dataDia = (`${data.getDate()}/${data.getMonth() + 1}`)
+          dataBanco = json[i].dia; 
+
+          anoBanco = dataBanco.substring(0,4)
+          mesBanco = dataBanco.substring(5,7)
+          diaBanco = dataBanco.substring(8,10)
+          horaBanco = dataBanco.substring(11,13)
+          minutosBanco = dataBanco.substring(14,16)
+          
+
+          var dataDia = (`${diaBanco}/${mesBanco}`)
 
           graficoTemperatura.data.datasets[0].data.push(json[i].valorMedia)
           graficoTemperatura.data.labels.push(dataDia)

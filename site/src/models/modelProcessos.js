@@ -12,7 +12,7 @@ function buscarUltimasMedidas(fkServer, limite_linhas) {
         dtHora,
         FORMAT(dtHora,'%H:%m:%s') as momento_grafico
         from processos
-        where fkServidor = ${4}
+        where fkServidor = ${fkServer}
         order by idProcessos desc`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `select 
@@ -23,7 +23,7 @@ function buscarUltimasMedidas(fkServer, limite_linhas) {
         dtHora,
         DATE_FORMAT(dtHora,'%H:%i:%s') as momento_grafico
         from processos
-        where fkServidor = ${4}
+        where fkServidor = ${fkServer}
         order by idProcessos desc limit ${limite_linhas}`;
   } else {
     console.log(
@@ -43,9 +43,11 @@ function buscarMedidasEmTempoReal(fkServer) {
     instrucaoSql = `select top 1
         usoCpu as cpu, 
         usoRam as ram,  
+        qtdProcessosOnline,
+        processoMaiorMediaUso as pmmu,
         CONVERT(varchar, dtHora, 108) as momento_grafico, 
         fkServidor 
-        from processos where fkServidor = ${4} 
+        from processos where fkServidor = ${fkServer} 
         order by idProcessos desc`;
   } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
     instrucaoSql = `select 
@@ -55,7 +57,7 @@ function buscarMedidasEmTempoReal(fkServer) {
         processoMaiorMediaUso as pmmu,
                         DATE_FORMAT(dtHora,'%H:%i:%s') as momento_grafico, 
                         fkServidor 
-                        from processos where fkServidor = ${4} 
+                        from processos where fkServidor = ${fkServer} 
                     order by idProcessos desc limit 1`;
   } else {
     console.log(

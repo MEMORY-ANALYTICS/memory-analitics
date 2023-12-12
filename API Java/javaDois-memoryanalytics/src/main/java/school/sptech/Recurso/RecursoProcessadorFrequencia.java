@@ -29,7 +29,7 @@ public class RecursoProcessadorFrequencia extends Recurso {
     }
 
     @Override
-    public Double capturarRegistro() {
+    public Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL) {
         Processador processador = looca.getProcessador();
 
         setNome(processador.getNome());
@@ -38,19 +38,18 @@ public class RecursoProcessadorFrequencia extends Recurso {
         double frequenciaMHz = processador.getFrequencia() / 1e6; // Convertendo de Hz para MHz
         setValorRegistro(Math.ceil(frequenciaMHz));
 
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
         getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
                 .formatted(getValorRegistro().toString().replace(",","."),
                         getUnidadeMedida(),
                         "RecursoProcessadorFrequencia",
-                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        dtHoraRegistroSQL,
                         selectFkComponente()));
         getConexoes().get(1).execute(
                 "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
                         + getValorRegistro() + ", '"
                         + getUnidadeMedida() + "', '"
                         + "RecursoProcessadorFrequencia', '"
-                        + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                        + dtHoraRegistroMySQL + "', "
                         + selectFkComponente() + ")"
         );
         return frequenciaMHz;
@@ -84,11 +83,5 @@ public class RecursoProcessadorFrequencia extends Recurso {
         return String.format("Nome: %s\nUnidade de Medida: %s\nValor do Registro: %.1f%% MHz",
                 getNome(), getUnidadeMedida(), getValorRegistro());
     }
-
-    public static void main(String[] args) {
-        RecursoProcessadorFrequencia processadorFrequencia = new RecursoProcessadorFrequencia();
-        processadorFrequencia.capturarRegistro();
-    }
-
 }
 

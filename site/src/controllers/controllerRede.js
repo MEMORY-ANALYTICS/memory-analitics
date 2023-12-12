@@ -162,13 +162,121 @@ function pegarIdComponente(req, res) {
           );
   }
 
+  function pegarPacotesEnviados(req, res) {
+    var fkComponente = req.params.fkComponente;
+    var dataAtual = req.params.dataAtual;
+  
+    redeModel.pegarPacotesEnviados(fkComponente,dataAtual)
+          .then(
+              function (resultado) {
+                  if (resultado.length > 0) {
+                      res.status(200).json(resultado);
+                  } else {
+                      res.status(204).send("Nenhum resultado encontrado!");
+                  }
+              }
+          )
+          .catch(
+              function (erro) {
+                  console.log(erro);
+                  console.log(
+                      "Houve um erro ao buscar os Servidores: ",
+                      erro.sqlMessage
+                  );
+                  res.status(500).json(erro.sqlMessage);
+              }
+          );
+  }
+
+  function pegarPacotesRecebidos(req, res) {
+    var fkComponente = req.params.fkComponente;
+    var dataAtual = req.params.dataAtual;
+  
+    redeModel.pegarPacotesRecebidos(fkComponente,dataAtual)
+          .then(
+              function (resultado) {
+                  if (resultado.length > 0) {
+                      res.status(200).json(resultado);
+                  } else {
+                      res.status(204).send("Nenhum resultado encontrado!");
+                  }
+              }
+          )
+          .catch(
+              function (erro) {
+                  console.log(erro);
+                  console.log(
+                      "Houve um erro ao buscar os Servidores: ",
+                      erro.sqlMessage
+                  );
+                  res.status(500).json(erro.sqlMessage);
+              }
+          );
+  }
+
+  function pegarVelocidadeAtual(req, res) {
+    var fkComponente = req.params.fkComponente;
+    var dataAtual = req.params.dataAtual;
+  
+    redeModel.pegarVelocidadeAtual(fkComponente,dataAtual)
+          .then(
+              function (resultado) {
+                  if (resultado.length > 0) {
+                      res.status(200).json(resultado);
+                  } else {
+                      res.status(204).send("Nenhum resultado encontrado!");
+                  }
+              }
+          )
+          .catch(
+              function (erro) {
+                  console.log(erro);
+                  console.log(
+                      "Houve um erro ao buscar os Servidores: ",
+                      erro.sqlMessage
+                  );
+                  res.status(500).json(erro.sqlMessage);
+              }
+          );
+  }
+
+  function pegarMaxVelocidade(req, res) {
+    var fkComponente = req.params.fkComponente;
+    var dataAtual = req.params.dataAtual;
+  
+    redeModel.pegarMaxVelocidade(fkComponente,dataAtual)
+          .then(
+              function (resultado) {
+                  if (resultado.length > 0) {
+                      res.status(200).json(resultado);
+                  } else {
+                      res.status(204).send("Nenhum resultado encontrado!");
+                  }
+              }
+          )
+          .catch(
+              function (erro) {
+                  console.log(erro);
+                  console.log(
+                      "Houve um erro ao buscar os Servidores: ",
+                      erro.sqlMessage
+                  );
+                  res.status(500).json(erro.sqlMessage);
+              }
+          );
+  }
+
 module.exports = {
   listar,
   pegarKpiVelocidade,
   pegarIdComponente,
-  pegarLatenciaAtual,
   pegarKpiLatencia,
   pegarKpiPacotes,
+  pegarLatenciaAtual,
+  pegarPacotesEnviados,
+  pegarPacotesRecebidos,
+  pegarVelocidadeAtual,
+  pegarMaxVelocidade,
 
   pegarLatenciaAtual
 };

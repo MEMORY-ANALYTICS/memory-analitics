@@ -32,6 +32,12 @@ public class RecursoTemperatura  extends Recurso{
 
     }
 
+
+    public Double getValorRegistro(){
+        Temperatura temperatura = new Temperatura();
+        return temperatura.getTemperatura();
+    }
+
     @Override
     public Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL) {
         Temperatura temperatura = new Temperatura();
@@ -48,10 +54,6 @@ public class RecursoTemperatura  extends Recurso{
                         "temperatura do processador",
                        dtHoraRegistroMySQL,
                         getIdComponente()));
-
-
-
-
 
         return temperatura.getTemperatura();
     }

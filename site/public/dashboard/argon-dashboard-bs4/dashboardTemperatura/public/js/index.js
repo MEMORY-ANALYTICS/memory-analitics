@@ -1,13 +1,16 @@
+
 nomeLogin.innerHTML = sessionStorage.NOME_USUARIO
-getServidor()
+var emailLogado = sessionStorage.getItem("EMAIL_USUARIO")
+
+getServidor(emailLogado)
 
 var botaoSelecionado = 1
-var listMes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
-'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']  
+var listMes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
 var listKpi = ["qtdIncidentes", "MedTemp", "CpuTempMax", "CpuTempMin"]
 
 var dataTemp = new Date();
-var dia = dataTemp.getDate();
+var dia = dataTemp.getDay();
 if (dia < 10) {
   dia = `0${dia}`
 }
@@ -21,67 +24,105 @@ var select;
 
 createTemp()
 createFiltroData()
-horaDash(getOptionValue())
+horaDash(getOptionValue(), anoMes)
 createIncidentes()
 graficoIncidentesMes(getOptionValue())
 
 for (i = 0; i < listKpi.length; i++) {
-  getKpi(listKpi[i])
+  getKpi(listKpi[i], getOptionValue())
 }
 
-function getOptionValue(){
-  select = document.getElementById(selecaoApelidoServidor)
-  return select.options[select.selectIndex].value;
+function getOptionValue() {
+
+  var idServidor = 12
+ // idServidor = selecaoApelidoServidor.value
+
   
+  console.log(idServidor)
+  return idServidor;
+
 }
 
-setInterval(() => atualizarDados(), 500000);
+setInterval(() => atualizarDados(getOptionValue), 40000);
+
+function insertTemp(idServidor) {
+
+  var valorRegistro = Math.round(((Math.random()*5)+60),2)
+  var datetime = new Date()
+  var dtHoraRegistro = (datetime).toLocaleDateString() + ' ' + (datetime).toLocaleTimeString(); 
 
 
-function atualizarDados() {
-  if (botaoSelecionado == 1){
-    horaDash(getOptionValue())
-  } else if (botaoSelecionado == 2){
-    semanaDash(getOptionValue(), anoMes)
+  fetch(`/insertTemp/inserirDados`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      idServidor: idServidor,
+      valorRegistro: valorRegistro,
+      dtHoraRegistro: dtHoraRegistro
+    })
+  }
+  ).then(res => {
+  })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
+
+
+function atualizarDados(idServidor) {
+
+  insertTemp(getOptionValue)
+
+  console.log('atualizando o gráfico')
+
+  if (botaoSelecionado == 1) {
+    horaDash(getOptionValue(), idServidor, anoMes)
+  } else if (botaoSelecionado == 2) {
+    semanaDash(getOptionValue(), idServidor, anoMes)
   } else {
-    mesDash(getOptionValue(), anoMes)
+    mesDash(getOptionValue(), idServidor, anoMes)
   }
-  
+
   for (i = 0; i < listKpi.length; i++) {
-    getKpi(listKpi[i])
+    getKpi(listKpi[i], idServidor)
   }
-  
+
   graficoIncidentes.destroy()
   createIncidentes()
-  graficoIncidentesMes('Servidor B')
+  graficoIncidentesMes(getOptionValue())
 }
 
 
 
 
-function getServidor() {
+function getServidor(emailLogado) {
 
 
-  fetch(`/servidor/servidor`, {
-    method: "POST",
+  fetch(`/servidor/servidor`
+    , {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        email : sessionStorage.EMAIL_USUARIO
+        email: emailLogado
       })
-  }).then(res => {
+    }
+  ).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-        
+
         var novaOpcao = document.createElement("option");
         var select = document.getElementById("selecaoApelidoServidor");
-        
+
         novaOpcao.text = json[i].apelidoServidor
         novaOpcao.value = json[i].idServidor
-        
+
         select.appendChild(novaOpcao);
-      
+
       }
     })
   })
@@ -91,26 +132,26 @@ function getServidor() {
 }
 
 
-function getKpi(metodoKpi) {
+function getKpi(metodoKpi, idServidor) {
 
   fetch(`/kpi/${metodoKpi}`, {
     method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        dataMomento: dataHojeBack,
-        fkServidor: idServidor
-      })
-    }).then(res => {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      dataMomento: dataHojeBack,
+      fkServidor: idServidor
+    })
+  }).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-        
+
         var dataMysql;
         var dataTratado;
         var diaTratado;
         var valorRegistro;
-        
+
         if (metodoKpi == "qtdIncidentes") {
 
           valorRegistro = json[i].quantidade
@@ -121,6 +162,20 @@ function getKpi(metodoKpi) {
           if (valorRegistro > 5) {
             estadoIncidentes.innerHTML = 'Crítico'
             
+            Swal.fire({
+              title: 'Alta quantidade de incidentes!',
+              text: "Este servidor tem mais de 5 alertas reportados!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Estou ciente'
+            }).then((result) => {
+              if (result.isConfirmed) {
+              }
+            })
+            
+
           } else if (valorRegistro == 0) {
             estadoIncidentes.innerHTML = 'Excelente'
           } else {
@@ -134,41 +189,65 @@ function getKpi(metodoKpi) {
 
           cpuTempMax.innerHTML = json[i].valorRegistro;
 
-          dataMysql = json[i].dtHoraRegistro
-          dataTratado = new Date(dataMysql);
-
-          diaTratado = dataTratado.getDay();
-          if (diaTratado < 10) {
-            diaTratado = `0${diaTratado}`
+          dataBanco = json[i].dtHoraRegistro;
+          
+          anoBanco = dataBanco.substring(0,4)
+          mesBanco = dataBanco.substring(5,7)
+          diaBanco = dataBanco.substring(8,10)
+          horaBanco = dataBanco.substring(11,13)
+          minutosBanco = dataBanco.substring(14,16)
+          
+          if (diaBanco < 10) {
+            diaBanco = `0${diaBanco}`
           }
 
-          momentoRegistroMax.innerHTML = `${dataTratado.getHours()}h ${dataTratado.getMinutes()} min.`;
-          dataRegistroMax.innerHTML = `${diaTratado}/${dataTratado.getMonth() + 1}/${dataTratado.getFullYear()}`;
+          momentoRegistroMax.innerHTML = `${horaBanco}h ${minutosBanco} min.`;
+          dataRegistroMax.innerHTML = `${diaBanco}/${mesBanco}/${anoBanco}`;
         } else if (metodoKpi == "CpuTempMin") {
 
           cpuTempMin.innerHTML = json[i].valorRegistro;
-          dataMysql = json[i].dtHoraRegistro
-          dataTratado = new Date(dataMysql);
-          diaTratado = dataTratado.getDay();
+          dataBanco = json[i].dtHoraRegistro
+          
+          anoBanco = dataBanco.substring(0,4)
+          mesBanco = dataBanco.substring(5,7)
+          diaBanco = dataBanco.substring(8,10)
+          horaBanco = dataBanco.substring(11,13)
+          minutosBanco = dataBanco.substring(14,16)
 
-          if (diaTratado < 10) {
-            diaTratado = `0${diaTratado}`
+          if (diaBanco < 10) {
+            diaBanco = `0${diaBanco}`
           }
 
-          momentoRegistroMin.innerHTML = `${dataTratado.getHours()}h ${dataTratado.getMinutes()} min.`;
-          dataRegistroMin.innerHTML = `${diaTratado}/${dataTratado.getMonth() + 1}/${dataTratado.getFullYear()}`;
+          momentoRegistroMin.innerHTML = `${horaBanco}h ${minutosBanco} min.`;
+          dataRegistroMin.innerHTML = `${diaBanco}/${mesBanco}/${anoBanco}`;
 
         } else if (metodoKpi == "MedTemp") {
 
-          if (json[i].mediaTemperatura > 70 || json[i].mediaTemperatura < 50) {
+          if (json[i].mediaTemperatura > 100 || json[i].mediaTemperatura < 50) {
             estadoTempMedia.innerHTML = 'Crítico'
+            Swal.fire({
+              title: 'Alta média de temperatura!',
+              text: "A média de temperatura está com valores preocupantes!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Estou ciente'
+            }).then((result) => {
+              if (result.isConfirmed) {
+              }
+            })
+            
+          } else if(json[i].mediaTemperatura > 85 || json[i].mediaTemperatura < 55){
+            estadoTempMedia.innerHTML = 'Alerta'
           } else {
             estadoTempMedia.innerHTML = 'Aceitável'
           }
-          
+
           medTemp.innerHTML = json[i].mediaTemperatura;
-          dataMedTemp.innerHTML = dataHojeFront;
-        
+
+          dataMedTemp.innerHTML = `12/12/2023`;
+
         }
       }
     })
@@ -180,16 +259,25 @@ function getKpi(metodoKpi) {
 
 
 
-function graficoIncidentesMes(apelidoServidor) {
+function graficoIncidentesMes(idServidor) {
 
-  fetch(`/grafico/graficoIncidentes/${apelidoServidor}`).then(res => {
+  fetch(`/grafico/graficoIncidentes`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      fkServidor: idServidor
+    })
+  }
+  ).then(res => {
     res.json().then(json => {
       for (var i = 0; i < json.length; i++) {
-  
+
         graficoIncidentes.data.datasets[0].data.push(json[i].quantidade)
-        graficoIncidentes.data.labels.push(json[i].mes)
+        graficoIncidentes.data.labels.push(listMes[json[i].mes-1])
         graficoIncidentes.update()
-      
+
       }
     })
   })
@@ -225,7 +313,7 @@ function createTemp() {
 
 function createFiltroData() {
 
-  
+
   var ctx1 = document.getElementById('graficoComparativo');
 
   graficoFiltroData = new Chart(ctx1, {
@@ -258,7 +346,7 @@ function createIncidentes() {
     data: {
       labels: [],
       datasets: [{
-        label: [],
+        label: ['Incidentes'],
         data: [],
         backgroundColor: [
           'rgb(255, 99, 132)',
@@ -279,9 +367,13 @@ function createIncidentes() {
       ]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+      plugins: {
+        doughnutKey: {
+            doughnut: {
+                grid: {
+                    display: false
+                }
+            }
         }
       }
     }

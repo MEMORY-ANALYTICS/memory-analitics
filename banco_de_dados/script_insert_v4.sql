@@ -11,6 +11,7 @@ INSERT INTO empresa (nomeEmpresa, cnpjEmpresa, emailEmpresa, telEmpresa) VALUES
 ('Empresa D', '90123456789012', 'empresaD@gmail.com', '3344556677'), -- 10004
 ('U Contact', '10293847561184', 'ucontact@gmail.com', '119480165714'); -- 10005
 
+
 -- Inserir dados na tabela 'endereco'
 INSERT INTO endereco (cep, logradouro, numero, cidade, estado, fkEmpresa) VALUES
 ('12345678', 'Rua A', 123, 'Cidade A', 'Estado A', 10000),
@@ -58,9 +59,9 @@ INSERT INTO servidor (SistemaOperacionalServidor, apelidoServidor, localServidor
 ('Windows', 'Servidor E', 'China', '00:11:B1:RB:E1:88', 10000), -- 7
 ('Windows', 'Servidor A', 'Carolina do Norte', '00:11:B1:RB:E1:88', 10000), -- 8
 ('Windows', 'Servidor B', 'São Paulo', '09:12:C4:TN:O9:X2', 10000), -- 9
-('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10000); -- 10
-
-
+('Linux', 'Servidor C', 'Moscou', '44:09:N3:SN:O7:99', 10000), -- 10
+('Linux', 'Servidor W', 'Carolina do Norte', '1A:3E:8E:D1:41:7B', 10005), -- 11
+('Linux', 'Servidor Y', 'São Paulo', '12:EC:17:37:97:01', 10005); -- 12
 -- Inserir dados na tabela 'componente'
 INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limiteMax, fkServidor) VALUES
 ('Intel', 'Xeon', 'CPU', 2, 10, 4), -- CPU -> 1
@@ -102,7 +103,10 @@ INSERT INTO componente (fabricante, nomeModelo, tipoComponente, limiteMin, limit
 ('TPLink','NP3200','REDE', 10, 85, 7), -- REDE -> 37
 ('TPLink','NP3200','REDE', 10, 85, 8), -- REDE ->38
 ('TPLink','NP3200','REDE', 10, 85, 9), -- REDE -> 39
-('TPLink','NP3200','REDE', 10, 85, 10); -- REDE -> 40
+('TPLink','NP3200','REDE', 10, 85, 10), -- REDE -> 40
+('Intel', 'Xeon', 'CPU', 2, 10, 5), -- CPU -> 41
+('Intel', 'Xeon', 'CPU', 2, 10, 11), -- CPU -> 42
+('Intel', 'Xeon', 'CPU', 2, 10, 12); -- CPU -> 43
 
 
 INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES
@@ -162,6 +166,11 @@ INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1),  -- CPU
 (2200, 'Mhz','Frequência CPU', '2023-10-09 10:00:00', 1); -- CPU
+(80, 'Celsius','temperatura do processador', '2023-12-09 10:02:00', 2),  -- CPU
+(80, 'Celsius','temperatura do processador', '2023-12-09 10:04:00', 2),  -- CPU
+(50, 'Celsius','temperatura do processador', '2023-10-09 10:00:00', 3),  -- CPU
+(90, 'Celsius','temperatura do processador', '2023-11-09 10:01:00', 3),  -- CPU
+(80, 'Celsius','temperatura do processador', '2023-12-09 10:02:00', 3),  -- CPU
 
 insert into chamadoServidor(descricao,dtHoraChamado,fkServidor) values 
 ("CPU","2023-03-12 10:00:00", 1 ),

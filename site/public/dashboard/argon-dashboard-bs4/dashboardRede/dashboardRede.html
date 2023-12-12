@@ -41,7 +41,7 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
   <!-- Google charts -->
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
@@ -314,8 +314,7 @@
     <!-- Page content -->
     <div class="container-fluid mt--7 ">
       <div style="display: flex; justify-content: space-around; flex-direction: row ;">
-        <div class="card" style="box-shadow:
-        0.3em 0.3em 1em rgba(65, 58, 58, 0.6); height: 25rem; max-width: 20rem;">
+        <div class="card" id= "contornoGrafico3"style="height: 25rem; max-width: 20rem;">
 
           <!--Grafico 3------------------------------------------------------------------------------ -->
           <!-- <div id="chart_div" style="width: 400px; height: 120px;"></div> GOOGLE CHARTS -->
@@ -329,13 +328,14 @@
 
               <figure class="highcharts-figure3">
                 <div id="container3"></div>
-                 <p class="highcharts-description3">
+                <p class="highcharts-description3">
                   Descrição: <b>Visualização da velocidade da sua rede.</b>
-                 </p>
-                 <p class="highcharts-description3">
-                  Status: <b style="color: red; font-weight: 30px; box-shadow:
-                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8)">Crítico</b>
-                 </p>
+                </p>
+                <p class="highcharts-description3">
+                  Status: <b id="velocidadeAlerta"></b>
+                  <!-- style="color: red; font-weight: 30px; box-shadow:
+                  0.3em 0.3em 1em rgba(233, 67, 67, 0.8) -->
+                </p>
               </figure>
             </div>
             <!--Fim grafico 3------------------------------------------------------------------------------ -->
@@ -403,24 +403,25 @@
         </div>
       </div>
 
-<!-- Argon Scripts -->
-<!-- Core -->
-<script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-<script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-<script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-<script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-<!-- Optional JS -->
-<script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
-<script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+      <!-- Argon Scripts -->
+      <!-- Core -->
+      <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+      <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+      <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+      <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+      <!-- Optional JS -->
+      <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+      <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
-<script src="../dashboard/argon-dashboard-bs4/dashboardTemperatura/public/js/index.js"></script>
-<!-- Argon JS -->
-<script src="../assets/js/argon.js?v=1.2.0"></script>
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="../dashboard/argon-dashboard-bs4/dashboardTemperatura/public/js/index.js"></script>
+      <!-- Argon JS -->
+      <script src="../assets/js/argon.js?v=1.2.0"></script>
+      <!-- Chart.js -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 <script src="../dashboardRede/js/requisicoesRede.js"></script>
+
 </html>
 
 <script>
@@ -434,19 +435,22 @@
 
   graficoUm();
   setInterval(() => {
-              graficoLatenciaUm.update()
-            }, 1000);
+    graficoLatenciaUm.update()
+  }, 3000);
 
   graficoDois();
+  setInterval(() => {
+    graficoPacotesDois.update()
+  }, 1000);
   // graficoTres();
 
   // ------------------------------------------------------------ Inicio Gráfico 1 -----------------------------------
-  function bgGradient(ctx, chartArea, scales){
+  function bgGradient(ctx, chartArea, scales) {
     const { left, right, top, bottom, width, height } = chartArea;
-    const { x, y} = scales;
+    const { x, y } = scales;
     const gradientBackground = ctx.createLinearGradient(0, top, 0, bottom)
-    gradientBackground.addColorStop(0, 'rgba(255, 26, 104, 1)')
-    gradientBackground.addColorStop(1, 'rgba(255, 26, 104, 0.4)')
+    gradientBackground.addColorStop(0, 'rgba(65, 105, 225, 2)')
+    gradientBackground.addColorStop(1, 'rgba(255, 26, 225, 0.2)')
     return gradientBackground
   }
   function graficoUm() {
@@ -458,21 +462,23 @@
         labels: [],
         datasets: [{
           label: 'Latência Atual',
-          data:[],
+          data: [],
           // backgroundColor: ["white"],
           // borderColor: ['white'],
-          backgroundColor: (context) =>   {
-           const chart = context.chart;
-           const { ctx, chartArea, scales} = chart;
+          backgroundColor: (context) => {
+            const chart = context.chart;
+            const { ctx, chartArea, scales } = chart;
 
-           if(!chartArea){
-            return null;
-           }
-           return bgGradient(ctx, chartArea, scales)
+            if (!chartArea) {
+              return null;
+            }
+            return bgGradient(ctx, chartArea, scales)
           },
           tension: 0.4,
-          fill: true
-          // fontColor: 'white'
+          fill: true,
+          pointBackgroundColor: 'rgba(147, 112, 219, 1)', // Cor roxa clara
+        pointBorderColor: 'white', // Contorno preto
+        pointBorderWidth: 0.6 // Largura do contorno
         }
         ]
       },
@@ -481,25 +487,47 @@
         animation: false,
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            ticks: {
+              // Configuração da cor dos valores do eixo Y
+              color: 'white' // Define a cor como branca
+            }
+          },
+          x: {
+            ticks: {
+              // Configuração da cor dos valores do eixo X
+              color: 'white' // Define a cor como branca
+            },
+            grid: {
+              color: 'white' // Cor das linhas de grade do eixo X
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              // font: {
+                color: 'white'
+              // }
+            }
           }
         }
-        // , color: ['white']
       }
     });
   }
+
   // Final Grafico 1--------------------------------------------------------------------------------------------------
 
   // Grafico 2--------------------------------------------------------------------------------------------------
-  function graficoDois(){
+  function graficoDois() {
     const ctx2 = document.getElementById('myChart2');
-    new Chart(ctx2, {
+    graficoPacotesDois = new Chart(ctx2, {
       type: 'line',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: [],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'Pacotes Recebidos',
+          data: [],
           // backgroundColor: ["white"],
           // borderColor: ['white'],
           tension: 0.2,
@@ -507,8 +535,8 @@
           // fontColor: 'white'
         },
         {
-          label: '# of Votes',
-          data: [20, 30, 40, 60, 53, 8],
+          label: 'Pacotes Enviados',
+          data: [],
           // backgroundColor: ["white"],
           // borderColor: ['white'],
           tension: 0.2,
@@ -518,9 +546,23 @@
         ]
       },
       options: {
+        animation: false,
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+          ticks: {
+              // Configuração da cor dos valores do eixo Y
+              color: 'black' // Define a cor como branca
+            }
+          },
+          x: {
+            ticks: {
+              // Configuração da cor dos valores do eixo X
+              color: 'black' // Define a cor como branca
+            },
+            grid: {
+              color: 'grey' // Cor das linhas de grade do eixo X
+            }
           }
         }
         // , color: ['white']
@@ -530,7 +572,9 @@
   //-------------------Final Grafico 2-----------------------------------------------------------------
 
   // function graficoTres(){
-  Highcharts.chart('container3', {
+
+    // var valorMaxVelocidade = sessionStorage.VELOCIDADE_MAX.toFixed(0)
+  graficoVelocidade = Highcharts.chart('container3', {
 
     chart: {
       type: 'gauge',
@@ -571,18 +615,18 @@
       },
       lineWidth: 0,
       plotBands: [{
-        from: 160, //Máximo capturado - (Máximo capturado * 1/4)
+        from: 100, //Máximo capturado - (Máximo capturado * 1/4)
         to: 200,//Máximo capturado em 30 registros
         color: '#55BF3B', // green
         thickness: 20
       }, {
-        from: 105, //Máximo capturado - (Máximo capturado * 2/4)
-        to: 160, //Máximo capturado - (Máximo capturado * 1/4)
+        from: 60, //Máximo capturado - (Máximo capturado * 2/4)
+        to: 100, //Máximo capturado - (Máximo capturado * 1/4)
         color: '#DDDF0D', // yellow
         thickness: 20
       }, {
         from: 0,
-        to: 105, //Máximo capturado - (Máximo capturado * 3/4)
+        to: 60, //Máximo capturado - (Máximo capturado * 3/4)
         color: '#DF5353', // red
         thickness: 20
       }]
@@ -593,7 +637,7 @@
 
     series: [{
       name: 'Speed',
-      data: [55], // taxa de tranmissão atual
+      data: [0], //55 taxa de tranmissão atual
       tooltip: {
         valueSuffix: ' MB/s'
       },
@@ -628,19 +672,7 @@
 
   // Add some life
   setInterval(() => {
-    const chart = Highcharts.charts[0];
-    if (chart && !chart.renderer.forExport) {
-      const point = chart.series[0].points[0],
-        inc = Math.round((Math.random() - 0.5) * 20);
-
-      let newVal = point.y + inc;
-      if (newVal < 0 || newVal > 200) {
-        newVal = point.y - inc;
-      }
-
-      point.update(newVal);
-    }
-
+    graficoVelocidade.update()
   }, 1000);
 
   //-------------------Final Grafico 3-----------------------------------------------------------------
@@ -655,33 +687,3 @@
   }
   // }
 </script>
-<!-- <script src="../dashboardRede/js/requisicoesRede.js"></script> -->
-<!-- <script type="text/javascript">
-
-  google.charts.load('current', {'packages':['gauge']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-
-    var data = google.visualization.arrayToDataTable([
-      ['Label', 'Value'],
-      ['Network', 68]
-    ]);
-
-    var options = {
-      width: 400, height: 120,
-      redFrom: 90, redTo: 100,
-      yellowFrom:75, yellowTo: 90,
-      minorTicks: 5
-    };
-
-    var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-
-    setInterval(function() {
-      data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-      chart.draw(data, options);
-    }, 13000);
-  }
-</script> -->

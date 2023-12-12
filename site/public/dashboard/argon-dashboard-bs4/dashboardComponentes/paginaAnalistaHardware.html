@@ -17,6 +17,9 @@
 <html>
 
 <head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="Start your development with a Dashboard for Bootstrap 4." />
@@ -388,7 +391,7 @@
               </nav>
             </div> -->
             <!-- Card stats -->
-            <div class="row">
+            <div class="row" id="containers">
               <div class="col-xl-3 col-md-6">
                 <div class="card card-stats" style="height: 70%">
                   <!-- Card body -->
@@ -398,13 +401,15 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Pico de Uso: CPU
                         </h5>
-                        <span class="h2 font-weight-bold mb-0" id="downtime">60</span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiCPU"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                          <i class="ni ni-time-alarm"></i>
+                          <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
                         </div>
                       </div>
+                      <span class="text-nowrap">Data do registro:</span>
+                        <span id="dataKpiCpu"></span>
                     </div>
                   </div>
                 </div>
@@ -418,19 +423,15 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Pico de Uso: RAM
                         </h5>
-                        <span class="h2 font-weight-bold mb-0" id="compProblematico"></span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiRAM"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-cpu-fill" viewBox="0 0 16 16">
-                            <path
-                              d="M6.5 6a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z" />
-                            <path
-                              d="M5.5.5a.5.5 0 0 0-1 0V2A2.5 2.5 0 0 0 2 4.5H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2v1H.5a.5.5 0 0 0 0 1H2A2.5 2.5 0 0 0 4.5 14v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14h1v1.5a.5.5 0 0 0 1 0V14a2.5 2.5 0 0 0 2.5-2.5h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14v-1h1.5a.5.5 0 0 0 0-1H14A2.5 2.5 0 0 0 11.5 2V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5a.5.5 0 0 0-1 0V2h-1V.5zm1 4.5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3A1.5 1.5 0 0 1 6.5 5z" />
-                          </svg>
+                          <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
                         </div>
                       </div>
+                      <span class="text-nowrap">Data do registro:</span>
+                        <span id="dataKpiRam"></span> 
                     </div>
                   </div>
                 </div>
@@ -444,17 +445,15 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Pico de Uso: Disco
                         </h5>
-                        <span class="h2 font-weight-bold mb-0" id="servInstaveis"></span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiDISCO"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-hdd-stack-fill" viewBox="0 0 16 16">
-                            <path
-                              d="M2 9a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm2 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zM2 2a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm.5 3a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm2 0a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z" />
-                          </svg>
+                          <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
                         </div>
                       </div>
+                      <span class="text-nowrap">Data do registro:</span>
+                        <span id="dataKpiDisco"></span>
                     </div>
                   </div>
                 </div>
@@ -468,11 +467,11 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Mês com maiores picos
                         </h5>
-                        <span class="h2 font-weight-bold mb-0">31</span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiMES"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                          <i class="ni ni-chat-round"></i>
+                          <img src="../../../assets/icons_geral/verificado_icons.png" alt="">
                         </div>
                       </div>
                     </div>
@@ -524,16 +523,22 @@
               <div class="d-flex">
                 <div class="card-body">
                   <!-- Chart -->
-                  <div class="chart" id="containerCPU">
-                    <!-- Chart wrapper for CPU -->
+                  <div id="cpuGrafico">
+                    <canvas id="containerCPU">
+
+                    </canvas>
                   </div>
 
-                  <div class="chart" id="containerRAM" style="display: none">
-                    <!-- Chart wrapper for RAM (hidden by default) -->
+                  <div id="ramGrafico" style="display: none">
+                    <canvas id="containerRAM">
+
+                    </canvas>
                   </div>
 
-                  <div class="chart" id="containerDISCO" style="display: none">
-                    <!-- Chart wrapper for DISCO (hidden by default) -->
+                  <div id="discoGrafico" style="display: none">
+                    <canvas id="containerDISCO">
+
+                    </canvas>
                   </div>
                   <!-- Chart wrapper -->
                 </div>
@@ -541,15 +546,18 @@
             </div>
 
           </div>
+          <div class="col-xl-4">
+            <button class="btn btn-lg btn-success w-100" id="criarRegistro" onclick="downloadPDF()">Criar registro</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-
-  <script src="../dashboard-bootstrap/dashboards/js/gerente/dashboardG_funcoes.js"></script>
-  <script src="./js/funcionalidades.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+  <script src="./js/funcionalidades.js"></script>
+  
 </body>
 
 </html>

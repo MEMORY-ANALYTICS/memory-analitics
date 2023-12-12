@@ -68,8 +68,9 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
             return null; // ou lançar uma exceção adequada
         }
     }
+
     @Override
-    public Double capturarRegistro() {
+    public Double capturarRegistro(String dtHoraRegistroSQL, String dtHoraRegistroMySQL) {
         Looca looca = new Looca();
         DiscoGrupo discoGrupo = looca.getGrupoDeDiscos();
         Disco disco = discoGrupo.getDiscos().get(0);
@@ -81,19 +82,18 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
         String tamanhoFormatado = String.format("%.0f", tamanhoTotalGB);
         setValorRegistro(Double.parseDouble(tamanhoFormatado));
 
-        LocalDateTime dataHoraAtual = LocalDateTime.now();
         getConexoes().get(0).execute("INSERT INTO registro VALUES (%s, '%s','%s', '%s', %d)"
-                .formatted(getValorRegistro().toString().replace(",","."),
+                .formatted(getValorRegistro().toString().replace(",", "."),
                         getUnidadeMedida(),
                         "RecursoDiscoTamanhoTotal",
-                        dataHoraAtual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        dtHoraRegistroSQL,
                         selectFkComponente()));
         getConexoes().get(1).execute(
                 "INSERT INTO registro (valorRegistro, tipoMedida, detalheRegistro, dtHoraRegistro, fkComponente) VALUES ("
                         + getValorRegistro() + ", '"
                         + getUnidadeMedida() + "', '"
                         + "RecursoDiscoTamanhoTotal', '"
-                        + Data.formatarParaMySQL(dataHoraAtual) + "', "
+                        + dtHoraRegistroMySQL + "', "
                         + selectFkComponente() + ")"
         );
         return tamanhoTotalGB;
@@ -111,12 +111,5 @@ public class RecursoDiscoTamanhoTotal extends Recurso {
                         "unidadeMedida='%s', " +
                         "valorRegistro=%.2f%%, ",
                 nome, unidadeMedida, valorRegistro);
-    }
-
-    public static void main(String[] args) {
-        RecursoDiscoTamanhoTotal discoTamanho = new RecursoDiscoTamanhoTotal();
-
-        System.out.println(discoTamanho.selectFkComponente());
-        discoTamanho.capturarRegistro();
     }
 }

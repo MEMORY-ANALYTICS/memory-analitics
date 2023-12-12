@@ -29,11 +29,6 @@ router.post("/selectDisco", (req, res) => {
     dashCorrelacaoController.selectDisco(req, res);
 });
 
-    // Temperatura
-// router.post("/selectTemperatura", (req, res) => {
-//     dashCorrelacaoController.selectTemperatura(req, res);
-// });
-
     // Rede
 router.post("/selectRede", (req, res) => {
     dashCorrelacaoController.selectRede(req, res);
@@ -41,11 +36,18 @@ router.post("/selectRede", (req, res) => {
 
 // Dados de processos 
     // Processos comuns
-router.post("/selectProcessos", (req, res) => {
-    dashCorrelacaoController.selectProcessos(req, res);
+router.post("/selectProcesso", (req, res) => {
+    dashCorrelacaoController.selectProcesso(req, res);
 });
     // Processos banidos
-router.post("/selectProcessosBanidos", (req, res) => {
-    dashCorrelacaoController.selectProcessosBanidos(req, res);
+router.post("/selectTempoRealCpu", (req, res) => {
+    dashCorrelacaoController.selectTempoRealCpu(req, res);
 });
+router.post("/selectTempoRealRam", (req, res) => {
+    dashCorrelacaoController.selectTempoRealRam(req, res);
+});
+router.post("/selectTempoRealProc", (req, res) => {
+    dashCorrelacaoController.selectTempoRealProc(req, res);
+});
+
 module.exports = router;

@@ -43,7 +43,9 @@ function selectCpu() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -61,14 +63,15 @@ function selectCpu() {
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
                         if (json[i].tipoMedida == "% de Uso") {
+                            dataHora.push(json[i].dataHora)
                             componentes.cpu.registrosCpu.percentUso.push(json[i].registrosCpu)
                         } else if (json[i].detalheRegistro == "Temperatura do processador") {
                             componentes.cpu.registrosCpu.temperatura.push(json[i].registrosCpu)
                         } else if (json[i].tipoMedida == "Megahertz") {
                             componentes.cpu.registrosCpu.frequencia.push(json[i].registrosCpu)
                         }
-                        componentes.cpu.dataHora.push(json[i].dataHora)
                     }
+                    dataHora = dataHora.map(formatarDataParaString);
                 }
             });
         } else {
@@ -89,8 +92,9 @@ function selectRam() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
-
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
         })
     }).then(function (resposta) {
         if (resposta.ok) {
@@ -108,7 +112,6 @@ function selectRam() {
                     console.log(json[0])
                     for (var i = 0; i < json.length - 1; i++) {
                         componentes.ram.registrosRam.push(json[i].registrosRam)
-                        componentes.ram.dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -130,7 +133,9 @@ function selectDisco() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
 
         })
     }).then(function (resposta) {
@@ -153,7 +158,6 @@ function selectDisco() {
                         } else if (json[i].tipoMedida == "Gigabyte") {
                             componentes.disco.registrosDisco.armazenamento.push(json[i].registrosDisco)
                         }
-                        componentes.disco.dataHora.push(json[i].dataHora)
                     }
                 }
             });
@@ -175,7 +179,10 @@ function selectRede() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            fkServidor: fkServidorVar
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
+
 
         })
     }).then(function (resposta) {
@@ -206,10 +213,52 @@ function selectRede() {
                         }else if (json[i].tipoMedida == "ms") {
                             componentes.rede.registrosRede.msRede.push(json[i].registrosRede)
                         }
-                        componentes.rede.dataHora.push(json[i].dataHora)
                     }
                 }
 
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+function selectProcesso() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectProcesso", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar,
+            filtroTempo: filtroTempo,
+            booleanRegressao: regressao
+
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                if (typeof json[0] === 'undefined') {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Sem dados!",
+                        text: `Este servidor ainda não tem dados de Processos!`,
+                        footer: 'Entre em contato com um Adminstrador para solucionar seu problema!'
+                    });
+                } else {
+                    console.log("SelectPrcocessos")
+                    console.log(`JSON Completo: ${json} \n JSON Tamanho: ${json.length} \n JSON Index 0:`)
+                    console.log(json[0])
+                    for (var i = 0; i < json.length - 1; i++) {
+                        processos.usoCpu.push(json[i].usoCpu)
+                        processos.usoRam.push(json[i].usoRam)
+                        processos.qtdProcessos.push(json[i].qtdProcessosOnline)
+                    }
+                }
             });
         } else {
             resposta.text().then(textoErro => {
@@ -338,6 +387,91 @@ function selectGraficoOcorrenciaProcesso() {
                 if (requisitanteVar == 'Processo') {
                     qtdOcorrenciasProcessos = json[0].TotalChamados
                 }
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+function selectTempoRealCpu() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectTempoRealCpu", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {  
+                tempoReal.usoCpu.push(json[0].registro)
+                tempoReal.dataHora.push(formatarDataParaString(json[0].dthora))
+                graficoLiveComp.data.labels.push(formatarDataParaString(json[0].dthora))
+                graficoLiveComp.data.datasets[0].data.push(json[0].registro)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+
+function selectTempoRealRam() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectTempoRealRam", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                tempoReal.usoRam.push(json[0].registro)
+                graficoLiveComp.data.datasets[1].data.push(json[0].registro)
+            });
+        } else {
+            resposta.text().then(textoErro => {
+                console.error(textoErro);
+            });
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    });
+}
+
+
+function selectTempoRealProc() {
+    var fkServidorVar = listaServidores.value
+    fetch("/dashCorrelacao/selectTempoRealProc", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkServidor: fkServidorVar
+        })
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                tempoReal.cpuProc.push(json[0].cpu)
+                tempoReal.ramProc.push(json[0].ram)
+                graficoLiveProc.data.labels.push(formatarDataParaString(json[0].dthora))
+                graficoLiveProc.data.datasets[0].data.push(json[0].cpu)
+                graficoLiveProc.data.datasets[1].data.push(json[0].ram)
             });
         } else {
             resposta.text().then(textoErro => {

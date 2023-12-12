@@ -3,6 +3,7 @@ package school.sptech.Recurso;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.processos.Processo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import school.sptech.Recurso.Processos.ProcessosBanidos;
@@ -40,6 +41,13 @@ public class RecursoProcessos {
         }
         return qtdProcessos;
     }
+    public Integer getFkServer() {
+        String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
+
+        List<Servidor> teste = getConexoes().get(0).query("SELECT idServidor FROM servidor WHERE macAdress = '%s';"
+                .formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
+        return teste.get(0).getIdServidor();
+    }
 
     public String getProcessoMaiorMediaUso() {
 
@@ -76,6 +84,7 @@ public class RecursoProcessos {
         }
         if (usoTotal > 2) {
             alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal/quantidadeProcessosOnline())) + "% da CPU");
+            getConexoes().get(0).execute("INSERT INTO chamadoServidor(codigoChamado, descricao,requisitante) VALUES (51,'Uso CPU acima','Processo')");
         }
         usoTotal = Math.ceil(usoTotal / quantidadeProcessosOnline());
         strUso = usoTotal.toString();
@@ -91,6 +100,7 @@ public class RecursoProcessos {
         }
         if (usoTotal > 2) {
             alerta.alertarCanal("Os processos estão utilizando: " + Math.ceil((usoTotal)) + "% da RAM");
+            getConexoes().get(0).execute("INSERT INTO chamadoServidor(codigoChamado, descricao,requisitante) VALUES (51,'Uso RAM acima','Processo')");
         }
         usoTotal = Math.ceil(usoTotal);
         strUso = usoTotal.toString();
@@ -104,13 +114,7 @@ public class RecursoProcessos {
         }
     }
 
-    public Integer getFkServer() {
-        String enderecoMac = looca.getRede().getGrupoDeInterfaces().getInterfaces().get(0).getEnderecoMac();
 
-        List<Servidor> teste = getConexoes().get(0).query("SELECT idServidor FROM servidor WHERE macAdress = '%s';"
-                .formatted(enderecoMac), new BeanPropertyRowMapper<>(Servidor.class));
-        return teste.get(0).getIdServidor();
-    }
 
 
     public void killTask() throws IOException {
@@ -122,11 +126,13 @@ public class RecursoProcessos {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("taskkill /PID " + processo.getPid());
                         alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
+                        getConexoes().get(0).execute("INSERT INTO chamadoServidor(codigoChamado, descricao,requisitante) VALUES (51,'Processo indevido','Processo')");
                     }
                 } else {
                     if (StringUtils.containsIgnoreCase(processosBanidos1.getNomeProcesso(), processo.getNome())) {
                         rt.exec("kill -9 " + processo.getPid());
                         alerta.alertarCanal("Tentativa de inicialização de processo indevido, processo : " + processo.getNome());
+                        getConexoes().get(0).execute("INSERT INTO chamadoServidor(codigoChamado, descricao,requisitante) VALUES (51,'Processo indevido','Processo')");
                     }
                 }
             }
@@ -148,7 +154,6 @@ public class RecursoProcessos {
                         quantidadeProcessosOnline(),
                         dtHora2,
                         getFkServer()));
-        getConexoes().get(0).execute("INSERT INTO chamadoServidor(requisitante) VALUES ('Processo')");
         try {
             killTask();
         } catch (IOException e) {
