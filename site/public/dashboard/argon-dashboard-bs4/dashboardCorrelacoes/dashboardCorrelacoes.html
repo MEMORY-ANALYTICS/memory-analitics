@@ -610,8 +610,10 @@
                                         type="button">Mês</button>
                                     <button onclick="setFiltroAno()" id="persoAno" class="dropdown-item"
                                         type="button">Ano</button>
-                                        <button onclick="setFiltroTR()" id="persoAno" class="dropdown-item"
-                                        type="button">Tempo Real</button>
+                                    <button onclick="setFiltroTR()" id="persoAno" class="dropdown-item"
+                                        type="button">Últimos registros</button>
+                                    <button onclick="setFiltroTodos()" id="persoAno" class="dropdown-item"
+                                        type="button">Todos registros</button>
                                 </div>
                             </div>
                         </div>
@@ -685,8 +687,8 @@
                         <div class="col-xl-3 my-2">
                             <h3>Tipo gráfico:</h3>
                             <div class="btn-group">
-                                <button onclick="atualizarVariaveis()"
-                                    id="togglePersoTipoGrafico" type="button" class="btn btn-primary mt-2">Selecione
+                                <button onclick="atualizarVariaveis()" id="togglePersoTipoGrafico" type="button"
+                                    class="btn btn-primary mt-2">Selecione
                                     o tipo</button>
                                 <button id="splitPersoTipoGrafico" type="button"
                                     class="btn btn-primary dropdown-toggle dropdown-toggle-split mt-2"
@@ -828,10 +830,10 @@
     setTimeout(() => {
         atualizarDadosOcorrencias()
     }, 2000);
-    // setInterval(() => {
-    //     chamarOcorrencias()
-    //     atualizarDadosOcorrencias()
-    // }, 2000);
+    setInterval(() => {
+        chamarOcorrencias()
+        atualizarDadosOcorrencias()
+    }, 2000);
     setTimeout(() => {
         qtdDadosKPI()
     }, 2000);

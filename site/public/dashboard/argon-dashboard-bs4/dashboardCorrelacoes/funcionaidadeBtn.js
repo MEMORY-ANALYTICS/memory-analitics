@@ -1,4 +1,11 @@
 filtroTempo = "ALLTIME"
+regressao = false
+qtdRegressao = 0
+function setFiltroTodos() {
+    filtroTempo = "ALLTIME"
+    togglePersoEspacoTempo.innerHTML = 'Todo o Tempo'
+    atualizarVariaveis()
+}
 function setFiltroDia() {
     togglePersoEspacoTempo.innerHTML = 'Dia'
     filtroTempo = "DAY"
@@ -22,9 +29,124 @@ function setFiltroAno() {
     atualizarVariaveis()
 }
 function setFiltroTR() {
-    togglePersoEspacoTempo.innerHTML = 'Tempo Real'
+    togglePersoEspacoTempo.innerHTML = 'Últimos Registros'
     filtroTempo = "REALTIME"
     atualizarVariaveis()
+}
+function setAllFalse() {
+    if (filtrosDashboard.cpuUso) {
+        persoCpuUso.classList.remove('bg')
+        persoCpuUso.classList.remove('bg-info')
+        persoCpuUso.classList.remove('border')
+        persoCpuUso.classList.remove('rounded')
+        persoCpuUso.classList.remove('text-white')
+        filtrosDashboard.cpuUso = false
+    }
+    if (filtrosDashboard.ram) {
+        persoRam.classList.remove('bg')
+        persoRam.classList.remove('bg-info')
+        persoRam.classList.remove('border')
+        persoRam.classList.remove('rounded')
+        persoRam.classList.remove('text-white')
+        filtrosDashboard.ram = false
+    }
+    if (filtrosDashboard.disco) {
+        persoDisco.classList.remove('bg')
+        persoDisco.classList.remove('bg-info')
+        persoDisco.classList.remove('border')
+        persoDisco.classList.remove('rounded')
+        persoDisco.classList.remove('text-white')
+        filtrosDashboard.disco = false
+    }
+    if (filtrosDashboard.cpuFreq) {
+        persoCpuFreq.classList.remove('bg')
+        persoCpuFreq.classList.remove('bg-info')
+        persoCpuFreq.classList.remove('border')
+        persoCpuFreq.classList.remove('rounded')
+        persoCpuFreq.classList.remove('text-white')
+        filtrosDashboard.cpuFreq = false
+    }
+    if (filtrosDashboard.pacoteRecebido) {
+        persoPacotesRecebidos.classList.remove('bg')
+        persoPacotesRecebidos.classList.remove('bg-info')
+        persoPacotesRecebidos.classList.remove('border')
+        persoPacotesRecebidos.classList.remove('rounded')
+        persoPacotesRecebidos.classList.remove('text-white')
+        filtrosDashboard.pacoteRecebido = false
+    }
+    if (filtrosDashboard.pacoteEnviado) {
+        persoPacoresEnviados.classList.remove('bg')
+        persoPacoresEnviados.classList.remove('bg-info')
+        persoPacoresEnviados.classList.remove('border')
+        persoPacoresEnviados.classList.remove('rounded')
+        persoPacoresEnviados.classList.remove('text-white')
+        filtrosDashboard.pacoteEnviado = false
+    }
+    if (filtrosDashboard.mbRecebido) {
+        persoMbRecebidos.classList.remove('bg')
+        persoMbRecebidos.classList.remove('bg-info')
+        persoMbRecebidos.classList.remove('border')
+        persoMbRecebidos.classList.remove('rounded')
+        persoMbRecebidos.classList.remove('text-white')
+        filtrosDashboard.mbRecebido = false
+    }
+    if (filtrosDashboard.mbEnviado) {
+        persoMbEnviados.classList.remove('bg')
+        persoMbEnviados.classList.remove('bg-info')
+        persoMbEnviados.classList.remove('border')
+        persoMbEnviados.classList.remove('rounded')
+        persoMbEnviados.classList.remove('text-white')
+        filtrosDashboard.mbEnviado = false
+    }
+    if (filtrosDashboard.transmissao) {
+        persoTransmissaoRede.classList.remove('bg')
+        persoTransmissaoRede.classList.remove('bg-info')
+        persoTransmissaoRede.classList.remove('border')
+        persoTransmissaoRede.classList.remove('rounded')
+        persoTransmissaoRede.classList.remove('text-white')
+        filtrosDashboard.transmissao = false
+    }
+    if (filtrosDashboard.latencia) {
+        persoLatenciaRede.classList.remove('bg')
+        persoLatenciaRede.classList.remove('bg-info')
+        persoLatenciaRede.classList.remove('border')
+        persoLatenciaRede.classList.remove('rounded')
+        persoLatenciaRede.classList.remove('text-white')
+        filtrosDashboard.latencia = false
+    }
+    if (filtrosDashboard.temperatura) {
+        togglePersoTemperatura.classList.remove('btn')
+        togglePersoTemperatura.classList.remove('btn-info')
+        togglePersoTemperatura.classList.add('btn')
+        togglePersoTemperatura.classList.add('btn-primary')
+        togglePersoTemperatura.classList.remove('border')
+        togglePersoTemperatura.classList.remove('rounded')
+        filtrosDashboard.temperatura = false
+    }
+    if (filtrosDashboard.processosQtd) {
+        persoProcessosQtd.classList.remove('bg')
+        persoProcessosQtd.classList.remove('bg-info')
+        persoProcessosQtd.classList.remove('border')
+        persoProcessosQtd.classList.remove('rounded')
+        persoProcessosQtd.classList.remove('text-white')
+        filtrosDashboard.processosQtd = false
+    }
+    if (filtrosDashboard.processosRam) {
+        persoProcessosRam.classList.remove('bg')
+        persoProcessosRam.classList.remove('bg-info')
+        persoProcessosRam.classList.remove('border')
+        persoProcessosRam.classList.remove('rounded')
+        persoProcessosRam.classList.remove('text-white')
+        filtrosDashboard.processosRam = false
+    }
+    if (filtrosDashboard.processosCpu) {
+        persoProcessosCpu.classList.remove('bg')
+        persoProcessosCpu.classList.remove('bg-info')
+        persoProcessosCpu.classList.remove('border')
+        persoProcessosCpu.classList.remove('rounded')
+        persoProcessosCpu.classList.remove('text-white')
+        filtrosDashboard.processosCpu = false
+    }
 }
 function setFiltroCpuUso() {
     if (filtrosDashboard.cpuUso) {
@@ -35,6 +157,37 @@ function setFiltroCpuUso() {
         persoCpuUso.classList.remove('text-white')
         filtrosDashboard.cpuUso = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como USO CPU!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como USO CPU!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoCpuUso.classList.add('bg')
         persoCpuUso.classList.add('bg-info')
         persoCpuUso.classList.add('border')
@@ -52,6 +205,37 @@ function setFiltroRam() {
         persoRam.classList.remove('text-white')
         filtrosDashboard.ram = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como USO RAM!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como USO RAM!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoRam.classList.add('bg')
         persoRam.classList.add('bg-info')
         persoRam.classList.add('border')
@@ -69,6 +253,37 @@ function setFiltroDisco() {
         persoDisco.classList.remove('text-white')
         filtrosDashboard.disco = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como DISCO USO!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como DISCO USO!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoDisco.classList.add('bg')
         persoDisco.classList.add('bg-info')
         persoDisco.classList.add('border')
@@ -86,6 +301,37 @@ function setFiltroCpuFreq() {
         persoCpuFreq.classList.remove('text-white')
         filtrosDashboard.cpuFreq = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como CPU FREQUÊNCIA!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como CPU FREQUÊNCIA!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoCpuFreq.classList.add('bg')
         persoCpuFreq.classList.add('bg-info')
         persoCpuFreq.classList.add('border')
@@ -103,6 +349,37 @@ function setFiltroPacoteRecebido() {
         persoPacotesRecebidos.classList.remove('text-white')
         filtrosDashboard.pacoteRecebido = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como Pacotes Recebidos!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como Pacotes Recebidos!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoPacotesRecebidos.classList.add('bg')
         persoPacotesRecebidos.classList.add('bg-info')
         persoPacotesRecebidos.classList.add('border')
@@ -120,6 +397,37 @@ function setFiltroPacoteEnviado() {
         persoPacoresEnviados.classList.remove('text-white')
         filtrosDashboard.pacoteEnviado = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como PACOTES ENVIADOS!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como PACOTES ENVIADOS!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoPacoresEnviados.classList.add('bg')
         persoPacoresEnviados.classList.add('bg-info')
         persoPacoresEnviados.classList.add('border')
@@ -137,6 +445,37 @@ function setFiltroMbRecebido() {
         persoMbRecebidos.classList.remove('text-white')
         filtrosDashboard.mbRecebido = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como MEGABYTES RECEBIDOS!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como MEGABYTES RECEBIDOS!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoMbRecebidos.classList.add('bg')
         persoMbRecebidos.classList.add('bg-info')
         persoMbRecebidos.classList.add('border')
@@ -154,6 +493,37 @@ function setFiltroMbEnviado() {
         persoMbEnviados.classList.remove('text-white')
         filtrosDashboard.mbEnviado = false
     } else {
+        if (regressao) {
+            if (qtdRegressao <= 1) {
+                qtdRegressao++
+                if (qtdRegressao == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo X definido como MEGABYTES ENVIADOS!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                } else if (qtdRegressao == 1){
+                    Swal.fire({
+                        icon: "success",
+                        title: "Limite de variáveis!",
+                        text: `Eixo Y definido como MEGABYTES ENVIADOS!`,
+                        footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Limite de variáveis!",
+                    text: `A regressão linear usa apenas eixo X e Y!`,
+                    footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!'
+                });
+            }
+        }
         persoMbEnviados.classList.add('bg')
         persoMbEnviados.classList.add('bg-info')
         persoMbEnviados.classList.add('border')
@@ -266,6 +636,86 @@ function setFiltroProcessosCpu() {
         filtrosDashboard.processosCpu = true
     }
 }
+function definirXeY() {
+
+
+}
+function calcularRegressaoLinear(X, Y) {
+    // X
+    eixoX = eixoX.map(function (valor) {
+        return parseFloat(valor);
+    });
+    // Y
+    eixoY = eixoY.map(function (valor1) {
+        return parseFloat(valor1);
+    });
+
+    // Calcular a média de x e y
+    var xSum = 0;
+    var ySum = 0;
+    for (var i = 0; i < eixoX.length; i++) {
+        xSum += eixoX[i];
+        ySum += eixoY[i];
+    }
+    console.log(xSum, ySum)
+    var xMean = xSum / eixoX.length;
+    var yMean = ySum / eixoX.length;
+    console.log(xMean, ySum)
+
+    // Calcular os coeficientes da regressão:
+    // O numerador é a soma dos produtos dos desvios de X em relação à média de X e dos desvios de Y em relação à média de Y
+    // para cada par de dados (X - X̄) * (Y - Ȳ)
+    // A variável denominator é usada para calcular a soma dos quadrados dos desvios de x em relação à sua média.
+    // X (X - X̄)^2
+    //CALCULAR A INCLINAÇÃO a = Σ((X - X̄)(Y - Ȳ)) / Σ((X - X̄)²)
+
+    var numerator = 0;
+    var denominator = 0;
+    for (var i = 0; i < eixoX.length; i++) {
+        numerator += (eixoX[i] - xMean) * (eixoY[i] - yMean);
+        denominator += (eixoX[i] - xMean) * (eixoX[i] - xMean) ^ 2;
+        console.log(numerator, denominator)
+    }
+    //Inclinação (Beta)
+    var a = numerator / denominator;
+    //var a = 0.04
+    //Interceptação (Alfa)
+    var b = yMean - a * xMean;
+    //var b = 91.7
+
+    console.log(a, b);
+
+    var r = RSquared(yMean, a, b);
+    var Rsq = r.Rsq
+    console.log("R")
+    console.log(Rsq)
+
+
+    return { a, b, Rsq };
+}
+function RSquared(yMean, a, b) {
+    // formula: Rsq = 1 - (SSE / SSTO)
+
+
+    // Calcular a soma dos quadrados totais (SSTO)
+    var SSTO = 0;
+    for (var i = 0; i < eixoX.length; i++) {
+        SSTO += Math.pow((eixoY[i] - yMean), 2);
+    }
+
+    // Calcular a soma dos quadrados dos erros (SSE)
+    var SSE = 0;
+    for (var i = 0; i < eixoX.length; i++) {
+        SSE += Math.pow((eixoY[i] - (a * eixoX[i] + b)), 2);
+    }
+
+    // Calcular o R-quadrado múltiplo
+    var Rsq = 1 - (SSE / SSTO);
+    Rsq = Rsq * 100
+
+    return { Rsq }
+}
+
 function qtdDadosKPI() {
     let lengthDataHora = dataHora.length;
     let lengthUsoCpu = processos.usoCpu.length;
@@ -416,7 +866,7 @@ function persoLinha() {
     }
     createPersoLinha(ctx3)
     if (filtroTempo != "REALTIME") {
-        graficoPerso.data.labels = dataHora.reverse()
+        graficoPerso.data.labels = dataHora
         if (filtrosDashboard.cpuUso) {
             graficoPerso.data.datasets.push({
                 label: 'Uso CPU',
@@ -544,7 +994,7 @@ function persoLinha() {
                 tension: 0.1
             })
         }
-    }else{
+    } else {
         graficoPerso.data.labels = (dataHora.reverse())
         if (filtrosDashboard.cpuUso) {
             graficoPerso.data.datasets.push({
@@ -690,6 +1140,134 @@ function persoBarra() {
         persoBarra()
     };
     createPersoBarra(ctx3)
+    graficoPerso.data.labels = dataHora
+    if (filtrosDashboard.cpuUso) {
+        graficoPerso.data.datasets.push({
+            label: 'Uso CPU',
+            data: componentes.cpu.registrosCpu.percentUso,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.ram) {
+        graficoPerso.data.datasets.push({
+            label: 'Uso RAM',
+            data: componentes.ram.registrosRam,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.disco) {
+        graficoPerso.data.datasets.push({
+            label: 'Uso Disco',
+            data: componentes.disco.registrosDisco.percentUso,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    // COLOCAR ARMAZENAMENTO DO DISCO
+    if (filtrosDashboard.temperatura) {
+        graficoPerso.data.datasets.push({
+            label: 'Temperatura CPU',
+            data: componentes.cpu.registrosCpu.temperatura,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.cpuFreq) {
+        graficoPerso.data.datasets.push({
+            label: 'Frequencia CPU',
+            data: componentes.cpu.registrosCpu.frequencia,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.latencia) {
+        graficoPerso.data.datasets.push({
+            label: 'Latência da Rede',
+            data: componentes.rede.registrosRede.msRede,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.pacoteEnviado) {
+        graficoPerso.data.datasets.push({
+            label: 'Pacotes enviados',
+            data: componentes.rede.registrosRede.pacotesEnviados,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.pacoteRecebido) {
+        graficoPerso.data.datasets.push({
+            label: 'Pacortes Recebidos',
+            data: componentes.rede.registrosRede.pacotesRecebidos,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.mbEnviado) {
+        graficoPerso.data.datasets.push({
+            label: 'Mega Bytes Enviados',
+            data: componentes.rede.registrosRede.MbEnviados,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.mbRecebido) {
+        graficoPerso.data.datasets.push({
+            label: 'Mega Bytes Recebidos',
+            data: componentes.rede.registrosRede.MbRecebidos,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.transmissao) {
+        graficoPerso.data.datasets.push({
+            label: 'Taxa de transmissão (MBps))',
+            data: componentes.rede.registrosRede.mbpsTransmissao,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.processosQtd) {
+        graficoPerso.data.datasets.push({
+            label: 'Quantidade de Processos',
+            data: processos.qtdProcessos,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.processosRam) {
+        graficoPerso.data.datasets.push({
+            label: 'Uso de Ram pelos processos',
+            data: processos.usoRam,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
+    if (filtrosDashboard.processosCpu) {
+        graficoPerso.data.datasets.push({
+            label: 'Uso de CPU pelos Processos',
+            data: processos.usoCpu,
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        })
+    }
     graficoPerso.data.datasets = [{
         label: 'My First Dataset',
         data: [65, 59, 80, 81, 56, 55, 40],
@@ -703,6 +1281,7 @@ function persoDispersao() {
     if (typeof graficoPerso !== 'undefined') {
         graficoPerso.destroy()
     }
+    setAllFalse()
     mensagem = document.getElementById('mensagemPerso')
     grafico = document.getElementById('container4')
     togglePersoTipoGrafico.innerHTML = 'Dispersão | Atualizar'
@@ -823,27 +1402,6 @@ function createlive(ctx2) {
             legend: {
                 display: true,
                 position: 'top'
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'month', // Pode ser 'day', 'week', 'month', etc.
-                        displayFormats: {
-                            month: 'MMM YYYY' // Formato da data exibida no eixo x
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Data'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Valor'
-                    }
-                }
             }
         }
     });
@@ -869,27 +1427,6 @@ function createPersoBarra(ctx3) {
             legend: {
                 display: true,
                 position: 'top'
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'month', // Pode ser 'day', 'week', 'month', etc.
-                        displayFormats: {
-                            month: 'MMM YYYY' // Formato da data exibida no eixo x
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Data'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Valor'
-                    }
-                }
             }
         }
     });
@@ -934,27 +1471,6 @@ function createPersoDispersao(ctx3) {
             legend: {
                 display: true,
                 position: 'top'
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'month', // Pode ser 'day', 'week', 'month', etc.
-                        displayFormats: {
-                            month: 'MMM YYYY' // Formato da data exibida no eixo x
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Data'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Valor'
-                    }
-                }
             }
         }
     });
@@ -964,7 +1480,7 @@ function createPersoSetores(ctx3) {
     graficoPerso = new Chart(ctx3, {
         type: 'line',
         data: {
-            labels: ['cu', 'ca', 'ci', 'ce', 'co'],
+            labels: [],
             datasets: []
         },
         options: {
@@ -977,27 +1493,6 @@ function createPersoSetores(ctx3) {
             legend: {
                 display: true,
                 position: 'top'
-            },
-            scales: {
-                x: {
-                    type: 'time',
-                    time: {
-                        unit: 'month', // Pode ser 'day', 'week', 'month', etc.
-                        displayFormats: {
-                            month: 'MMM YYYY' // Formato da data exibida no eixo x
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Data'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Valor'
-                    }
-                }
             }
         }
     });
