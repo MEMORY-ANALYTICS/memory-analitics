@@ -464,8 +464,8 @@
                                                 <h5 class="card-title text-uppercase text-muted mb-0">
                                                     Percentual de correlação atual do gráfico personalizado:
                                                 </h5>
-                                                <span id="percentualCorrelacao"
-                                                    class="h2 font-weight-bold mb-0">Inicialize o gráfico de regressão
+                                                <span id="regressaoLinear" class="h2 font-weight-bold mb-0">Inicialize o
+                                                    gráfico de regressão
                                                     linear!</span>
                                             </div>
                                             <div class="col-auto">
@@ -703,8 +703,8 @@
                                         type="button">Setores</button>
                                     <button onclick="persoDispersao()" id="persoGraficoDispersao" class="dropdown-item"
                                         type="button">Dispersão</button>
-                                    <button onclick="persoRegressao()" id="persoGraficoRegressao" class="dropdown-item"
-                                        type="button">Regressão linear</button>
+                                    <button onclick="persoRegressao(),setAllFalse()" id="persoGraficoRegressao"
+                                        class="dropdown-item" type="button">Regressão linear</button>
                                 </div>
                             </div>
                         </div>
@@ -733,6 +733,9 @@
         </div>
         <!-- Argon Scripts -->
         <script src="path/to/chartjs/dist/chart.umd.js"></script>
+        <script src="
+https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js
+"></script>
 
         <!-- Core -->
         <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
@@ -771,9 +774,11 @@
     var ocorrenciasTemperatura;
     var ocorrenciasProcessos;
     var filtroTempo
+    var juntarEixoXeData = []
     var eixosRegressao = {
-        x,
-        y
+        x: null,
+        y: null,
+        labely: null
     }
     var dataHora = []
     var processos = {

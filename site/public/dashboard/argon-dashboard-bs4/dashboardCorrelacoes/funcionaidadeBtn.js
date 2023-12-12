@@ -148,10 +148,6 @@ function setAllFalse() {
         filtrosDashboard.processosCpu = false
     }
 }
-eixosRegressao = {
-    x,
-    y
-}
 function setFiltroCpuUso() {
     if (filtrosDashboard.cpuUso) {
         if (regressao) {
@@ -178,6 +174,7 @@ function setFiltroCpuUso() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Uso do Cpu'
                     eixosRegressao.y = componentes.cpu.registrosCpu.percentUso;
                     Swal.fire({
                         icon: "success",
@@ -238,6 +235,7 @@ function setFiltroRam() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Uso da Ram'
                     eixosRegressao.y = componentes.ram.registrosRam;
                     Swal.fire({
                         icon: "success",
@@ -298,6 +296,7 @@ function setFiltroDisco() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Uso do Disco'
                     eixosRegressao.y = componentes.disco.registrosDisco.percentUso;
                     Swal.fire({
                         icon: "success",
@@ -358,6 +357,7 @@ function setFiltroCpuFreq() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Frequência da Cpu'
                     eixosRegressao.y = componentes.cpu.registrosCpu.frequencia;
                     Swal.fire({
                         icon: "success",
@@ -418,6 +418,7 @@ function setFiltroPacoteRecebido() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Pacotes Recebidos'
                     eixosRegressao.y = componentes.rede.registrosRede.pacotesRecebidos;
                     Swal.fire({
                         icon: "success",
@@ -478,6 +479,7 @@ function setFiltroPacoteEnviado() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Pacotes Enviados'
                     eixosRegressao.y = componentes.rede.registrosRede.pacotesEnviados;
                     Swal.fire({
                         icon: "success",
@@ -538,6 +540,7 @@ function setFiltroMbRecebido() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'MegaBytes Recebidos'
                     eixosRegressao.y = componentes.rede.registrosRede.MbRecebidos;
                     Swal.fire({
                         icon: "success",
@@ -598,6 +601,7 @@ function setFiltroMbEnviado() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'MegaBytes Envioados'
                     eixosRegressao.y = componentes.rede.registrosRede.MbEnviados;
                     Swal.fire({
                         icon: "success",
@@ -658,6 +662,7 @@ function setFiltroTransmissao() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Taxa de Transmissão da Rede'
                     eixosRegressao.y = componentes.rede.registrosRede.mbpsTransmissao;
                     Swal.fire({
                         icon: "success",
@@ -712,17 +717,18 @@ function setFiltroLatencia() {
                     Swal.fire({
                         icon: "success",
                         title: "Eixo X Definido!",
-                        text: `Eixo X definido como LATENCIA REDE!`,
+                        text: `Eixo X definido como LATÊNCIA REDE!`,
                         footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
                         showConfirmButton: false,
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Latência da Rede'
                     eixosRegressao.y = componentes.rede.registrosRede.msRede;
                     Swal.fire({
                         icon: "success",
                         title: "Eixo Y Definido!",
-                        text: `Eixo Y definido como LATENCIA REDE!`,
+                        text: `Eixo Y definido como LATÊNCIA REDE!`,
                         footer: 'A primeira variável selecionada é o eixo X e a segunda o eixo Y!',
                         showConfirmButton: false,
                         timer: 1000
@@ -779,6 +785,7 @@ function setFiltroTemperatura() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Temperatura da Cpu'
                     eixosRegressao.y = componentes.cpu.registrosCpu.temperatura;
                     Swal.fire({
                         icon: "success",
@@ -841,6 +848,7 @@ function setFiltroProcessosQtd() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Quantidade de Processos'
                     eixosRegressao.y = processos.qtdProcessos;
                     Swal.fire({
                         icon: "success",
@@ -901,6 +909,7 @@ function setFiltroProcessosRam() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Uso de Ram dos Processos'
                     eixosRegressao.y = processos.usoRam;
                     Swal.fire({
                         icon: "success",
@@ -961,6 +970,7 @@ function setFiltroProcessosCpu() {
                         timer: 1000
                     });
                 } else if (qtdRegressao == 2) {
+                    eixosRegressao.labely = 'Uso de Cpu dos Processos'
                     eixosRegressao.y = processos.usoCpu;
                     Swal.fire({
                         icon: "success",
@@ -999,7 +1009,7 @@ function definirXeY() {
 
 
 }
-function calcularRegressaoLinear(X, Y) {
+function calcularRegressaoLinear(eixoX, eixoY) {
     // X
     eixoX = eixoX.map(function (valor) {
         return parseFloat(valor);
@@ -1044,7 +1054,7 @@ function calcularRegressaoLinear(X, Y) {
 
     console.log(a, b);
 
-    var r = RSquared(yMean, a, b);
+    var r = RSquared(yMean, a, b, eixoX, eixoY);
     var Rsq = r.Rsq
     console.log("R")
     console.log(Rsq)
@@ -1052,7 +1062,7 @@ function calcularRegressaoLinear(X, Y) {
 
     return { a, b, Rsq };
 }
-function RSquared(yMean, a, b) {
+function RSquared(yMean, a, b, eixoX, eixoY) {
     // formula: Rsq = 1 - (SSE / SSTO)
 
 
@@ -1073,6 +1083,49 @@ function RSquared(yMean, a, b) {
     Rsq = Rsq * 100
 
     return { Rsq }
+}
+
+function plotarRegressao() {
+    // Calcula os coeficientes da regressão linear
+    var coeficientes = calcularRegressaoLinear(eixosRegressao.x, eixosRegressao.y);
+    var a = coeficientes.a;
+    var b = coeficientes.b;
+    var Rsq = coeficientes.Rsq
+    
+
+    // Pega o valor de a e b do calcularRegressaoLinear e faz o calculo
+    //com base no x (dados do dataDados)
+    // filtrar por máquina e no filtro mostrar o tipo dela
+    var valoresRegressao = eixosRegressao.x.map(function (x) {
+    // alfa + beta * x formula da regressão linear
+    // b + x * a seguindo as variaveis da função calcularRegressaoLinear
+        return b + x * a;
+    });
+    
+    for (var i = 0; i < eixosRegressao.x.length; i++) {
+        let valorX = eixosRegressao.x[i]
+        let data = dataHora[i]
+        juntarEixoXeData.push(`${valorX} | ${data}`)
+    }
+        graficoPerso.data.labels = juntarEixoXeData
+        graficoPerso.data.datasets = [{
+            label: eixosRegressao.labely,
+            data: eixosRegressao.y,
+            backgroundColor: 'blue',
+            borderColor: 'transparent',
+            fill: false,
+        },
+        {
+            label: 'Regressão Linear',
+            data: valoresRegressao,
+            borderColor: 'red',
+            backgroundColor: 'red',
+            pointRadius: 0,
+            fill: false,
+        }]
+        graficoPerso.update()
+        alert(Rsq)
+    regressaoLinear.innerHTML = `${Rsq.toFixed(2)}%`
 }
 
 function qtdDadosKPI() {
@@ -1689,6 +1742,7 @@ function persoRegressao() {
     if (typeof graficoPerso !== 'undefined') {
         graficoPerso.destroy()
     }
+    createPersoRegressao(ctx3)
     mensagem = document.getElementById('mensagemPerso')
     grafico = document.getElementById('container4')
     togglePersoTipoGrafico.innerHTML = 'Regressão | Atualizar'
@@ -1699,17 +1753,10 @@ function persoRegressao() {
         persoRegressao()
     };
     regressao = true
-    // createPersoRegressao(ctx3)
-    // graficoPerso.data.datasets = [{
-    //     type: 'line',
-    //     label: ' ',
-    //     data: []
-    // }, {
-    //     type: 'line',
-    //     label: ' ',
-    //     data: [],
-    // }]
-    // graficoPerso.update()
+    setTimeout(() => {
+        plotarRegressao()
+    }, 2000);
+    
 }
 
 // Criação dos gráficos
@@ -1858,10 +1905,10 @@ function createPersoSetores(ctx3) {
     });
 }
 function createPersoRegressao(ctx3) {
-
     graficoPerso = new Chart(ctx3, {
+        type: 'line',
         data: {
-            labels: ['Registros'],
+            labels: [],
             datasets: []
         },
         options: {
