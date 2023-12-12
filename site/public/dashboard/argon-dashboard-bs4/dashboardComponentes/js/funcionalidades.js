@@ -65,11 +65,16 @@ async function pegarUltimoDadoCPU(){
 
     if (response.ok) {
       const data = await response.json();
-      if(dtCpu[0] == data[0].dtHoraRegistro){
+      if(dtCpu[dtCpu.length-1] == data[0].dtHoraRegistro){
         return
       } else {
-        cpuUsageArray.splice(0,0,data[0].usoCpu)
-        dtCpu.splice(0,0,data[0].dtHoraRegistro)
+        cpuUsageArray.splice(cpuUsageArray.length-1,1,data[0].usoCpu)
+        cpuUsageArray = cpuUsageArray.slice(1)
+        graficoCPU.data.datasets[0].data = cpuUsageArray
+        dtCpu.splice(dtCpu.length-1,1,data[0].dtHoraRegistro)
+        dtCpu = dtCpu.slice(1)
+        graficoCPU.data.labels = dtCpu
+        graficoCPU.update()
       }
     } else {
       const textoErro = await response.text();
@@ -81,9 +86,8 @@ async function pegarUltimoDadoCPU(){
 
 }
 
-async function pegarUltimoDadoRAM(){
+async function pegarUltimoDadoRAM() {
   try {
-    fkServidor = selectServidor.value;
     const response = await fetch(`/dashboardHardware/getUltimoRam/${fkServidor}`, {
       method: "GET",
       headers: {
@@ -93,25 +97,28 @@ async function pegarUltimoDadoRAM(){
 
     if (response.ok) {
       const data = await response.json();
-      if(dtRam[0] == data[0].dtHoraRegistro){
-        return
+      if (dtRam[dtRam.length - 1] == data[0].dtHoraRegistro) {
+        return;
       } else {
-        ramUsageArray.splice(0,0,data[0].usoCpu)
-        dtRam.splice(0,0,data[0].dtHoraRegistro)
+        ramUsageArray.splice(ramUsageArray.length - 1, 1, data[0].usoRam);
+        ramUsageArray = ramUsageArray.slice(1);
+        graficoRAM.data.datasets[0].data = ramUsageArray;
+        dtRam.splice(dtRam.length - 1, 1, data[0].dtHoraRegistro);
+        dtRam = dtRam.slice(1);
+        graficoRAM.data.labels = dtRam;
+        graficoRAM.update();
       }
     } else {
       const textoErro = await response.text();
-      console.error(textoErro);
+      console.error("Error fetching RAM data:", textoErro);
     }
   } catch (error) {
     console.error("Error fetching RAM data:", error);
   }
-
 }
 
-async function pegarUltimoDadoDISCO(){
+async function pegarUltimoDadoDISCO() {
   try {
-    fkServidor = selectServidor.value;
     const response = await fetch(`/dashboardHardware/getUltimoDisco/${fkServidor}`, {
       method: "GET",
       headers: {
@@ -121,20 +128,24 @@ async function pegarUltimoDadoDISCO(){
 
     if (response.ok) {
       const data = await response.json();
-      if(dtDisco[0] == data[0].dtHoraRegistro){
-        return
+      if (dtDisco[dtDisco.length - 1] == data[0].dtHoraRegistro) {
+        return;
       } else {
-        discoUsageArray.splice(0,0,data[0].usoDisco)
-        dtDisco.splice(0,0,data[0].dtHoraRegistro)
+        discoUsageArray.splice(discoUsageArray.length - 1, 1, data[0].usoDisco);
+        discoUsageArray = discoUsageArray.slice(1);
+        graficoDISCO.data.datasets[0].data = discoUsageArray;
+        dtDisco.splice(dtDisco.length - 1, 1, data[0].dtHoraRegistro);
+        dtDisco = dtDisco.slice(1);
+        graficoDISCO.data.labels = dtDisco;
+        graficoDISCO.update();
       }
     } else {
       const textoErro = await response.text();
-      console.error(textoErro);
+      console.error("Error fetching DISK data:", textoErro);
     }
   } catch (error) {
     console.error("Error fetching DISK data:", error);
   }
-
 }
 
 async function getDadosCpu() {
@@ -345,10 +356,10 @@ function criarGrafico() {
     graficoCPU = new Chart(ctx1, {
       type: 'line',
       data: {
-        labels: dtCpu,
+        labels: dtCpu.reverse(),
         datasets: [{
           label: 'Uso Percentual de CPU',
-          data: cpuUsageArray,
+          data: cpuUsageArray.reverse(),
           backgroundColor: ["white"],
           borderColor: ['white'],
           backgroundColor: (context) => {
@@ -569,7 +580,7 @@ function updateChart(chart, dataArray, dateArray) {
 getDadosCpu();
 getDadosDisco();
 getDadosRam();
-setInterval(()=>{
+setTimeout(()=>{
   criarGrafico();
 }, 2000)
 setInterval(() => {
