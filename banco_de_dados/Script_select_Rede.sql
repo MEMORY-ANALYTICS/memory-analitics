@@ -31,6 +31,9 @@ SELECT valorRegistro FROM registro WHERE fkComponente = 35 AND tipoMedida = 'ms'
 -- SQL Server
 -- SELECT TOP 1 valorRegistro FROM registro WHERE fkComponente = 6 AND tipoMedida = 'ms' ORDER BY idRegistro DESC;
 
+SELECT valorRegistro AS valorLatenciaAtual, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE fkComponente = 6 
+    AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-12-10' ORDER BY idRegistro DESC LIMIT 1;
+    
 -- Pegar o pico da latência do dia;
 -- Como pegar a data atual no javascript
 SELECT max(valorRegistro), dtHoraRegistro FROM registro where fkComponente = 35 AND tipoMedida = 'ms' AND  date(dtHoraRegistro) = '2023-10-09' GROUP BY dtHoraRegistro;
@@ -49,9 +52,20 @@ SELECT AVG(valorRegistro) AS mediaDodia FROM registro WHERE fkComponente = 6 AND
 
 -- -------------------------------------------------------------------------------------------
 
-
+use bd_memoryanalytics;
 -- 1º Select para pegar os servidores da empresa
 SELECT * FROM servidor JOIN componente ON fkServidor=idServidor WHERE fkEmpresa = 10005 AND tipoComponente = 'REDE';
 
 -- Select para pegar o idComponente REDE do servidor -> premissa 1 componente rede por servidor
 SELECT idComponente FROM componente WHERE fkServidor = 4 AND tipoComponente = 'REDE';
+
+SELECT MAX(valorRegistro) AS valorLatenciaMax, TIME(dtHoraRegistro) AS horaRegistro FROM registro 
+WHERE fkComponente = 6 AND tipoMedida = 'ms' AND DATE(dtHoraRegistro) = '2023-12-10' 
+GROUP BY horaRegistro ORDER BY valorLatenciaMax LIMIT 1;
+
+SELECT min(valorRegistro) AS valorVelocidadeMin, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE 
+    fkComponente = 6 AND tipoMedida = 'MBps' AND  date(dtHoraRegistro) = '2023-12-10' 
+    GROUP BY horaRegistro ORDER BY valorVelocidadeMin LIMIT 1;
+    
+SELECT valorRegistro AS pacotesEnviados, Time(dtHoraRegistro) AS horaRegistro FROM registro WHERE fkComponente = 6 
+    AND detalheRegistro = 'Recebidos Rede' AND  date(dtHoraRegistro) = '2023-12-11' ORDER BY idRegistro DESC LIMIT 1;
