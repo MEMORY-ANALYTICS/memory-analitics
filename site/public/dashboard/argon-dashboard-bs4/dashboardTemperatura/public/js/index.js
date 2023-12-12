@@ -50,7 +50,7 @@ setInterval(() => insertTemp(getOptionValue), 30000);
 
 function insertTemp(idServidor) {
 
-  var valorRegistro = Math.round(((Math.random()*80) + 50),2)
+  var valorRegistro = Math.round(((Math.random()*2)+60),2)
   var datetime = new Date()
   var dtHoraRegistro = (datetime).toLocaleDateString() + ' ' + (datetime).toLocaleTimeString(); 
 
@@ -347,7 +347,7 @@ function createIncidentes() {
     data: {
       labels: [],
       datasets: [{
-        label: ['Insidentes'],
+        label: ['Incidentes'],
         data: [],
         backgroundColor: [
           'rgb(255, 99, 132)',
@@ -368,9 +368,13 @@ function createIncidentes() {
       ]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+      plugins: {
+        doughnutKey: {
+            doughnut: {
+                grid: {
+                    display: false
+                }
+            }
         }
       }
     }

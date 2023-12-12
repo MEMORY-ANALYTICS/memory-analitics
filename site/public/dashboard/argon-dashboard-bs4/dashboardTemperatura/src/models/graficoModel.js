@@ -36,11 +36,11 @@ function graficoCpuMes(idServidor) {
   idServidor = 12
 
   instrucaoSql = `
-  select round(avg(valorRegistro),2) as valorMedia, MONTH(convert(date,dtHoraRegistro)) as mes from registroTemp 
+  select top 20 round(avg(valorRegistro),2) as valorMedia, convert(date,dtHoraRegistro) as dia from registroTemp 
     where tipoMedida = 'celsius'
-  and fkComponente = (select idComponente from componente where fkServidor = '${idServidor}')
-   group by MONTH(convert(date,dtHoraRegistro))
-   order by MONTH(convert(date,dtHoraRegistro));
+  and fkComponente = 43 and convert(date,dtHoraRegistro) like '2023-12%'
+   group by convert(date,dtHoraRegistro)
+   order by convert(date,dtHoraRegistro) desc;
   
 `
 
