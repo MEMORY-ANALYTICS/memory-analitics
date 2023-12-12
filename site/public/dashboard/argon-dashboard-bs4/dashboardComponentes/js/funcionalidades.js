@@ -1,266 +1,557 @@
 // dashboard.js
-mudarServidor()
 
-  // Alterando nome do Login
-  nomeLogin.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+mudarServidor();
 
-let picoCPU = 80;  // Substitua pelos valores reais
-let picoRAM = 80;  // Substitua pelos valores reais
-let picoDISCO = 80;  // Substitua pelos valores reais
+// Alterando nome do Login
+nomeLogin.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
-  function preencherDropdownServidores(servidores) {
-  const selectServidor = document.getElementById('selectServidor');
+let picoCPU = 80; // Substitua pelos valores reais
+let picoRAM = 80; // Substitua pelos valores reais
+let picoDISCO = 80; // Substitua pelos valores reais
+
+function preencherDropdownServidores(servidores) {
+  const selectServidor = document.getElementById("selectServidor");
 
   servidores.forEach((servidor) => {
-    const option = document.createElement('option');
+    const option = document.createElement("option");
     option.value = servidor.idServidor; // Aqui, assumo que o servidor tem um atributo idServidor, ajuste conforme sua estrutura
     option.text = servidor.nomeServidor; // Substitua pelo atributo que contém o nome do servidor
     selectServidor.appendChild(option);
-    getCpu(servidor.idServidor);
   });
 }
 
-
+var fkServidor;
 
 function mudarServidor() {
-  const selectServidor = document.getElementById('selectServidor');
-  // Chame a função para buscar e renderizar os dados com base no servidor selecionado
-  
-  fetch("/dashboardHardware/servidor",{
-    cache: 'no-store'
-  }).then(res=>{
-    res.json().then(json=>{
-      for (var i = 0; i < json.length; i++){
-        console.log(json[i])
-        var novaOpcao = document.createElement('option');
+  const selectServidor = document.getElementById("selectServidor");
+  fetch("/dashboardHardware/servidor", {
+    cache: "no-store",
+  }).then((res) => {
+    res.json().then((json) => {
+      for (var i = 0; i < 3; i++) {
+        console.log(json[i]);
+        var novaOpcao = document.createElement("option");
         novaOpcao.text = json[i].apelidoServidor;
         novaOpcao.value = json[i].idServidor;
-        var select = document.getElementById('selectServidor');
+        var select = document.getElementById("selectServidor");
         select.appendChild(novaOpcao);
       }
-    })
-    const fkServidor = selectServidor.value; // Obtém o valor selecionado no dropdown
-  })
-  }
 
-  function mudarGrafico(tipo) {
-    // Oculta todos os gráficos
-    document.getElementById('containerCPU').style.display = 'none';
-    document.getElementById('containerRAM').style.display = 'none';
-    document.getElementById('containerDISCO').style.display = 'none';
-    // Exibe o gráfico relevante
-    if (tipo === 'CPU') {
-      document.getElementById('containerCPU').style.display = 'block';
-    } else if (tipo === 'RAM') {
-      document.getElementById('containerRAM').style.display = 'block';
-      renderizarGraficoRAM(); // Chame a função específica para renderizar o gráfico de RAM
-    } else if (tipo === 'DISCO') {
-      document.getElementById('containerDISCO').style.display = 'block';
-      renderizarGraficoDISCO(); // Chame a função específica para renderizar o gráfico de DISCO
+      fkServidor = selectServidor.value// Atualiza o valor de fkServidor ao selecionar um novo servidor
+      getDadosCpu(); // Chame a função getDadosCpu() ao mudar o servidor para buscar os dados atualizados
+      getDadosRam(); // Chame a função getDadosRam() ao mudar o servidor para buscar os dados atualizados
+      getDadosDisco(); // Chame a função getDadosDisco() ao mudar o servidor para buscar os dados atualizados
+    });
+  });
+}
+
+let cpuUsageArray = [];
+let ramUsageArray = [];
+let discoUsageArray = [];
+let dtCpu = [];
+let dtRam = [];
+let dtDisco = [];
+
+async function pegarUltimoDadoCPU(){
+  try {
+    const response = await fetch(`/dashboardHardware/getUltimoCpu/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if(dtCpu[0] == data[0].dtHoraRegistro){
+        return
+      } else {
+        cpuUsageArray.splice(0,0,data[0].usoCpu)
+        dtCpu.splice(0,0,data[0].dtHoraRegistro)
+      }
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
     }
+  } catch (error) {
+    console.error("Error fetching CPU data:", error);
   }
 
-  function criarGrafico(containerId, title, seriesName, yAxisTitle) {
-    return Highcharts.chart(containerId, {
-      chart: {
-        type: "spline",
-        backgroundColor: "#172b4d",
-        animation: Highcharts.svg,
-        marginRight: 10,
-        // events: {
-        //   load: function () {
-        //     setInterval(function () {
-        //       updateChart(this.series);
-        //     }, 1000);
-        //   },
-        // },
+}
+
+async function pegarUltimoDadoRAM(){
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/getUltimoRam/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-      title: {
-        text: title,
-        style: {
-          color: "white",
-        },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if(dtRam[0] == data[0].dtHoraRegistro){
+        return
+      } else {
+        ramUsageArray.splice(0,0,data[0].usoCpu)
+        dtRam.splice(0,0,data[0].dtHoraRegistro)
+      }
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching RAM data:", error);
+  }
+
+}
+
+async function pegarUltimoDadoDISCO(){
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/getUltimoDisco/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-      xAxis: {
-        type: "datetime",
-        tickPixelInterval: 150,
-        gridLineWidth: 0,
-        labels: {
-          style: {
-            color: "white",
-          },
-        },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      if(dtDisco[0] == data[0].dtHoraRegistro){
+        return
+      } else {
+        discoUsageArray.splice(0,0,data[0].usoDisco)
+        dtDisco.splice(0,0,data[0].dtHoraRegistro)
+      }
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching DISK data:", error);
+  }
+
+}
+
+async function getDadosCpu() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/cpu/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
       },
-      yAxis: {
-        title: {
-          text: yAxisTitle,
-          style: {
-            color: "white",
-          },
-        },
-        min: 0,
-        max: 100,
-        plotLines: [
-          {
-            value: 0,
-            width: 1,
-            color: "#808080",
-          },
-        ],
-        gridLineWidth: 0,
-        labels: {
-          style: {
-            color: "white",
-          },
-          formatter: function () {
-            if (this.value === 100) {
-              return "100%";
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      // Limpar os arrays para evitar duplicatas
+      cpuUsageArray = [];
+      dtCpu = [];
+
+      for (var i = 0; i < data.length; i++) {
+        cpuUsageArray.push(data[i].usoCpu);
+        dtCpu.push(data[i].dtHoraRegistro);
+      }
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching CPU data:", error);
+  }
+}
+
+async function getDadosRam() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/ram/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      for (var i = 0; i < data.length; i++) {  
+        ramUsageArray.push(data[i].usoRam);
+        dtRam.push(data[i].dtHoraRegistro);
+      }
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching RAM data:", error);
+  }
+}
+
+
+async function getDadosDisco() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/disco/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      
+      for (var i = 0; i < data.length; i++) {  
+        discoUsageArray.push(data[i].usoDisco);
+        dtDisco.push(data[i].dtHoraRegistro);
+      }
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching Disco data:", error);
+  }
+}
+
+
+async function getKpiCpu() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/getMaxCpu/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      kpiCPU.innerHTML = data[0].maxUsoCpu + "%";
+      dataKpiCpu.innerHTML = data[0].dataHoraRegistro;
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching Disco data:", error);
+  }
+  
+}
+
+async function getKpiRam() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/getMaxRam/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      kpiRAM.innerHTML = data[0].maxUsoRam + "%";
+      dataKpiRam.innerHTML = data[0].dataHoraRegistro;
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching RAM data:", error);
+  }
+  
+}
+
+async function getKpiDisco() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/getMaxDisco/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      kpiDISCO.innerHTML = data[0].maxUsoDisco + "%";
+      dataKpiDisco.innerHTML = data[0].dataHoraRegistro;
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching Disco data:", error);
+  }
+  
+}
+
+async function getKpiUsoMes() {
+  try {
+    fkServidor = selectServidor.value;
+    const response = await fetch(`/dashboardHardware/getUsoMes/${fkServidor}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      kpiMES.innerHTML = "Mês " + data[0].Mes;
+    } else {
+      const textoErro = await response.text();
+      console.error(textoErro);
+    }
+  } catch (error) {
+    console.error("Error fetching Mês data:", error);
+  }
+  
+}
+
+function mudarGrafico(tipo) {
+  // Oculta todos os gráficos
+  document.getElementById("cpuGrafico").style.display = "none";
+  document.getElementById("ramGrafico").style.display = "none";
+  document.getElementById("discoGrafico").style.display = "none";
+  // Exibe o gráfico relevante
+  if (tipo === "CPU") {
+    document.getElementById("cpuGrafico").style.display = "block";
+  } else if (tipo === "RAM") {
+    document.getElementById("ramGrafico").style.display = "block"; 
+  } else if (tipo === "DISCO") {
+    document.getElementById("discoGrafico").style.display = "block";
+  }
+}
+
+var graficoCPU;
+var graficoRAM;
+var graficoDISCO;
+
+function criarGrafico() {
+  const ctx1 = document.getElementById('containerCPU');
+  if (graficoCPU != undefined) {
+    graficoCPU.destroy();
+  }
+    graficoCPU = new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: dtCpu,
+        datasets: [{
+          label: '',
+          data: cpuUsageArray,
+          // backgroundColor: ["white"],
+          // borderColor: ['white'],
+          backgroundColor: (context) => {
+            const chart = context.chart;
+            const { ctx, chartArea, scales } = chart;
+
+            if (!chartArea) {
+              return null;
             }
-            return this.value;
           },
-        },
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: 'rgba(147, 112, 219, 1)', // Cor roxa clara
+        pointBorderColor: 'white', // Contorno preto
+        pointBorderWidth: 0.6 // Largura do contorno
+        }
+        ]
       },
-      tooltip: {
-        formatter: function () {
-          return (
-            "<b>" +
-            this.series.name +
-            "</b><br/>" +
-            Highcharts.dateFormat("%Y-%m-%d %H:%M:%S", this.x) +
-            "<br/>" +
-            Highcharts.numberFormat(this.y, 2) +
-            " %"
-          );
-        },
-      },
-      legend: {
-        enabled: false,
-      },
-      exporting: {
-        enabled: false,
-      },
-      series: [
-        {
-          name: seriesName,
-          data: (function () {
-            let data = [];
-            let time = new Date().getTime();
-  
-            // Generate data based on the scenario
-            for (let i = -19; i <= 0; i++) {
-              let usage = 0;
-  
-              // Simulate different scenarios for CPU, RAM, and Disk usage
-              if (seriesName === "Uso da CPU") {
-                // Simulate CPU usage between 10% and 90%
-                usage = 10 + Math.random() * 60;
-              } else if (seriesName === "Uso da RAM") {
-                // Simulate RAM usage between 30% and 80%
-                usage = 30 + Math.random() * 50;
-              } else if (seriesName === "Uso do Disco") {
-                // Simulate Disk usage between 20% and 70%
-                usage = 20 + Math.random() * 50;
-              }
-  
-              data.push({
-                x: time + i * 1000,
-                y: usage,
-              });
+      options: {
+        // https://pt.stackoverflow.com/questions/428093/como-mudo-a-cor-dos-valores-de-indice-do-grafico
+        animation: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              // Configuração da cor dos valores do eixo Y
+              color: 'white' // Define a cor como branca
             }
-            return data;
-          })(),
+          },
+          x: {
+            ticks: {
+              // Configuração da cor dos valores do eixo X
+              color: 'white' // Define a cor como branca
+            },
+            grid: {
+              color: 'white' // Cor das linhas de grade do eixo X
+            }
+          }
         },
-      ],
+        plugins: {
+          legend: {
+            labels: {
+              // font: {
+                color: 'white'
+              // }
+            }
+          }
+        }
+      }
     });
   }
-
-  var chartCPU = criarGrafico("containerCPU", "Uso da CPU em Tempo Real", "Uso da CPU", "");
-  var chartRAM = criarGrafico("containerRAM", "Uso da RAM em Tempo Real", "Uso da RAM", "");
-  var chartDISCO = criarGrafico("containerDISCO", "Uso do Disco em Tempo Real", "Uso do Disco", "");
-
-function construirGraficos() {
-  if (chartCPU != undefined) {
-    chartCPU.destroy();
-    chartRAM.destroy();
-    chartDISCO.destroy();
+  if (graficoRAM != undefined) {
+    graficoRAM.destroy();
   }
-  
-  chartCPU = criarGrafico("containerCPU", "Uso da CPU em Tempo Real", "Uso da CPU", "");
-  chartRAM = criarGrafico("containerRAM", "Uso da RAM em Tempo Real", "Uso da RAM", "");
-  chartDISCO = criarGrafico("containerDISCO", "Uso do Disco em Tempo Real", "Uso do Disco", "");
+  const ctx2 = document.getElementById('containerRAM');
+    graficoRAM = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: dtRam,
+        datasets: [{
+          label: '',
+          data: ramUsageArray,
+          // backgroundColor: ["white"],
+          // borderColor: ['white'],
+          backgroundColor: (context) => {
+            const chart = context.chart;
+            const { ctx, chartArea, scales } = chart;
 
-}
-
-
-var cpuMax = 0;
-var ramMax = 0;
-var discoMax = 0;
-
-function updateChart(series, resourceType) {
-  let resourceUsage;
-
-  if (resourceType === "CPU") {
-    resourceUsage = 60 + Math.random() * 25;
-    if (resourceUsage > cpuMax) {
-      cpuMax = resourceUsage;
-      span_cpuMax.innerHTML = Math.round(cpuMax,2) + "%"; 
+            if (!chartArea) {
+              return null;
+            }
+          },
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: 'rgba(147, 112, 219, 1)', // Cor roxa clara
+        pointBorderColor: 'white', // Contorno preto
+        pointBorderWidth: 0.6 // Largura do contorno
+        }
+        ]
+      },
+      options: {
+        // https://pt.stackoverflow.com/questions/428093/como-mudo-a-cor-dos-valores-de-indice-do-grafico
+        animation: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              // Configuração da cor dos valores do eixo Y
+              color: 'white' // Define a cor como branca
+            }
+          },
+          x: {
+            ticks: {
+              // Configuração da cor dos valores do eixo X
+              color: 'white' // Define a cor como branca
+            },
+            grid: {
+              color: 'white' // Cor das linhas de grade do eixo X
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              // font: {
+                color: 'white'
+              // }
+            }
+          }
+        }
+      }
+    });
+    if (graficoDISCO != undefined) {
+      graficoDISCO.destroy();
     }
-  } else if (resourceType === "RAM") {
-    resourceUsage = 60 + Math.random() * 20;
-    if (resourceUsage > ramMax) {
-      ramMax = resourceUsage;
-      span_ramMax.innerHTML = Math.round(ramMax,2) + "%"; 
-    }
-  } else if (resourceType === "DISCO") {
-    resourceUsage = 40 + Math.random() * 30;
-    if (resourceUsage > discoMax) {
-      discoMax = resourceUsage;
-      span_discoMax.innerHTML = Math.round(discoMax,2) + "%"; 
-  }
+    const ctx3 = document.getElementById('containerDISCO');
+    graficoDISCO = new Chart(ctx3, {
+      type: 'line',
+      data: {
+        labels: dtDisco,
+        datasets: [{
+          label: '',
+          data: discoUsageArray,
+          // backgroundColor: ["white"],
+          // borderColor: ['white'],
+          backgroundColor: (context) => {
+            const chart = context.chart;
+            const { ctx, chartArea, scales } = chart;
+
+            if (!chartArea) {
+              return null;
+            }
+          },
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: 'rgba(147, 112, 219, 1)', // Cor roxa clara
+        pointBorderColor: 'white', // Contorno preto
+        pointBorderWidth: 0.6 // Largura do contorno
+        }
+        ]
+      },
+      options: {
+        // https://pt.stackoverflow.com/questions/428093/como-mudo-a-cor-dos-valores-de-indice-do-grafico
+        animation: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              // Configuração da cor dos valores do eixo Y
+              color: 'white' // Define a cor como branca
+            }
+          },
+          x: {
+            ticks: {
+              // Configuração da cor dos valores do eixo X
+              color: 'white' // Define a cor como branca
+            },
+            grid: {
+              color: 'white' // Cor das linhas de grade do eixo X
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            labels: {
+              // font: {
+                color: 'white'
+              // }
+            }
+          }
+        }
+      }
+    });
+
+
+function updateChart(chart, dataArray, dateArray) {
+  chart.data.labels = dateArray;
+  chart.data.datasets[0].data = dataArray;
+  chart.update();
 }
 
-  const currentTime = new Date().getTime();
-  series.addPoint([currentTime, resourceUsage], true, true);
-}
+getDadosCpu();
+getDadosDisco();
+getDadosRam();
+setInterval(()=>{
+  criarGrafico();
+}, 2000)
+setInterval(() => {
+  pegarUltimoDadoCPU();
+  pegarUltimoDadoRAM();
+  pegarUltimoDadoDISCO();
+  getKpiCpu();
+  getKpiRam();
+  getKpiDisco();
+  getKpiUsoMes();
+}, 5000); // 5000 milissegundos = 5 segundos
 
-function downloadPDF() {
-  const contentCopy = document.getElementById('containers').cloneNode(true);
-  const spanElement = contentCopy.querySelector('span');
-  const filterElement = contentCopy.querySelector('.filter');
 
-  if (filterElement) {
-    filterElement.parentNode.removeChild(filterElement);
-  }
-
-  // Adicione os valores de pico de uso ao conteúdo do PDF
-  const contentHTML = `
-    <p>Pico de Uso de CPU: ${Math.round(cpuMax)}%</p>
-    <p>Pico de Uso de RAM: ${Math.round(ramMax)}%</p>
-    <p>Pico de Uso de DISCO: ${Math.round(discoMax)}%</p>
-    <p>Mês Com Maiores Picos: Julho</p>
-  `;
-
-  // Adicione o conteúdo HTML ao clone do elemento
-  contentCopy.innerHTML += contentHTML;
-
-  const options = {
-    margin: 10,
-    filename: 'relatorio.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    font: { size: 30 } // Tamanho da fonte maior
-  };
-
-  html2pdf(contentCopy, options);
-}
-
-const historicoCPU = [];
-const historicoRAM = [];
-const historicoDISCO = [];
-
-setInterval(function () {
-  updateChart(chartCPU.series[0], "CPU");
-  updateChart(chartRAM.series[0], "RAM");
-  updateChart(chartDISCO.series[0], "DISCO");
-}, 1000);
+// Chame a função para buscar e renderizar os dados com base no servidor selecionado
+  // dois vetores um para uso e 1 para data
+  // async e await(esperar tal coisa) - pesquisa
+  // plotar
+  // criar if que compara a ultima data plotada com a ultima data
+  // do banco
+  // precisa adaptar o for  
+  // let valorFor = 0
+  // if(res.length <20){
+  //     valorFor = res.length
+  // }else{
+  //   valorFor =  20;
+  // }

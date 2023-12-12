@@ -333,7 +333,7 @@
                 aria-expanded="false">
                 <div class="media align-items-center">
                   <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="../assets/img/theme/user.png" />
+                    <img alt="Image placeholder" src="../../assets/img/theme/user.png" />
                   </span>
                   <div class="media-body ml-2 d-none d-lg-block">
                     <span class="mb-0 text-sm font-weight-bold" id="nomeLogin">NomeLogin</span>
@@ -398,13 +398,15 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Pico de Uso: CPU
                         </h5>
-                        <span class="h2 font-weight-bold mb-0" id="downtime">60</span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiCPU"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
                           <i class="ni ni-time-alarm"></i>
                         </div>
                       </div>
+                      <span class="text-nowrap">Data e hora do registro:</span>
+                        <span id="dataKpiCpu"></span>
                     </div>
                   </div>
                 </div>
@@ -418,7 +420,7 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Pico de Uso: RAM
                         </h5>
-                        <span class="h2 font-weight-bold mb-0" id="compProblematico"></span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiRAM"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -431,6 +433,8 @@
                           </svg>
                         </div>
                       </div>
+                      <span class="text-nowrap">Data e hora do registro:</span>
+                        <span id="dataKpiRam"></span> 
                     </div>
                   </div>
                 </div>
@@ -444,7 +448,7 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Pico de Uso: Disco
                         </h5>
-                        <span class="h2 font-weight-bold mb-0" id="servInstaveis"></span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiDISCO"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
@@ -455,6 +459,8 @@
                           </svg>
                         </div>
                       </div>
+                      <span class="text-nowrap">Data e hora do registro:</span>
+                        <span id="dataKpiDisco"></span>
                     </div>
                   </div>
                 </div>
@@ -468,7 +474,7 @@
                         <h5 class="card-title text-uppercase text-muted mb-0">
                           Mês com maiores picos
                         </h5>
-                        <span class="h2 font-weight-bold mb-0">31</span>
+                        <span class="h2 font-weight-bold mb-0" id="kpiMES"></span>
                       </div>
                       <div class="col-auto">
                         <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
@@ -524,16 +530,22 @@
               <div class="d-flex">
                 <div class="card-body">
                   <!-- Chart -->
-                  <div class="chart" id="containerCPU">
-                    <!-- Chart wrapper for CPU -->
+                  <div id="cpuGrafico">
+                    <canvas id="containerCPU">
+
+                    </canvas>
                   </div>
 
-                  <div class="chart" id="containerRAM" style="display: none">
-                    <!-- Chart wrapper for RAM (hidden by default) -->
+                  <div id="ramGrafico" style="display: none">
+                    <canvas id="containerRAM">
+
+                    </canvas>
                   </div>
 
-                  <div class="chart" id="containerDISCO" style="display: none">
-                    <!-- Chart wrapper for DISCO (hidden by default) -->
+                  <div id="discoGrafico" style="display: none">
+                    <canvas id="containerDISCO">
+
+                    </canvas>
                   </div>
                   <!-- Chart wrapper -->
                 </div>
@@ -541,15 +553,18 @@
             </div>
 
           </div>
+          <div class="col-xl-4">
+            <button class="btn btn-lg btn-success w-100" id="criarRegistro" onclick="downloadPDF()">Criar registro</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-
-  <script src="../dashboard-bootstrap/dashboards/js/gerente/dashboardG_funcoes.js"></script>
-  <script src="./js/funcionalidades.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+  <script src="./js/funcionalidades.js"></script>
+  
 </body>
 
 </html>
