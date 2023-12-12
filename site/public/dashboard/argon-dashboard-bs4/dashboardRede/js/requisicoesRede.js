@@ -336,7 +336,7 @@ function valorGrafico3(idComponente) {
       if(velocidadeAtual >= 0 && velocidadeAtual <= 60){
         velocidadeAlerta.style.color = 'red';
         velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 1)";
-        ContornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 1)";
+        contornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(233, 67, 67, 1)";
         velocidadeAlerta.innerHTML = "Crítico"
       }else if(velocidadeAtual > 60 && velocidadeAtual <= 100){
         velocidadeAlerta.style.color = 'orange';
@@ -347,7 +347,7 @@ function valorGrafico3(idComponente) {
       } else{
         velocidadeAlerta.style.color = 'green';
         velocidadeAlerta.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 1)";
-        ContornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 1)";
+        contornoGrafico3.style.boxShadow = "0.3em 0.3em 1em rgba(0, 128, 0, 1)";
         velocidadeAlerta.innerHTML = "Estável"
       }
 
